@@ -12,6 +12,7 @@
 (require 'elim)
 (require 'garak)
 (require 'emms-setup)
+(require 'emms-streams)
 
 
 
@@ -41,7 +42,20 @@
 
 (emms-standard)
 (emms-default-players)
+(emms-toggle-repeat-playlist)
+
 (setq elim-executable "/usr/bin/elim-client")
+
+
+; Emms
+(define-key attic-minor-mode-map (kbd "C-j C-- C-s") (lambda()
+    (interactive)
+    (emms-play-playlist "~/.emacs.d/emms/radio")))
+
+(define-key attic-minor-mode-map (kbd "C-j C-- C--") 'emms-pause)
+(define-key attic-minor-mode-map (kbd "C-j C-- C-l") 'emms-playlist-mode-go)
+(define-key attic-minor-mode-map (kbd "C-j C-- C-n") 'emms-next)
+(define-key attic-minor-mode-map (kbd "C-j C-- C-p") 'emms-previous)
 
 ; Garak Mode
 (define-key garak-mode-map (kbd "\r") nil)
