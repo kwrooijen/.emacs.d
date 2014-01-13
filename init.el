@@ -38,6 +38,7 @@
     iy-go-to-char
     erlang
     flymake-haskell-multi
+    window-numbering
     ))
 
 (require 'package)
@@ -57,8 +58,8 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 
 (add-to-list 'load-path "~/.emacs.d/config")
-(let ((default-directory "~/.emacs.d/plugins/"))
-  (normal-top-level-add-subdirs-to-load-path))
+;(let ((default-directory "~/.emacs.d/plugins/"))
+;  (normal-top-level-add-subdirs-to-load-path))
 
 (require 'column-enforce-mode)
 (require 'powerline)
