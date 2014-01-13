@@ -1,6 +1,20 @@
+(defvar my-extras-packages
+  '(emms)
+)
+
+(defun my-install-extras-packages ()
+  (interactive)
+  (package-refresh-contents)
+  (mapc #'(lambda (package)
+            (unless (package-installed-p package)
+              (package-install package)))
+        my-extras-packages))
 (require 'elim)
 (require 'garak)
 (require 'emms-setup)
+
+
+
 
 (defun w3m-open-in-new-tab ()
   (interactive)

@@ -34,7 +34,6 @@
     git-rebase-mode
     gitconfig-mode
     gitignore-mode
-    emms
     iy-go-to-char
     erlang
     flymake-haskell-multi
