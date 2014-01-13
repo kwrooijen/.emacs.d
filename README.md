@@ -30,7 +30,6 @@ If you want the same colors as in my screencasts, this is my rxvt-unicode setup:
 
 ```
 urxvt*font: xft:Monaco:bold:pixelsize=15:antialias=true
-urxvt*pixelsize  : 33
 urxvt*scrollBar  : false
 urxvt*foreground : #f2f2f2
 urxvt*background : #000000
