@@ -1,0 +1,13 @@
+*#
+.#*
+*~
+.*.swp
+/dist
+/auto-save-list
+/elim
+/ac-comphist.dat
+/elpa
+/emm
+/emms
+/backups
+/tramp
