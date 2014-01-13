@@ -94,17 +94,15 @@
 (require 'slime)
 (require 'js2-mode)
 (require 'rinari)
-(require 'emms-setup)
 (require 'web-mode)
 (require 'iy-go-to-char)
 
-; My configurations
-(require 'my-extras)
-(require 'my-functions)
-(require 'my-modes)
-(require 'my-colors)
-(require 'my-keys)
-(require 'my-hooks)
+;;My configurations
+;;By default my-extras.el is disabled.
+(require 'my-requires)
+
+;;Best splash screen ever
+;;(setq initial-buffer-choice "~/.emacs.d/splash/doge.splash")
 
  ;;Don't move speedbar
 (sr-speedbar-window-dedicated-only-one-p)
@@ -168,6 +166,11 @@
     ("\\.js\\'"  . js2-mode)
     ("\\.elm\\'" . haskell-mode)
     ("Gemfile" . ruby-mode)
+    (".splash" . (lambda()
+        (lisp-interaction-mode)
+        (read-only-mode)
+        (set (make-local-variable 'linum-mode) nil)
+        ))
     ) auto-mode-alist))
 
 

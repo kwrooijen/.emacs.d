@@ -1,0 +1,7 @@
+;(require 'my-extras)
+(require 'my-functions)
+(require 'my-modes)
+(require 'my-colors)
+(require 'my-keys)
+(require 'my-hooks)
+(provide 'my-requires)
