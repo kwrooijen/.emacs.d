@@ -3,7 +3,7 @@
 (scroll-bar-mode 0)
 
 (ido-mode 1)
-(global-linum-mode 1)
+;(global-linum-mode 1)
 (auto-complete-mode 1)
 (multiple-cursors-mode 1)
 (workgroups-mode 1)
@@ -18,6 +18,16 @@
 (global-rainbow-delimiters-mode)
 
 (modify-frame-parameters nil '((wait-for-wm . nil)))
+
+
+
+(define-global-minor-mode my-global-linum-mode linum-mode
+  (lambda ()
+    (when (not (memq major-mode
+                     (list 'twittering-mode)))
+      (linum-mode))))
+
+(my-global-linum-mode 1)
 
 (define-globalized-minor-mode global-auto-complete-mode
   auto-complete-mode auto-complete-mode)

@@ -9,13 +9,16 @@
             (unless (package-installed-p package)
               (package-install package)))
         my-extras-packages))
+
 (require 'elim)
 (require 'garak)
 (require 'emms-setup)
 (require 'emms-streams)
+(require 'twittering-mode)
 
-
-
+(setq twittering-mode-hook t)
+(add-hook 'twittering-mode-hook 'raw-modes)
+(setq twittering-use-master-password t)
 
 (defun w3m-open-in-new-tab ()
   (interactive)

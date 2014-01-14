@@ -2,7 +2,7 @@
   (interactive)
   (setq b (current-buffer))
   (message "%s" b)
-  (wg-load "~/.emacs.d/workgroups/Attic")
+  (wg-load "~/.emacs.d/workgroups/Attic-1")
   (switch-to-buffer b))
 
 (defun zsh (buffer-name)

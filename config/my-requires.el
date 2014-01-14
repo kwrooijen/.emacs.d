@@ -3,5 +3,5 @@
 (require 'my-colors)
 (require 'my-keys)
 (require 'my-hooks)
-;(require 'my-extras)
+(require 'my-extras)
 (provide 'my-requires)

@@ -17,6 +17,7 @@
 (add-hook 'w3m-mode-hook              'raw-modes)
 (add-hook 'minibuffer-setup-hook      'raw-modes)
 
+
 (add-hook 'erlang-mode-hook  'flymake-mode)
 (add-hook 'erlang-mode-hook  'erlang-keys-hook)
 
