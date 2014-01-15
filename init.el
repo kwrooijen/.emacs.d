@@ -42,12 +42,6 @@
 
 (require 'package)
 
-(if (member "Monaco" (font-family-list))
-    (set-face-attribute
-     'default nil :font "Monaco 14" :weight 'bold))
-(add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
 (package-initialize)
 
 (defun my-install-packages ()
@@ -99,6 +93,7 @@
 (require 'rinari)
 (require 'web-mode)
 (require 'iy-go-to-char)
+(require 'project-explorer)
 
 ;;My configurations
 ;;By default my-extras.el is disabled.
@@ -106,6 +101,13 @@
 
 ;;Best splash screen ever
 ;;(setq initial-buffer-choice "~/.emacs.d/splash/doge.splash")
+
+;; Monaco font
+(if (member "Monaco" (font-family-list))
+    (set-face-attribute
+     'default nil :font "Monaco 14" :weight 'bold))
+(add-to-list 'package-archives
+  '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
  ;;Don't move speedbar
 (sr-speedbar-window-dedicated-only-one-p)
@@ -162,14 +164,19 @@
     "^\*scr" "^\*" "notes.org" "todos.org" "*.hi" "*.o")
   ido-enable-flex-matching t)
 
-;;Load mode on certain functions
+;;Load mode on certain file extensions
 (setq auto-mode-alist (append '(
-    ("\\.tpl\\'" . html-mode)
-    ("\\.erb\\'" . web-mode)
-    ("\\.js\\'"  . js2-mode)
-    ("\\.elm\\'" . haskell-mode)
-    ("Gemfile" . ruby-mode)
-    (".splash" . (lambda()
+    ("\\.tpl\\'"   . html-mode)
+    ("\\.erb\\'"   . web-mode)
+    ("\\.rb$"      . enh-ruby-mode)
+    ("\\.rake$"    . enh-ruby-mode)
+    ("Rakefile$"   . enh-ruby-mode)
+    ("\\.gemspec$" . enh-ruby-mode)
+    ("\\.ru$"      . enh-ruby-mode)
+    ("Gemfile$"    . enh-ruby-mode)
+    ("\\.js\\'"    . js2-mode)
+    ("\\.elm\\'"   . haskell-mode)
+    (".splash"     . (lambda()
         (lisp-interaction-mode)
         (read-only-mode)
         (set (make-local-variable 'linum-mode) nil)
@@ -218,6 +225,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(erm-syn-errline ((t (:foreground "red" :box (:line-width 1 :color "red") :underline "red"))))
+ '(erm-syn-warnline ((t (:foreground "yellow" :box (:line-width 1 :color "yellow") :underline "yellow"))))
  '(flymake-errline ((t (:underline "red"))))
  '(flymake-warnline ((((class color)) (:underline "yellow"))))
  '(helm-ff-directory ((t (:background "color-233" :foreground "cyan"))))
