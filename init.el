@@ -18,7 +18,7 @@
     helm
     helm-ls-git
     helm-swoop
-    js2-mode
+;    js2-mode
     linum-relative
     magit
     multiple-cursors
@@ -41,6 +41,10 @@
     ))
 
 (require 'package)
+
+(if (member "Monaco" (font-family-list))
+    (set-face-attribute
+     'default nil :font "Monaco 14" :weight 'bold))
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
@@ -91,7 +95,7 @@
 (require 'elixir-mode)
 (require 'coffee-mode)
 (require 'slime)
-(require 'js2-mode)
+;(require 'js2-mode)
 (require 'rinari)
 (require 'web-mode)
 (require 'iy-go-to-char)

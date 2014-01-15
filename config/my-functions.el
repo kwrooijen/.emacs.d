@@ -5,6 +5,13 @@
   (wg-load "~/.emacs.d/workgroups/Attic-1")
   (switch-to-buffer b))
 
+(defun load-attic-workgroups2 ()
+  (interactive)
+  (setq b (current-buffer))
+  (message "%s" b)
+  (wg-load "~/.emacs.d/workgroups/Attic")
+  (switch-to-buffer b))
+
 (defun zsh (buffer-name)
   "Start a terminal and rename buffer."
   (interactive "sbuffer name: ")
