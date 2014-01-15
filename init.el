@@ -1,6 +1,7 @@
 ;; List of packages to install
 (defvar my-packages
   '(
+    enh-ruby
     column-enforce-mode
     powerline
     rinari
@@ -93,7 +94,6 @@
 (require 'rinari)
 (require 'web-mode)
 (require 'iy-go-to-char)
-(require 'project-explorer)
 
 ;;My configurations
 ;;By default my-extras.el is disabled.
