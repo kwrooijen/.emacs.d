@@ -67,6 +67,11 @@
     (let ((current-prefix-arg '(1)))
       (call-interactively 'helm-do-grep))))
 
+
+(define-key attic-minor-mode-map (kbd "C-j C-b C-n") 'copy-line-to-next-line)
+(define-key attic-minor-mode-map (kbd "C-j C-b C-p") 'copy-line-to-previous-line)
+
+
 (define-key attic-minor-mode-map (kbd "C-j C-r") (key-binding (kbd "\C-xr")))
 
 (define-key attic-minor-mode-map (kbd "C-j C-1") 'wg-switch-to-index-0)
