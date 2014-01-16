@@ -1,6 +1,7 @@
 ;; List of packages to install
 (defvar my-packages
   '(
+    sass-mode
     enh-ruby
     column-enforce-mode
     powerline
@@ -169,7 +170,9 @@
     ("\\.tpl\\'"   . html-mode)
     ("\\.erb\\'"   . web-mode)
     ("\\.css\\'"   . css-mode)
-    ("\\.scss\\'"   . css-mode)
+    ("\\.scss\\'"   . sass-mode)
+    ("\\.scss\\'"   . sass-mode)
+    ("\\.less\\'"   . sass-mode)
     ("\\.rb$"      . enh-ruby-mode)
     ("\\.rake$"    . enh-ruby-mode)
     ("Rakefile$"   . enh-ruby-mode)
