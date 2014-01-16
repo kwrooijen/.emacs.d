@@ -188,6 +188,9 @@
         ))
     ) auto-mode-alist))
 
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 ;And all the emacs auto adjustments
 (custom-set-variables
