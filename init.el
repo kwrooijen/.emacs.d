@@ -168,6 +168,8 @@
 (setq auto-mode-alist (append '(
     ("\\.tpl\\'"   . html-mode)
     ("\\.erb\\'"   . web-mode)
+    ("\\.css\\'"   . css-mode)
+    ("\\.scss\\'"   . css-mode)
     ("\\.rb$"      . enh-ruby-mode)
     ("\\.rake$"    . enh-ruby-mode)
     ("Rakefile$"   . enh-ruby-mode)
