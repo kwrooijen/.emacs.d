@@ -15,6 +15,7 @@
         comment-or-uncomment-region
         control-lock-enable
         end-of-buffer
+        enh-ruby-electric-brace
         erlang-electric-comma
         evil-backward-char
         evil-delete

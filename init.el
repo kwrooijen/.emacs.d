@@ -209,6 +209,7 @@
  '(haskell-indentation-left-offset 4)
  '(haskell-indentation-where-post-offset 4)
  '(haskell-mode-hook (quote (turn-on-haskell-indentation turn-on-font-lock turn-on-haskell-doc-mode auto-complete-mode wrap-region-mode imenu-add-menubar-index flymake-haskell-multi-load)))
+ '(helm-ff-newfile-prompt-p nil)
  '(helm-grep-default-recurse-command "grep --exclude-dir=\"dist\" -a -d recurse %e -n%cH -e %p %f")
  '(helm-reuse-last-window-split-state t)
  '(helm-split-window-in-side-p t)

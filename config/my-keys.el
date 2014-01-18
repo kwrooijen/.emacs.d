@@ -21,7 +21,7 @@
 ;; Meta Keys
 (global-set-key (kbd "M-g") 'god-mode-enable)
 (define-key attic-minor-mode-map (kbd "M-q") 'backward-kill-word)
-(define-key attic-minor-mode-map (kbd "M-o") 'er/expand-region)
+(define-key attic-minor-mode-map (kbd "M-o") 'yas/expand)
 (define-key attic-minor-mode-map (kbd "M-x") 'execute-extended-command)
 (define-key attic-minor-mode-map (kbd "M-+") 'align-regexp)
 (define-key attic-minor-mode-map (kbd "M-@") 'er/expand-region)
