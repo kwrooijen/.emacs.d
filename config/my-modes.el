@@ -22,17 +22,24 @@
 
 
 (define-global-minor-mode my-global-linum-mode linum-mode
-  (lambda ()
-    (when (not (memq major-mode
-                     (list 'twittering-mode)))
+  (lambda () (when (not (memq major-mode
+    (list 'twittering-mode)))
       (linum-mode))))
 
 (my-global-linum-mode 1)
 
-(define-globalized-minor-mode global-auto-complete-mode
-  auto-complete-mode auto-complete-mode)
-(define-globalized-minor-mode global-column-enforce-mode
-  column-enforce-mode column-enforce-mode)
+(define-globalized-minor-mode global-auto-complete-mode auto-complete-mode
+  (lambda () (when(not (memq major-mode
+    (list 'shell-mode 'minibuffer-mode)))
+               (auto-complete-mode))))
+
+
+
+(define-globalized-minor-mode global-column-enforce-mode column-enforce-mode
+  (lambda () (when(not (memq major-mode
+    (list 'shell-mode 'minibuffer-mode)))
+      (column-enforce-mode))))
+
 (define-globalized-minor-mode global-wrap-region-mode
   wrap-region-mode wrap-region-mode)
 

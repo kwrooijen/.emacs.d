@@ -2,7 +2,7 @@
 
 while [ $PWD != "/" ]; do
     if [ -f Guardfile ]; then
-        guard --no-bundler-warning
+        guard --no-bundler-warning -p
         exit 0
     else
         cd ..
