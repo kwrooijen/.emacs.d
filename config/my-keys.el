@@ -70,6 +70,8 @@
 
 (define-key attic-minor-mode-map (kbd "C-j C-b C-n") 'copy-line-to-next-line)
 (define-key attic-minor-mode-map (kbd "C-j C-b C-p") 'copy-line-to-previous-line)
+(define-key attic-minor-mode-map (kbd "C-j C-b C-a") 'copy-line-to-end-of-line)
+(define-key attic-minor-mode-map (kbd "C-j C-b C-e") 'copy-line-to-beginning-of-line)
 
 
 (define-key attic-minor-mode-map (kbd "C-j C-r") (key-binding (kbd "\C-xr")))
