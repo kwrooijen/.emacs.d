@@ -40,11 +40,15 @@
     erlang
     flymake-haskell-multi
     window-numbering
+    elixir-yasnippets
     ))
 
 (require 'package)
 
 (package-initialize)
+
+(add-to-list 'package-archives
+  '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (defun my-install-packages ()
   (interactive)
@@ -103,12 +107,10 @@
 ;;Best splash screen ever
 ;;(setq initial-buffer-choice "~/.emacs.d/splash/doge.splash")
 
-;; Monaco font
-(if (member "Monaco" (font-family-list))
-    (set-face-attribute
-     'default nil :font "Monaco 14" :weight 'bold))
-(add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+;; DejaVu font
+(if (member "DejaVu" (font-family-list))
+     (set-face-attribute
+      'default nil :font "DejaVu Sans Mono 14"))
 
  ;;Don't move speedbar
 (sr-speedbar-window-dedicated-only-one-p)

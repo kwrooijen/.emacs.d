@@ -7,7 +7,7 @@
 ;; Control Keys
 (define-key attic-minor-mode-map (kbd "C-u") 'repeat)
 (define-key attic-minor-mode-map (kbd "C-.") 'helm-resume)
-(define-key attic-minor-mode-map (kbd "C-q") 'backward-delete-char)
+(define-key attic-minor-mode-map (kbd "C-h") 'backward-delete-char)
 (define-key attic-minor-mode-map (kbd "C--") 'undo)
 (define-key attic-minor-mode-map (kbd "C-;") 'pop-to-mark-command)
 
@@ -20,7 +20,7 @@
 
 ;; Meta Keys
 (global-set-key (kbd "M-g") 'god-mode-enable)
-(define-key attic-minor-mode-map (kbd "M-q") 'backward-kill-word)
+(define-key attic-minor-mode-map (kbd "M-h") 'backward-kill-word)
 (define-key attic-minor-mode-map (kbd "M-o") 'yas/expand)
 (define-key attic-minor-mode-map (kbd "M-x") 'execute-extended-command)
 (define-key attic-minor-mode-map (kbd "M-+") 'align-regexp)
@@ -72,6 +72,9 @@
 (define-key attic-minor-mode-map (kbd "C-j C-b C-p") 'copy-line-to-previous-line)
 (define-key attic-minor-mode-map (kbd "C-j C-b C-a") 'copy-line-to-end-of-line)
 (define-key attic-minor-mode-map (kbd "C-j C-b C-e") 'copy-line-to-beginning-of-line)
+
+(define-key attic-minor-mode-map (kbd "<escape>") 'god-mode-enable)
+;(define-key attic-minor-mode-map (kbd "C-[") 'god-mode-enable)
 
 
 (define-key attic-minor-mode-map (kbd "C-j C-r") (key-binding (kbd "\C-xr")))
@@ -139,11 +142,10 @@
 (define-key helm-map (kbd "M-g M-g") 'helm-keyboard-quit)
 
 ;; God mode
-
 (define-key god-local-mode-map (kbd "i")   'god-mode-disable)
 (define-key god-local-mode-map (kbd "M-g") 'keyboard-escape-quit-mc)
 (define-key god-local-mode-map (kbd "C-l") 'forward-to-word)
-(define-key god-local-mode-map (kbd "C-h") 'backward-to-word)
+;(define-key god-local-mode-map (kbd "C-h") 'backward-to-word)
 (define-key god-local-mode-map (kbd "[") (lambda ()
     (interactive) (scroll-down-line 3)))
 (define-key god-local-mode-map (kbd "]") (lambda ()

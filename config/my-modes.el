@@ -13,7 +13,7 @@
 (yas-global-mode 1)
 (undo-tree-mode 1)
 (column-number-mode 1)
-
+(fringe-mode 0)
 (god-mode)
 (global-rainbow-delimiters-mode)
 
