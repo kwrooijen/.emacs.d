@@ -5,11 +5,10 @@
   (global-unset-key key))
 
 ;; Control Keys
-(define-key attic-minor-mode-map (kbd "C-u") 'repeat)
+(define-key attic-minor-mode-map (kbd "C-u") 'pop-to-mark-command)
 (define-key attic-minor-mode-map (kbd "C-.") 'helm-resume)
 (define-key attic-minor-mode-map (kbd "C-q") 'backward-delete-char)
 (define-key attic-minor-mode-map (kbd "C--") 'undo)
-(define-key attic-minor-mode-map (kbd "C-;") 'pop-to-mark-command)
 
 ;; Control Prefix Keys
 (define-key attic-minor-mode-map (kbd "C-M-_")	 'redo)
