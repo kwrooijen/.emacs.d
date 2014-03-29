@@ -37,7 +37,7 @@
 
 (define-globalized-minor-mode global-column-enforce-mode column-enforce-mode
   (lambda () (when(not (memq major-mode
-    (list 'shell-mode 'minibuffer-mode)))
+    (list 'shell-mode 'minibuffer-mode 'org-mode)))
       (column-enforce-mode))))
 
 (define-globalized-minor-mode global-wrap-region-mode

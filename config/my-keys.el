@@ -7,7 +7,7 @@
 ;; Control Keys
 (define-key attic-minor-mode-map (kbd "C-u") 'repeat)
 (define-key attic-minor-mode-map (kbd "C-.") 'helm-resume)
-(define-key attic-minor-mode-map (kbd "C-h") 'backward-delete-char)
+(define-key attic-minor-mode-map (kbd "C-q") 'backward-delete-char)
 (define-key attic-minor-mode-map (kbd "C--") 'undo)
 (define-key attic-minor-mode-map (kbd "C-;") 'pop-to-mark-command)
 
@@ -20,7 +20,7 @@
 
 ;; Meta Keys
 (global-set-key (kbd "M-g") 'god-mode-enable)
-(define-key attic-minor-mode-map (kbd "M-h") 'backward-kill-word)
+(define-key attic-minor-mode-map (kbd "M-q") 'backward-kill-word)
 (define-key attic-minor-mode-map (kbd "M-o") 'yas/expand)
 (define-key attic-minor-mode-map (kbd "M-x") 'execute-extended-command)
 (define-key attic-minor-mode-map (kbd "M-+") 'align-regexp)

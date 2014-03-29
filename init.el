@@ -2,7 +2,7 @@
 (defvar my-packages
   '(
     sass-mode
-    enh-ruby
+    enh-ruby-mode
     column-enforce-mode
     powerline
     rinari
@@ -20,12 +20,12 @@
     helm
     helm-ls-git
     helm-swoop
-;    js2-mode
+    js2-mode
     linum-relative
     magit
     multiple-cursors
     rainbow-delimiters
-    slime
+;    slime
     sr-speedbar
     undo-tree
     workgroups
@@ -169,7 +169,7 @@
 
 ;;Load mode on certain file extensions
 (setq auto-mode-alist (append '(
-    ("\\.tpl\\'"   . html-mode)
+    ("\\.tpl\\'"   . web-mode)
     ("\\.erb\\'"   . web-mode)
     ("\\.css\\'"   . css-mode)
     ("\\.scss\\'"   . sass-mode)
@@ -253,3 +253,6 @@
  '(web-mode-html-tag-bracket-face ((t (:foreground "color-244"))))
  '(web-mode-html-tag-face ((t (:foreground "color-244"))))
  '(web-mode-symbol-face ((t (:foreground "color-69")))))
+
+(defun my-enable-tabs ()
+  (setq indent-tabs-mode t))
