@@ -170,6 +170,8 @@
 ;;Load mode on certain file extensions
 (setq auto-mode-alist (append '(
     ("\\.tpl\\'"   . web-mode)
+    ("\\.dtl\\'"   . web-mode)
+    ("\\.app.src\\'"   . erlang-mode)
     ("\\.erb\\'"   . web-mode)
     ("\\.css\\'"   . css-mode)
     ("\\.scss\\'"   . sass-mode)
