@@ -1,0 +1,4 @@
+#name : call
+#group : gen_server
+# --
+gen_server:call(?SERVER, $1)$0

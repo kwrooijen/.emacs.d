@@ -1,0 +1,4 @@
+#name : cast
+#group : gen_server
+# --
+gen_server:cast(?SERVER, $1)$0
