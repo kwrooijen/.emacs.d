@@ -1,3 +1,9 @@
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (package-initialize)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  )
+
 ;; List of packages to install
 (defvar my-packages
   '(
@@ -25,7 +31,6 @@
     magit
     multiple-cursors
     rainbow-delimiters
-;    slime
     sr-speedbar
     undo-tree
     workgroups
@@ -42,13 +47,6 @@
     window-numbering
     elixir-yasnippets
     ))
-
-(require 'package)
-
-(package-initialize)
-
-(add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (defun my-install-packages ()
   (interactive)
@@ -94,8 +92,6 @@
 (require 'erlang-start)
 (require 'elixir-mode)
 (require 'coffee-mode)
-(require 'slime)
-;(require 'js2-mode)
 (require 'rinari)
 (require 'web-mode)
 (require 'iy-go-to-char)
