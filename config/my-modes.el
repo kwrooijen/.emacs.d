@@ -19,8 +19,6 @@
 
 (modify-frame-parameters nil '((wait-for-wm . nil)))
 
-
-
 (define-global-minor-mode my-global-linum-mode linum-mode
   (lambda () (when (not (memq major-mode
     (list 'twittering-mode 'erlang-shell-mode)))
@@ -33,8 +31,6 @@
     (list 'shell-mode 'minibuffer-mode 'erlang-shell-mode)))
                (auto-complete-mode))))
 
-
-
 (define-globalized-minor-mode global-column-enforce-mode column-enforce-mode
   (lambda () (when(not (memq major-mode
     (list 'shell-mode 'minibuffer-mode 'org-mode 'erlang-shell-mode)))
@@ -43,6 +39,10 @@
 (define-globalized-minor-mode global-wrap-region-mode
   wrap-region-mode wrap-region-mode)
 
+(define-globalized-minor-mode global-godly-mode
+  god-local-mode god-local-mode)
+
+(global-godly-mode 1)
 (global-auto-complete-mode 1)
 (global-column-enforce-mode 1)
 (global-wrap-region-mode 1)
