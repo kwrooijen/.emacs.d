@@ -3,7 +3,6 @@
 (scroll-bar-mode 0)
 
 (ido-mode 1)
-;(global-linum-mode 1)
 (auto-complete-mode 1)
 (multiple-cursors-mode 1)
 (workgroups-mode 1)
@@ -11,7 +10,6 @@
 (electric-pair-mode 1)
 (window-numbering-mode 1)
 (yas-global-mode 1)
-(undo-tree-mode 1)
 (column-number-mode 1)
 (fringe-mode 0)
 (god-mode)
@@ -39,10 +37,6 @@
 (define-globalized-minor-mode global-wrap-region-mode
   wrap-region-mode wrap-region-mode)
 
-(define-globalized-minor-mode global-godly-mode
-  god-local-mode god-local-mode)
-
-(global-godly-mode 1)
 (global-auto-complete-mode 1)
 (global-column-enforce-mode 1)
 (global-wrap-region-mode 1)

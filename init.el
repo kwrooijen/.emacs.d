@@ -217,3 +217,7 @@
  '(web-mode-html-tag-bracket-face ((t (:foreground "color-244"))))
  '(web-mode-html-tag-face ((t (:foreground "color-244"))))
  '(web-mode-symbol-face ((t (:foreground "color-69")))))
+
+(setq auto-save-interval 500)
+
+(setq scroll-conservatively 10000)
