@@ -11,9 +11,11 @@
         backward-delete-char
         backward-to-word
         c-electric-delete-forward
+        c-electric-semi&comma
         c-electric-slash
         comment-or-uncomment-region
         control-lock-enable
+        dabbrev-expand
         end-of-buffer
         enh-ruby-electric-brace
         erlang-electric-comma
@@ -35,6 +37,7 @@
         god-mode-self-insert
         haskell-indentation-delete-char
         haskell-newline-and-indent
+        helm-buffers-list
         inferior-haskell-load-file
         info
         iy-go-to-char
@@ -50,12 +53,16 @@
         org-delete-char
         org-end-of-line
         org-force-self-insert
+        org-kill-line
         org-self-insert-command
+        org-yank
         orgtbl-self-insert-command
+        paste-from-clipboard
         pop-to-mark-command
         repeat
         save-and-lock2
         select-window-1
+        select-window-3
         sgml-slash
         sh-assignment
         shm/:

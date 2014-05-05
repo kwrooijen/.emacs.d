@@ -139,8 +139,8 @@
 
 ; Global Keys
 (global-set-key [f7] 'get-current-buffer-major-mode)
-(global-set-key [f8] 'copy-to-clipboard)
-(global-set-key [f9] 'paste-from-clipboard)
+(global-set-key [f1] 'copy-to-clipboard)
+(global-set-key [f2] 'paste-from-clipboard)
 
 ; Web Mode
 (define-key web-mode-map (kbd "C-z") 'zencoding-expand-yas)

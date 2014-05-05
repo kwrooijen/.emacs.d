@@ -3,7 +3,6 @@
   (package-initialize)
   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
   )
-
 ;; List of packages to install
 (defvar my-packages
   '(
@@ -11,15 +10,12 @@
     enh-ruby-mode
     column-enforce-mode
     powerline
-    rinari
-    helm-rails
     web-mode
     redo+
     ace-jump-mode
     auto-complete
     coffee-mode
     elixir-mode
-    git-gutter
     expand-region
     god-mode
     haskell-mode
@@ -27,7 +23,6 @@
     helm-ls-git
     helm-swoop
     js2-mode
-    linum-relative
     magit
     multiple-cursors
     rainbow-delimiters
@@ -62,39 +57,19 @@
 (let ((default-directory "~/.emacs.d/plugins/"))
   (normal-top-level-add-subdirs-to-load-path))
 
-(require 'column-enforce-mode)
-(require 'powerline)
 (require 'tramp)
-(require 'undo-tree)
-(require 'redo+)
-(require 'linum-relative)
-(require 'git-gutter)
-(require 'god-mode)
-(require 'zencoding-mode)
 (require 'helm)
 (require 'helm-ls-git)
-(require 'helm-rails)
 (require 'helm-swoop)
 (require 'auto-complete)
 (require 'misc)
 (require 'haskell-mode-autoloads)
-(require 'yasnippet)
 (require 'sr-speedbar)
 (require 'flymake)
-(require 'magit)
-(require 'expand-region)
-(require 'ace-jump-mode)
 (require 'multiple-cursors)
-(require 'rainbow-delimiters)
-(require 'wrap-region)
 (require 'workgroups)
-(require 'epa-file)
 (require 'erlang-start)
-(require 'elixir-mode)
-(require 'coffee-mode)
-(require 'rinari)
 (require 'web-mode)
-(require 'iy-go-to-char)
 
 ;;My configurations
 ;;By default my-extras.el is disabled.
@@ -122,7 +97,6 @@
 
 ;;Always display 2 columns in linum mode (no stuttering)
 '(linum-format (quote "%2d"))
-'(linum-relative-format (quote "%2d"))
 
 ;;Allow upcase-region and downcase-region functions
 (put 'upcase-region 'disabled nil)
@@ -142,9 +116,6 @@
 
  ;;Don't resize minibuffer
 (setq resize-mini-windows nil)
-
-;;Use relative
-(setq linum-format 'linum-relative)
 
 ;;Don't ask when creating new buffer
 (setq confirm-nonexistent-file-or-buffer nil)
@@ -187,10 +158,6 @@
         (set (make-local-variable 'linum-mode) nil)
         ))
     ) auto-mode-alist))
-
-(require 'server)
-(unless (server-running-p)
-  (server-start))
 
 ;And all the emacs auto adjustments
 (custom-set-variables
@@ -241,7 +208,6 @@
  '(helm-ff-directory ((t (:background "color-233" :foreground "cyan"))))
  '(helm-ff-file ((t (:inherit default))))
  '(hl-line ((t (:inherit highlight :background "color-234"))))
- '(linum-relative-current-face ((t (:inherit linum :background "color-234" :foreground "#707070" :weight bold))))
  '(region ((t (:background "color-240" :foreground "#FFF"))))
  '(show-paren-match ((t (:background "color-239" :foreground "#7CB8BB" :weight bold))))
  '(web-mode-block-attr-name-face ((t (:foreground "color-244"))))
@@ -252,5 +218,8 @@
  '(web-mode-html-tag-face ((t (:foreground "color-244"))))
  '(web-mode-symbol-face ((t (:foreground "color-69")))))
 
-(defun my-enable-tabs ()
-  (setq indent-tabs-mode t))
+(setq redisplay-dont-pause t
+  scroll-margin 1
+  scroll-step 1
+  scroll-conservatively 10000
+  scroll-preserve-screen-position 1)
