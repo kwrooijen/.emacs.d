@@ -41,24 +41,32 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 
 (add-to-list 'load-path "~/.emacs.d/config")
-;; (let ((default-directory "~/.emacs.d/plugins/"))
-;;   (normal-top-level-add-subdirs-to-load-path))
 
 (require 'helm)
 (require 'helm-ls-git)
 (require 'helm-swoop)
 (require 'god-mode)
 (require 'auto-complete)
-(require 'haskell-mode-autoloads)
 (require 'multiple-cursors)
 (require 'workgroups)
-(require 'erlang-start)
-(require 'web-mode)
-(require 'crosshairs)
+(require 'redo+)
+
+;; Modes
+(tool-bar-mode 0)
+(menu-bar-mode 0)
+(scroll-bar-mode 0)
+(auto-complete-mode 1)
+(multiple-cursors-mode 1)
+(workgroups-mode 1)
+(show-paren-mode t)
+(window-numbering-mode 1)
+(yas-global-mode 1)
+(god-mode)
+(crosshairs-mode)
+(global-rainbow-delimiters-mode)
+
 ;;My configurations
-
 (require 'my-requires)
-
 
 ;;Make mc work better with iy-go-to-char
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
@@ -135,6 +143,12 @@
         (set (make-local-variable 'linum-mode) nil)
         ))
     ) auto-mode-alist))
+
+;; Hooks
+(add-hook 'erlang-mode-hook  'erlang-keys-hook)
+(add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
+(add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
+
 
 ;; ;And all the emacs auto adjustments
 (custom-set-variables
