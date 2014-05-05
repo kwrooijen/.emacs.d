@@ -77,6 +77,11 @@
   (async-shell-command "~/.emacs.d/scripts/cabal-test" "[Haskell Tests]")
 )
 
+(defun run-make ()
+  (interactive)
+  (async-shell-command "~/.emacs.d/scripts/go-make" "[Make Project]")
+)
+
 (defun underscores-to-camel-case (str)
   "Converts STR, which is a word using underscores, to camel case."
   (interactive "S")

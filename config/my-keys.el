@@ -50,6 +50,7 @@
 (define-key attic-minor-mode-map (kbd "C-c C-q") 'kmacro-start-macro)
 (define-key attic-minor-mode-map (kbd "C-c C-e")
     'kmacro-end-or-call-macro-repeat)
+(define-key attic-minor-mode-map (kbd "C-c C-z") 'run-make)
 (define-key attic-minor-mode-map (kbd "C-c C-w C-e") 'load-attic-workgroups)
 (define-key attic-minor-mode-map (kbd "C-c C-w C-w") 'load-attic-workgroups2)
 (define-key attic-minor-mode-map (kbd "C-c C-f") 'helm-ls-git-ls)
