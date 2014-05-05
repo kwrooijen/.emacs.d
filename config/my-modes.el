@@ -8,6 +8,7 @@
 (window-numbering-mode 1)
 (yas-global-mode 1)
 (god-mode)
+(crosshairs-mode)
 (global-rainbow-delimiters-mode)
 
 (provide 'my-modes)
