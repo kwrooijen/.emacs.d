@@ -12,19 +12,19 @@
 (set-face-foreground 'flymake-errline		"red"	)
 (set-face-foreground 'flymake-warnline		"yellow")
 (set-face-foreground 'flyspell-incorrect        "red")
-(set-face-foreground 'speedbar-directory-face   "cyan"	)
-(set-face-foreground 'speedbar-file-face        "white")
+;(set-face-foreground 'speedbar-directory-face   "cyan"	)
+;(set-face-foreground 'speedbar-file-face        "white")
 (set-face-foreground 'font-lock-type-face       "#145e74")
 (set-face-foreground 'font-lock-comment-face    "#707070")
 (set-face-foreground 'font-lock-comment-delimiter-face    "#707070")
 (set-face-foreground 'linum			"#707070")
 
 (defpowerline god-mode-bar
-  (if mark-active
-      (format "[VISUAL]")
-      (if (and (boundp 'god-local-mode) god-local-mode)
-               (format "[NORMAL]")
-               (format "[INSERT]"))))
+ (if mark-active
+     (format "[VISUAL]")
+     (if (and (boundp 'god-local-mode) god-local-mode)
+              (format "[NORMAL]")
+              (format "[INSERT]"))))
 
 (defun my-powerline-theme ()
   "Setup the default mode-line."

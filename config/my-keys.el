@@ -143,7 +143,7 @@
 (global-set-key [f2] 'paste-from-clipboard)
 
 ; Web Mode
-(define-key web-mode-map (kbd "C-z") 'zencoding-expand-yas)
+;(define-key web-mode-map (kbd "C-z") 'zencoding-expand-yas)
 
 ; Define mode
 (define-minor-mode attic-minor-mode

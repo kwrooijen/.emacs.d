@@ -23,11 +23,11 @@
 
 (add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
 
-(add-hook 'js2-mode-hook
-          (lambda()
-            (js2-keys-hook)
-            (imenu-add-menubar-index)
-            (hs-minor-mode t)))
+;; (add-hook 'js2-mode-hook
+;;           (lambda()
+;;             (js2-keys-hook)
+;;             (imenu-add-menubar-index)
+;;             (hs-minor-mode t)))
 
 (add-hook 'elixir-mode-hook  'elixir-keys-hook)
 

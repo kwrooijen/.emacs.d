@@ -1,0 +1,5 @@
+# -*- mode: erlang-mode -*-
+# name: iop
+# key: iop
+# --
+io:format("$1~p~n", [$2])$0

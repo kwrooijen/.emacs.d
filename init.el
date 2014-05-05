@@ -6,41 +6,28 @@
 ;; List of packages to install
 (defvar my-packages
   '(
-    sass-mode
-    enh-ruby-mode
-    column-enforce-mode
+    crosshairs
     powerline
-    web-mode
-    redo+
-    ace-jump-mode
-    auto-complete
-    coffee-mode
-    elixir-mode
-    expand-region
     god-mode
-    haskell-mode
     helm
     helm-ls-git
     helm-swoop
-    js2-mode
-    magit
     multiple-cursors
-    rainbow-delimiters
-    sr-speedbar
-    undo-tree
+    auto-complete
+    iy-go-to-char
+    window-numbering
+    magit
     workgroups
     wrap-region
     yasnippet
-    zencoding-mode
-    git-commit-mode
-    git-rebase-mode
-    gitconfig-mode
-    gitignore-mode
-    iy-go-to-char
+    rainbow-delimiters
     erlang
-    flymake-haskell-multi
-    window-numbering
-    elixir-yasnippets
+    haskell-mode
+    expand-region
+    js2-mode
+    web-mode
+    redo+
+    ace-jump-mode
     ))
 
 (defun my-install-packages ()
@@ -54,23 +41,21 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 
 (add-to-list 'load-path "~/.emacs.d/config")
-(let ((default-directory "~/.emacs.d/plugins/"))
-  (normal-top-level-add-subdirs-to-load-path))
+;; (let ((default-directory "~/.emacs.d/plugins/"))
+;;   (normal-top-level-add-subdirs-to-load-path))
 
-(require 'tramp)
 (require 'helm)
 (require 'helm-ls-git)
 (require 'helm-swoop)
+(require 'god-mode)
 (require 'auto-complete)
-(require 'misc)
 (require 'haskell-mode-autoloads)
-(require 'sr-speedbar)
-(require 'flymake)
 (require 'multiple-cursors)
 (require 'workgroups)
 (require 'erlang-start)
 (require 'web-mode)
-
+(require 'crosshairs)
+(crosshairs-mode)
 ;;My configurations
 ;;By default my-extras.el is disabled.
 (require 'my-requires)
@@ -83,13 +68,6 @@
      (set-face-attribute
       'default nil :font "DejaVu Sans Mono 14"))
 
- ;;Don't move speedbar
-(sr-speedbar-window-dedicated-only-one-p)
-;;Open speedbar at startup
-(sr-speedbar-open)
-;;Close it again or else it will duplicate when loading workgroup
-(sr-speedbar-close)
-;;Load my custom workgroup
 ;(wg-load "~/.emacs.d/workgroups/Attic")
 
 ;;Make mc work better with iy-go-to-char
@@ -126,14 +104,6 @@
 ;;y / n instead of yes / no
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;;ido for rinari until I find a helm alternative
-(setq
-  ido-ignore-buffers
-  '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
-    "^\*compilation" "^\*GTAGS" "^session\.*" ".newsrc-dribble"
-    "^\*scr" "^\*" "notes.org" "todos.org" "*.hi" "*.o")
-  ido-enable-flex-matching t)
-
 ;;Load mode on certain file extensions
 (setq auto-mode-alist (append '(
     ("\\.tpl\\'"   . web-mode)
@@ -159,7 +129,7 @@
         ))
     ) auto-mode-alist))
 
-;And all the emacs auto adjustments
+;; ;And all the emacs auto adjustments
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -169,9 +139,7 @@
  '(auth-source-save-behavior nil)
  '(coffee-tab-width 4)
  '(custom-safe-themes (quote ("0a1eb1fb7c716c0eced08572fa5477e6cf80d145167590ab5a00697678b14c30" "dc3d6a554b626775e02c17da54e7b7f9378ccfd3cbadab62397f8a6ddf33490f" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "eecdec02a43c2dfdf388d7d27cb00af310b350d4ea6f923ebc82197d348cf383" default)))
- '(dirtree-windata (quote (frame left 0.15 delete)))
  '(fci-rule-color "#383838")
- '(global-hl-line-mode t)
  '(haskell-indentation-layout-offset 4)
  '(haskell-indentation-left-offset 4)
  '(haskell-indentation-where-post-offset 4)
@@ -184,12 +152,6 @@
  '(js2-strict-missing-semi-warning nil)
  '(scroll-error-top-bottom t)
  '(send-mail-function (quote smtpmail-send-it))
- '(smtpmail-smtp-server "smtp.gmail.com")
- '(smtpmail-smtp-service 587)
- '(speedbar-default-position (quote left))
- '(speedbar-show-unknown-files t)
- '(sr-speedbar-right-side nil)
- '(sr-speedbar-skip-other-window-p t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map (quote ((20 . "#BC8383") (40 . "#CC9393") (60 . "#DFAF8F") (80 . "#D0BF8F") (100 . "#E0CF9F") (120 . "#F0DFAF") (140 . "#5F7F5F") (160 . "#7F9F7F") (180 . "#8FB28F") (200 . "#9FC59F") (220 . "#AFD8AF") (240 . "#BFEBBF") (260 . "#93E0E3") (280 . "#6CA0A3") (300 . "#7CB8BB") (320 . "#8CD0D3") (340 . "#94BFF3") (360 . "#DC8CC3"))))
@@ -208,6 +170,7 @@
  '(helm-ff-directory ((t (:background "color-233" :foreground "cyan"))))
  '(helm-ff-file ((t (:inherit default))))
  '(hl-line ((t (:inherit highlight :background "color-234"))))
+ '(col-highlight ((t (:inherit highlight :background "color-234"))))
  '(region ((t (:background "color-240" :foreground "#FFF"))))
  '(show-paren-match ((t (:background "color-239" :foreground "#7CB8BB" :weight bold))))
  '(web-mode-block-attr-name-face ((t (:foreground "color-244"))))
