@@ -6,7 +6,6 @@
 ;; List of packages to install
 (defvar my-packages
   '(
-    crosshairs
     powerline
     god-mode
     helm
@@ -62,7 +61,6 @@
 (window-numbering-mode 1)
 (yas-global-mode 1)
 (god-mode)
-(crosshairs-mode)
 (global-rainbow-delimiters-mode)
 
 ;;My configurations
@@ -114,10 +112,7 @@
 
 ;; Smooth Scrolling
 (setq redisplay-dont-pause t
-  scroll-margin 1
-  scroll-step 1
-  scroll-conservatively 10000
-  scroll-preserve-screen-position 1)
+  scroll-conservatively 10000)
 
 ;;Load mode on certain file extensions
 (setq auto-mode-alist (append '(
@@ -149,14 +144,13 @@
 (add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
 
-
-;; ;And all the emacs auto adjustments
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(coffee-tab-width 4)
+ '(global-hl-line-mode t)
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
  '(wg-mode-line-on nil)
  '(wrap-region-global-mode t nil (wrap-region)))
@@ -165,7 +159,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(col-highlight ((t (:inherit highlight :background "color-234"))))
  '(erm-syn-errline ((t (:foreground "red" :box (:line-width 1 :color "red") :underline "red"))))
  '(erm-syn-warnline ((t (:foreground "yellow" :box (:line-width 1 :color "yellow") :underline "yellow"))))
  '(flymake-errline ((t (:underline "red"))) t)
