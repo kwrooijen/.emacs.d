@@ -45,23 +45,23 @@
 (require 'helm-ls-git)
 (require 'helm-swoop)
 (require 'god-mode)
-(require 'auto-complete)
 (require 'multiple-cursors)
 (require 'workgroups)
 (require 'redo+)
+(require 'auto-complete-config)
 
 ;; Modes
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
-(auto-complete-mode 1)
 (multiple-cursors-mode 1)
 (workgroups-mode 1)
 (show-paren-mode t)
 (window-numbering-mode 1)
-(yas-global-mode 1)
 (god-mode)
 (global-rainbow-delimiters-mode)
+(yas-global-mode 1)
+(global-auto-complete-mode t)
 
 ;;My configurations
 (require 'my-requires)
@@ -113,6 +113,21 @@
 ;; Smooth Scrolling
 (setq redisplay-dont-pause t
   scroll-conservatively 10000)
+
+;;; Autocomplete / Yasnippet settings
+
+;; Add auto complete to these modes
+(add-to-list 'ac-modes 'erlang-mode)
+;; Autocomplete default config
+(ac-config-default)
+;; Use auto complete menu
+(setq ac-use-menu-map t)
+;; Show menu instantly
+(setq ac-auto-show-menu 0.0)
+;; Add yasnippets to menu
+(defadvice ac-common-setup (after give-yasnippet-highest-priority activate)
+    (setq ac-sources (delq 'ac-source-yasnippet ac-sources))
+      (add-to-list 'ac-sources 'ac-source-yasnippet))
 
 ;;Load mode on certain file extensions
 (setq auto-mode-alist (append '(

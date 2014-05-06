@@ -15,7 +15,6 @@
 (define-key attic-minor-mode-map (kbd "C-M--")	 'redo)
 (define-key attic-minor-mode-map (kbd "C-x M-t") 'transpose-paragraphs)
 (define-key attic-minor-mode-map (kbd "C-x C-f") 'helm-find-files)
-(define-key attic-minor-mode-map (kbd "C-c C-v") 'undo-tree-visualize)
 
 ;; Meta Keys
 (global-set-key (kbd "M-g") 'god-mode-enable)
@@ -133,9 +132,6 @@
 (global-set-key (kbd "C-x C-2") 'split-window-below)
 (global-set-key (kbd "C-x C-3") 'split-window-right)
 (global-set-key (kbd "C-x C-0") 'delete-window)
-
-; auto-complete
-(define-key ac-complete-mode-map "\r" nil)
 
 ; Global Keys
 (global-set-key [f7] 'get-current-buffer-major-mode)
