@@ -19,8 +19,6 @@
 ;; Meta Keys
 (global-set-key (kbd "M-g") 'god-mode-enable)
 (define-key attic-minor-mode-map (kbd "M-q") 'backward-kill-word)
-(define-key attic-minor-mode-map (kbd "M-o") 'yas/expand)
-(define-key attic-minor-mode-map (kbd "M-x") 'execute-extended-command)
 (define-key attic-minor-mode-map (kbd "M-+") 'align-regexp)
 (define-key attic-minor-mode-map (kbd "M-@") 'er/expand-region)
 (define-key attic-minor-mode-map (kbd "M-t") 'transpose-words)
@@ -28,7 +26,6 @@
 (define-key attic-minor-mode-map (kbd "M-x") 'helm-M-x)
 (define-key attic-minor-mode-map (kbd "M-k") 'kill-this-buffer)
 (define-key attic-minor-mode-map (kbd "M-P")'mc/mark-previous-like-this)
-
 (define-key attic-minor-mode-map (kbd "M-N") 'mc/mark-next-like-this)
 (define-key attic-minor-mode-map (kbd "M-*") 'mc/mark-all-like-this)
 (define-key attic-minor-mode-map (kbd "M-j") (lambda()
@@ -36,7 +33,6 @@
                                                (join-line -1)))
 
 ;; C Prefix Keys
-(define-prefix-command 'c-j-prefix)
 (define-key attic-minor-mode-map (kbd "C-c C-o") 'hoogle-search)
 (define-key attic-minor-mode-map (kbd "C-c C-t") 'transpose-paragraphs)
 (define-key attic-minor-mode-map (kbd "C-l")     'iy-go-up-to-char)
@@ -137,9 +133,6 @@
 (global-set-key [f7] 'get-current-buffer-major-mode)
 (global-set-key [f1] 'copy-to-clipboard)
 (global-set-key [f2] 'paste-from-clipboard)
-
-; Web Mode
-;(define-key web-mode-map (kbd "C-z") 'zencoding-expand-yas)
 
 ; Define mode
 (define-minor-mode attic-minor-mode

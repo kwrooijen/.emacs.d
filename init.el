@@ -118,6 +118,8 @@
 
 ;; Add auto complete to these modes
 (add-to-list 'ac-modes 'erlang-mode)
+(add-to-list 'ac-modes 'js2-mode)
+(add-to-list 'ac-modes 'web-mode)
 ;; Autocomplete default config
 (ac-config-default)
 ;; Use auto complete menu
