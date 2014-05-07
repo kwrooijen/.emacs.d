@@ -27,6 +27,7 @@
     web-mode
     redo+
     ace-jump-mode
+    vline
     ))
 
 (defun my-install-packages ()
@@ -120,6 +121,7 @@
 (add-to-list 'ac-modes 'erlang-mode)
 (add-to-list 'ac-modes 'js2-mode)
 (add-to-list 'ac-modes 'web-mode)
+
 ;; Autocomplete default config
 (ac-config-default)
 ;; Use auto complete menu
@@ -157,9 +159,19 @@
     ) auto-mode-alist))
 
 ;; Hooks
-(add-hook 'erlang-mode-hook  'erlang-keys-hook)
-(add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
+
+(add-hook 'erlang-mode-hook (lambda()
+                              (erlang-keys-hook)
+                              (vline-mode)))
+(add-hook 'web-mode-hook (lambda()
+                           (vline-mode)))
+(add-hook 'haskell-mode-hook (lambda()
+                               (vline-mode)))
+(add-hook 'before-save-hook (lambda()
+                              (delete-trailing-whitespace)))
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
+
+(define-key ac-complete-mode-map " " 'ac-complete)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -185,6 +197,8 @@
  '(hl-line ((t (:inherit highlight :background "color-234"))))
  '(region ((t (:background "color-240" :foreground "#FFF"))))
  '(show-paren-match ((t (:background "color-239" :foreground "#7CB8BB" :weight bold))))
+ '(vline ((t (:inherit highlight :background "color-234"))))
+ '(vline-visual ((t (:inherit highlight :background "color-234"))))
  '(web-mode-block-attr-name-face ((t (:foreground "color-244"))))
  '(web-mode-html-attr-custom-face ((t (:foreground "color-249"))))
  '(web-mode-html-attr-equal-face ((t (:foreground "color-249"))))
