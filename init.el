@@ -28,6 +28,7 @@
     redo+
     ace-jump-mode
     vline
+    key-chord
     ))
 
 (defun my-install-packages ()
@@ -170,8 +171,6 @@
 (add-hook 'before-save-hook (lambda()
                               (delete-trailing-whitespace)))
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
-
-(define-key ac-complete-mode-map " " 'ac-complete)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

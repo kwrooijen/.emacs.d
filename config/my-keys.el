@@ -4,6 +4,8 @@
 (dolist (key '("\C-z"))
   (global-unset-key key))
 
+(key-chord-define-global "qq" 'god-mode-enable)
+
 ;; Control Keys
 (define-key attic-minor-mode-map (kbd "C-u") 'pop-to-mark-command)
 (define-key attic-minor-mode-map (kbd "C-.") 'helm-resume)
