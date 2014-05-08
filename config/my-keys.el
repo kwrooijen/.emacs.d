@@ -3,8 +3,8 @@
 (key-chord-define-global "qq" 'god-mode-enable)
 (key-chord-define-global "xs" (lambda()
                                 (interactive)
-                                (save-buffer)
-                                (god-mode-enable)))
+                                (god-mode-enable)
+                                (save-buffer)))
 
 ;; Control Keys
 (global-set-key (kbd "C-u") 'pop-to-mark-command)
@@ -54,6 +54,9 @@
 (global-set-key (kbd "M-C-_") 'redo)
 (global-set-key (kbd "M-C--") 'redo)
 (global-set-key (kbd "M-j") (lambda() (interactive) (join-line -1)))
+(global-set-key (kbd "M-g") 'goto-line)
+(define-key minibuffer-local-map (kbd "M-g") 'keyboard-escape-quit)
+(define-key mc/keymap (kbd "M-g") 'keyboard-escape-quit-mc)
 
 ;; Other Keys
 (global-set-key [f7] 'get-current-buffer-major-mode)
@@ -80,7 +83,6 @@
 
 ;; God mode
 (define-key god-local-mode-map (kbd "i")   'god-mode-disable)
-(define-key god-local-mode-map (kbd "M-g") 'keyboard-escape-quit-mc)
 (define-key god-local-mode-map (kbd "[") (lambda ()
     (interactive) (scroll-down-line 3)))
 (define-key god-local-mode-map (kbd "]") (lambda ()
