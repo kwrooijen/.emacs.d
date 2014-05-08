@@ -150,11 +150,6 @@
     ("Gemfile$"    . enh-ruby-mode)
     ("\\.js\\'"    . js2-mode)
     ("\\.elm\\'"   . haskell-mode)
-    (".splash"     . (lambda()
-        (lisp-interaction-mode)
-        (read-only-mode)
-        (set (make-local-variable 'linum-mode) nil)
-        ))
     ) auto-mode-alist))
 
 ;; Hooks
@@ -170,6 +165,7 @@
  ;; If there is more than one, they won't work right.
  '(coffee-tab-width 4)
  '(global-hl-line-mode t)
+ '(global-linum-mode t)
  '(helm-ls-git-show-abs-or-relative (quote relative))
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
  '(wg-mode-line-on nil)
@@ -181,11 +177,15 @@
  ;; If there is more than one, they won't work right.
  '(erm-syn-errline ((t (:foreground "red" :box (:line-width 1 :color "red") :underline "red"))))
  '(erm-syn-warnline ((t (:foreground "yellow" :box (:line-width 1 :color "yellow") :underline "yellow"))))
- '(flymake-errline ((t (:underline "red"))))
- '(flymake-warnline ((((class color)) (:underline "yellow"))))
+ '(flymake-errline ((t (:underline "red"))) t)
+ '(flymake-warnline ((((class color)) (:underline "yellow"))) t)
  '(helm-ff-directory ((t (:background "color-233" :foreground "cyan"))))
  '(helm-ff-file ((t (:inherit default))))
+ '(helm-swoop-target-line-block-face ((t (:background "color-240" :foreground "#FFF"))))
+ '(helm-swoop-target-line-face ((t (:background "color-240" :foreground "#FFF"))))
+ '(helm-swoop-target-word-face ((t (:background "#7700ff" :foreground "#fff"))))
  '(hl-line ((t (:inherit highlight :background "color-234"))))
+ '(linum ((t (:inherit (shadow default) :background "#111111" :foreground "color-254"))))
  '(region ((t (:background "color-240" :foreground "#FFF"))))
  '(show-paren-match ((t (:background "color-239" :foreground "#7CB8BB" :weight bold))))
  '(web-mode-block-attr-name-face ((t (:foreground "color-244"))))
