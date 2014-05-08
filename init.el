@@ -39,7 +39,6 @@
         my-packages))
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-
 (add-to-list 'load-path "~/.emacs.d/config")
 
 (require 'helm)
@@ -63,14 +62,21 @@
 (global-rainbow-delimiters-mode)
 (yas-global-mode 1)
 (global-auto-complete-mode t)
+(global-hl-line-mode t)
+(global-linum-mode t)
+(wrap-region-global-mode t)
 
 ;;My configurations
 (require 'my-requires)
+
+;; Tablist
+(setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))
+
 ;;Make mc work better with iy-go-to-char
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
 
 ;;Always display 2 columns in linum mode (no stuttering)
-'(linum-format (quote "%2d"))
+(setq linum-format (quote "%3d"))
 
 ;;Allow upcase-region and downcase-region functions
 (put 'upcase-region 'disabled nil)
@@ -109,6 +115,7 @@
 (setq helm-reuse-last-window-split-state t)
 (setq helm-split-window-in-side-p t)
 (setq helm-swoop-split-with-multiple-windows t)
+(setq helm-ls-git-show-abs-or-relative 'relative)
 
 ;; Smooth Scrolling
 (setq redisplay-dont-pause t
@@ -158,18 +165,6 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(coffee-tab-width 4)
- '(global-hl-line-mode t)
- '(global-linum-mode t)
- '(helm-ls-git-show-abs-or-relative (quote relative))
- '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
- '(wg-mode-line-on nil)
- '(wrap-region-global-mode t nil (wrap-region)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -177,15 +172,19 @@
  ;; If there is more than one, they won't work right.
  '(erm-syn-errline ((t (:foreground "red" :box (:line-width 1 :color "red") :underline "red"))))
  '(erm-syn-warnline ((t (:foreground "yellow" :box (:line-width 1 :color "yellow") :underline "yellow"))))
- '(flymake-errline ((t (:underline "red"))) t)
- '(flymake-warnline ((((class color)) (:underline "yellow"))) t)
+ '(flymake-errline ((t (:foreground "red" :underline "red"))) t)
+ '(flymake-warnline ((((class color)) (:foreground "yellow" :underline "yellow"))) t)
+ '(flyspell-incorrect ((t (:underline (:color "red" :style wave)))))
+ '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "#707070"))))
+ '(font-lock-comment-face ((t (:foreground "#707070"))))
+ '(font-lock-type-face ((t (:foreground "#145e74"))))
  '(helm-ff-directory ((t (:background "color-233" :foreground "cyan"))))
  '(helm-ff-file ((t (:inherit default))))
  '(helm-swoop-target-line-block-face ((t (:background "color-240" :foreground "#FFF"))))
  '(helm-swoop-target-line-face ((t (:background "color-240" :foreground "#FFF"))))
  '(helm-swoop-target-word-face ((t (:background "#7700ff" :foreground "#fff"))))
  '(hl-line ((t (:inherit highlight :background "color-234"))))
- '(linum ((t (:inherit (shadow default) :background "#111111" :foreground "color-254"))))
+ '(linum ((t (:inherit (shadow default) :background "#111111" :foreground "#707070"))))
  '(region ((t (:background "color-240" :foreground "#FFF"))))
  '(show-paren-match ((t (:background "color-239" :foreground "#7CB8BB" :weight bold))))
  '(web-mode-block-attr-name-face ((t (:foreground "color-244"))))

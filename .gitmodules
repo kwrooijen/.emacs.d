@@ -1,4 +1,0 @@
-[submodule "plugins/twittering-mode"]
-	path = plugins/twittering-mode
-	url = git@github.com:hayamiz/twittering-mode.git
-	branch = master
