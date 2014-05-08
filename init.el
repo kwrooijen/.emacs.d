@@ -27,7 +27,6 @@
     web-mode
     redo+
     ace-jump-mode
-    vline
     key-chord
     ))
 
@@ -67,7 +66,6 @@
 
 ;;My configurations
 (require 'my-requires)
-
 ;;Make mc work better with iy-go-to-char
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
 
@@ -161,15 +159,8 @@
 
 ;; Hooks
 
-(add-hook 'erlang-mode-hook (lambda()
-                              (erlang-keys-hook)
-                              (vline-mode)))
-(add-hook 'web-mode-hook (lambda()
-                           (vline-mode)))
-(add-hook 'haskell-mode-hook (lambda()
-                               (vline-mode)))
-(add-hook 'before-save-hook (lambda()
-                              (delete-trailing-whitespace)))
+(add-hook 'erlang-mode-hook 'erlang-keys-hook)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
 
 (custom-set-variables
@@ -179,6 +170,7 @@
  ;; If there is more than one, they won't work right.
  '(coffee-tab-width 4)
  '(global-hl-line-mode t)
+ '(helm-ls-git-show-abs-or-relative (quote relative))
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
  '(wg-mode-line-on nil)
  '(wrap-region-global-mode t nil (wrap-region)))
@@ -189,15 +181,13 @@
  ;; If there is more than one, they won't work right.
  '(erm-syn-errline ((t (:foreground "red" :box (:line-width 1 :color "red") :underline "red"))))
  '(erm-syn-warnline ((t (:foreground "yellow" :box (:line-width 1 :color "yellow") :underline "yellow"))))
- '(flymake-errline ((t (:underline "red"))) t)
- '(flymake-warnline ((((class color)) (:underline "yellow"))) t)
+ '(flymake-errline ((t (:underline "red"))))
+ '(flymake-warnline ((((class color)) (:underline "yellow"))))
  '(helm-ff-directory ((t (:background "color-233" :foreground "cyan"))))
  '(helm-ff-file ((t (:inherit default))))
  '(hl-line ((t (:inherit highlight :background "color-234"))))
  '(region ((t (:background "color-240" :foreground "#FFF"))))
  '(show-paren-match ((t (:background "color-239" :foreground "#7CB8BB" :weight bold))))
- '(vline ((t (:inherit highlight :background "color-234"))))
- '(vline-visual ((t (:inherit highlight :background "color-234"))))
  '(web-mode-block-attr-name-face ((t (:foreground "color-244"))))
  '(web-mode-html-attr-custom-face ((t (:foreground "color-249"))))
  '(web-mode-html-attr-equal-face ((t (:foreground "color-249"))))

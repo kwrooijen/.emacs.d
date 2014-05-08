@@ -122,6 +122,8 @@
 (defun god-mode-disable () (interactive)
   (key-chord-mode 1)
   (setq god-local-mode nil)
+  (unless (minibufferp)
+    (insert-minor-mode 1))
   (if (getenv "TMUX")
     (send-string-to-terminal "\033Ptmux;\033\033]12;Green\007\033\\")
     (send-string-to-terminal "\033]12;Green\007")
@@ -131,7 +133,9 @@
 (defun god-mode-enable () (interactive)
   (key-chord-mode nil)
   (setq god-local-mode t)
+  (insert-minor-mode 0)
   (keyboard-escape-quit)
+  (keyboard-escape-quit-mc)
   (if (getenv "TMUX")
       (send-string-to-terminal "\033Ptmux;\033\033]12;White\007\033\\")
       (send-string-to-terminal "\033]12;White\007")
@@ -173,8 +177,6 @@
         (git-gutter:clear)
         (setq linum-mode t))
       ))
-
-
 
 (defun copy-to-clipboard ()
   (interactive)
