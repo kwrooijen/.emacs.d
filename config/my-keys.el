@@ -60,13 +60,12 @@
 (define-key attic-minor-mode-map (kbd "M-C--") 'redo)
 (define-key attic-minor-mode-map (kbd "M-j") (lambda() (interactive) (join-line -1)))
 (define-key attic-minor-mode-map (kbd "M-g") 'goto-line)
-(define-key minibuffer-local-map (kbd "M-g") 'keyboard-escape-quit)
 (define-key mc/keymap (kbd "M-g") 'keyboard-escape-quit-mc)
 
 ;; Other Keys
-(define-key god-local-mode-map [f7] 'get-current-buffer-major-mode)
-(define-key god-local-mode-map [f1] 'copy-to-clipboard)
-(define-key god-local-mode-map [f2] 'paste-from-clipboard)
+(global-set-key [f7] 'get-current-buffer-major-mode)
+(global-set-key [f1] 'copy-to-clipboard)
+(global-set-key [f2] 'paste-from-clipboard)
 
 ;; Erlang Keys
 (defun erlang-keys-hook ()
@@ -84,7 +83,7 @@
 (define-key helm-map (kbd "C-f") 'nil)
 (define-key helm-map (kbd "C-b") 'nil)
 (define-key helm-buffer-map (kbd "C-a") 'helm-buffers-toggle-show-hidden-buffers)
-(define-key helm-map (kbd "M-g M-g") 'helm-keyboard-quit)
+(define-key helm-map (kbd "C-g") 'nil)
 
 ;; God mode
 (define-key god-local-mode-map (kbd "i")   'god-mode-disable)
