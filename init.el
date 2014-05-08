@@ -87,6 +87,7 @@
 
 ;; Add auto complete to these modes
 (add-to-list 'ac-modes 'erlang-mode)
+(add-to-list 'ac-modes 'haskell-mode)
 (add-to-list 'ac-modes 'js2-mode)
 (add-to-list 'ac-modes 'web-mode)
 
@@ -122,7 +123,6 @@
     ) auto-mode-alist))
 
 ;; Hooks
-
 (add-hook 'erlang-mode-hook 'erlang-keys-hook)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)

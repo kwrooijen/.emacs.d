@@ -51,7 +51,6 @@
 (define-key attic-minor-mode-map (kbd "M-q") 'backward-kill-word)
 (define-key attic-minor-mode-map (kbd "M-+") 'align-regexp)
 (define-key attic-minor-mode-map (kbd "M-@") 'er/expand-region)
-(define-key attic-minor-mode-map (kbd "M-x") nil)
 (define-key attic-minor-mode-map (kbd "M-k") 'kill-this-buffer)
 (define-key attic-minor-mode-map (kbd "M-P") 'mc/mark-previous-like-this)
 (define-key attic-minor-mode-map (kbd "M-N") 'mc/mark-next-like-this)
@@ -106,6 +105,9 @@ t " attic" 'attic-minor-mode-map)
 (defvar insert-minor-mode-map (make-keymap)
   "insert-minor-mode keymap.")
 
+(define-minor-mode insert-minor-mode
+  "Insert mode" nil nil 'insert-minor-mode-map)
+
 (let ((f (lambda () `(lambda () (interactive)
               (message (concat "Exit insert mode first."))))))
   (dolist (l '(("C-a") ("C-q") ("C-w") ("C-e") ("C-r") ("C-t")
@@ -116,7 +118,7 @@ t " attic" 'attic-minor-mode-map)
     (define-key insert-minor-mode-map
       (read-kbd-macro (car l)) (funcall f))))
 
-(define-minor-mode insert-minor-mode
-  "Insert mode" nil nil 'insert-minor-mode-map)
+;; Other unset keys
+(global-unset-key "\M-x")
 
 (provide 'my-keys)
