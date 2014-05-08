@@ -1,5 +1,0 @@
-(require 'my-functions)
-(require 'my-macros)
-(require 'my-colors)
-(require 'my-keys)
-(provide 'my-requires)

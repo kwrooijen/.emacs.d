@@ -1,46 +1,6 @@
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (package-initialize)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-  )
-;; List of packages to install
-(defvar my-packages
-  '(
-    powerline
-    god-mode
-    helm
-    helm-ls-git
-    helm-swoop
-    multiple-cursors
-    auto-complete
-    iy-go-to-char
-    window-numbering
-    magit
-    workgroups
-    wrap-region
-    yasnippet
-    rainbow-delimiters
-    erlang
-    haskell-mode
-    expand-region
-    js2-mode
-    web-mode
-    redo+
-    ace-jump-mode
-    key-chord
-    ))
-
-(defun my-install-packages ()
-  (interactive)
-  (package-refresh-contents)
-  (mapc #'(lambda (package)
-            (unless (package-installed-p package)
-              (package-install package)))
-        my-packages))
-
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'load-path "~/.emacs.d/config")
-
+(require 'my-packages)
 (require 'helm)
 (require 'helm-ls-git)
 (require 'helm-swoop)
@@ -67,7 +27,9 @@
 (wrap-region-global-mode t)
 
 ;;My configurations
-(require 'my-requires)
+(require 'my-functions)
+(require 'my-colors)
+(require 'my-keys)
 
 ;; Tablist
 (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))

@@ -112,7 +112,7 @@ t " attic" 'attic-minor-mode-map)
                ("C-y") ("C-u") ("C-i") ("C-o") ("C-p") ("C-a")
                ("C-s") ("C-d") ("C-f") ("C-g") ("C-h") ("C-j")
                ("C-k") ("C-l") ("C-z") ("C-x") ("C-c") ("C-v")
-               ("C-b") ("C-n") ("C-m")))
+               ("C-b") ("C-n") ))
     (define-key insert-minor-mode-map
       (read-kbd-macro (car l)) (funcall f))))
 
