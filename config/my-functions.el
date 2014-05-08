@@ -88,40 +88,15 @@
   (async-shell-command "~/.emacs.d/scripts/make-script 4" "[Make Project]")
 )
 
+(defun guard ()
+  (interactive)
+  (async-shell-command "~/.emacs.d/scripts/my-guard" "[Guard]")
+)
+
 (defun underscores-to-camel-case (str)
   "Converts STR, which is a word using underscores, to camel case."
   (interactive "S")
   (apply 'concat (mapcar 'capitalize (split-string str "_"))))
-
-; cmus functions
-
-(defun cmus-pause ()
-  (interactive)
-  (shell-command (format "cmus-remote --pause"))
-)
-
-(defun cmus-volume-down ()
-  (interactive)
-  (shell-command (format "cmus-remote --volume -10%"))
-)
-
-(defun cmus-volume-up ()
-  (interactive)
-  (shell-command (format "cmus-remote --volume +10%"))
-)
-
-(defun cmus-next ()
-  (interactive)
-  (shell-command (format "cmus-remote --next"))
-)
-(defun cmus-previous ()
-  (interactive)
-  (shell-command (format "cmus-remote --prev"))
-)
-
-(defun ca-with-comment (str)
-  (format "%s%s%s" comment-start str comment-end))
-
 
 ; God functions
 
@@ -169,21 +144,6 @@
   )
 )
 
-(defun toggle-linum-gutter ()
-  (interactive)
-  (if (and (boundp 'linum-mode) linum-mode)
-      (progn
-        (interactive)
-        (git-gutter)
-        (setq git-gutter t)
-        (setq linum-mode nil))
-      (progn
-        (interactive)
-        (setq git-gutter-mode nil)
-        (git-gutter:clear)
-        (setq linum-mode t))
-      ))
-
 (defun copy-to-clipboard ()
   (interactive)
   (if (display-graphic-p)
@@ -210,10 +170,5 @@
     (insert (shell-command-to-string "xsel -o -b"))
     )
   )
-
-(defun guard ()
-  (interactive)
-  (async-shell-command "~/.emacs.d/scripts/my-guard" "[Guard]")
-)
 
 (provide 'my-functions)
