@@ -45,15 +45,6 @@
   (previous-buffer)
 )
 
-;(defun flymake-erlang-init ()
-;  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-;    'flymake-create-temp-inplace))
-;         (local-file (file-relative-name temp-file
-;            (file-name-directory buffer-file-name))))
-;    (list "~/.emacs.d/plugins/erlangscript" (list local-file))))
-;(add-to-list 'flymake-allowed-file-name-masks
-;    '("\\.erl\\'" flymake-erlang-init))
-
 (defun ensure-buffer-name-begins-with-exl ()
     "change buffer name to end with slash"
     (let ((name (buffer-name)))
@@ -79,7 +70,22 @@
 
 (defun run-make ()
   (interactive)
-  (async-shell-command "~/.emacs.d/scripts/go-make" "[Make Project]")
+  (async-shell-command "~/.emacs.d/scripts/make-script 1" "[Make Project]")
+)
+
+(defun run-make-js ()
+  (interactive)
+  (async-shell-command "~/.emacs.d/scripts/make-script 2" "[Make Project]")
+)
+
+(defun run-make-start ()
+  (interactive)
+  (async-shell-command "~/.emacs.d/scripts/make-script 3" "[Make Project]")
+)
+
+(defun run-make-restart ()
+  (interactive)
+  (async-shell-command "~/.emacs.d/scripts/make-script 4" "[Make Project]")
 )
 
 (defun underscores-to-camel-case (str)
