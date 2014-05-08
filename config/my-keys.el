@@ -8,24 +8,24 @@
 
 ;; Control Keys
 (global-set-key (kbd "C-u") 'pop-to-mark-command)
-(global-set-key (kbd "C-.") 'helm-resume)
 (global-set-key (kbd "C-q") 'backward-delete-char)
 (global-set-key (kbd "C--") 'undo)
 (global-set-key (kbd "C-l") 'iy-go-up-to-char)
 (global-set-key (kbd "C-h") 'helm-M-x)
 (global-set-key (kbd "C-z") 'helm-buffers-list)
+(global-set-key (kbd "C-.") 'helm-resume)
 (global-set-key (kbd "C-j") 'ace-jump-mode)
 (global-set-key (kbd "C-/") 'comment-or-uncomment-region)
 
 ;; Control Prefix
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-c C-f") 'helm-ls-git-ls)
 (global-set-key (kbd "C-c C-o") 'hoogle-search)
 (global-set-key (kbd "C-c C-t") 'transpose-paragraphs)
 (global-set-key (kbd "C-c C-m") 'magit-status)
 (global-set-key (kbd "C-c C-q") 'kmacro-start-macro)
 (global-set-key (kbd "C-c C-e") 'kmacro-end-or-call-macro-repeat)
 (global-set-key (kbd "C-c C-z") 'run-make)
-(global-set-key (kbd "C-c C-f") 'helm-ls-git-ls)
 (global-set-key (kbd "C-x C-1") 'delete-other-windows)
 (global-set-key (kbd "C-x C-2") 'split-window-below)
 (global-set-key (kbd "C-x C-3") 'split-window-right)
@@ -34,10 +34,10 @@
 ;; Control Prefix 3
 (global-set-key (kbd "C-c C-w C-e") 'load-attic-workgroups)
 (global-set-key (kbd "C-c C-w C-w") 'load-attic-workgroups2)
-(global-set-key (kbd "C-c C-g C-g") 'helm-do-grep)
-(global-set-key (kbd "C-c C-g C-s") 'helm-swoop)
-(global-set-key (kbd "C-c C-g C-m") 'helm-multi-swoop)
-(global-set-key (kbd "C-c C-g C-r") (lambda () (interactive)
+(global-set-key (kbd "C-c C-s C-g") 'helm-do-grep)
+(global-set-key (kbd "C-c C-s C-s") 'helm-swoop)
+(global-set-key (kbd "C-c C-s C-m") 'helm-multi-swoop)
+(global-set-key (kbd "C-c C-s C-r") (lambda () (interactive)
     (let ((current-prefix-arg '(1)))
       (call-interactively 'helm-do-grep))))
 
