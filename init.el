@@ -128,7 +128,6 @@
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
 (add-hook 'insert-minor-mode-hook (lambda() (key-chord-mode 1)))
 (add-hook 'minibuffer-setup-hook (lambda() (key-chord-mode 1)))
-(add-hook 'multiple-cursors-mode-hook (lambda() (key-chord-mode 1)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

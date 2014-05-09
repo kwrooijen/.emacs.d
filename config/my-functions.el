@@ -111,10 +111,11 @@
 )
 
 (defun god-mode-enable () (interactive)
-  (setq god-local-mode t)
   (insert-minor-mode 0)
-  (if god-local-mode (keyboard-escape-quit-mc))
+  (setq god-local-mode t)
   (keyboard-escape-quit)
+  (if god-local-mode
+      (key-chord-mode 0))
   (if (getenv "TMUX")
       (send-string-to-terminal "\033Ptmux;\033\033]12;White\007\033\\")
       (send-string-to-terminal "\033]12;White\007")
