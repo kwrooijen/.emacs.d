@@ -101,7 +101,6 @@
 ; God functions
 
 (defun god-mode-disable () (interactive)
-  (key-chord-mode 1)
   (setq god-local-mode nil)
   (unless (minibufferp)
     (insert-minor-mode 1))
@@ -112,11 +111,10 @@
 )
 
 (defun god-mode-enable () (interactive)
-  (key-chord-mode nil)
+  (if god-local-mode (keyboard-escape-quit-mc))
+  (keyboard-escape-quit)
   (setq god-local-mode t)
   (insert-minor-mode 0)
-  (keyboard-escape-quit)
-  (keyboard-escape-quit-mc)
   (if (getenv "TMUX")
       (send-string-to-terminal "\033Ptmux;\033\033]12;White\007\033\\")
       (send-string-to-terminal "\033]12;White\007")

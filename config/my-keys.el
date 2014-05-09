@@ -1,7 +1,7 @@
 (defvar attic-minor-mode-map (make-keymap) "attic-minor-mode keymap.")
 (defvar insert-mode-map (make-keymap) "insert-mode keymap.")
 
-(key-chord-define-global "qq" 'god-mode-enable)
+(key-chord-define-global "fz" 'god-mode-enable)
 (key-chord-define-global "xs" (lambda()
                                 (interactive)
                                 (god-mode-enable)
@@ -110,10 +110,10 @@ t " attic" 'attic-minor-mode-map)
 (let ((f (lambda () `(lambda () (interactive)
               (message (concat "Exit insert mode first."))))))
   (dolist (l '(("C-a") ("C-q") ("C-w") ("C-e") ("C-r") ("C-t")
-               ("C-y") ("C-u") ("C-i") ("C-o") ("C-p") ("C-a")
-               ("C-s") ("C-d") ("C-f") ("C-g") ("C-h") ("C-j")
-               ("C-k") ("C-l") ("C-z") ("C-x") ("C-c") ("C-v")
-               ("C-b") ("C-n") ))
+               ("C-y") ("C-u") ("C-o") ("C-p") ("C-a") ("C-s")
+               ("C-d") ("C-f") ("C-g") ("C-h") ("C-j") ("C-k")
+               ("C-l") ("C-z") ("C-x") ("C-c") ("C-v") ("C-b")
+               ("C-n") ))
     (define-key insert-minor-mode-map
       (read-kbd-macro (car l)) (funcall f))))
 

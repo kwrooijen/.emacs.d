@@ -32,7 +32,6 @@
         ghc-insert-template
         ghc-save-buffer
         god-mode-disable
-        god-mode-enable
         god-mode-meta
         god-mode-self-insert
         haskell-indentation-delete-char
@@ -76,4 +75,5 @@
 (setq mc/cmds-to-run-once
       '(
         helm-M-x
+        god-mode-enable
         ))

@@ -25,6 +25,7 @@
 (global-hl-line-mode t)
 (global-linum-mode t)
 (wrap-region-global-mode t)
+(key-chord-mode t)
 
 ;;My configurations
 (require 'my-functions)
@@ -126,7 +127,7 @@
 (add-hook 'erlang-mode-hook 'erlang-keys-hook)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
-(add-hook 'minibuffer-setup-hook (lambda() (key-chord-mode 1)))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
