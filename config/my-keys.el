@@ -88,8 +88,9 @@
 (define-key helm-map (kbd "M-b") 'nil)
 (define-key helm-map (kbd "C-f") 'nil)
 (define-key helm-map (kbd "C-b") 'nil)
-(define-key helm-buffer-map (kbd "C-a") 'helm-buffers-toggle-show-hidden-buffers)
 (define-key helm-map (kbd "C-g") 'nil)
+(define-key helm-buffer-map (kbd "C-a") 'helm-buffers-toggle-show-hidden-buffers)
+(define-key helm-swoop-map (kbd "M-e") 'helm-swoop-edit)
 
 ;; God mode
 (define-key god-local-mode-map (kbd "i")   'god-mode-disable)
