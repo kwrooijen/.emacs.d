@@ -1,7 +1,7 @@
 (defvar attic-minor-mode-map (make-keymap) "attic-minor-mode keymap.")
 (defvar insert-mode-map (make-keymap) "insert-mode keymap.")
 
-(key-chord-define-global "fz" 'god-mode-enable)
+(key-chord-define-global "qq" 'god-mode-enable)
 (key-chord-define-global "xs" (lambda()
                                 (interactive)
                                 (god-mode-enable)
@@ -17,7 +17,9 @@
 (define-key attic-minor-mode-map (kbd "C-.") 'helm-resume)
 (define-key attic-minor-mode-map (kbd "C-j") 'ace-jump-mode)
 (define-key attic-minor-mode-map (kbd "C-/") 'comment-or-uncomment-region)
-
+(define-key attic-minor-mode-map (kbd "C-s") (lambda() (interactive)
+                                               (set-mark-command nil)
+                                               (helm-swoop :$query "")))
 ;; Control Prefix
 (define-key attic-minor-mode-map (kbd "C-x C-f") 'helm-find-files)
 (define-key attic-minor-mode-map (kbd "C-c C-f") 'helm-ls-git-ls)
@@ -35,7 +37,6 @@
 (define-key attic-minor-mode-map (kbd "C-c C-w C-e") 'load-attic-workgroups)
 (define-key attic-minor-mode-map (kbd "C-c C-w C-w") 'load-attic-workgroups2)
 (define-key attic-minor-mode-map (kbd "C-c C-s C-g") 'helm-do-grep)
-(define-key attic-minor-mode-map (kbd "C-c C-s C-s") 'helm-swoop)
 (define-key attic-minor-mode-map (kbd "C-c C-s C-m") 'helm-multi-swoop)
 (define-key attic-minor-mode-map (kbd "C-c C-s C-r") (lambda () (interactive)
     (let ((current-prefix-arg '(1)))
