@@ -1,7 +1,7 @@
 (defvar attic-minor-mode-map (make-keymap) "attic-minor-mode keymap.")
 (defvar insert-mode-map (make-keymap) "insert-mode keymap.")
 
-(key-chord-define-global "qq" (lambda() (interactive)
+(key-chord-define-global ";;" (lambda() (interactive)
                                 (unless multiple-cursors-mode
                                   (if god-local-mode
                                     (backward-delete-char 2)))
