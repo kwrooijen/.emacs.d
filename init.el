@@ -25,8 +25,9 @@
 (global-hl-line-mode t)
 (global-linum-mode t)
 (wrap-region-global-mode t)
+(key-chord-mode 1)
 
-;;My configurations
+;; My configurations
 (require 'my-functions)
 (require 'my-colors)
 (require 'my-keys)
@@ -34,39 +35,42 @@
 ;; Tablist
 (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))
 
-;;Make mc work better with iy-go-to-char
+;; Make mc work better with iy-go-to-char
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
 
-;;Always display 2 columns in linum mode (no stuttering)
+;; Always display 2 columns in linum mode (no stuttering)
 (setq linum-format (quote "%3d"))
 
-;;Allow upcase-region and downcase-region functions
+;; Allow upcase-region and downcase-region functions
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-;;Prevent Extraneous Tabs
+;; Prevent Extraneous Tabs
 (setq-default indent-tabs-mode nil)
 
-;;No confirmation when creating new buffer
+;; No confirmation when creating new buffer
 (setq confirm-nonexistent-file-or-buffer nil)
 
-;;Backup ~ files in seperate directory
+;; Backup ~ files in seperate directory
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
-;;No splash screen
+;; No splash screen
 (setq inhibit-startup-message t)
 
- ;;Don't resize minibuffer
+ ; Don't resize minibuffer
 (setq resize-mini-windows nil)
 
-;;Don't ask when creating new buffer
+;; Don't ask when creating new buffer
 (setq confirm-nonexistent-file-or-buffer nil)
 
 ;;No animation when loading workgroups
 (setq wg-morph-on nil)
 
-;;y / n instead of yes / no
+;; y / n instead of yes / no
 (fset 'yes-or-no-p 'y-or-n-p)
+
+;; follow symlinks and don't ask
+vc-follow-symlinks t
 
 ;; Scroll all the way to the bottom with C-v
 (setq scroll-error-top-bottom t)
