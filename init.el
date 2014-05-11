@@ -39,7 +39,7 @@
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
 
 ;; Always display 2 columns in linum mode (no stuttering)
-(setq linum-format (quote "%3d"))
+(setq linum-format (quote "%3d "))
 
 ;; Allow upcase-region and downcase-region functions
 (put 'upcase-region 'disabled nil)
@@ -75,21 +75,22 @@ vc-follow-symlinks t
 ;; Scroll all the way to the bottom with C-v
 (setq scroll-error-top-bottom t)
 
-;; Helm configurations
-(setq helm-ff-newfile-prompt-p nil)
-(setq helm-grep-default-recurse-command "grep --exclude-dir=\"dist\" -a -d recurse %e -n%cH -e %p %f")
+;;; Helm configurations START
+(setq helm-ff-newfile-prompt-p nil) ;; Don't ask to create new file
+(setq helm-grep-default-recurse-command
+      "grep --exclude-dir=\"dist\" -a -d recurse %e -n%cH -e %p %f")
 (setq helm-reuse-last-window-split-state t)
-(setq helm-split-window-in-side-p t)
-(setq helm-swoop-split-with-multiple-windows t)
-(setq helm-ls-git-show-abs-or-relative 'relative)
+(setq helm-split-window-in-side-p t) ;; Split window down
+(setq helm-swoop-split-with-multiple-windows t) ;; Split when multiple windows open
+(setq helm-ls-git-show-abs-or-relative 'relative) ;; Show relative path
+;;; Helm configurations END
 
 ;; Smooth Scrolling
 (setq redisplay-dont-pause t
       scroll-margin 1
       scroll-conservatively 10000)
 
-;;; Autocomplete / Yasnippet settings
-
+;;; Autocomplete / Yasnippet settings START
 ;; Add auto complete to these modes
 (add-to-list 'ac-modes 'erlang-mode)
 (add-to-list 'ac-modes 'haskell-mode)
@@ -106,25 +107,26 @@ vc-follow-symlinks t
 (defadvice ac-common-setup (after give-yasnippet-highest-priority activate)
     (setq ac-sources (delq 'ac-source-yasnippet ac-sources))
       (add-to-list 'ac-sources 'ac-source-yasnippet))
+;;; Autocomplete / Yasnippet settings END
 
 ;;Load mode on certain file extensions
 (setq auto-mode-alist (append '(
-    ("\\.tpl\\'"   . web-mode)
-    ("\\.dtl\\'"   . web-mode)
-    ("\\.app.src\\'"   . erlang-mode)
-    ("\\.erb\\'"   . web-mode)
-    ("\\.css\\'"   . css-mode)
-    ("\\.scss\\'"   . sass-mode)
-    ("\\.scss\\'"   . sass-mode)
-    ("\\.less\\'"   . sass-mode)
-    ("\\.rb$"      . enh-ruby-mode)
-    ("\\.rake$"    . enh-ruby-mode)
-    ("Rakefile$"   . enh-ruby-mode)
-    ("\\.gemspec$" . enh-ruby-mode)
-    ("\\.ru$"      . enh-ruby-mode)
-    ("Gemfile$"    . enh-ruby-mode)
-    ("\\.js\\'"    . js2-mode)
-    ("\\.elm\\'"   . haskell-mode)
+    ("\\.tpl\\'"     . web-mode)
+    ("\\.dtl\\'"     . web-mode)
+    ("\\.app.src\\'" . erlang-mode)
+    ("\\.erb\\'"     . web-mode)
+    ("\\.css\\'"     . css-mode)
+    ("\\.scss\\'"    . sass-mode)
+    ("\\.scss\\'"    . sass-mode)
+    ("\\.less\\'"    . sass-mode)
+    ("\\.rb$"        . enh-ruby-mode)
+    ("\\.rake$"      . enh-ruby-mode)
+    ("Rakefile$"     . enh-ruby-mode)
+    ("\\.gemspec$"   . enh-ruby-mode)
+    ("\\.ru$"        . enh-ruby-mode)
+    ("Gemfile$"      . enh-ruby-mode)
+    ("\\.js\\'"      . js2-mode)
+    ("\\.elm\\'"     . haskell-mode)
     ) auto-mode-alist))
 
 ;; Hooks
@@ -144,7 +146,7 @@ vc-follow-symlinks t
  '(erm-syn-warnline ((t (:foreground "yellow" :box (:line-width 1 :color "yellow") :underline "yellow"))))
  '(flymake-errline ((t (:foreground "red" :underline "red"))) t)
  '(flymake-warnline ((((class color)) (:foreground "yellow" :underline "yellow"))) t)
- '(flyspell-incorrect ((t (:underline (:color "red" :style wave)))))
+ '(flyspell-incorrect ((t (:underline (:color "red" :style wave)))) t)
  '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "#707070"))))
  '(font-lock-comment-face ((t (:foreground "#707070"))))
  '(font-lock-type-face ((t (:foreground "#145e74"))))
@@ -154,10 +156,10 @@ vc-follow-symlinks t
  '(helm-swoop-target-line-face ((t (:background "color-240" :foreground "#FFF"))))
  '(helm-swoop-target-word-face ((t (:background "#7700ff" :foreground "#fff"))))
  '(hl-line ((t (:inherit highlight :background "color-234"))))
- '(linum ((t (:inherit (shadow default) :background "#111111" :foreground "#707070"))))
+ '(linum ((t (:inherit (shadow default) :background "grey22" :foreground "#8FB28F"))))
+ '(magit-branch ((t (:background "#111111"))) t)
  '(region ((t (:background "color-240" :foreground "#FFF"))))
  '(show-paren-match ((t (:background "color-239" :foreground "#7CB8BB" :weight bold))))
- '(magit-branch ((t (:background "#111111"))))
  '(web-mode-block-attr-name-face ((t (:foreground "color-244"))))
  '(web-mode-html-attr-custom-face ((t (:foreground "color-249"))))
  '(web-mode-html-attr-equal-face ((t (:foreground "color-249"))))
