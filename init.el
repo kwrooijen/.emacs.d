@@ -70,7 +70,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; follow symlinks and don't ask
-vc-follow-symlinks t
+(setq vc-follow-symlinks t)
 
 ;; Scroll all the way to the bottom with C-v
 (setq scroll-error-top-bottom t)
