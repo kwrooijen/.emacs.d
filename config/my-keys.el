@@ -3,12 +3,12 @@
 
 (key-chord-define-global ";;" 'god-mode-enable)
 
-(key-chord-define-global "xs" (lambda()
-                                (interactive)
-                                (if (string-equal (buffer-name) "*Helm Swoop Edit*")
-                                    (helm-swoop--edit-complete))
-                                (god-mode-enable)
-                                (save-buffer)))
+(key-chord-define insert-mode-map "xs"
+                  (lambda() (interactive)
+                    (if (string-equal (buffer-name) "*Helm Swoop Edit*")
+                        (helm-swoop--edit-complete))
+                    (god-mode-enable)
+                    (save-buffer)))
 
 ;; Control Keys
 (define-key attic-minor-mode-map (kbd "C-u") 'pop-to-mark-command)
@@ -108,11 +108,8 @@ t " attic" 'attic-minor-mode-map)
 (attic-minor-mode 0))
 
 ;; Disable Control keys in insert mode
-(defvar insert-minor-mode-map (make-keymap)
-  "insert-minor-mode keymap.")
-
-(define-minor-mode insert-minor-mode
-  "Insert mode" nil nil 'insert-minor-mode-map)
+(define-minor-mode insert-mode
+  "Insert mode" nil nil 'insert-mode-map)
 
 (let ((f (lambda () `(lambda () (interactive)
               (message (concat "Exit insert mode first."))))))
@@ -120,7 +117,7 @@ t " attic" 'attic-minor-mode-map)
                ("C-y") ("C-u") ("C-o") ("C-p") ("C-a") ("C-s")
                ("C-d") ("C-f") ("C-g") ("C-j") ("C-k") ("C-l")
                ("C-z") ("C-x") ("C-c") ("C-v") ("C-b") ("C-n") ))
-    (define-key insert-minor-mode-map
+    (define-key insert-mode-map
       (read-kbd-macro (car l)) (funcall f))))
 
 ;; Other unset keys

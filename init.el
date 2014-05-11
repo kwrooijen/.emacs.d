@@ -113,7 +113,7 @@
 (add-hook 'erlang-mode-hook 'erlang-keys-hook)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
-(add-hook 'insert-minor-mode-hook (lambda() (interactive) (key-chord-mode 1)(message nil)))
+(add-hook 'insert-mode-hook (lambda() (interactive) (key-chord-mode 1)(message nil)))
 (add-hook 'minibuffer-setup-hook  (lambda() (interactive) (key-chord-mode 1)(message nil)))
 (add-hook 'isearch-mode-hook      (lambda() (interactive) (key-chord-mode 1)(message nil)))
 
@@ -136,6 +136,8 @@
     ("\\.js\\'"      . js2-mode)
     ("\\.elm\\'"     . haskell-mode)
     ) auto-mode-alist))
+
+(if (getenv "DISPLAY")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -167,3 +169,5 @@
  '(web-mode-html-tag-bracket-face ((t (:foreground "color-244"))))
  '(web-mode-html-tag-face ((t (:foreground "color-244"))))
  '(web-mode-symbol-face ((t (:foreground "color-69")))))
+
+)
