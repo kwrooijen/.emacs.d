@@ -107,7 +107,7 @@ t " attic" 'attic-minor-mode-map)
 (defun attic-minibuffer-setup-hook ()
 (attic-minor-mode 0))
 
-; Disable Control keys in insert mode
+;; Disable Control keys in insert mode
 (defvar insert-minor-mode-map (make-keymap)
   "insert-minor-mode keymap.")
 
