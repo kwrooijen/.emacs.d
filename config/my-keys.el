@@ -43,7 +43,6 @@
 (define-key attic-minor-mode-map (kbd "C-c C-s C-g") 'helm-do-grep)
 (define-key attic-minor-mode-map (kbd "C-c C-s C-m") 'helm-multi-swoop)
 (define-key attic-minor-mode-map (kbd "C-c C-s C-s") (lambda() (interactive)
-                                                   (set-mark-command nil)
                                                    (helm-swoop :$query "")))
 (define-key attic-minor-mode-map (kbd "C-c C-s C-r") (lambda () (interactive)
     (let ((current-prefix-arg '(1)))
