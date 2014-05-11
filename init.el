@@ -85,7 +85,8 @@ vc-follow-symlinks t
 
 ;; Smooth Scrolling
 (setq redisplay-dont-pause t
-  scroll-conservatively 10000)
+      scroll-margin 1
+      scroll-conservatively 10000)
 
 ;;; Autocomplete / Yasnippet settings
 
@@ -131,7 +132,8 @@ vc-follow-symlinks t
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
 (add-hook 'insert-minor-mode-hook (lambda() (key-chord-mode 1)))
-(add-hook 'minibuffer-setup-hook (lambda() (key-chord-mode 1)))
+(add-hook 'minibuffer-setup-hook  (lambda() (key-chord-mode 1)))
+(add-hook 'isearch-mode-hook      (lambda() (key-chord-mode 1)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -155,6 +157,7 @@ vc-follow-symlinks t
  '(linum ((t (:inherit (shadow default) :background "#111111" :foreground "#707070"))))
  '(region ((t (:background "color-240" :foreground "#FFF"))))
  '(show-paren-match ((t (:background "color-239" :foreground "#7CB8BB" :weight bold))))
+ '(magit-branch ((t (:background "#111111"))))
  '(web-mode-block-attr-name-face ((t (:foreground "color-244"))))
  '(web-mode-html-attr-custom-face ((t (:foreground "color-249"))))
  '(web-mode-html-attr-equal-face ((t (:foreground "color-249"))))

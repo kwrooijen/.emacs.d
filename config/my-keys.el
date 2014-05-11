@@ -1,14 +1,12 @@
 (defvar attic-minor-mode-map (make-keymap) "attic-minor-mode keymap.")
 (defvar insert-mode-map (make-keymap) "insert-mode keymap.")
 
-(key-chord-define-global ";;" (lambda() (interactive)
-                                (unless multiple-cursors-mode
-                                  (if god-local-mode
-                                    (backward-delete-char 2)))
-                                  (god-mode-enable))
-                                )
+(key-chord-define-global ";;" 'god-mode-enable)
+
 (key-chord-define-global "xs" (lambda()
                                 (interactive)
+                                (if (string-equal (buffer-name) "*Helm Swoop Edit*")
+                                    (helm-swoop--edit-complete))
                                 (god-mode-enable)
                                 (save-buffer)))
 
@@ -17,14 +15,13 @@
 (define-key attic-minor-mode-map (kbd "C-q") 'backward-delete-char)
 (define-key attic-minor-mode-map (kbd "C--") 'undo)
 (define-key attic-minor-mode-map (kbd "C-l") 'iy-go-up-to-char)
+
 (define-key attic-minor-mode-map (kbd "C-h") 'helm-M-x)
 (define-key attic-minor-mode-map (kbd "C-z") 'helm-buffers-list)
 (define-key attic-minor-mode-map (kbd "C-.") 'helm-resume)
 (define-key attic-minor-mode-map (kbd "C-j") 'ace-jump-mode)
 (define-key attic-minor-mode-map (kbd "C-/") 'comment-or-uncomment-region)
-(define-key attic-minor-mode-map (kbd "C-s") (lambda() (interactive)
-                                               (set-mark-command nil)
-                                               (helm-swoop :$query "")))
+
 ;; Control Prefix
 (define-key attic-minor-mode-map (kbd "C-x C-f") 'helm-find-files)
 (define-key attic-minor-mode-map (kbd "C-c C-f") 'helm-ls-git-ls)
@@ -43,6 +40,9 @@
 (define-key attic-minor-mode-map (kbd "C-c C-w C-w") 'load-attic-workgroups2)
 (define-key attic-minor-mode-map (kbd "C-c C-s C-g") 'helm-do-grep)
 (define-key attic-minor-mode-map (kbd "C-c C-s C-m") 'helm-multi-swoop)
+(define-key attic-minor-mode-map (kbd "C-c C-s C-s") (lambda() (interactive)
+                                                   (set-mark-command nil)
+                                                   (helm-swoop :$query "")))
 (define-key attic-minor-mode-map (kbd "C-c C-s C-r") (lambda () (interactive)
     (let ((current-prefix-arg '(1)))
       (call-interactively 'helm-do-grep))))
@@ -118,13 +118,12 @@ t " attic" 'attic-minor-mode-map)
               (message (concat "Exit insert mode first."))))))
   (dolist (l '(("C-a") ("C-q") ("C-w") ("C-e") ("C-r") ("C-t")
                ("C-y") ("C-u") ("C-o") ("C-p") ("C-a") ("C-s")
-               ("C-d") ("C-f") ("C-g") ("C-h") ("C-j") ("C-k")
-               ("C-l") ("C-z") ("C-x") ("C-c") ("C-v") ("C-b")
-               ("C-n") ))
+               ("C-d") ("C-f") ("C-g") ("C-j") ("C-k") ("C-l")
+               ("C-z") ("C-x") ("C-c") ("C-v") ("C-b") ("C-n") ))
     (define-key insert-minor-mode-map
       (read-kbd-macro (car l)) (funcall f))))
 
 ;; Other unset keys
 (global-unset-key "\M-x")
-
+(global-unset-key "\C-x\C-z")
 (provide 'my-keys)
