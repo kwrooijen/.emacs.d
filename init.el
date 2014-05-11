@@ -57,7 +57,7 @@
 ;; No splash screen
 (setq inhibit-startup-message t)
 
- ; Don't resize minibuffer
+;; Don't resize minibuffer
 (setq resize-mini-windows nil)
 
 ;; Don't ask when creating new buffer
@@ -109,7 +109,7 @@ vc-follow-symlinks t
       (add-to-list 'ac-sources 'ac-source-yasnippet))
 ;;; Autocomplete / Yasnippet settings END
 
-;;Load mode on certain file extensions
+;; Load mode on certain file extensions
 (setq auto-mode-alist (append '(
     ("\\.tpl\\'"     . web-mode)
     ("\\.dtl\\'"     . web-mode)
