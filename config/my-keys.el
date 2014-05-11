@@ -3,6 +3,8 @@
 
 (key-chord-define-global ";;" 'god-mode-enable)
 
+(key-chord-define isearch-mode-map ";;" 'isearch-abort)
+
 (key-chord-define insert-mode-map "xs"
                   (lambda() (interactive)
                     (if (string-equal (buffer-name) "*Helm Swoop Edit*")
