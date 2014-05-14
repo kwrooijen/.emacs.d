@@ -33,7 +33,8 @@
 (require 'my-keys)
 
 ;; Tablist
-(setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))
+(setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68
+                        72 76 80 84 88 92 96 100 104 108 112 116 120))
 
 ;; Make mc work better with iy-go-to-char
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
@@ -54,9 +55,6 @@
 ;; Backup ~ files in seperate directory
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
-;; No splash screen
-(setq inhibit-startup-message t)
-
 ;; Don't resize minibuffer
 (setq resize-mini-windows nil)
 
@@ -75,14 +73,44 @@
 ;; Scroll all the way to the bottom with C-v
 (setq scroll-error-top-bottom t)
 
+;; Hide startup message
+(setq inhibit-startup-message t)
+
+;; Show nothing in *scratch* when started
+(setq initial-scratch-message nil)
+
+;; Reread a TAGS table without querying, if it has changed.
+(setq tags-revert-without-query t)
+
+;; Let C-v M-v brings back where you were.
+(setq scroll-preserve-screen-position t)
+
 ;;; Helm configurations START
-(setq helm-ff-newfile-prompt-p nil) ;; Don't ask to create new file
+;; Don't ask to create new file
+(setq helm-ff-newfile-prompt-p nil)
 (setq helm-grep-default-recurse-command
       "grep --exclude-dir=\"dist\" -a -d recurse %e -n%cH -e %p %f")
 (setq helm-reuse-last-window-split-state t)
-(setq helm-split-window-in-side-p t) ;; Split window down
-(setq helm-swoop-split-with-multiple-windows t) ;; Split when multiple windows open
-(setq helm-ls-git-show-abs-or-relative 'relative) ;; Show relative path
+(setq helm-ff-transformer-show-only-basename nil)
+;; Split window down
+(setq helm-split-window-in-side-p t)
+;; Split when multiple windows open
+(setq helm-swoop-split-with-multiple-windows t)
+;; Show relative path
+(setq helm-ls-git-show-abs-or-relative 'relative)
+;; Show colors in Tramp mode
+(setq helm-ff-tramp-not-fancy nil)
+;; Smarter completion for Helm
+(setq helm-ff-smart-completion t)
+;; This function overrides it's original because I want
+;; it to work while in Tramp mode over an ssh connection.
+(defun helm-ff-move-to-first-real-candidate ()
+  "When candidate is an incomplete file name move to first real candidate."
+  (helm-aif (and (helm-file-completion-source-p)
+                 (helm-get-selection))
+      (unless (file-exists-p it)
+        (helm-next-line))))
+
 ;;; Helm configurations END
 
 ;; Smooth Scrolling
@@ -113,9 +141,12 @@
 (add-hook 'erlang-mode-hook 'erlang-keys-hook)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
-(add-hook 'insert-mode-hook (lambda() (interactive) (key-chord-mode 1)(message nil)))
-(add-hook 'minibuffer-setup-hook  (lambda() (interactive) (key-chord-mode 1)(message nil)))
-(add-hook 'isearch-mode-hook      (lambda() (interactive) (key-chord-mode 1)(message nil)))
+(add-hook 'insert-mode-hook (lambda() (interactive)
+                              (key-chord-mode 1)(message nil)))
+(add-hook 'minibuffer-setup-hook (lambda() (interactive)
+                                   (key-chord-mode 1)(message nil)))
+(add-hook 'isearch-mode-hook (lambda() (interactive)
+                               (key-chord-mode 1)(message nil)))
 
 ;; Load mode on certain file extensions
 (setq auto-mode-alist (append '(
@@ -138,7 +169,6 @@
     ) auto-mode-alist))
 
 (if (getenv "DISPLAY")
-
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -169,5 +199,4 @@
  '(web-mode-html-tag-bracket-face ((t (:foreground "color-244"))))
  '(web-mode-html-tag-face ((t (:foreground "color-244"))))
  '(web-mode-symbol-face ((t (:foreground "color-69")))))
-
 )
