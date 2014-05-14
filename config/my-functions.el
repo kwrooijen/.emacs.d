@@ -15,7 +15,7 @@
 (defun zsh (buffer-name)
   "Start a terminal and rename buffer."
   (interactive "sbuffer name: ")
-  (shell)
+  (eshell)
   (rename-buffer (format "%s%s" "$" buffer-name) t))
 
 (defun zsht (buffer-name)
