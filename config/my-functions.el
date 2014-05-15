@@ -68,24 +68,9 @@
   (async-shell-command "~/.emacs.d/scripts/cabal-test" "[Haskell Tests]")
 )
 
-(defun run-make ()
+(defun run-make (args)
   (interactive)
-  (async-shell-command "~/.emacs.d/scripts/make-script 1" "[Make Project]")
-)
-
-(defun run-make-js ()
-  (interactive)
-  (async-shell-command "~/.emacs.d/scripts/make-script 2" "[Make Project]")
-)
-
-(defun run-make-start ()
-  (interactive)
-  (async-shell-command "~/.emacs.d/scripts/make-script 3" "[Make Project]")
-)
-
-(defun run-make-restart ()
-  (interactive)
-  (async-shell-command "~/.emacs.d/scripts/make-script 4" "[Make Project]")
+  (async-shell-command (format "~/.emacs.d/scripts/make-script %s" args) "[Make Project]")
 )
 
 (defun guard ()

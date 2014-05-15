@@ -49,10 +49,15 @@
       (call-interactively 'helm-do-grep))))
 
 ;; Make keys
-(define-key attic-minor-mode-map (kbd "C-c C-z C-z") 'run-make)
-(define-key attic-minor-mode-map (kbd "C-c C-z C-j") 'run-make-js)
-(define-key attic-minor-mode-map (kbd "C-c C-z C-s") 'run-make-start)
-(define-key attic-minor-mode-map (kbd "C-c C-z C-r") 'run-make-restart)
+(defun set-attic-key(key function)
+  (define-key attic-minor-mode-map (kbd key) function)
+)
+
+(define-key attic-minor-mode-map (kbd "C-c C-z C-z") (lambda() (interactive) (run-make "")))
+(define-key attic-minor-mode-map (kbd "C-c C-z C-s") (lambda() (interactive) (run-make "start")))
+(define-key attic-minor-mode-map (kbd "C-c C-z C-p") (lambda() (interactive) (run-make "stop")))
+(define-key attic-minor-mode-map (kbd "C-c C-z C-r") (lambda() (interactive) (run-make "restart")))
+(define-key attic-minor-mode-map (kbd "C-c C-z C-t") (lambda() (interactive) (run-make "test")))
 
 ;; Meta Keys
 (define-key attic-minor-mode-map (kbd "M-q") 'backward-kill-word)
