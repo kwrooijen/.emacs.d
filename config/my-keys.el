@@ -10,6 +10,7 @@
 ("C-q" backward-delete-char)
 ("C--" undo)
 ("C-l" iy-go-to-char)
+("C-," iy-go-to-char-backward)
 ("C-h" helm-M-x)
 ("C-z" helm-buffers-list)
 ("C-." helm-resume)
