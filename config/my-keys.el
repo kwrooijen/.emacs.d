@@ -93,6 +93,11 @@
 (define-key helm-buffer-map (kbd "C-a") 'helm-buffers-toggle-show-hidden-buffers)
 (define-key helm-swoop-map (kbd "M-e") 'helm-swoop-edit)
 
+;; eShell
+(add-hook 'eshell-mode-hook
+'(lambda ()
+   (define-key eshell-mode-map (kbd "C-i") 'helm-esh-pcomplete)))
+
 ;; God mode
 (define-key god-local-mode-map (kbd "i")   'god-mode-disable)
 (define-key god-local-mode-map (kbd "[") (lambda ()
