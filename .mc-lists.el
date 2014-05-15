@@ -74,6 +74,7 @@
 
 (setq mc/cmds-to-run-once
       '(
-        helm-M-x
         god-mode-enable
+        goto-line
+        helm-M-x
         ))
