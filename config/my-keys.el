@@ -9,7 +9,7 @@
 ("C-u" pop-to-mark-command)
 ("C-q" backward-delete-char)
 ("C--" undo)
-("C-l" iy-go-up-to-char)
+("C-l" iy-go-to-char)
 ("C-h" helm-M-x)
 ("C-z" helm-buffers-list)
 ("C-." helm-resume)
