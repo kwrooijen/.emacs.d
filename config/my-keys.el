@@ -6,7 +6,7 @@
 
 (mapcar (lambda(a) (attic-key (nth 0 a) (nth 1 a))) '(
 ;; Control Keys
-("C-u" backward-delete-char)
+("C-u" pop-to-mark-command)
 ("C-q" backward-delete-char)
 ("C--" undo)
 ("C-l" iy-go-up-to-char)
