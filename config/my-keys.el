@@ -6,10 +6,11 @@
 
 (mapcar (lambda(a) (attic-key (nth 0 a) (nth 1 a))) '(
 ;; Control Keys
+("C-W" kill-rectangle)
+("C-Y" yank-rectangle)
 ("C-u" pop-to-mark-command)
 ("C-q" backward-delete-char)
 ("C--" undo)
-("C-," helm-M-x)
 ("C-l" iy-go-to-char)
 ("C-h" iy-go-to-char-backward)
 ("C-z" helm-buffers-list)
@@ -61,6 +62,7 @@
 ("M-_" redo)
 ("M-C-_" redo)
 ("M-C--" redo)
+("M-x" helm-M-x)
 ))
 
 ;; Key Chord
@@ -133,6 +135,5 @@ t " attic" 'attic-minor-mode-map)
       (read-kbd-macro (car l)) (funcall f))))
 
 ;; Other unset keys
-(global-unset-key "\M-x")
 (global-unset-key "\C-x\C-z")
 (provide 'my-keys)
