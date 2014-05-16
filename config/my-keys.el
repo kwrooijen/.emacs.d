@@ -6,8 +6,8 @@
 
 (mapcar (lambda(a) (attic-key (nth 0 a) (nth 1 a))) '(
 ;; Control Keys
-("C-W" kill-rectangle)
-("C-Y" yank-rectangle)
+("C-S-W" kill-rectangle)
+("C-S-Y" yank-rectangle)
 ("C-u" pop-to-mark-command)
 ("C-q" backward-delete-char)
 ("C--" undo)
