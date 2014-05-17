@@ -102,15 +102,6 @@
 (setq helm-ff-tramp-not-fancy nil)
 ;; Smarter completion for Helm
 (setq helm-ff-smart-completion t)
-;; This function overrides it's original because I want
-;; it to work while in Tramp mode over an ssh connection.
-(defun helm-ff-move-to-first-real-candidate ()
-  "When candidate is an incomplete file name move to first real candidate."
-  (helm-aif (and (helm-file-completion-source-p)
-                 (helm-get-selection))
-      (unless (file-exists-p it)
-        (helm-next-line))))
-
 ;;; Helm configurations END
 
 ;; Smooth Scrolling
@@ -168,7 +159,6 @@
     ("\\.elm\\'"     . haskell-mode)
     ) auto-mode-alist))
 
-(if (getenv "DISPLAY")
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -199,4 +189,6 @@
  '(web-mode-html-tag-bracket-face ((t (:foreground "color-244"))))
  '(web-mode-html-tag-face ((t (:foreground "color-244"))))
  '(web-mode-symbol-face ((t (:foreground "color-69")))))
-)
+
+(set-face-background 'default "#1c1c1c")
+(set-face-foreground 'default "#e5e3e3")
