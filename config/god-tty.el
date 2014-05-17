@@ -43,5 +43,7 @@
 
 (define-key god-local-mode-map (kbd "g") 'god-g)
 
-(define-key attic-minor-mode-map (kbd "ESC") 'god-mode-enable)
+;(define-key attic-minor-mode-map (kbd "ESC") 'god-mode-enable)
+;(define-key isearch-mode-map (kbd "ESC") 'god-mode-enable)
+;(define-key minibuffer-local-map (kbd "ESC") 'keyboard-quit)
 (provide 'god-tty)

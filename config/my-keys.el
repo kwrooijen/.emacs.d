@@ -66,7 +66,7 @@
 
 ;; Key Chord
 (key-chord-define-global ";;" 'god-mode-enable)
-(key-chord-define isearch-mode-map ";;" 'isearch-abort)
+(key-chord-define isearch-mode-map ";;" 'god-mode-enable)
 (key-chord-define insert-mode-map "gg" 'god-g)
 (key-chord-define insert-mode-map "xs"
     (lambda() (interactive)

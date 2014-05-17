@@ -96,6 +96,8 @@
 )
 
 (defun god-mode-enable () (interactive)
+  (if isearch-mode
+      (isearch-abort))
   (if god-local-mode
       (keyboard-escape-quit-mc))
   (keyboard-escape-quit)
