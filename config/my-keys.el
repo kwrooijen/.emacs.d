@@ -2,7 +2,9 @@
 (defvar insert-mode-map (make-keymap) "insert-mode keymap.")
 
 (defun attic-key(key function)
-  (define-key attic-minor-mode-map (kbd key) function))
+  (define-key attic-minor-mode-map (kbd key) function)
+  (global-set-key (kbd key) function)
+)
 
 (mapcar (lambda(a) (attic-key (nth 0 a) (nth 1 a))) '(
 ;; Control Keys
@@ -48,21 +50,23 @@
 ("C-c C-z C-p" (lambda() (interactive) (run-make "stop")))
 ("C-c C-z C-r" (lambda() (interactive) (run-make "restart")))
 ("C-c C-z C-t" (lambda() (interactive) (run-make "test")))
+
+;; Meta keys
+("M-x"   helm-M-x)
+("M-q"   backward-kill-word)
+("M-+"   align-regexp)
+("M-@"   er/expand-region)
+("M-k"   kill-this-buffer)
+("M-P"   mc/mark-previous-like-this)
+("M-N"   mc/mark-next-like-this)
+("M-*"   mc/mark-all-like-this)
+("M-j"   (lambda() (interactive) (join-line -1)))
+("M-g"   goto-line)
+("M-_"   redo)
+("M-C-_" redo)
+("M-C--" redo)
 ))
 
-(global-set-key (kbd "M-x")   'helm-M-x)
-(global-set-key (kbd "M-q")   'backward-kill-word)
-(global-set-key (kbd "M-+")   'align-regexp)
-(global-set-key (kbd "M-@")   'er/expand-region)
-(global-set-key (kbd "M-k")   'kill-this-buffer)
-(global-set-key (kbd "M-P")   'mc/mark-previous-like-this)
-(global-set-key (kbd "M-N")   'mc/mark-next-like-this)
-(global-set-key (kbd "M-*")   'mc/mark-all-like-this)
-(global-set-key (kbd "M-j")   '(lambda() (interactive) (join-line -1)))
-(global-set-key (kbd "M-g")   'goto-line)
-(global-set-key (kbd "M-_")   'redo)
-(global-set-key (kbd "M-C-_") 'redo)
-(global-set-key (kbd "M-C--") 'redo)
 
 ;; Key Chord
 (key-chord-define-global ";;" 'god-mode-enable)
