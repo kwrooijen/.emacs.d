@@ -6,7 +6,6 @@
 (require 'helm-swoop)
 (require 'god-mode)
 (require 'multiple-cursors)
-(require 'workgroups)
 (require 'redo+)
 (require 'auto-complete-config)
 
@@ -15,7 +14,6 @@
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
 (multiple-cursors-mode 1)
-(workgroups-mode 1)
 (show-paren-mode t)
 (window-numbering-mode 1)
 (god-mode)

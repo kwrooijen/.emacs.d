@@ -24,7 +24,6 @@
      powerline
      web-mode
      window-numbering
-     workgroups
      wrap-region
      yasnippet
    ))

@@ -8,8 +8,6 @@
 
 (mapcar (lambda(a) (attic-key (nth 0 a) (nth 1 a))) '(
 ;; Control Keys
-("C-S-W" kill-rectangle)
-("C-S-Y" yank-rectangle)
 ("C-u" pop-to-mark-command)
 ("C-q" backward-delete-char)
 ("C--" undo)
@@ -21,21 +19,21 @@
 ("C-/" comment-or-uncomment-region)
 
 ;; Control Prefix
-("C-x C-f" helm-find-files)
-("C-c C-f" helm-ls-git-ls)
+("C-c C-w" kill-rectangle)
+("C-c C-y" yank-rectangle)
 ("C-c C-o" hoogle-search)
 ("C-c C-t" transpose-paragraphs)
 ("C-c C-m" magit-status)
 ("C-c C-q" kmacro-start-macro)
 ("C-c C-e" kmacro-end-or-call-macro-repeat)
+("C-c C-f" helm-ls-git-ls)
+("C-x C-f" helm-find-files)
 ("C-x C-1" delete-other-windows)
 ("C-x C-2" split-window-below)
 ("C-x C-3" split-window-right)
 ("C-x C-0" delete-window)
 
 ;; Control Prefix 3
-("C-c C-w C-e" load-attic-workgroups)
-("C-c C-w C-w" load-attic-workgroups2)
 ("C-c C-s C-g" helm-do-grep)
 ("C-c C-s C-m" helm-multi-swoop)
 ("C-c C-s C-s" (lambda() (interactive)
@@ -66,7 +64,6 @@
 ("M-C-_" redo)
 ("M-C--" redo)
 ))
-
 
 ;; Key Chord
 (key-chord-define-global ";;" 'god-mode-enable)
