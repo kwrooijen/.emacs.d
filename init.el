@@ -130,15 +130,27 @@
 ;;; Autocomplete / Yasnippet settings END
 
 ;; Hooks
+(defun clean-hook ()
+  (interactive)
+  (god-local-mode 0)
+  (insert-mode 0)
+  (key-chord-mode 0))
+
+(defun key-chord-force ()
+  (interactive)
+  (key-chord-mode 1)
+  (message nil))
+
 (add-hook 'erlang-mode-hook 'erlang-keys-hook)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
-(add-hook 'insert-mode-hook (lambda() (interactive)
-                              (key-chord-mode 1)(message nil)))
-(add-hook 'minibuffer-setup-hook (lambda() (interactive)
-                                   (key-chord-mode 1)(message nil)))
-(add-hook 'isearch-mode-hook (lambda() (interactive)
-                               (key-chord-mode 1)(message nil)))
+(add-hook 'insert-mode-hook 'key-chord-force)
+(add-hook 'minibuffer-setup-hook 'key-chord-force)
+(add-hook 'isearch-mode-hook 'key-chord-force)
+(add-hook 'magit-mode-hook 'clean-hook)
+
+(defadvice ansi-term (after advice-term-line-mode activate)
+  (clean-hook))
 
 ;; Load mode on certain file extensions
 (setq auto-mode-alist (append '(
