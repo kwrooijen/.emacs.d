@@ -48,26 +48,26 @@
 ("C-c C-z C-p" (lambda() (interactive) (run-make "stop")))
 ("C-c C-z C-r" (lambda() (interactive) (run-make "restart")))
 ("C-c C-z C-t" (lambda() (interactive) (run-make "test")))
-
-;; Meta Keys
-("M-q" backward-kill-word)
-("M-+" align-regexp)
-("M-@" er/expand-region)
-("M-k" kill-this-buffer)
-("M-P" mc/mark-previous-like-this)
-("M-N" mc/mark-next-like-this)
-("M-*" mc/mark-all-like-this)
-("M-j" (lambda() (interactive) (join-line -1)))
-("M-g" goto-line)
-("M-_" redo)
-("M-C-_" redo)
-("M-C--" redo)
-("M-x" helm-M-x)
 ))
+
+(global-set-key (kbd "M-x")   'helm-M-x)
+(global-set-key (kbd "M-q")   'backward-kill-word)
+(global-set-key (kbd "M-+")   'align-regexp)
+(global-set-key (kbd "M-@")   'er/expand-region)
+(global-set-key (kbd "M-k")   'kill-this-buffer)
+(global-set-key (kbd "M-P")   'mc/mark-previous-like-this)
+(global-set-key (kbd "M-N")   'mc/mark-next-like-this)
+(global-set-key (kbd "M-*")   'mc/mark-all-like-this)
+(global-set-key (kbd "M-j")   '(lambda() (interactive) (join-line -1)))
+(global-set-key (kbd "M-g")   'goto-line)
+(global-set-key (kbd "M-_")   'redo)
+(global-set-key (kbd "M-C-_") 'redo)
+(global-set-key (kbd "M-C--") 'redo)
 
 ;; Key Chord
 (key-chord-define-global ";;" 'god-mode-enable)
 (key-chord-define isearch-mode-map ";;" 'isearch-abort)
+(key-chord-define insert-mode-map "gg" 'god-g)
 (key-chord-define insert-mode-map "xs"
     (lambda() (interactive)
         (if (string-equal (buffer-name) "*Helm Swoop Edit*")
@@ -81,6 +81,7 @@
 (global-set-key [f7] 'get-current-buffer-major-mode)
 (global-set-key [f1] 'copy-to-clipboard)
 (global-set-key [f2] 'paste-from-clipboard)
+(global-set-key [f3] 'describe-key)
 
 ;; Erlang Keys
 (defun erlang-keys-hook ()
@@ -97,7 +98,6 @@
 (define-key helm-map (kbd "M-b") 'nil)
 (define-key helm-map (kbd "C-f") 'nil)
 (define-key helm-map (kbd "C-b") 'nil)
-(define-key helm-map (kbd "C-g") 'nil)
 (define-key helm-buffer-map (kbd "C-a") 'helm-buffers-toggle-show-hidden-buffers)
 (define-key helm-swoop-map (kbd "M-e") 'helm-swoop-edit)
 
@@ -107,7 +107,7 @@
    (define-key eshell-mode-map (kbd "C-i") 'helm-esh-pcomplete)))
 
 ;; God mode
-(define-key god-local-mode-map (kbd "i")   'god-mode-disable)
+(define-key god-local-mode-map (kbd "i") 'god-mode-disable)
 (define-key god-local-mode-map (kbd "[") (lambda ()
     (interactive) (scroll-down-line 3)))
 (define-key god-local-mode-map (kbd "]") (lambda ()
