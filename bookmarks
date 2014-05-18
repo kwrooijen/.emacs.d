@@ -2,7 +2,13 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("JavaScript"
+(("Home"
+ (filename . "~/")
+ (front-context-string)
+ (rear-context-string . "89 Jan  4 16:11 ")
+ (position . 241))
+
+("JavaScript"
  (filename . "~/Programming/Javascript/")
  (front-context-string)
  (rear-context-string . "89 Jan  4 16:11 ")
