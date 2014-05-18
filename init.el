@@ -133,7 +133,8 @@
   (interactive)
   (god-local-mode 0)
   (insert-mode 0)
-  (key-chord-mode 0))
+  (key-chord-mode 0)
+  (linum-mode 0))
 
 (defun key-chord-force ()
   (interactive)

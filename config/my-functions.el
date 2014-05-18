@@ -7,7 +7,7 @@
 (defun zsht (buffer-name)
   "Start a terminal and rename buffer."
   (interactive "sbuffer name: ")
-  (term "/bin/zsh")
+  (ansi-term "/bin/zsh")
   (rename-buffer (format "%s%s" "$" buffer-name) t))
 
 (defun get-current-buffer-major-mode ()
@@ -142,5 +142,34 @@
     (insert (shell-command-to-string "xsel -o -b"))
     )
   )
+
+(defun command-repeater (list)
+  (interactive)
+  (setq char (string (read-event)))
+  (setq repeater-command (cdr (assoc char list)))
+  (if (or (not (boundp 'repeated-char)) (equal char repeated-char))
+      (progn
+        (if repeater-command
+            (call-interactively repeater-command)
+            (keyboard-quit))
+        (setq repeated-char char)
+        (command-repeater list))
+      (progn
+        (makunbound 'repeated-char)
+        (call-interactively (key-binding (kbd char))))))
+
+(defun helm-swoop-emms ()
+  (interactive)
+  (setq current (current-buffer))
+  (split-window)
+  (other-window 1)
+  (emms-playlist-mode-go)
+  (helm-swoop :$query "")
+  (if (equal helm-exit-status 0)
+      (emms-playlist-mode-play-smart))
+  (delete-window)
+  (switch-to-buffer current)
+  (makunbound 'current))
+
 
 (provide 'my-functions)
