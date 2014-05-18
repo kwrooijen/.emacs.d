@@ -29,6 +29,7 @@
 (require 'my-functions)
 (require 'my-colors)
 (require 'my-keys)
+(require 'my-extras)
 (require 'god-tty)
 
 ;; Tablist

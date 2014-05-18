@@ -19,6 +19,7 @@
         end-of-buffer
         enh-ruby-electric-brace
         erlang-electric-comma
+        eval-last-sexp
         evil-backward-char
         evil-delete
         evil-delete-char
@@ -74,6 +75,7 @@
 
 (setq mc/cmds-to-run-once
       '(
+        emms-pause
         god-g
         god-mode-enable
         goto-line
