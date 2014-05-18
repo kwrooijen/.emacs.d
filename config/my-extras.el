@@ -8,7 +8,7 @@
 (emms-default-players)
 
 ;; Use the Music directory as default playlist
-(emms-add-directory-tree "~/Music")
+(emms-add-directory-tree "~/Music/")
 
 ;; Toggle repeat and shuffle Music playlist
 (emms-toggle-repeat-playlist)

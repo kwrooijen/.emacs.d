@@ -206,5 +206,5 @@
   (makunbound 'final-location)
   (makunbound 'current)
 )
-(helm-swoop-find-files-recursively)
+
 (provide 'my-functions)
