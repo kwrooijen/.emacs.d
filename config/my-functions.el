@@ -1,27 +1,13 @@
-(defun load-attic-workgroups ()
-  (interactive)
-  (setq b (current-buffer))
-  (message "%s" b)
-  (wg-load "~/.emacs.d/workgroups/Attic-1")
-  (switch-to-buffer b))
-
-(defun load-attic-workgroups2 ()
-  (interactive)
-  (setq b (current-buffer))
-  (message "%s" b)
-  (wg-load "~/.emacs.d/workgroups/Attic")
-  (switch-to-buffer b))
-
 (defun zsh (buffer-name)
   "Start a terminal and rename buffer."
   (interactive "sbuffer name: ")
-  (shell)
+  (eshell)
   (rename-buffer (format "%s%s" "$" buffer-name) t))
 
 (defun zsht (buffer-name)
   "Start a terminal and rename buffer."
   (interactive "sbuffer name: ")
-  (term "/bin/zsh")
+  (ansi-term "/bin/zsh")
   (rename-buffer (format "%s%s" "$" buffer-name) t))
 
 (defun get-current-buffer-major-mode ()
@@ -44,15 +30,6 @@
   (linum-mode 0)
   (previous-buffer)
 )
-
-(defun flymake-erlang-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-    'flymake-create-temp-inplace))
-         (local-file (file-relative-name temp-file
-            (file-name-directory buffer-file-name))))
-    (list "~/.emacs.d/plugins/erlangscript" (list local-file))))
-(add-to-list 'flymake-allowed-file-name-masks
-    '("\\.erl\\'" flymake-erlang-init))
 
 (defun ensure-buffer-name-begins-with-exl ()
     "change buffer name to end with slash"
@@ -77,9 +54,14 @@
   (async-shell-command "~/.emacs.d/scripts/cabal-test" "[Haskell Tests]")
 )
 
-(defun run-make ()
+(defun run-make (args)
   (interactive)
-  (async-shell-command "~/.emacs.d/scripts/go-make" "[Make Project]")
+  (async-shell-command (format "~/.emacs.d/scripts/make-script %s" args) "[Make Project]")
+)
+
+(defun guard ()
+  (interactive)
+  (async-shell-command "~/.emacs.d/scripts/my-guard" "[Guard]")
 )
 
 (defun underscores-to-camel-case (str)
@@ -87,40 +69,12 @@
   (interactive "S")
   (apply 'concat (mapcar 'capitalize (split-string str "_"))))
 
-; cmus functions
-
-(defun cmus-pause ()
-  (interactive)
-  (shell-command (format "cmus-remote --pause"))
-)
-
-(defun cmus-volume-down ()
-  (interactive)
-  (shell-command (format "cmus-remote --volume -10%"))
-)
-
-(defun cmus-volume-up ()
-  (interactive)
-  (shell-command (format "cmus-remote --volume +10%"))
-)
-
-(defun cmus-next ()
-  (interactive)
-  (shell-command (format "cmus-remote --next"))
-)
-(defun cmus-previous ()
-  (interactive)
-  (shell-command (format "cmus-remote --prev"))
-)
-
-(defun ca-with-comment (str)
-  (format "%s%s%s" comment-start str comment-end))
-
-
 ; God functions
 
 (defun god-mode-disable () (interactive)
-  (setq god-local-mode nil)
+  (god-local-mode-pause)
+  (unless (minibufferp)
+    (insert-mode 1))
   (if (getenv "TMUX")
     (send-string-to-terminal "\033Ptmux;\033\033]12;Green\007\033\\")
     (send-string-to-terminal "\033]12;Green\007")
@@ -128,8 +82,13 @@
 )
 
 (defun god-mode-enable () (interactive)
-  (setq god-local-mode t)
+  (if isearch-mode
+      (isearch-abort))
+  (if god-local-mode
+      (keyboard-escape-quit-mc))
   (keyboard-escape-quit)
+  (insert-mode 0)
+  (god-local-mode-resume)
   (if (getenv "TMUX")
       (send-string-to-terminal "\033Ptmux;\033\033]12;White\007\033\\")
       (send-string-to-terminal "\033]12;White\007")
@@ -156,23 +115,6 @@
     (send-string-to-terminal (format "\33]50;xft:Monaco:bold:antialias=true:pixelsize=%s\007" font-size))
   )
 )
-
-(defun toggle-linum-gutter ()
-  (interactive)
-  (if (and (boundp 'linum-mode) linum-mode)
-      (progn
-        (interactive)
-        (git-gutter)
-        (setq git-gutter t)
-        (setq linum-mode nil))
-      (progn
-        (interactive)
-        (setq git-gutter-mode nil)
-        (git-gutter:clear)
-        (setq linum-mode t))
-      ))
-
-
 
 (defun copy-to-clipboard ()
   (interactive)
@@ -201,9 +143,33 @@
     )
   )
 
-(defun guard ()
+(defun command-repeater (list)
   (interactive)
-  (async-shell-command "~/.emacs.d/scripts/my-guard" "[Guard]")
-)
+  (setq char (string (read-event)))
+  (setq repeater-command (cdr (assoc char list)))
+  (if (or (not (boundp 'repeated-char)) (equal char repeated-char))
+      (progn
+        (if repeater-command
+            (call-interactively repeater-command)
+            (keyboard-quit))
+        (setq repeated-char char)
+        (command-repeater list))
+      (progn
+        (makunbound 'repeated-char)
+        (call-interactively (key-binding (kbd char))))))
+
+(defun helm-swoop-emms ()
+  (interactive)
+  (setq current (current-buffer))
+  (split-window)
+  (other-window 1)
+  (emms-playlist-mode-go)
+  (helm-swoop :$query "")
+  (if (equal helm-exit-status 0)
+      (emms-playlist-mode-play-smart))
+  (delete-window)
+  (switch-to-buffer current)
+  (makunbound 'current))
+
 
 (provide 'my-functions)

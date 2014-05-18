@@ -1,9 +1,0 @@
-#!/bin/bash
-
-while [ $PWD != "/" ]; do
-    if [ -f Makefile ]; then
-        make
-        exit 0
-    fi
- cd ..
-done

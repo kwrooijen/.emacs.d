@@ -1,0 +1,5 @@
+# -*- mode: erlang-mode -*-
+# name: io
+# key: io
+# --
+io:format("$1")$0

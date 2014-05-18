@@ -1,78 +1,37 @@
-(defvar my-extras-packages
-  '(emms)
-)
-
-(defun my-install-extras-packages ()
-  (interactive)
-  (package-refresh-contents)
-  (mapc #'(lambda (package)
-            (unless (package-installed-p package)
-              (package-install package)))
-        my-extras-packages))
-
-(require 'elim)
-(require 'garak)
 (require 'emms-setup)
-(require 'emms-streams)
-(require 'twittering-mode)
 
-(setq twittering-mode-hook t)
-(add-hook 'twittering-mode-hook 'raw-modes)
-(setq twittering-use-master-password t)
+;; Don't use mplayer, after suspend it crashes and violates your ears
+(setq emms-setup-default-player-list '(emms-player-vlc))
 
-(defun w3m-open-in-new-tab ()
-  (interactive)
-  (w3m-copy-buffer)
-  (w3m-view-this-url)
-)
-
-(defun web ()
-  (interactive)
-  (w3m)
-  (define-key w3m-mode-map (kbd "n")   'w3m-next-anchor)
-  (define-key w3m-mode-map (kbd "p")   'w3m-previous-anchor)
-  (define-key w3m-mode-map (kbd "M-p") 'w3m-scroll-down)
-  (define-key w3m-mode-map (kbd "f")   'w3m-tab-next-buffer)
-  (define-key w3m-mode-map (kbd "b")   'w3m-tab-previous-buffer)
-  (define-key w3m-mode-map (kbd "F")   'w3m-view-next-page)
-  (define-key w3m-mode-map (kbd "B")   'w3m-view-previous-page)
-  (define-key w3m-mode-map (kbd "M-m") 'w3m-open-in-new-tab)
-  (set-face-background 'w3m-header-line-location-content "brightblack")
-  (set-face-background 'w3m-header-line-location-title "brightblack")
-)
-
-(epa-file-enable)
-
+;; Default config for emms
 (emms-standard)
 (emms-default-players)
+
+;; Use the Music directory as default playlist
+(emms-add-directory-tree "~/Music")
+
+;; Toggle repeat and shuffle Music playlist
 (emms-toggle-repeat-playlist)
+(emms-shuffle)
 
-(setq elim-executable "/usr/bin/elim-client")
+;; Adjust volume by 10 on change
+(setq emms-volume-change-amount 10)
 
-
-; Emms
-(define-key attic-minor-mode-map (kbd "C-j C-- C-s") (lambda()
-    (interactive)
-    (emms-play-playlist "~/.emacs.d/emms/radio")))
-
-(define-key attic-minor-mode-map (kbd "C-j C-- C--") 'emms-pause)
-(define-key attic-minor-mode-map (kbd "C-j C-- C-l") 'emms-playlist-mode-go)
-(define-key attic-minor-mode-map (kbd "C-j C-- C-n") 'emms-next)
-(define-key attic-minor-mode-map (kbd "C-j C-- C-p") 'emms-previous)
-
-; Garak Mode
-(define-key garak-mode-map (kbd "\r") nil)
-(define-key garak-mode-map (kbd "M-<RET>") 'lui-send-input)
-
-(setq org-log-done t)
-(setq org-agenda-files
-      (list "~/Documents/org/notes.org"
-            "~/Documents/org/todos.org"
-            "~/Documents/org/LazyCasts.org"
-            ))
-(setenv (concat "GPG_AGENT_INFO" nil))
-(when (file-executable-p "/usr/bin/gpg1") (setq epg-gpg-program "/usr/bin/gpg1"))
-
-
+;; List of commands for emms "C-c C-a C-?"
+;; These command can be repeated by pressing the last
+;; pressed key thanks to command-repeater
+(define-key attic-minor-mode-map (kbd "C-c C-a")
+  (lambda () (interactive) (command-repeater '(
+    ("a" . emms-pause)
+    ("g" . emms-playlist-mode-go)
+    ("n" . emms-next)
+    ("f" . emms-next)
+    ("p" . emms-previous)
+    ("b" . emms-previous)
+    ("w" . emms-volume-raise)
+    ("q" . emms-volume-lower)
+    ("s" . helm-swoop-emms)
+    ("[" . emms-seek-backward)
+    ("]" . emms-seek-forward)))))
 
 (provide 'my-extras)

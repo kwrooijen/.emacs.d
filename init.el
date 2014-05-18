@@ -1,201 +1,177 @@
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (package-initialize)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-  )
-;; List of packages to install
-(defvar my-packages
-  '(
-    sass-mode
-    enh-ruby-mode
-    column-enforce-mode
-    powerline
-    web-mode
-    redo+
-    ace-jump-mode
-    auto-complete
-    coffee-mode
-    elixir-mode
-    expand-region
-    god-mode
-    haskell-mode
-    helm
-    helm-ls-git
-    helm-swoop
-    js2-mode
-    magit
-    multiple-cursors
-    rainbow-delimiters
-    sr-speedbar
-    undo-tree
-    workgroups
-    wrap-region
-    yasnippet
-    zencoding-mode
-    git-commit-mode
-    git-rebase-mode
-    gitconfig-mode
-    gitignore-mode
-    iy-go-to-char
-    erlang
-    flymake-haskell-multi
-    window-numbering
-    elixir-yasnippets
-    ))
-
-(defun my-install-packages ()
-  (interactive)
-  (package-refresh-contents)
-  (mapc #'(lambda (package)
-            (unless (package-installed-p package)
-              (package-install package)))
-        my-packages))
-
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-
 (add-to-list 'load-path "~/.emacs.d/config")
-(let ((default-directory "~/.emacs.d/plugins/"))
-  (normal-top-level-add-subdirs-to-load-path))
-
-(require 'tramp)
+(require 'my-packages)
 (require 'helm)
 (require 'helm-ls-git)
 (require 'helm-swoop)
-(require 'auto-complete)
-(require 'misc)
-(require 'haskell-mode-autoloads)
-(require 'sr-speedbar)
-(require 'flymake)
+(require 'god-mode)
 (require 'multiple-cursors)
-(require 'workgroups)
-(require 'erlang-start)
-(require 'web-mode)
+(require 'redo+)
+(require 'auto-complete-config)
 
-;;My configurations
-;;By default my-extras.el is disabled.
-(require 'my-requires)
+;; Modes
+(tool-bar-mode 0)
+(menu-bar-mode 0)
+(scroll-bar-mode 0)
+(multiple-cursors-mode 1)
+(show-paren-mode t)
+(window-numbering-mode 1)
+(god-mode)
+(global-rainbow-delimiters-mode)
+(yas-global-mode 1)
+(global-auto-complete-mode t)
+(global-hl-line-mode t)
+(global-linum-mode t)
+(wrap-region-global-mode t)
+(key-chord-mode 1)
 
-;;Best splash screen ever
-;;(setq initial-buffer-choice "~/.emacs.d/splash/doge.splash")
+;; My configurations
+(require 'my-functions)
+(require 'my-colors)
+(require 'my-keys)
+(require 'my-extras)
+(require 'god-tty)
 
-;; DejaVu font
-(if (member "DejaVu" (font-family-list))
-     (set-face-attribute
-      'default nil :font "DejaVu Sans Mono 14"))
+;; Tablist
+(setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68
+                        72 76 80 84 88 92 96 100 104 108 112 116 120))
 
- ;;Don't move speedbar
-(sr-speedbar-window-dedicated-only-one-p)
-;;Open speedbar at startup
-(sr-speedbar-open)
-;;Close it again or else it will duplicate when loading workgroup
-(sr-speedbar-close)
-;;Load my custom workgroup
-;(wg-load "~/.emacs.d/workgroups/Attic")
-
-;;Make mc work better with iy-go-to-char
+;; Make mc work better with iy-go-to-char
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
 
-;;Always display 2 columns in linum mode (no stuttering)
-'(linum-format (quote "%2d"))
+;; Always display 2 columns in linum mode (no stuttering)
+(setq linum-format (quote "%3d "))
 
-;;Allow upcase-region and downcase-region functions
+;; Allow upcase-region and downcase-region functions
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-;;Prevent Extraneous Tabs
+;; Prevent Extraneous Tabs
 (setq-default indent-tabs-mode nil)
 
-;;No confirmation when creating new buffer
+;; No confirmation when creating new buffer
 (setq confirm-nonexistent-file-or-buffer nil)
 
-;;Backup ~ files in seperate directory
+;; Backup ~ files in seperate directory
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
-;;No splash screen
-(setq inhibit-startup-message t)
-
- ;;Don't resize minibuffer
+;; Don't resize minibuffer
 (setq resize-mini-windows nil)
 
-;;Don't ask when creating new buffer
+;; Don't ask when creating new buffer
 (setq confirm-nonexistent-file-or-buffer nil)
 
-;;No animation when loading workgroups
+;; No animation when loading workgroups
 (setq wg-morph-on nil)
 
-;;y / n instead of yes / no
+;; y / n instead of yes / no
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;;ido for rinari until I find a helm alternative
-(setq
-  ido-ignore-buffers
-  '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
-    "^\*compilation" "^\*GTAGS" "^session\.*" ".newsrc-dribble"
-    "^\*scr" "^\*" "notes.org" "todos.org" "*.hi" "*.o")
-  ido-enable-flex-matching t)
+;; follow symlinks and don't ask
+(setq vc-follow-symlinks t)
 
-;;Load mode on certain file extensions
+;; Scroll all the way to the bottom with C-v
+(setq scroll-error-top-bottom t)
+
+;; Hide startup message
+(setq inhibit-startup-message t)
+
+;; Show nothing in *scratch* when started
+(setq initial-scratch-message nil)
+
+;; Reread a TAGS table without querying, if it has changed.
+(setq tags-revert-without-query t)
+
+;; Let C-v M-v brings back where you were.
+(setq scroll-preserve-screen-position t)
+
+;;; Helm configurations START
+;; Don't ask to create new file
+(setq helm-ff-newfile-prompt-p nil)
+(setq helm-grep-default-recurse-command
+      "grep --exclude-dir=\"dist\" -a -d recurse %e -n%cH -e %p %f")
+(setq helm-reuse-last-window-split-state t)
+(setq helm-ff-transformer-show-only-basename nil)
+;; Split window down
+(setq helm-split-window-in-side-p t)
+;; Split when multiple windows open
+(setq helm-swoop-split-with-multiple-windows t)
+;; Show relative path
+(setq helm-ls-git-show-abs-or-relative 'relative)
+;; Show colors in Tramp mode
+(setq helm-ff-tramp-not-fancy nil)
+;; Smarter completion for Helm
+(setq helm-ff-smart-completion t)
+;;; Helm configurations END
+
+;; Smooth Scrolling
+(setq redisplay-dont-pause t
+      scroll-margin 1
+      scroll-conservatively 10000)
+
+;;; Autocomplete / Yasnippet settings START
+;; Add auto complete to these modes
+(add-to-list 'ac-modes 'erlang-mode)
+(add-to-list 'ac-modes 'haskell-mode)
+(add-to-list 'ac-modes 'js2-mode)
+(add-to-list 'ac-modes 'web-mode)
+
+;; Autocomplete default config
+(ac-config-default)
+;; Use auto complete menu
+(setq ac-use-menu-map t)
+;; Show menu instantly
+(setq ac-auto-show-menu 0.0)
+;; Add yasnippets to menu
+(defadvice ac-common-setup (after give-yasnippet-highest-priority activate)
+    (setq ac-sources (delq 'ac-source-yasnippet ac-sources))
+      (add-to-list 'ac-sources 'ac-source-yasnippet))
+;;; Autocomplete / Yasnippet settings END
+
+;; Hooks
+(defun clean-hook ()
+  (interactive)
+  (god-local-mode 0)
+  (insert-mode 0)
+  (key-chord-mode 0)
+  (linum-mode 0))
+
+(defun key-chord-force ()
+  (interactive)
+  (key-chord-mode 1)
+  (message nil))
+
+(add-hook 'erlang-mode-hook 'erlang-keys-hook)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
+(add-hook 'insert-mode-hook 'key-chord-force)
+(add-hook 'minibuffer-setup-hook 'key-chord-force)
+(add-hook 'isearch-mode-hook 'key-chord-force)
+(add-hook 'magit-mode-hook 'clean-hook)
+
+(defadvice ansi-term (after advice-term-line-mode activate)
+  (clean-hook))
+
+;; Load mode on certain file extensions
 (setq auto-mode-alist (append '(
-    ("\\.tpl\\'"   . web-mode)
-    ("\\.dtl\\'"   . web-mode)
-    ("\\.app.src\\'"   . erlang-mode)
-    ("\\.erb\\'"   . web-mode)
-    ("\\.css\\'"   . css-mode)
-    ("\\.scss\\'"   . sass-mode)
-    ("\\.scss\\'"   . sass-mode)
-    ("\\.less\\'"   . sass-mode)
-    ("\\.rb$"      . enh-ruby-mode)
-    ("\\.rake$"    . enh-ruby-mode)
-    ("Rakefile$"   . enh-ruby-mode)
-    ("\\.gemspec$" . enh-ruby-mode)
-    ("\\.ru$"      . enh-ruby-mode)
-    ("Gemfile$"    . enh-ruby-mode)
-    ("\\.js\\'"    . js2-mode)
-    ("\\.elm\\'"   . haskell-mode)
-    (".splash"     . (lambda()
-        (lisp-interaction-mode)
-        (read-only-mode)
-        (set (make-local-variable 'linum-mode) nil)
-        ))
+    ("\\.tpl\\'"     . web-mode)
+    ("\\.dtl\\'"     . web-mode)
+    ("\\.app.src\\'" . erlang-mode)
+    ("\\.erb\\'"     . web-mode)
+    ("\\.css\\'"     . css-mode)
+    ("\\.scss\\'"    . sass-mode)
+    ("\\.scss\\'"    . sass-mode)
+    ("\\.less\\'"    . sass-mode)
+    ("\\.rb$"        . enh-ruby-mode)
+    ("\\.rake$"      . enh-ruby-mode)
+    ("Rakefile$"     . enh-ruby-mode)
+    ("\\.gemspec$"   . enh-ruby-mode)
+    ("\\.ru$"        . enh-ruby-mode)
+    ("Gemfile$"      . enh-ruby-mode)
+    ("\\.js\\'"      . js2-mode)
+    ("\\.elm\\'"     . haskell-mode)
     ) auto-mode-alist))
 
-;And all the emacs auto adjustments
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector ["#111111" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
- '(auth-source-save-behavior nil)
- '(coffee-tab-width 4)
- '(custom-safe-themes (quote ("0a1eb1fb7c716c0eced08572fa5477e6cf80d145167590ab5a00697678b14c30" "dc3d6a554b626775e02c17da54e7b7f9378ccfd3cbadab62397f8a6ddf33490f" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "eecdec02a43c2dfdf388d7d27cb00af310b350d4ea6f923ebc82197d348cf383" default)))
- '(dirtree-windata (quote (frame left 0.15 delete)))
- '(fci-rule-color "#383838")
- '(global-hl-line-mode t)
- '(haskell-indentation-layout-offset 4)
- '(haskell-indentation-left-offset 4)
- '(haskell-indentation-where-post-offset 4)
- '(haskell-mode-hook (quote (turn-on-haskell-indentation turn-on-font-lock turn-on-haskell-doc-mode auto-complete-mode wrap-region-mode imenu-add-menubar-index flymake-haskell-multi-load)))
- '(helm-ff-newfile-prompt-p nil)
- '(helm-grep-default-recurse-command "grep --exclude-dir=\"dist\" -a -d recurse %e -n%cH -e %p %f")
- '(helm-reuse-last-window-split-state t)
- '(helm-split-window-in-side-p t)
- '(helm-swoop-split-with-multiple-windows t)
- '(js2-strict-missing-semi-warning nil)
- '(scroll-error-top-bottom t)
- '(send-mail-function (quote smtpmail-send-it))
- '(smtpmail-smtp-server "smtp.gmail.com")
- '(smtpmail-smtp-service 587)
- '(speedbar-default-position (quote left))
- '(speedbar-show-unknown-files t)
- '(sr-speedbar-right-side nil)
- '(sr-speedbar-skip-other-window-p t)
- '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
- '(vc-annotate-background "#2B2B2B")
- '(vc-annotate-color-map (quote ((20 . "#BC8383") (40 . "#CC9393") (60 . "#DFAF8F") (80 . "#D0BF8F") (100 . "#E0CF9F") (120 . "#F0DFAF") (140 . "#5F7F5F") (160 . "#7F9F7F") (180 . "#8FB28F") (200 . "#9FC59F") (220 . "#AFD8AF") (240 . "#BFEBBF") (260 . "#93E0E3") (280 . "#6CA0A3") (300 . "#7CB8BB") (320 . "#8CD0D3") (340 . "#94BFF3") (360 . "#DC8CC3"))))
- '(vc-annotate-very-old-color "#DC8CC3")
- '(vc-follow-symlinks t)
- '(wg-mode-line-on nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -203,11 +179,20 @@
  ;; If there is more than one, they won't work right.
  '(erm-syn-errline ((t (:foreground "red" :box (:line-width 1 :color "red") :underline "red"))))
  '(erm-syn-warnline ((t (:foreground "yellow" :box (:line-width 1 :color "yellow") :underline "yellow"))))
- '(flymake-errline ((t (:underline "red"))))
- '(flymake-warnline ((((class color)) (:underline "yellow"))))
+ '(flymake-errline ((t (:foreground "red" :underline "red"))) t)
+ '(flymake-warnline ((((class color)) (:foreground "yellow" :underline "yellow"))) t)
+ '(flyspell-incorrect ((t (:underline (:color "red" :style wave)))) t)
+ '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "#707070"))))
+ '(font-lock-comment-face ((t (:foreground "#707070"))))
+ '(font-lock-type-face ((t (:foreground "#145e74"))))
  '(helm-ff-directory ((t (:background "color-233" :foreground "cyan"))))
  '(helm-ff-file ((t (:inherit default))))
+ '(helm-swoop-target-line-block-face ((t (:background "color-240" :foreground "#FFF"))))
+ '(helm-swoop-target-line-face ((t (:background "color-240" :foreground "#FFF"))))
+ '(helm-swoop-target-word-face ((t (:background "#7700ff" :foreground "#fff"))))
  '(hl-line ((t (:inherit highlight :background "color-234"))))
+ '(linum ((t (:inherit (shadow default) :background "grey22" :foreground "#8FB28F"))))
+ '(magit-branch ((t (:background "#111111"))) t)
  '(region ((t (:background "color-240" :foreground "#FFF"))))
  '(show-paren-match ((t (:background "color-239" :foreground "#7CB8BB" :weight bold))))
  '(web-mode-block-attr-name-face ((t (:foreground "color-244"))))
@@ -218,8 +203,5 @@
  '(web-mode-html-tag-face ((t (:foreground "color-244"))))
  '(web-mode-symbol-face ((t (:foreground "color-69")))))
 
-(setq redisplay-dont-pause t
-  scroll-margin 1
-  scroll-step 1
-  scroll-conservatively 10000
-  scroll-preserve-screen-position 1)
+(set-face-background 'default "#1c1c1c")
+(set-face-foreground 'default "#e5e3e3")
