@@ -7,6 +7,9 @@
 )
 
 (mapcar (lambda(a) (attic-key (nth 0 a) (nth 1 a))) '(
+
+("<escape>" god-mode-enable)
+
 ;; Control Keys
 ("C-u" pop-to-mark-command)
 ("C-q" backward-delete-char)
@@ -69,7 +72,8 @@
 (key-chord-define-global ";;" 'god-mode-enable)
 (key-chord-define isearch-mode-map ";;" 'god-mode-enable)
 (key-chord-define helm-map ";;" 'helm-keyboard-quit)
-(key-chord-define insert-mode-map "gg" 'god-g)
+(define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
+
 (key-chord-define insert-mode-map "xs"
     (lambda() (interactive)
         (if (string-equal (buffer-name) "*Helm Swoop Edit*")
