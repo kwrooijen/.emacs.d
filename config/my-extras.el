@@ -15,7 +15,7 @@
 (emms-shuffle)
 
 ;; Adjust volume by 10 on change
-(setq emms-volume-change-amount 10)
+(setq emms-volume-change-amount 5)
 
 ;; List of commands for emms "C-c C-a C-?"
 ;; These command can be repeated by pressing the last

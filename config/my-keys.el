@@ -69,9 +69,12 @@
 ))
 
 ;; Key Chord
-(key-chord-define-global ";;" 'god-mode-enable)
-(key-chord-define isearch-mode-map ";;" 'god-mode-enable)
-(key-chord-define helm-map ";;" 'helm-keyboard-quit)
+(unless window-system
+    (key-chord-define-global ";;" 'god-mode-enable)
+    (key-chord-define isearch-mode-map ";;" 'god-mode-enable)
+    (key-chord-define helm-map ";;" 'helm-keyboard-quit)
+)
+
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
 
 (key-chord-define insert-mode-map "xs"

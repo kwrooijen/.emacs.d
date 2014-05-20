@@ -75,9 +75,10 @@
   (god-local-mode-pause)
   (unless (minibufferp)
     (insert-mode 1))
-  (if (getenv "TMUX")
-    (send-string-to-terminal "\033Ptmux;\033\033]12;Green\007\033\\")
-    (send-string-to-terminal "\033]12;Green\007")
+  (unless window-system
+      (if (getenv "TMUX")
+        (send-string-to-terminal "\033Ptmux;\033\033]12;Green\007\033\\")
+        (send-string-to-terminal "\033]12;Green\007"))
   )
 )
 
@@ -89,10 +90,11 @@
   (keyboard-escape-quit)
   (insert-mode 0)
   (god-local-mode-resume)
-  (if (getenv "TMUX")
-      (send-string-to-terminal "\033Ptmux;\033\033]12;White\007\033\\")
-      (send-string-to-terminal "\033]12;White\007")
-      )
+  (unless window-system
+      (if (getenv "TMUX")
+          (send-string-to-terminal "\033Ptmux;\033\033]12;White\007\033\\")
+          (send-string-to-terminal "\033]12;White\007"))
+  )
 )
 
 (defun keyboard-escape-quit-mc () (interactive)
