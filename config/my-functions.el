@@ -154,13 +154,26 @@
   (if (or (not (boundp 'repeated-char)) (equal char repeated-char))
       (progn
         (if repeater-command
-            (call-interactively repeater-command)
+            (funcall repeater-command)
             (keyboard-quit))
         (setq repeated-char char)
         (command-repeater list))
       (progn
         (makunbound 'repeated-char)
         (call-interactively (key-binding (kbd char))))))
+
+(defun god-g ()
+  (interactive)
+  (setq char (string (read-event)))
+  (if (or (not (boundp 'repeated-char)) (equal char repeated-char))
+      (progn
+        (call-interactively (key-binding (kbd (format "M-%s" char))))
+        (setq repeated-char char)
+        (god-g))
+      (progn
+        (makunbound 'repeated-char)
+        (call-interactively (key-binding (kbd char)))
+        )))
 
 (defun helm-swoop-emms ()
   (interactive)

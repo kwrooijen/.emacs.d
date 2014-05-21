@@ -8,11 +8,12 @@
 (require 'multiple-cursors)
 (require 'redo+)
 (require 'auto-complete-config)
-
+(require 'git-gutter-fringe)
 ;; Modes
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
+(blink-cursor-mode 0)
 (multiple-cursors-mode 1)
 (show-paren-mode t)
 (window-numbering-mode 1)
@@ -31,8 +32,6 @@
 (require 'my-colors)
 (require 'my-keys)
 (require 'my-extras)
-(require 'god-tty)
-(require 'git-gutter-fringe)
 
 ;; Font for X
 (set-default-font "DeJaVu Sans Mono-12:weight=bold")
@@ -91,9 +90,10 @@
 (setq scroll-preserve-screen-position t)
 
 ;;; Fringe
-(setq fringe-mode 'left-only)
-(setq-default right-fringe-width 0)
+;; Add boundaries to the left Fringe
 (setq default-indicate-buffer-boundaries '((top . left) (t . left)))
+;; Left Fringe only
+(set-fringe-mode '(8 . 0))
 
 ;;; Helm configurations START
 ;; Don't ask to create new file
@@ -158,7 +158,7 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'dired-mode-hook  'ensure-buffer-name-begins-with-exl)
 (add-hook 'magit-mode-hook  'clean-hook)
-(add-hook 'insert-mode-hook      'key-chord-force)
+(add-hook 'insert-mode-hook 'key-chord-force)
 (unless window-system
   (add-hook 'minibuffer-setup-hook 'key-chord-force)
   (add-hook 'isearch-mode-hook     'key-chord-force)
@@ -204,8 +204,9 @@
  '(helm-swoop-target-line-face ((t (:background "#585858" :foreground "#FFF"))))
  '(helm-swoop-target-word-face ((t (:background "#7700ff" :foreground "#fff"))))
  '(hl-line ((t (:inherit highlight :background "#303030"))))
+ '(fringe ((t (:background "#383838" :foreground "#DCDCCC"))))
  '(linum ((t (:inherit (shadow default) :background "#383838" :foreground "#8FB28F"))))
- '(magit-branch ((t (:background "#111111"))) t)
+ '(magit-branch ((t (:background "#111111"))))
  '(region ((t (:background "#585858" :foreground "#FFF"))))
  '(show-paren-match ((t (:background "#4e4e4e" :foreground "#7CB8BB" :weight bold))))
  '(vertical-border ((t (:background "#383838" :foreground "#383838"))))

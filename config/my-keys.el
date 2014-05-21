@@ -84,8 +84,6 @@
         (god-mode-enable)
         (save-buffer)))
 
-(define-key mc/keymap (kbd "M-g") 'keyboard-escape-quit-mc)
-
 ;; Other Keys
 (global-set-key [f7] 'get-current-buffer-major-mode)
 (global-set-key [f1] 'copy-to-clipboard)
@@ -116,6 +114,7 @@
    (define-key eshell-mode-map (kbd "C-i") 'helm-esh-pcomplete)))
 
 ;; God mode
+(define-key god-local-mode-map (kbd "g") 'god-g)
 (define-key god-local-mode-map (kbd "i") 'god-mode-disable)
 (define-key god-local-mode-map (kbd "[") (lambda ()
     (interactive) (scroll-down-line 3)))
