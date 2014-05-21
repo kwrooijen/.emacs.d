@@ -24,6 +24,7 @@
 (global-linum-mode t)
 (wrap-region-global-mode t)
 (key-chord-mode 1)
+(global-git-gutter-mode t)
 
 ;; My configurations
 (require 'my-functions)
@@ -89,12 +90,10 @@
 ;; Let C-v M-v brings back where you were.
 (setq scroll-preserve-screen-position t)
 
-;; Fringe
+;;; Fringe
 (setq fringe-mode 'left-only)
 (setq-default right-fringe-width 0)
 (setq default-indicate-buffer-boundaries '((top . left) (t . left)))
-(global-git-gutter-mode t)
-
 
 ;;; Helm configurations START
 ;; Don't ask to create new file
@@ -159,8 +158,8 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'dired-mode-hook  'ensure-buffer-name-begins-with-exl)
 (add-hook 'magit-mode-hook  'clean-hook)
+(add-hook 'insert-mode-hook      'key-chord-force)
 (unless window-system
-  (add-hook 'insert-mode-hook      'key-chord-force)
   (add-hook 'minibuffer-setup-hook 'key-chord-force)
   (add-hook 'isearch-mode-hook     'key-chord-force)
 )
@@ -209,6 +208,7 @@
  '(magit-branch ((t (:background "#111111"))) t)
  '(region ((t (:background "#585858" :foreground "#FFF"))))
  '(show-paren-match ((t (:background "#4e4e4e" :foreground "#7CB8BB" :weight bold))))
+ '(vertical-border ((t (:background "#383838" :foreground "#383838"))))
  '(web-mode-block-attr-name-face ((t (:foreground "#808080"))))
  '(web-mode-html-attr-custom-face ((t (:foreground "#b2b2b2"))))
  '(web-mode-html-attr-equal-face ((t (:foreground "#b2b2b2"))))
