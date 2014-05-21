@@ -25,8 +25,9 @@
 (global-linum-mode t)
 (wrap-region-global-mode t)
 (key-chord-mode 1)
-(global-git-gutter-mode t)
-
+(if window-system
+    (global-git-gutter-mode t)
+)
 ;; My configurations
 (require 'my-functions)
 (require 'my-colors)
