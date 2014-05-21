@@ -75,7 +75,8 @@
   (god-local-mode-pause)
   (unless (minibufferp)
     (insert-mode 1))
-  (unless window-system
+  (if window-system
+      (set-cursor-color "green")
       (if (getenv "TMUX")
         (send-string-to-terminal "\033Ptmux;\033\033]12;Green\007\033\\")
         (send-string-to-terminal "\033]12;Green\007"))
@@ -90,7 +91,8 @@
   (keyboard-escape-quit)
   (insert-mode 0)
   (god-local-mode-resume)
-  (unless window-system
+  (if window-system
+      (set-cursor-color "white")
       (if (getenv "TMUX")
           (send-string-to-terminal "\033Ptmux;\033\033]12;White\007\033\\")
           (send-string-to-terminal "\033]12;White\007"))
