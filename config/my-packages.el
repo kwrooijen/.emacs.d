@@ -10,6 +10,7 @@
     emms
     erlang
     expand-region
+    git-gutter-fringe
     god-mode
     hackernews
     haskell-mode

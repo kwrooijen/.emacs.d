@@ -31,6 +31,7 @@
 (require 'my-keys)
 (require 'my-extras)
 (require 'god-tty)
+(require 'git-gutter-fringe)
 
 ;; Font for X
 (set-default-font "DeJaVu Sans Mono-12:weight=bold")
@@ -43,7 +44,7 @@
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
 
 ;; Always display 2 columns in linum mode (no stuttering)
-(setq linum-format (quote "%3d "))
+(setq linum-format (quote "%3d"))
 
 ;; Allow upcase-region and downcase-region functions
 (put 'upcase-region 'disabled nil)
@@ -87,6 +88,13 @@
 
 ;; Let C-v M-v brings back where you were.
 (setq scroll-preserve-screen-position t)
+
+;; Fringe
+(setq fringe-mode 'left-only)
+(setq-default right-fringe-width 0)
+(setq default-indicate-buffer-boundaries '((top . left) (t . left)))
+(global-git-gutter-mode t)
+
 
 ;;; Helm configurations START
 ;; Don't ask to create new file
@@ -188,13 +196,14 @@
  '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "#707070"))))
  '(font-lock-comment-face ((t (:foreground "#707070"))))
  '(font-lock-type-face ((t (:foreground "#145e74"))))
+ '(fringe ((t (:background "#383838" :foreground "#DCDCCC"))))
  '(helm-ff-directory ((t (:background "color-233" :foreground "cyan"))))
  '(helm-ff-file ((t (:inherit default))))
  '(helm-swoop-target-line-block-face ((t (:background "#585858" :foreground "#FFF"))))
  '(helm-swoop-target-line-face ((t (:background "#585858" :foreground "#FFF"))))
  '(helm-swoop-target-word-face ((t (:background "#7700ff" :foreground "#fff"))))
  '(hl-line ((t (:inherit highlight :background "color-234"))))
- '(linum ((t (:inherit (shadow default) :background "grey22" :foreground "#8FB28F"))))
+ '(linum ((t (:inherit (shadow default) :background "#383838" :foreground "#8FB28F"))))
  '(magit-branch ((t (:background "#111111"))) t)
  '(region ((t (:background "#585858" :foreground "#FFF"))))
  '(show-paren-match ((t (:background "color-239" :foreground "#7CB8BB" :weight bold))))
