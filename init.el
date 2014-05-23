@@ -8,7 +8,7 @@
 (require 'multiple-cursors)
 (require 'redo+)
 (require 'auto-complete-config)
-(require 'git-gutter-fringe)
+
 ;; Modes
 (tool-bar-mode 0)
 (menu-bar-mode 0)
@@ -25,9 +25,7 @@
 (global-linum-mode t)
 (wrap-region-global-mode t)
 (key-chord-mode 1)
-(if window-system
-    (global-git-gutter-mode t)
-)
+
 ;; My configurations
 (require 'my-functions)
 (require 'my-colors)
