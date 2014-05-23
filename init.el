@@ -33,7 +33,10 @@
 (require 'my-extras)
 
 ;; Font for X
-(setq default-frame-alist '((font . "DeJaVu Sans Mono-12:weight=bold")))
+(setq default-frame-alist '(
+    (font . "DeJaVu Sans Mono-12:weight=bold")
+    (vertical-scroll-bars . nil)
+))
 
 ;; Tablist
 (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68
@@ -216,7 +219,5 @@
  '(web-mode-html-attr-name-face ((t (:foreground "#b2b2b2"))))
  '(web-mode-html-tag-bracket-face ((t (:foreground "#808080"))))
  '(web-mode-html-tag-face ((t (:foreground "#808080"))))
- '(web-mode-symbol-face ((t (:foreground "#2a55d4")))))
-
-(set-face-background 'default "#1c1c1c")
-(set-face-foreground 'default "#e5e3e3")
+ '(web-mode-symbol-face ((t (:foreground "#2a55d4"))))
+ '(default ((t (:background "#1c1c1c" :foreground "#e5e3e3")))))
