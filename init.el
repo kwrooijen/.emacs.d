@@ -158,6 +158,7 @@
 (add-hook 'dired-mode-hook  'ensure-buffer-name-begins-with-exl)
 (add-hook 'magit-mode-hook  'clean-hook)
 (add-hook 'insert-mode-hook 'key-chord-force)
+(add-hook 'elixir-mode-hook 'god-local-mode)
 (unless window-system
   (add-hook 'minibuffer-setup-hook 'key-chord-force)
   (add-hook 'isearch-mode-hook     'key-chord-force)

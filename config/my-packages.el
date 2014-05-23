@@ -7,6 +7,9 @@
 (defvar my-packages '(
     ace-jump-mode
     auto-complete
+    elixir-mix
+    elixir-mode
+    elixir-yasnippets
     emms
     erlang
     expand-region
