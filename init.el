@@ -29,9 +29,9 @@
 
 ;; Font for X
 (setq default-frame-alist '(
-    (font . "Fira Mono OT-12")
+    (font . "Fira Mono OT-13:weight=bold")
     (vertical-scroll-bars . nil)
-    (line-spacing . 0)
+    (line-spacing . 1)
 ))
 
 ;; Disable Tool bar

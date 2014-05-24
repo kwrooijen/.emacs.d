@@ -20,6 +20,7 @@
 ("C-q" backward-delete-char)
 ("C-u" pop-to-mark-command)
 ("C-z" helm-buffers-list)
+("C-o" vim-o)
 
 ;; Control Prefix
 ("C-c C-e" kmacro-end-or-call-macro-repeat)
@@ -62,7 +63,7 @@
 ("M-g"   goto-line)
 ("M-j"   (lambda() (interactive) (join-line -1)))
 ("M-k"   kill-this-buffer)
-("M-o"   other-window)
+("M-o"   (lambda() (interactive) (vim-o 1)))
 ("M-q"   backward-kill-word)
 ("M-s"   helm-swoop)
 ("M-x"   helm-M-x)

@@ -43,13 +43,6 @@
   (shell-command (format "~/.emacs.d/scripts/erlangscript %s" buffer-file-name))
 )
 
-(defun elixir-keys-hook ()
-  (local-set-key (kbd "C-c C-l") (lambda()
-                                   (interactive)
-                                   (elixir-mode-compile-file)
-                                   (elixir-mode-iex)))
-)
-
 (defun run-haskell-test ()
   (interactive)
   (async-shell-command "~/.emacs.d/scripts/cabal-test" "[Haskell Tests]")
@@ -114,6 +107,15 @@
     (unwind-protect
         ad-do-it
       (fset 'one-window-p (symbol-function 'orig-one-window-p)))))
+
+;; Vim's o key
+(defun vim-o (&optional up)
+  (interactive)
+  (if up (previous-line 1))
+  (end-of-line)
+  (newline-and-indent)
+  (god-mode-disable)
+)
 
 (defun copy-to-clipboard ()
   (interactive)
