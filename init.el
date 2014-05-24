@@ -162,6 +162,7 @@
   (clean-hook))
 
 (add-hook 'erlang-mode-hook 'erlang-keys-hook)
+(add-hook 'elixir-mode-hook 'elixir-keys-hook)
 (add-hook 'c-initialization-hook 'c-keys-hook)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'dired-mode-hook  'ensure-buffer-name-begins-with-exl)

@@ -262,4 +262,14 @@
             (format " ./%s" (file-name-sans-extension (buffer-name))))
     )))
 
+(defun iex-compile ()
+  (interactive)
+  (let ((current (buffer-name)))
+    (elixir-mode-iex)
+    (kill-line 0)
+    (insert (format "c(\"%s\")" current))
+    (comint-send-input)
+  )
+)
+
 (provide 'my-functions)

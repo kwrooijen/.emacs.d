@@ -94,9 +94,16 @@
   (local-set-key (kbd "TAB") 'tab-to-tab-stop)
 )
 
+;; Elixir Keys
+(defun elixir-keys-hook ()
+  (define-key elixir-mode-map (kbd "C-c C-l") 'iex-compile)
+)
+
+;; C Keys
 (defun c-keys-hook ()
   (define-key c-mode-base-map (kbd "C-c C-l") 'execute-c)
 )
+
 ;; Helm keys
 (define-key helm-map (kbd "C-b") 'nil)
 (define-key helm-map (kbd "C-f") 'nil)
