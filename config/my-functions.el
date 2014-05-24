@@ -85,11 +85,6 @@
 )
 
 (defun god-mode-enable () (interactive)
-  (if isearch-mode
-      (isearch-abort))
-  (if god-local-mode
-      (keyboard-escape-quit-mc))
-  (keyboard-escape-quit)
   (insert-mode 0)
   (god-local-mode-resume)
   (if window-system
@@ -98,6 +93,13 @@
           (send-string-to-terminal "\033Ptmux;\033\033]12;White\007\033\\")
           (send-string-to-terminal "\033]12;White\007"))
   )
+)
+
+(defun escape-key () (interactive)
+  (call-interactively (key-binding (kbd "C-g")))
+  (if insert-mode
+    (god-mode-enable)
+    (keyboard-escape-quit-mc))
 )
 
 (defun keyboard-escape-quit-mc () (interactive)

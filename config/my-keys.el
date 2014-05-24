@@ -8,7 +8,7 @@
 
 (mapcar (lambda(a) (attic-key (nth 0 a) (nth 1 a))) '(
 
-("<escape>" god-mode-enable)
+("<escape>" escape-key)
 
 ;; Control Keys
 ("C--" undo)
@@ -82,6 +82,7 @@
 (global-set-key [f1] 'copy-to-clipboard)
 (global-set-key [f2] 'paste-from-clipboard)
 (global-set-key [f3] 'describe-key)
+(global-set-key [f6] 'describe-mode)
 (global-set-key [f7] 'get-current-buffer-major-mode)
 
 ;; Erlang Keys

@@ -76,6 +76,7 @@
 (setq mc/cmds-to-run-once
       '(
         emms-pause
+        escape-key
         god-g
         god-mode-enable
         goto-line
