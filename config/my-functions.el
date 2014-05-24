@@ -255,8 +255,11 @@
 (defun execute-c () (interactive)
   (if (buffer-file-name)
       (progn
-        (shell-command (format "gcc %s -o emacs-temp-c-file" (buffer-file-name)))
-        (async-shell-command " ./emacs-temp-c-file")
-        (shell-command (format "rm emacs-temp-c-file")))))
+        (shell-command (format "gcc -g -o %s %s"
+            (file-name-sans-extension (buffer-name))
+            (buffer-file-name)))
+        (async-shell-command
+            (format " ./%s" (file-name-sans-extension (buffer-name))))
+    )))
 
 (provide 'my-functions)
