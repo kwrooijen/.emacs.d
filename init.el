@@ -8,6 +8,7 @@
 (require 'helm-swoop)
 (require 'multiple-cursors)
 (require 'redo+)
+
 ;; Modes
 (global-auto-complete-mode t)
 (global-hl-line-mode t)
@@ -29,7 +30,7 @@
 
 ;; Font for X
 (setq default-frame-alist '(
-    (font . "Fira Mono OT-13:weight=bold")
+    (font . "Fira Mono-13:weight=bold")
     (vertical-scroll-bars . nil)
     (line-spacing . 1)
 ))
@@ -225,4 +226,6 @@
  '(web-mode-html-tag-bracket-face ((t (:foreground "#808080"))))
  '(web-mode-html-tag-face ((t (:foreground "#808080"))))
  '(web-mode-symbol-face ((t (:foreground "#2a55d4"))))
+ '(font-lock-constant-face ((t (:foreground "#dc1e6a"))))
+ '(font-lock-doc-face ((t (:foreground "#7c540e"))))
  '(default ((t (:background "#1c1c1c" :foreground "#e5e3e3")))))
