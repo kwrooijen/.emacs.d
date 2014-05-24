@@ -38,9 +38,7 @@
 
 ;; Control Prefix 3
 ("C-c C-s C-f" helm-swoop-find-files-recursively)
-("C-c C-s C-m" helm-multi-swoop)
-("C-c C-s C-s" (lambda() (interactive)
-                 (helm-swoop :$query "")))
+("C-c C-s C-s" helm-multi-swoop)
 ("C-c C-s C-r" (lambda () (interactive)
     (let ((current-prefix-arg '(1)))
       (call-interactively 'helm-do-grep))))
@@ -65,6 +63,7 @@
 ("M-j"   (lambda() (interactive) (join-line -1)))
 ("M-k"   kill-this-buffer)
 ("M-q"   backward-kill-word)
+("M-s"   helm-swoop)
 ("M-x"   helm-M-x)
 ))
 
