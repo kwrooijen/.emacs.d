@@ -10,10 +10,6 @@
 (require 'auto-complete-config)
 
 ;; Modes
-(tool-bar-mode 0)
-(menu-bar-mode 0)
-(scroll-bar-mode 0)
-(blink-cursor-mode 0)
 (multiple-cursors-mode 1)
 (show-paren-mode t)
 (window-numbering-mode 1)
@@ -34,9 +30,18 @@
 
 ;; Font for X
 (setq default-frame-alist '(
-    (font . "DeJaVu Sans Mono-12:weight=bold")
+    (font . "Fira Mono OT-12:weight=bold")
     (vertical-scroll-bars . nil)
 ))
+
+;; Disable Tool bar
+(tool-bar-mode 0)
+;; Disable Menu bar
+(menu-bar-mode 0)
+;; Disable Scroll bar
+(scroll-bar-mode 0)
+;; Disable Blinking cursor
+(blink-cursor-mode 0)
 
 ;; Tablist
 (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68
