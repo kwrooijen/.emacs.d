@@ -29,7 +29,7 @@
 
 ;; Font for X
 (setq default-frame-alist '(
-    (font . "Fira Mono OT-12:weight=bold")
+    (font . "Fira Mono OT-12")
     (vertical-scroll-bars . nil)
     (line-spacing . 0)
 ))
