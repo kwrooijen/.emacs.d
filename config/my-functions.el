@@ -20,10 +20,11 @@
   (if (get-buffer "*Hoogle*")
       (kill-buffer "*Hoogle*"))
   ; get the version of hoogle so I don't have to manually adjust it for each update
-  (shell-command (format "version=`hoogle --version | head -n 1 | awk '{print $2}' | cut -c 2- | rev | cut -c 2- | rev`;
-                          data=\"/databases\";
-                          two=$version$data;
-                          hoogle \"%s\" --data=$HOME/.lazyVault/sandboxes/hoogle/cabal/share/hoogle-$two" query))
+  (shell-command (format "version=`hoogle --version | head -n 1 | awk '{print $2}' |
+    cut -c 2- | rev | cut -c 2- | rev`;
+    data=\"/databases\";
+    two=$version$data;
+    hoogle \"%s\" --data=$HOME/.lazyVault/sandboxes/hoogle/cabal/share/hoogle-$two" query))
   (switch-to-buffer "*Shell Command Output*")
   (rename-buffer "*Hoogle*")
   (haskell-mode)
@@ -112,14 +113,6 @@
         ad-do-it
       (fset 'one-window-p (symbol-function 'orig-one-window-p)))))
 
-(defun fsize (font-size)
-  (interactive "sChoose your destiny: ")
-  (if (getenv "TMUX")
-    (send-string-to-terminal (format "\033Ptmux;\033\33]50;xft:Monaco:bold:antialias=true:pixelsize=%s\007\033\\" font-size))
-    (send-string-to-terminal (format "\33]50;xft:Monaco:bold:antialias=true:pixelsize=%s\007" font-size))
-  )
-)
-
 (defun copy-to-clipboard ()
   (interactive)
   (if (display-graphic-p)
@@ -200,9 +193,9 @@
 
 (defun shell-command-string (x)
   (interactive)
-  (format "find %s | grep -v '#' | grep -v '/\\.' | grep -v '/Downloads' %s %s " x
-    "| grep -v '/Dropbox' | grep -v '/Music' | grep -v '/Videos' | grep -v '/Pictures'"
-    "| grep -v 'ebin' | grep -v 'deps' | grep -v 'dist'")
+  (format "find %s | grep -v '#' | grep -v '/\\.' | grep -v '/Downloads' |
+    grep -v '/Dropbox' | grep -v '/Music' | grep -v '/Videos' | grep -v '/Pictures' |
+    grep -v 'ebin' | grep -v 'deps' | grep -v 'dist'" x)
 )
 
 (defun helm-swoop-find-files-recursively ()
