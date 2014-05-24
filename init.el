@@ -8,7 +8,6 @@
 (require 'helm-swoop)
 (require 'multiple-cursors)
 (require 'redo+)
-
 ;; Modes
 (global-auto-complete-mode t)
 (global-hl-line-mode t)
@@ -32,6 +31,7 @@
 (setq default-frame-alist '(
     (font . "Fira Mono OT-12:weight=bold")
     (vertical-scroll-bars . nil)
+    (line-spacing . 0)
 ))
 
 ;; Disable Tool bar

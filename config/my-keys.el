@@ -37,7 +37,7 @@
 ("C-x C-f" helm-find-files)
 
 ;; Control Prefix 3
-("C-c C-s C-f" 'helm-swoop-find-files-recursively)
+("C-c C-s C-f" helm-swoop-find-files-recursively)
 ("C-c C-s C-m" helm-multi-swoop)
 ("C-c C-s C-s" (lambda() (interactive)
                  (helm-swoop :$query "")))
