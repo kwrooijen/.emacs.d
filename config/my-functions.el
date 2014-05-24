@@ -274,4 +274,26 @@
   )
 )
 
+(defun copy-line (arg)
+  "Copy lines (as many as prefix argument) in the kill ring"
+  (interactive "p")
+  (kill-ring-save (line-beginning-position)
+                  (line-beginning-position (+ 1 arg))))
+
+(defun copy-line-fun (up)
+  (let ((current (current-column)))
+    (copy-line 1)
+    (beginning-of-line)
+    (yank)
+    (if up (previous-line))
+    (forward-char current)))
+
+(defun copy-line-up ()
+  (interactive)
+  (copy-line-fun t))
+
+(defun copy-line-down ()
+  (interactive)
+  (copy-line-fun nil))
+
 (provide 'my-functions)

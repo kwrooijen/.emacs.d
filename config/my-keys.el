@@ -31,6 +31,8 @@
 ("C-c C-t" transpose-paragraphs)
 ("C-c C-w" kill-rectangle)
 ("C-c C-y" yank-rectangle)
+("C-c C-p" copy-line-up)
+("C-c C-n" copy-line-down)
 ("C-x C-0" delete-window)
 ("C-x C-1" delete-other-windows)
 ("C-x C-2" split-window-below)
