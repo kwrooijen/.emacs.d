@@ -11,33 +11,33 @@
 ("<escape>" god-mode-enable)
 
 ;; Control Keys
-("C-u" pop-to-mark-command)
-("C-q" backward-delete-char)
 ("C--" undo)
-("C-l" iy-go-to-char)
-("C-h" iy-go-to-char-backward)
-("C-z" helm-buffers-list)
 ("C-." helm-resume)
-("C-j" ace-jump-mode)
 ("C-/" comment-or-uncomment-region)
+("C-h" iy-go-to-char-backward)
+("C-j" ace-jump-mode)
+("C-l" iy-go-to-char)
+("C-q" backward-delete-char)
+("C-u" pop-to-mark-command)
+("C-z" helm-buffers-list)
 
 ;; Control Prefix
-("C-c C-w" kill-rectangle)
-("C-c C-y" yank-rectangle)
-("C-c C-o" hoogle-search)
-("C-c C-t" transpose-paragraphs)
-("C-c C-m" magit-status)
-("C-c C-q" kmacro-start-macro)
 ("C-c C-e" kmacro-end-or-call-macro-repeat)
 ("C-c C-f" helm-ls-git-ls)
-("C-x C-f" helm-find-files)
+("C-c C-m" magit-status)
+("C-c C-o" hoogle-search)
+("C-c C-q" kmacro-start-macro)
+("C-c C-t" transpose-paragraphs)
+("C-c C-w" kill-rectangle)
+("C-c C-y" yank-rectangle)
+("C-x C-0" delete-window)
 ("C-x C-1" delete-other-windows)
 ("C-x C-2" split-window-below)
 ("C-x C-3" split-window-right)
-("C-x C-0" delete-window)
+("C-x C-f" helm-find-files)
 
 ;; Control Prefix 3
-("C-c C-s C-g" helm-do-grep)
+("C-c C-s C-f" 'helm-swoop-find-files-recursively)
 ("C-c C-s C-m" helm-multi-swoop)
 ("C-c C-s C-s" (lambda() (interactive)
                  (helm-swoop :$query "")))
@@ -46,26 +46,26 @@
       (call-interactively 'helm-do-grep))))
 
 ;; Make keys
-("C-c C-z C-z" (lambda() (interactive) (run-make "")))
-("C-c C-z C-s" (lambda() (interactive) (run-make "start")))
 ("C-c C-z C-p" (lambda() (interactive) (run-make "stop")))
 ("C-c C-z C-r" (lambda() (interactive) (run-make "restart")))
+("C-c C-z C-s" (lambda() (interactive) (run-make "start")))
 ("C-c C-z C-t" (lambda() (interactive) (run-make "test")))
+("C-c C-z C-z" (lambda() (interactive) (run-make "")))
 
 ;; Meta keys
-("M-x"   helm-M-x)
-("M-q"   backward-kill-word)
+("M-*"   mc/mark-all-like-this)
 ("M-+"   align-regexp)
 ("M-@"   er/expand-region)
-("M-k"   kill-this-buffer)
-("M-P"   mc/mark-previous-like-this)
-("M-N"   mc/mark-next-like-this)
-("M-*"   mc/mark-all-like-this)
-("M-j"   (lambda() (interactive) (join-line -1)))
-("M-g"   goto-line)
-("M-_"   redo)
-("M-C-_" redo)
 ("M-C--" redo)
+("M-C-_" redo)
+("M-N"   mc/mark-next-like-this)
+("M-P"   mc/mark-previous-like-this)
+("M-_"   redo)
+("M-g"   goto-line)
+("M-j"   (lambda() (interactive) (join-line -1)))
+("M-k"   kill-this-buffer)
+("M-q"   backward-kill-word)
+("M-x"   helm-M-x)
 ))
 
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
@@ -79,10 +79,10 @@
         (save-buffer)))
 
 ;; Other Keys
-(global-set-key [f7] 'get-current-buffer-major-mode)
 (global-set-key [f1] 'copy-to-clipboard)
 (global-set-key [f2] 'paste-from-clipboard)
 (global-set-key [f3] 'describe-key)
+(global-set-key [f7] 'get-current-buffer-major-mode)
 
 ;; Erlang Keys
 (defun erlang-keys-hook ()
@@ -93,12 +93,13 @@
   (local-set-key (kbd "TAB") 'tab-to-tab-stop)
 )
 
+
 ;; Helm keys
-(define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
-(define-key helm-map (kbd "M-f") 'helm-select-action)
-(define-key helm-map (kbd "M-b") 'nil)
-(define-key helm-map (kbd "C-f") 'nil)
 (define-key helm-map (kbd "C-b") 'nil)
+(define-key helm-map (kbd "C-f") 'nil)
+(define-key helm-map (kbd "M-b") 'nil)
+(define-key helm-map (kbd "M-f") 'helm-select-action)
+(define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-buffer-map (kbd "C-a") 'helm-buffers-toggle-show-hidden-buffers)
 (define-key helm-swoop-map (kbd "M-e") 'helm-swoop-edit)
 

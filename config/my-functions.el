@@ -200,7 +200,9 @@
 
 (defun shell-command-string (x)
   (interactive)
-  (format "find %s | grep -v '#' | grep -v '/\\.' | grep -v '/Downloads' | grep -v '/Dropbox' | grep -v '/Music' | grep -v '/Videos' | grep -v '/Pictures' | grep -v 'ebin'" x)
+  (format "find %s | grep -v '#' | grep -v '/\\.' | grep -v '/Downloads' %s %s " x
+    "| grep -v '/Dropbox' | grep -v '/Music' | grep -v '/Videos' | grep -v '/Pictures'"
+    "| grep -v 'ebin' | grep -v 'deps' | grep -v 'dist'")
 )
 
 (defun helm-swoop-find-files-recursively ()
@@ -211,7 +213,7 @@
   (other-window 1)
   (switch-to-buffer "*helm-find-files-recursively*")
   (erase-buffer)
-  (shell-command (shell-command-string current-dir) -1)
+  (shell-command (shell-command-string (home-directory)) -1)
   (helm-swoop :$query "")
   (if (equal helm-exit-status 0)
         (setq final-location (buffer-substring
