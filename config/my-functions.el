@@ -286,6 +286,7 @@
     (beginning-of-line)
     (yank)
     (if up (previous-line))
+    (beginning-of-line)
     (forward-char current)))
 
 (defun copy-line-up ()
