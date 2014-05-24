@@ -226,4 +226,35 @@
   (makunbound 'current)
 )
 
+(defvar bzg-big-fringe-mode nil)
+(define-minor-mode bzg-big-fringe-mode
+  "Minor mode to use big fringe in the current buffer."
+  :init-value nil
+  :global t
+  :variable bzg-big-fringe-mode
+  :group 'editing-basics
+  (setq default-indicate-buffer-boundaries nil)
+  (if (not bzg-big-fringe-mode)
+      (set-fringe-style nil)
+    (set-fringe-mode
+     (/ (- (frame-pixel-width)
+           (* 100 (frame-char-width)))
+        2)))
+  (redraw-display)
+  )
+
+(defun toggle-big-fringe ()
+  (interactive)
+  (if bzg-big-fringe-mode
+      (progn
+        (bzg-big-fringe-mode 0)
+        (set-fringe-mode '(8 . 0))
+        (setq default-indicate-buffer-boundaries '((top . left) (t . left))))
+      (progn
+        (bzg-big-fringe-mode 1)
+        (setq default-indicate-buffer-boundaries nil))
+      )
+    (split-window)
+    (delete-other-windows))
+
 (provide 'my-functions)
