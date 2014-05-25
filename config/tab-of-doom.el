@@ -57,7 +57,11 @@
               (take-to-column (- prev tab-width))
             (take-to-column 0)
             ))))
-    (move-to-column (+ current (- (get-current-indent) current-indent)))))
+        (let ((new-pos (+ current (- (get-current-indent) current-indent))))
+            (if (>= new-pos  0)
+            (move-to-column new-pos)
+            (move-to-column 0)
+        ))))
 
 (add-hook 'minibuffer-setup-hook (lambda() (tab-of-doom-mode 0)))
 (tab-of-doom-mode 0)
