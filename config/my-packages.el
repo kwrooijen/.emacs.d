@@ -31,6 +31,7 @@
     window-numbering
     wrap-region
     yasnippet
+    zenburn
     ))
 
 (defun my-install-packages ()
