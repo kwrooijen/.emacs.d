@@ -23,10 +23,16 @@
 
 ;; My configurations
 (require 'my-functions)
-(require 'my-colors)
+(require 'my-powerline)
 (require 'my-keys)
 (require 'my-extras)
 (require 'tab-of-doom)
+
+;; Enable Zenburn Theme
+(load-theme 'zenburn t)
+
+; Enable my powerline Theme
+(my-powerline-theme)
 
 ;; Font for X
 (setq default-frame-alist '(

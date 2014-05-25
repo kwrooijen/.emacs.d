@@ -1,5 +1,3 @@
-(load-theme 'zenburn t)
-
 (defpowerline god-mode-bar
  (if mark-active
      (format "[VISUAL]")
@@ -53,8 +51,4 @@
                  (powerline-render rhs)
 ))))))
 
-
-; Enable my theme
-(my-powerline-theme)
-
-(provide 'my-colors)
+(provide 'my-powerline)
