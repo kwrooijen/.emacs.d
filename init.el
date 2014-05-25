@@ -189,11 +189,6 @@
 (add-hook 'ruby-mode-hook       (lambda () (fix-tabs 2)))
 (add-hook 'haskell-mode-hook    (lambda () (fix-tabs 4)))
 
-(unless window-system
-  (add-hook 'minibuffer-setup-hook 'key-chord-force)
-  (add-hook 'isearch-mode-hook     'key-chord-force)
-)
-
 ;; Load mode on certain file extensions
 (setq auto-mode-alist (append '(
     ("\\.less\\'"    . css-mode)
