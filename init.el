@@ -38,7 +38,7 @@
 (setq default-frame-alist '(
     (font . "Fira Mono-12:weight=bold")
     (vertical-scroll-bars . nil)
-    (line-spacing . 2)
+    (line-spacing . 0)
 ))
 
 ;; Disable Tool bar
@@ -132,7 +132,7 @@
 (setq helm-ff-tramp-not-fancy nil)
 ;; Smarter completion for Helm
 (setq helm-ff-smart-completion t)
-;;; Helm configurations END
+;;; Helm configurations END ;;;
 
 ;; Smooth Scrolling
 (setq redisplay-dont-pause t
@@ -177,22 +177,20 @@
 (defun fix-tabs (x)
   (tab-of-doom-mode t)
   (setq tab-width x)
-  (god-local-mode t)
-)
+  (god-local-mode t))
 
-(add-hook 'erlang-mode-hook 'erlang-keys-hook)
-(add-hook 'elixir-mode-hook 'elixir-keys-hook)
+(add-hook 'before-save-hook      'delete-trailing-whitespace)
 (add-hook 'c-initialization-hook 'c-keys-hook)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(add-hook 'dired-mode-hook  'ensure-buffer-name-begins-with-exl)
-(add-hook 'magit-mode-hook  'clean-hook)
-(add-hook 'insert-mode-hook 'key-chord-force)
-(add-hook 'elixir-mode-hook 'god-local-mode)
-(add-hook 'erlang-mode-hook (lambda () (fix-tabs 4)))
+(add-hook 'dired-mode-hook       'ensure-buffer-name-begins-with-exl)
+(add-hook 'elixir-mode-hook      'elixir-keys-hook)
+(add-hook 'erlang-mode-hook      'erlang-keys-hook)
+(add-hook 'insert-mode-hook      'key-chord-force)
+(add-hook 'magit-mode-hook       'clean-hook)
+(add-hook 'erlang-mode-hook     (lambda () (fix-tabs 4)))
 (add-hook 'emacs-lisp-mode-hook (lambda () (fix-tabs 4)))
-(add-hook 'elixir-mode-hook (lambda () (fix-tabs 2)))
-(add-hook 'ruby-mode-hook (lambda () (fix-tabs 2)))
-(add-hook 'haskell-mode-hook (lambda () (fix-tabs 4)))
+(add-hook 'elixir-mode-hook     (lambda () (fix-tabs 2)))
+(add-hook 'ruby-mode-hook       (lambda () (fix-tabs 2)))
+(add-hook 'haskell-mode-hook    (lambda () (fix-tabs 4)))
 
 (unless window-system
   (add-hook 'minibuffer-setup-hook 'key-chord-force)
