@@ -61,6 +61,12 @@
             (backward-char))
             (lambda () (string (char-after (point)))))))
 
+(defun current-end-is (x)
+    (equal x (go-back-with-result-2 (lambda ()
+        (end-of-line)
+        (backward-char))
+        (lambda () (string (char-after (point)))))))
+
 (defun tab-of-doom-region ()
     "Tab of Doom for region selection"
     (return))
@@ -92,6 +98,8 @@
 (defun tab-of-doom ()
     "Tab of doom initial function"
     (interactive)
+    ;(unless (or (prev-end-is ",") (prev-end-is "{") (prev-end-is "["))
+    ;  (progn (indent-for-tab-command) (return)))
     (if mark-active (tab-of-doom-region))
     (if multiple-cursors-mode (tab-of-doom-mc))
     (tab-of-doom-line))
