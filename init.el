@@ -66,6 +66,9 @@
 ;; Always display 2 columns in linum mode (no stuttering)
 (setq linum-format (quote "%3d "))
 
+;; Disable Fringe
+(set-fringe-mode 0)
+
 ;; Allow upcase-region and downcase-region functions
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
