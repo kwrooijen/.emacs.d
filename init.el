@@ -30,9 +30,9 @@
 
 ;; Font for X
 (setq default-frame-alist '(
-    (font . "Fira Mono-13:weight=bold")
+    (font . "Fira Mono-12:weight=bold")
     (vertical-scroll-bars . nil)
-    (line-spacing . 1)
+    (line-spacing . 2)
 ))
 
 ;; Disable Tool bar
@@ -207,7 +207,7 @@
  '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "#707070"))))
  '(font-lock-comment-face ((t (:foreground "#707070"))))
  '(font-lock-constant-face ((t (:foreground "#dc1e6a"))))
- '(font-lock-doc-face ((t (:foreground "#7c540e"))))
+ '(font-lock-doc-face ((t (:foreground "#bc853d"))))
  '(font-lock-type-face ((t (:foreground "#145e74"))))
  '(fringe ((t (:background "#383838" :foreground "#DCDCCC"))))
  '(helm-ff-directory ((t (:background "#121212" :foreground "cyan"))))
