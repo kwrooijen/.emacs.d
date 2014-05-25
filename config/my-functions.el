@@ -89,7 +89,8 @@
 )
 
 (defun escape-key () (interactive)
-  (call-interactively (key-binding (kbd "C-g")))
+  (unless insert-mode
+    (call-interactively (key-binding (kbd "C-g"))))
   (if insert-mode
     (god-mode-enable)
     (keyboard-escape-quit-mc))
@@ -286,8 +287,7 @@
     (beginning-of-line)
     (yank)
     (if up (previous-line))
-    (beginning-of-line)
-    (forward-char current)))
+    (move-to-column current)))
 
 (defun copy-line-up ()
   (interactive)

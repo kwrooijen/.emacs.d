@@ -1,0 +1,46 @@
+(defvar tab-of-doom-mode-map (make-keymap) "tab-of-doom-mode keymap.")
+
+(define-key tab-of-doom-mode-map (kbd "TAB") 'tab-of-doom)
+(define-minor-mode tab-of-doom-mode
+"A minor mode so that my key settings override annoying major modes."
+
+t " ToD" 'tab-of-doom-mode-map)
+
+(defun get-previous-indent ()
+  (let ((previous (current-column)))
+  (previous-line)
+  (back-to-indentation)
+  (let ((result (current-column)))
+    (next-line)
+    (move-to-column previous)
+    result
+    )))
+(defun take-to-column (col)
+  (interactive)
+  (beginning-of-line)
+  (just-one-space 0)
+  (let (c) (-dotimes col (lambda (n) (insert " "))) c)
+  )
+(defun is-prev-comma ()
+    (previous-line)
+    (end-of-line)
+)
+
+(defun tab-of-doom () (interactive)
+    (let ((prev (get-previous-indent)) (current (current-column)))
+    (if (< current prev)
+               (take-to-column  prev)
+           (if (equal current prev)
+               (take-to-column (+ prev tab-width))
+           (if (and (>= current prev) (< current (+ prev tab-width)))
+               (take-to-column (- prev tab-width))
+           (if (>= prev tab-width)
+               (take-to-column (- prev tab-width))
+               (take-to-column 0)
+           ))))
+   ))
+
+(defun tod-minibuffer-setup-hook ()
+    (tab-of-doom-mode 0))
+(add-hook 'minibuffer-setup-hook (lambda() (tab-of-doom-mode 0)))
+(provide 'tab-of-doom)

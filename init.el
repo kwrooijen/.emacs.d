@@ -27,6 +27,7 @@
 (require 'my-colors)
 (require 'my-keys)
 (require 'my-extras)
+(require 'tab-of-doom)
 
 ;; Font for X
 (setq default-frame-alist '(
@@ -165,6 +166,12 @@
 (defadvice ansi-term (after advice-term-line-mode activate)
   (clean-hook))
 
+(defun fix-tabs (x)
+  (tab-of-doom-mode t)
+  (setq tab-width x)
+  (god-local-mode t)
+)
+
 (add-hook 'erlang-mode-hook 'erlang-keys-hook)
 (add-hook 'elixir-mode-hook 'elixir-keys-hook)
 (add-hook 'c-initialization-hook 'c-keys-hook)
@@ -173,7 +180,11 @@
 (add-hook 'magit-mode-hook  'clean-hook)
 (add-hook 'insert-mode-hook 'key-chord-force)
 (add-hook 'elixir-mode-hook 'god-local-mode)
-(add-hook 'emacs-lisp-mode-hook (lambda () (setq tab-width 4)))
+(add-hook 'erlang-mode-hook (lambda () (fix-tabs 4)))
+(add-hook 'emacs-lisp-mode-hook (lambda () (fix-tabs 4)))
+(add-hook 'elixir-mode-hook (lambda () (fix-tabs 2)))
+(add-hook 'ruby-mode-hook (lambda () (fix-tabs 2)))
+(add-hook 'haskell-mode-hook (lambda () (fix-tabs 4)))
 
 (unless window-system
   (add-hook 'minibuffer-setup-hook 'key-chord-force)
