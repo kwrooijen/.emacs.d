@@ -89,16 +89,12 @@
 )
 
 (defun escape-key () (interactive)
-  (unless insert-mode
-    (call-interactively (key-binding (kbd "C-g"))))
-  (if insert-mode
+    (unless (and insert-mode multiple-cursors-mode)
+      (progn
+          (call-interactively (key-binding (kbd "C-g")))
+          (mc/keyboard-quit)
+          (keyboard-escape-quit)))
     (god-mode-enable)
-    (keyboard-escape-quit-mc))
-)
-
-(defun keyboard-escape-quit-mc () (interactive)
-  (mc/keyboard-quit)
-  (keyboard-escape-quit)
 )
 
 (defadvice keyboard-escape-quit (around my-keyboard-escape-quit activate)
