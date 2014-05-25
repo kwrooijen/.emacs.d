@@ -233,7 +233,7 @@
     (set-fringe-mode
      (/ (- (frame-pixel-width)
            (* 100 (frame-char-width)))
-        2)))
+        3)))
   (redraw-display)
   )
 
@@ -242,8 +242,7 @@
   (if bzg-big-fringe-mode
       (progn
         (bzg-big-fringe-mode 0)
-        (set-fringe-mode '(8 . 0))
-        (setq default-indicate-buffer-boundaries '((top . left) (t . left))))
+        (set-fringe-mode 0))
       (progn
         (bzg-big-fringe-mode 1)
         (setq default-indicate-buffer-boundaries nil))

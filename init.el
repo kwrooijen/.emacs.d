@@ -64,7 +64,7 @@
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
 
 ;; Always display 2 columns in linum mode (no stuttering)
-(setq linum-format (quote "%3d"))
+(setq linum-format (quote "%3d "))
 
 ;; Allow upcase-region and downcase-region functions
 (put 'upcase-region 'disabled nil)
@@ -108,12 +108,6 @@
 
 ;; Let C-v M-v brings back where you were.
 (setq scroll-preserve-screen-position t)
-
-;;; Fringe
-;; Add boundaries to the left Fringe
-(setq default-indicate-buffer-boundaries '((top . left) (t . left)))
-;; Left Fringe only
-(set-fringe-mode '(8 . 0))
 
 ;;; Helm configurations START
 ;; Don't ask to create new file
