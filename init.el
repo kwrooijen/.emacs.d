@@ -44,7 +44,10 @@
 ;; Disable Blinking cursor
 (blink-cursor-mode 0)
 
-;; Tablist
+;; Set default tab width to 4
+(setq tab-width 4)
+
+;; Set tab stop list
 (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68
                         72 76 80 84 88 92 96 100 104 108 112 116 120))
 
@@ -170,6 +173,8 @@
 (add-hook 'magit-mode-hook  'clean-hook)
 (add-hook 'insert-mode-hook 'key-chord-force)
 (add-hook 'elixir-mode-hook 'god-local-mode)
+(add-hook 'emacs-lisp-mode-hook (lambda () (setq tab-width 4)))
+
 (unless window-system
   (add-hook 'minibuffer-setup-hook 'key-chord-force)
   (add-hook 'isearch-mode-hook     'key-chord-force)
