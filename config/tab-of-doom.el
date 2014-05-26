@@ -19,6 +19,7 @@
     "Run a function and return it's result.
     And return the cursor to it's original position"
     (let ((previous (point)))
+        (funcall function)
         (let ((result (funcall function2)))
             (goto-char previous)
         result)))
@@ -60,6 +61,25 @@
                 ))
             (backward-char))
             (lambda () (string (char-after (point)))))))
+
+(defun prev-ind-is (x)
+    (equal x (go-back-with-result-2 (lambda ()
+        (previous-line)
+        (end-of-line)
+        (while (equal (current-column) 0)
+            (progn
+                (previous-line)
+                (end-of-line)
+                ))
+            (back-to-indentation))
+            (lambda () (string (char-after (point)))))))
+
+(defun current-ind-is (x)
+    (equal x (go-back-with-result-2
+    'beginning-of-line 'current-char)))
+
+(defun current-char ()
+    (string (char-after (point))))
 
 (defun current-end-is (x)
     (equal x (go-back-with-result-2 (lambda ()
