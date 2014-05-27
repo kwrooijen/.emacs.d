@@ -51,6 +51,8 @@
     (let (c) (-dotimes col (lambda (n) (insert " "))) c))
 
 (defun prev-end-is (x)
+    "Get the last character of the previous line.
+    Keeps going up if no line is found"
     (equal x (go-back-with-result-2 (lambda ()
         (previous-line)
         (end-of-line)
@@ -63,6 +65,8 @@
             (lambda () (string (char-after (point)))))))
 
 (defun prev-ind-is (x)
+    "Get the first character of the previous line.
+    Keeps going up if no line is found"
     (equal x (go-back-with-result-2 (lambda ()
         (previous-line)
         (end-of-line)
@@ -75,6 +79,7 @@
             (lambda () (string (char-after (point)))))))
 
 (defun current-ind-is (x)
+    "Get the first character of the current line"
     (equal x (go-back-with-result-2
     'beginning-of-line 'current-char)))
 
@@ -82,6 +87,7 @@
     (string (char-after (point))))
 
 (defun current-end-is (x)
+    "Get the last character of the current line"
     (equal x (go-back-with-result-2 (lambda ()
         (end-of-line)
         (backward-char))
