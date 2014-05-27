@@ -6,92 +6,85 @@
     "One tabbing mode to rule them all"
     nil " ToD" 'tab-of-doom-mode-map)
 
-(defun go-back-with-result (function)
-    "Run a function and return it's result.
-    And return the cursor to it's original position"
-    (let ((previous (point)))
-        (funcall function)
-        (let ((result (current-column)))
-            (goto-char previous)
-        result)))
+;;;;;;;;;;;;;;;;;;;;;; Utils ;;;;;;;;;;;;;;;;;;;;;;
+(defun get-current-line ()
+    (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
 
-(defun go-back-with-result-2 (function function2)
-    "Run a function and return it's result.
-    And return the cursor to it's original position"
-    (let ((previous (point)))
-        (funcall function)
-        (let ((result (funcall function2)))
-            (goto-char previous)
-        result)))
+(defun point-is (p &rest xs)
+    (--any? (equal t it) (-map (lambda(x) (equal (char-at-point p) x)) xs)))
 
-(defun line-length ()
-    "This function will return the length of a line"
-    (go-back-with-result (lambda ()
-        (end-of-line) (current-column))))
+(defun char-at-point (p) (string (char-after p)))
 
-(defun get-previous-indent ()
-    "Get the column number of the previous line's indent point"
-    (go-back-with-result (lambda()
-        (previous-line)
-        (end-of-line)
-        (while (equal (current-column) 0)
-            (progn (previous-line) (end-of-line)))
-        (back-to-indentation))))
+(defun get-prev-line (&optional recursive)
+    (let ((r (- (point-at-bol) 2)) (result ""))
+        (if recursive (while (point-is r "\n" " ") (setq r (- r 1))))
+        (while (not (equal (char-at-point r) "\n"))
+            (setq result (concat (char-at-point r) result))
+            (setq r (- r 1)))
+        result))
 
-(defun get-current-indent ()
-    "Get the column number of the current line's indent point"
-    (go-back-with-result (lambda ()
-        (back-to-indentation))))
+(defun get-next-line (&optional recursive)
+    (let ((p (+ (point-at-eol) 1)) (result ""))
+        (setq p (recur p))
+          (while (not (equal (char-at-point p) "\n"))
+            (setq result (concat result (char-at-point p)))
+        (setq p (+ p 1))) p
+        result))
+
+(defun recur (p)
+    (if recursive (while (point-is p "\n") (setq p (+ p 1)))) p
+    (let ((is-line p))
+        (if recursive (while (point-is is-line " ") (setq is-line (+ is-line 1))))
+        (if (point-is is-line "\n") (recur is-line) p)))
+
+(defun dash-string (d s)
+    (funcall d (-drop 1 (split-string s ""))))
 
 (defun take-to-column (col)
     "Move line to column number"
-    (interactive)
     (beginning-of-line)
     (just-one-space 0)
-    (let (c) (-dotimes col (lambda (n) (insert " "))) c))
+    (-dotimes col (lambda (n) (insert " ")))
 
-(defun prev-end-is (x)
-    "Get the last character of the previous line.
-    Keeps going up if no line is found"
-    (equal x (go-back-with-result-2 (lambda ()
-        (previous-line)
-        (end-of-line)
-        (while (equal (current-column) 0)
-            (progn
-                (previous-line)
-                (end-of-line)
-                ))
-            (backward-char))
-            (lambda () (string (char-after (point)))))))
+    (let ((new-pos (+ curr (- (get-current-indent) curr-ind))))
+        (if (>= new-pos 0)
+        (move-to-column new-pos)
+        (move-to-column 0))))
 
-(defun prev-ind-is (x)
-    "Get the first character of the previous line.
-    Keeps going up if no line is found"
-    (equal x (go-back-with-result-2 (lambda ()
-        (previous-line)
-        (end-of-line)
-        (while (equal (current-column) 0)
-            (progn
-                (previous-line)
-                (end-of-line)
-                ))
-            (back-to-indentation))
-            (lambda () (string (char-after (point)))))))
+;;;;;;;;;;;;;;;;;;;; Utils END ;;;;;;;;;;;;;;;;;;;;
 
-(defun current-ind-is (x)
-    "Get the first character of the current line"
-    (equal x (go-back-with-result-2
-    'beginning-of-line 'current-char)))
 
-(defun current-char ()
-    (string (char-after (point))))
+;;;;;;;;;;;;;;;;;;;;;;; DSL ;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun current-end-is (x)
-    "Get the last character of the current line"
-    (equal x (go-back-with-result-2 (lambda ()
-        (end-of-line)
-        (backward-char))
-        (lambda () (string (char-after (point)))))))
+(defun prev (function &rest values)
+    (funcall function (get-prev-line t) values))
+
+(defun next (function &rest values)
+    (funcall function (get-next-line t) values))
+
+(defun current (function &rest values)
+    (funcall function (get-current-line) values))
+
+(defun ends-on (value xs)
+    (--any? (equal (if (>= (length value) (length it))
+        (substring value (* (length it) -1) nil) nil)
+            it) xs))
+
+(defun starts-with (value xs)
+    (--any? (equal (if (>= (length value) (length it))
+        (substring value 0 (length it)) nil)
+            it) xs))
+
+(defun indent (value _)
+    (length (dash-string (lambda(x) (--take-while (equal it " ") x)) value)))
+
+(defun indent-char (value _)
+    (car (dash-string (lambda(x) (--drop-while (equal it " ") x)) value)))
+
+(defun indent-char-is (value xs)
+    (equal (car (dash-string (lambda(x) (--drop-while (equal it " ") x)) value)) xs))
+
+;;;;;;;;;;;;;;;;;;;;; DSL END ;;;;;;;;;;;;;;;;;;;;;
 
 (defun tab-of-doom-region ()
     "Tab of Doom for region selection"
@@ -103,27 +96,25 @@
 (defun tab-of-doom-line ()
     "Tab of Doom for current line"
     (let (
-        (prev        (get-previous-indent))
-        (minus-prev  (- (get-previous-indent) tab-width))
-        (plus-prev   (+ (get-previous-indent) tab-width))
-        (current     (current-column))
-        (curr-ind    (get-current-indent))
-        (prev-length (line-length)))
+        (prev1       (prev 'indent))
+        (minus-prev  (- (prev 'indent) tab-width))
+        (plus-prev   (+ (prev 'indent) tab-width))
+        (curr-ind    (current 'indent))
+        (curr        (current-column))
+        )
         (take-to-column
-            (if (prev-end-is ",") prev
-            (if (prev-end-is "[") plus-prev
-            (if (prev-end-is "{") plus-prev
+            (if (prev 'ends-on ",") (prev 'indent)
+            (if (prev 'ends-on "[" "{") (+ (prev 'indent) tab-width)
+            (if (current 'indent-char-is "]") (- (prev 'indent) tab-width)
             (if (< curr-ind minus-prev) minus-prev
-            (if (and (>= curr-ind minus-prev) (< curr-ind prev)) prev
-            (if (and (>= curr-ind prev) (< curr-ind plus-prev)) plus-prev 0)))))))
-        (let ((new-pos (+ current (- (get-current-indent) curr-ind))))
-            (if (>= new-pos 0)
-            (move-to-column new-pos)
-            (move-to-column 0)))))
+            (if (and (>= curr-ind minus-prev) (< curr-ind prev1)) prev1
+            (if (and (>= curr-ind prev1) (< curr-ind plus-prev)) plus-prev 0
+            )))))))
+        ))
+
 
 (defun tab-of-doom ()
     "Tab of doom initial function"
-    (interactive)
     ;(unless (or (prev-end-is ",") (prev-end-is "{") (prev-end-is "["))
     ;  (progn (indent-for-tab-command) (return)))
     (if mark-active (tab-of-doom-region))
@@ -132,4 +123,5 @@
 
 (add-hook 'minibuffer-setup-hook (lambda() (tab-of-doom-mode 0)))
 (tab-of-doom-mode 0)
+
 (provide 'tab-of-doom)
