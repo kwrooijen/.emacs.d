@@ -1,11 +1,3 @@
-(defvar tab-of-doom-mode-map (make-keymap) "tab-of-doom-mode keymap.")
-
-(define-key tab-of-doom-mode-map (kbd "TAB") 'tab-of-doom)
-
-(define-minor-mode tab-of-doom-mode
-    "One tabbing mode to rule them all"
-    nil " ToD" 'tab-of-doom-mode-map)
-
 ;;;;;;;;;;;;;;;;;;;;;; Utils ;;;;;;;;;;;;;;;;;;;;;;
 (defun get-current-line ()
     (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
@@ -42,17 +34,18 @@
 
 (defun take-to-column (col)
     "Move line to column number"
+    (let (
+        (old-column (current-column))
+        (old-indent (current 'indent))
+    )
     (beginning-of-line)
     (just-one-space 0)
     (-dotimes col (lambda (n) (insert " ")))
 
-    (let ((new-pos (+ curr (- (get-current-indent) curr-ind))))
-        (if (>= new-pos 0)
-        (move-to-column new-pos)
-        (move-to-column 0))))
+    (let ((new-pos (+ old-column (- (current 'indent) old-indent))))
+        (if (>= new-pos 0) (move-to-column new-pos) (move-to-column 0)))))
 
 ;;;;;;;;;;;;;;;;;;;; Utils END ;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;; DSL ;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -82,16 +75,16 @@
     (car (dash-string (lambda(x) (--drop-while (equal it " ") x)) value)))
 
 (defun indent-char-is (value xs)
-    (equal (car (dash-string (lambda(x) (--drop-while (equal it " ") x)) value)) xs))
+    (equal (car (dash-string (lambda(x) (--drop-while (equal it " ") x)) value)) (car xs)))
 
 ;;;;;;;;;;;;;;;;;;;;; DSL END ;;;;;;;;;;;;;;;;;;;;;
 
 (defun tab-of-doom-region ()
-    "Tab of Doom for region selection"
-    (return))
+   "Tab of Doom for region selection"
+   (return))
 (defun tab-of-doom-mc ()
-    "Tab of Doom for multiple cursors"
-    (return))
+   "Tab of Doom for multiple cursors"
+   (return))
 
 (defun tab-of-doom-line ()
     "Tab of Doom for current line"
@@ -112,14 +105,20 @@
             )))))))
         ))
 
-
 (defun tab-of-doom ()
     "Tab of doom initial function"
-    ;(unless (or (prev-end-is ",") (prev-end-is "{") (prev-end-is "["))
-    ;  (progn (indent-for-tab-command) (return)))
+    (interactive)
     (if mark-active (tab-of-doom-region))
     (if multiple-cursors-mode (tab-of-doom-mc))
     (tab-of-doom-line))
+
+(defvar tab-of-doom-mode-map (make-keymap) "tab-of-doom-mode keymap.")
+
+(define-key tab-of-doom-mode-map (kbd "TAB") 'tab-of-doom)
+
+(define-minor-mode tab-of-doom-mode
+    "One tabbing mode to rule them all"
+    nil " ToD" 'tab-of-doom-mode-map)
 
 (add-hook 'minibuffer-setup-hook (lambda() (tab-of-doom-mode 0)))
 (tab-of-doom-mode 0)
