@@ -1,7 +1,7 @@
 ;;;;;;;;;;;;;;;;;;;;;; Utils ;;;;;;;;;;;;;;;;;;;;;;
 
 (defun what-line-int ()
-    "Print the current line number (in the buffer) of point."
+    "Get the current line number as an int"
     (interactive)
     (save-restriction
         (widen)
@@ -146,7 +146,6 @@
     is equal to one of the given characters"
     (equal (substring (trim-starting-whitespace value) 0 1) (car xs)))
 
-
 ;;;;;;;;;;;;;;;;; Default Config ;;;;;;;;;;;;;;;;;;
 
 (defvar tab-of-doom-mode-map (make-keymap) "tab-of-doom-mode keymap.")
@@ -192,8 +191,7 @@
          (tab-of-doom-line))
      (goto-line old-line)
      (move-to-column old-col)
-     (error "") ;; Throw error to keep region active
-))
+     (error ""))) ;; Throw error to keep region active
 
 (defun tab-of-doom-line ()
     "Tab of Doom for current line"
