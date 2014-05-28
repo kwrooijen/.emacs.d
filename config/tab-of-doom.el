@@ -69,10 +69,17 @@
     (let ((new-pos (+ old-column (- (current 'indent) old-indent))))
         (if (>= new-pos 0) (move-to-column new-pos) (move-to-column 0)))))
 
+(defun mode-doom-rules ()
+    "Get the indent rules of the current major mode as well as the default 'all' rules"
+    (let ((result (cdr (assoc (with-current-buffer (buffer-name) major-mode) my-doom)))
+         (all (cdr (assoc 'all my-doom))))
+    (append (if result result '()) all)
+))
+
 (defun calc-tab ()
     "Check which ident rule is true and evaluate the requested tab number.
     Custom indent rules can be added inside the my-doom variable"
-    (eval (car (last (car (--drop-while (not (eval (car it))) (append my-doom (IoD-standard))))))))
+    (eval (car (last (car (--drop-while (not (eval (car it))) (append (mode-doom-rules) (IoD-standard))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;; DSL ;;;;;;;;;;;;;;;;;;;;;;;
 
