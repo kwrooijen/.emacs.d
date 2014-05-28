@@ -108,11 +108,15 @@
 ;; Vim's o key
 (defun vim-o (&optional up)
   (interactive)
-  (if up (previous-line 1))
-  (end-of-line)
-  (newline-and-indent)
-  (god-mode-disable)
-)
+  (if up
+    (progn
+        (beginning-of-line)
+        (open-line 1)
+        (indent-for-tab-command))
+    (progn
+      (end-of-line)
+      (newline-and-indent)))
+  (god-mode-disable))
 
 (defun copy-to-clipboard ()
   (interactive)
