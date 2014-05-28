@@ -45,6 +45,9 @@
     (let ((new-pos (+ old-column (- (current 'indent) old-indent))))
         (if (>= new-pos 0) (move-to-column new-pos) (move-to-column 0)))))
 
+(defun calc-tab ()
+  (eval (car (last (car (--drop-while (not (eval (car it))) (append my-doom IoD-standard)))))))
+
 ;;;;;;;;;;;;;;;;;;;; Utils END ;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;; DSL ;;;;;;;;;;;;;;;;;;;;;;;
@@ -68,8 +71,9 @@
         (substring value 0 (length it)) nil)
             it) xs))
 
-(defun indent (value _)
-    (length (dash-string (lambda(x) (--take-while (equal it " ") x)) value)))
+(defun indent (value tab)
+  (let ((result (length (dash-string (lambda(x) (--take-while (equal it " ") x)) value))))
+    (if tab (+ (* tab-width (car tab)) result) result)))
 
 (defun indent-char (value _)
     (car (dash-string (lambda(x) (--drop-while (equal it " ") x)) value)))
@@ -79,31 +83,26 @@
 
 ;;;;;;;;;;;;;;;;;;;;; DSL END ;;;;;;;;;;;;;;;;;;;;;
 
-(defun tab-of-doom-region ()
-   "Tab of Doom for region selection"
-   (return))
-(defun tab-of-doom-mc ()
-   "Tab of Doom for multiple cursors"
-   (return))
+;;;;;;;;;;;;;;;;; Default Config ;;;;;;;;;;;;;;;;;;
 
-(defun tab-of-doom-line ()
-    "Tab of Doom for current line"
-    (let (
-        (prev1       (prev 'indent))
-        (minus-prev  (- (prev 'indent) tab-width))
-        (plus-prev   (+ (prev 'indent) tab-width))
-        (curr-ind    (current 'indent))
-        (curr        (current-column))
-        )
-        (take-to-column
-            (if (prev 'ends-on ",") (prev 'indent)
-            (if (prev 'ends-on "[" "{") (+ (prev 'indent) tab-width)
-            (if (current 'indent-char-is "]") (- (prev 'indent) tab-width)
-            (if (< curr-ind minus-prev) minus-prev
-            (if (and (>= curr-ind minus-prev) (< curr-ind prev1)) prev1
-            (if (and (>= curr-ind prev1) (< curr-ind plus-prev)) plus-prev 0
-            )))))))
-        ))
+(defvar tab-of-doom-mode-map (make-keymap) "tab-of-doom-mode keymap.")
+
+(define-minor-mode tab-of-doom-mode
+    "One tabbing mode to rule them all"
+    nil " ToD" 'tab-of-doom-mode-map)
+
+(define-key tab-of-doom-mode-map (kbd "TAB") 'tab-of-doom)
+
+(setq IoD-use-standard t)
+
+(setq IoD-standard
+    (if IoD-use-standard '(
+        ((< (current 'indent) (prev 'indent -1)) (prev 'indent -1) )
+        ((and (>= (current 'indent) (prev 'indent -1)) (< (current 'indent) (prev 'indent))) (prev 'indent))
+        ((and (>= (current 'indent) (prev 'indent)) (< (current 'indent) (prev 'indent 1))) (prev 'indent 1))
+        (t 0)) '() ))
+
+;;;;;;;;;;;;;;;;;; End Functions ;;;;;;;;;;;;;;;;;;
 
 (defun tab-of-doom ()
     "Tab of doom initial function"
@@ -112,15 +111,17 @@
     (if multiple-cursors-mode (tab-of-doom-mc))
     (tab-of-doom-line))
 
-(defvar tab-of-doom-mode-map (make-keymap) "tab-of-doom-mode keymap.")
+(defun tab-of-doom-region ()
+   "Tab of Doom for region selection"
+   (return))
 
-(define-key tab-of-doom-mode-map (kbd "TAB") 'tab-of-doom)
+(defun tab-of-doom-mc ()
+   "Tab of Doom for multiple cursors"
+   (return))
 
-(define-minor-mode tab-of-doom-mode
-    "One tabbing mode to rule them all"
-    nil " ToD" 'tab-of-doom-mode-map)
-
-(add-hook 'minibuffer-setup-hook (lambda() (tab-of-doom-mode 0)))
-(tab-of-doom-mode 0)
+(defun tab-of-doom-line ()
+    "Tab of Doom for current line"
+    (if (calc-tab) (take-to-column (calc-tab))
+        (indent-for-tab-command)))
 
 (provide 'tab-of-doom)
