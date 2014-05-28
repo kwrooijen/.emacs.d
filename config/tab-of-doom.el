@@ -10,7 +10,7 @@
 (defun get-prev-line (&optional recursive)
     (let ((r (- (point-at-bol) 2)) (result ""))
         (if recursive (while (point-is r "\n" " ") (setq r (- r 1))))
-        (while (not (equal (char-at-point r) "\n"))
+        (while (and (/= r 0) (not (equal (char-at-point r) "\n")))
             (setq result (concat (char-at-point r) result))
             (setq r (- r 1)))
         result))
