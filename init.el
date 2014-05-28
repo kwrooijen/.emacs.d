@@ -189,6 +189,20 @@
 (add-hook 'ruby-mode-hook       (lambda () (fix-tabs 2)))
 (add-hook 'haskell-mode-hook    (lambda () (fix-tabs 4)))
 
+;; Doom Indent Config
+(setq doom-use-standard t)
+
+(setq my-doom '(
+    (all . (
+        ((and (prev 'ends-on "[") (current 'starts-with "]")) (prev 'indent))
+        ((current 'starts-with "]") (prev 'indent -1))
+        ((prev 'ends-on "[" "{")    (prev 'indent 1))
+        ((prev 'ends-on ",")        (prev 'indent))
+        ((prev 'indent-char-is ",") (prev 'indent))
+
+    ))
+))
+
 ;; Load mode on certain file extensions
 (setq auto-mode-alist (append '(
     ("\\.less\\'"    . css-mode)
