@@ -1,4 +1,15 @@
 ;;;;;;;;;;;;;;;;;;;;;; Utils ;;;;;;;;;;;;;;;;;;;;;;
+
+(defun dash-string (d s)
+    (let ((result (funcall d (-drop 1 (split-string s "")))))
+      (if result (list-to-string result) "")))
+
+(defun get-indent (value)
+    (length (dash-string (lambda(x) (--take-while (or (equal it " ") (equal it "")) x)) value)))
+
+(defun trim-starting-whitespace (value)
+    (dash-string (lambda(x) (--drop-while (or (equal it "") (equal it " ")) x)) value))
+
 (defun get-current-line ()
     (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
 
@@ -6,6 +17,9 @@
     (--any? (equal t it) (-map (lambda(x) (equal (char-at-point p) x)) xs)))
 
 (defun char-at-point (p) (string (char-after p)))
+
+(defun list-to-string (xs)
+    (--reduce (format "%s%s" acc it) xs))
 
 (defun get-prev-line (&optional recursive)
     (let ((r (- (point-at-bol) 2)) (result ""))
@@ -29,9 +43,6 @@
         (if recursive (while (point-is is-line " ") (setq is-line (+ is-line 1))))
         (if (point-is is-line "\n") (recur is-line) p)))
 
-(defun dash-string (d s)
-    (funcall d (-drop 1 (split-string s ""))))
-
 (defun take-to-column (col)
     "Move line to column number"
     (let (
@@ -46,9 +57,7 @@
         (if (>= new-pos 0) (move-to-column new-pos) (move-to-column 0)))))
 
 (defun calc-tab ()
-  (eval (car (last (car (--drop-while (not (eval (car it))) (append my-doom IoD-standard)))))))
-
-;;;;;;;;;;;;;;;;;;;; Utils END ;;;;;;;;;;;;;;;;;;;;
+  (eval (car (last (car (--drop-while (not (eval (car it))) (append my-doom (IoD-standard))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;; DSL ;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -67,21 +76,20 @@
             it) xs))
 
 (defun starts-with (value xs)
-    (--any? (equal (if (>= (length value) (length it))
-        (substring value 0 (length it)) nil)
-            it) xs))
+    (let ((new-value (trim-starting-whitespace value)))
+    (--any? (equal (if (>= (length new-value) (length it))
+        (substring new-value 0 (length it)) nil)
+        it) xs)))
 
 (defun indent (value tab)
-  (let ((result (length (dash-string (lambda(x) (--take-while (equal it " ") x)) value))))
-    (if tab (+ (* tab-width (car tab)) result) result)))
+    (let ((result (get-indent value)))
+        (if tab (+ (* tab-width (car tab)) result) result)))
 
 (defun indent-char (value _)
-    (car (dash-string (lambda(x) (--drop-while (equal it " ") x)) value)))
+    (substring (trim-starting-whitespace value) 0 1))
 
 (defun indent-char-is (value xs)
-    (equal (car (dash-string (lambda(x) (--drop-while (equal it " ") x)) value)) (car xs)))
-
-;;;;;;;;;;;;;;;;;;;;; DSL END ;;;;;;;;;;;;;;;;;;;;;
+    (equal (substring (trim-starting-whitespace value) 0 1) (car xs)))
 
 ;;;;;;;;;;;;;;;;; Default Config ;;;;;;;;;;;;;;;;;;
 
@@ -93,14 +101,14 @@
 
 (define-key tab-of-doom-mode-map (kbd "TAB") 'tab-of-doom)
 
-(setq IoD-use-standard t)
+(setq my-doom '())
 
-(setq IoD-standard
-    (if IoD-use-standard '(
+(defun IoD-standard ()
+    (if doom-use-standard '(
         ((< (current 'indent) (prev 'indent -1)) (prev 'indent -1) )
         ((and (>= (current 'indent) (prev 'indent -1)) (< (current 'indent) (prev 'indent))) (prev 'indent))
         ((and (>= (current 'indent) (prev 'indent)) (< (current 'indent) (prev 'indent 1))) (prev 'indent 1))
-        (t 0)) '() ))
+    (t 0)) '() ))
 
 ;;;;;;;;;;;;;;;;;; End Functions ;;;;;;;;;;;;;;;;;;
 
@@ -112,12 +120,12 @@
     (tab-of-doom-line))
 
 (defun tab-of-doom-region ()
-   "Tab of Doom for region selection"
-   (return))
+    "Tab of Doom for region selection"
+    (return))
 
 (defun tab-of-doom-mc ()
-   "Tab of Doom for multiple cursors"
-   (return))
+    "Tab of Doom for multiple cursors"
+    (return))
 
 (defun tab-of-doom-line ()
     "Tab of Doom for current line"
