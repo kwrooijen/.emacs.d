@@ -1,5 +1,14 @@
 ;;;;;;;;;;;;;;;;;;;;;; Utils ;;;;;;;;;;;;;;;;;;;;;;
 
+(defun what-line-int ()
+    "Print the current line number (in the buffer) of point."
+    (interactive)
+    (save-restriction
+        (widen)
+        (save-excursion
+            (beginning-of-line)
+            (1+ (count-lines 1 (point))))))
+
 (defun dash-string (d s)
     "Execute dash expression with a string. Converts string to a
     list, applies the dash function and wraps it back to a string again"
@@ -164,17 +173,27 @@
 (defun tab-of-doom ()
     "Tab of doom initial function"
     (interactive)
-    (if mark-active (tab-of-doom-region))
-    (if multiple-cursors-mode (tab-of-doom-mc))
-    (tab-of-doom-line))
+    (if mark-active (tab-of-doom-region) (tab-of-doom-line)))
 
 (defun tab-of-doom-region ()
     "Tab of Doom for region selection"
-    (return))
-
-(defun tab-of-doom-mc ()
-    "Tab of Doom for multiple cursors"
-    (return))
+    (let ((old-line   (what-line-int))
+          (old-col    (current-column))
+          (begin      (region-beginning))
+          (end        (region-end))
+          (begin-line 0)
+          (end-line   0))
+    (goto-char end)
+    (setq end-line (what-line-int))
+    (goto-char begin)
+    (unless (equal (what-line-int) end-line) (tab-of-doom-line))
+    (while (/= (what-line-int) end-line )
+         (next-line)
+         (tab-of-doom-line))
+     (goto-line old-line)
+     (move-to-column old-col)
+     (error "") ;; Throw error to keep region active
+))
 
 (defun tab-of-doom-line ()
     "Tab of Doom for current line"

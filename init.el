@@ -199,7 +199,6 @@
         ((prev 'ends-on "[" "{")    (prev 'indent 1))
         ((prev 'ends-on ",")        (prev 'indent))
         ((prev 'indent-char-is ",") (prev 'indent))
-
     ))
 ))
 
