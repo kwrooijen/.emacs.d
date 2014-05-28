@@ -2,7 +2,7 @@
 
 (defun dash-string (d s)
     (let ((result (funcall d (-drop 1 (split-string s "")))))
-      (if result (list-to-string result) "")))
+        (if result (list-to-string result) "")))
 
 (defun get-indent (value)
     (length (dash-string (lambda(x) (--take-while (or (equal it " ") (equal it "")) x)) value)))
@@ -23,11 +23,12 @@
 
 (defun get-prev-line (&optional recursive)
     (let ((r (- (point-at-bol) 2)) (result ""))
-        (if recursive (while (point-is r "\n" " ") (setq r (- r 1))))
-        (while (and (/= r 0) (not (equal (char-at-point r) "\n")))
-            (setq result (concat (char-at-point r) result))
-            (setq r (- r 1)))
-        result))
+        (if (<= r 0) "***beginning-of-file***" (progn
+            (if recursive (while (point-is r "\n" " ") (setq r (- r 1))))
+            (while (and (/= r 0) (not (equal (char-at-point r) "\n")))
+                (setq result (concat (char-at-point r) result))
+                (setq r (- r 1)))
+            result))))
 
 (defun get-next-line (&optional recursive)
     (let ((p (+ (point-at-eol) 1)) (result ""))
