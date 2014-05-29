@@ -163,7 +163,6 @@
   (linum-mode 0))
 
 (defun key-chord-force ()
-  (interactive)
   (key-chord-mode 1)
   (message nil))
 
@@ -175,16 +174,18 @@
   (setq tab-width x)
   (god-local-mode t))
 
-(add-hook 'before-save-hook      'delete-trailing-whitespace)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (add-hook 'c-initialization-hook 'c-keys-hook)
-(add-hook 'dired-mode-hook       'ensure-buffer-name-begins-with-exl)
-(add-hook 'magit-mode-hook      'clean-hook)
+(add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
+(add-hook 'magit-mode-hook 'clean-hook)
 
 (add-hook 'erlang-mode-hook (lambda ()
+    (key-chord-force)
     (erlang-keys-hook)
     (fix-tabs 4)
 ))
 (add-hook 'elixir-mode-hook (lambda ()
+    (key-chord-force)
     (elixir-keys-hook)
     (global-elixir-mix-mode 1)
     (fix-tabs 2)
