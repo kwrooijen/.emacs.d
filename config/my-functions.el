@@ -97,10 +97,11 @@
         (progn
             (beginning-of-line)
             (open-line 1)
-            (indent-for-tab-command))
+            (indent-of-doom))
         (progn
         (end-of-line)
-        (newline-and-indent)))
+        (newline)
+        (indent-of-doom)))
     (god-mode-disable))
 
 (defun copy-to-clipboard ()

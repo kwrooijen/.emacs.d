@@ -100,7 +100,7 @@
   "Customize group for indent-of-doom.el"
   :prefix "indent-of-doom-")
 
-(defcustom doom-use-tab-cycle t
+(defcustom doom-use-tab-cycle nil
     "Use tab of doom to cycle through 3
     indentations depending on previous line."
     :type 'boolean
@@ -117,18 +117,18 @@
     :type 'boolean
     :group 'indent-of-doom)
 
-(defcustom doom-region-cycle t
+(defcustom doom-region-cycle nil
     "Use the 3 indentation cycle while region is active.
     Turning this off won't affect your custom indentation settings."
     :type 'boolean
     :group 'indent-of-doom)
 
-(defcustom doom-indent-for-tab-command-fallback nil
+(defcustom doom-indent-fallback t
     "When no indentation rules are found, fallback to the original tab."
     :type 'boolean
     :group 'indent-of-doom)
 
-(defcustom doom-indent-for-tab-command-region-fallback nil
+(defcustom doom-indent-region-fallback t
     "When no indentation rules are found while region is active,
     fallback to the original tab."
     :type 'boolean
@@ -304,8 +304,8 @@
 (defun indent-of-doom-line (&optional region-true)
     "Indent of Doom for current line"
     (if (calc-tab region-true) (take-to-column (calc-tab region-true))
-        (if (or doom-indent-for-tab-command-fallback
-            (if region-true doom-indent-for-tab-command-region-fallback))
+        (if (or doom-indent-fallback
+            (if region-true doom-indent-region-fallback))
         (indent-for-tab-command))))
 
 ;;;;;;;;;;;;;;;;; Default Config ;;;;;;;;;;;;;;;;;;

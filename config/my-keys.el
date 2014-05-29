@@ -93,6 +93,7 @@
 ;; Elixir Keys
 (defun elixir-keys-hook ()
   (define-key elixir-mode-map (kbd "C-c C-l") 'iex-compile)
+  (define-key elixir-mode-map (kbd "C-c C-v C-v") 'elixir-mix-test)
 )
 
 ;; C Keys

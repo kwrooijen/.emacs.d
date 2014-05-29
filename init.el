@@ -178,38 +178,41 @@
 (add-hook 'before-save-hook      'delete-trailing-whitespace)
 (add-hook 'c-initialization-hook 'c-keys-hook)
 (add-hook 'dired-mode-hook       'ensure-buffer-name-begins-with-exl)
-(add-hook 'elixir-mode-hook      'elixir-keys-hook)
 (add-hook 'erlang-mode-hook      'erlang-keys-hook)
 
 (add-hook 'magit-mode-hook      'clean-hook)
 (add-hook 'erlang-mode-hook     (lambda () (fix-tabs 4)))
 (add-hook 'emacs-lisp-mode-hook (lambda () (fix-tabs 4)))
+
 (add-hook 'elixir-mode-hook     (lambda ()
+    (elixir-keys-hook)
+    (global-elixir-mix-mode 1)
     (fix-tabs 2)
-    (setq doom-use-tab-cycle nil)
-    (setq doom-indent-for-tab-command-fallback t)
-    ))
+    (setq-local doom-indent-fallback t)
+    (setq-local doom-use-tab-cycle nil)
+    ) 'make-it-local)
 (add-hook 'ruby-mode-hook       (lambda () (fix-tabs 2)))
 (add-hook 'haskell-mode-hook    (lambda () (fix-tabs 4)))
 
 ;; Doom Indent Config
 (setq doom-use-tab-cycle t)
-(setq doom-tab-cycle-zero nil)
 (setq doom-region-cycle nil)
-
-(setq doom-indent-for-tab-command-region-fallback t)
 
 (setq my-doom '(
     (all . (
         ((and (prev 'ends-on "[") (current 'starts-with "]")) (prev 'indent))
         ((current 'starts-with "]") (prev 'indent -1))
-        ((prev 'ends-on "[" "{")    (prev 'indent 1))
+        ((prev 'ends-on "[")        (prev 'indent 1))
         ((prev 'ends-on ",")        (prev 'indent))
     ))
     (haskell-mode . (
         ((prev 'indent-char-is ",") (prev 'indent))
         ((prev 'indent-char-is "[") (prev 'indent))
         ((prev 'ends-on "=" "= do" "=do") (prev 'indent 1))
+    ))
+    (elixir-mode . (
+        ((and (prev 'ends-on ") ->") (current 'starts-with "end")) (prev 'indent))
+        ((prev 'ends-on ") ->") (prev 'indent 1))
     ))
 ))
 
@@ -237,8 +240,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:background "#1c1c1c" :foreground "#e5e3e3"))))
- '(erm-syn-errline ((t (:foreground "red" :box (:line-width 1 :color "red") :underline "red"))))
- '(erm-syn-warnline ((t (:foreground "yellow" :box (:line-width 1 :color "yellow") :underline "yellow"))))
+ '(erm-syn-errline ((t (:foreground "red" :box (:line-width 1 :color "red") :underline "red"))) t)
+ '(erm-syn-warnline ((t (:foreground "yellow" :box (:line-width 1 :color "yellow") :underline "yellow"))) t)
  '(flymake-errline ((t (:foreground "red" :underline "red"))) t)
  '(flymake-warnline ((((class color)) (:foreground "yellow" :underline "yellow"))) t)
  '(flyspell-incorrect ((t (:underline (:color "red" :style wave)))) t)
@@ -260,10 +263,10 @@
  '(region ((t (:background "#585858" :foreground "#FFF"))))
  '(show-paren-match ((t (:background "#4e4e4e" :foreground "#7CB8BB" :weight bold))))
  '(vertical-border ((t (:background "#383838" :foreground "#383838"))))
- '(web-mode-block-attr-name-face ((t (:foreground "#808080"))))
- '(web-mode-html-attr-custom-face ((t (:foreground "#b2b2b2"))))
- '(web-mode-html-attr-equal-face ((t (:foreground "#b2b2b2"))))
+ '(web-mode-block-attr-name-face ((t (:foreground "#808080"))) t)
+ '(web-mode-html-attr-custom-face ((t (:foreground "#b2b2b2"))) t)
+ '(web-mode-html-attr-equal-face ((t (:foreground "#b2b2b2"))) t)
  '(web-mode-html-attr-name-face ((t (:foreground "#b2b2b2"))) t)
- '(web-mode-html-tag-bracket-face ((t (:foreground "#808080"))))
+ '(web-mode-html-tag-bracket-face ((t (:foreground "#808080"))) t)
  '(web-mode-html-tag-face ((t (:foreground "#808080"))) t)
  '(web-mode-symbol-face ((t (:foreground "#2a55d4"))) t))
