@@ -212,4 +212,4 @@
 
 (setq my-doom '())
 
-(provide 'tab-of-doom)
+(provide 'indent-of-doom)

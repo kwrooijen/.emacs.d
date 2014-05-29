@@ -26,7 +26,7 @@
 (require 'my-powerline)
 (require 'my-keys)
 (require 'my-extras)
-(require 'tab-of-doom)
+(require 'indent-of-doom)
 
 ;; Enable Zenburn Theme
 (load-theme 'zenburn t)
