@@ -1,5 +1,4 @@
 (defvar attic-minor-mode-map (make-keymap) "attic-minor-mode keymap.")
-(defvar insert-mode-map (make-keymap) "insert-mode keymap.")
 
 (defun attic-key(key function)
   (define-key attic-minor-mode-map (kbd key) function)
@@ -71,16 +70,10 @@
 ("M-s"   helm-swoop)
 ("M-x"   helm-M-x)
 ))
+(key-chord-define-global "xs"
+    (lambda() (interactive) (god-mode-enable) (save-buffer)))
 
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
-
-;; Key Chord
-(key-chord-define insert-mode-map "xs"
-    (lambda() (interactive)
-        (if (string-equal (buffer-name) "*Helm Swoop Edit*")
-            (helm-swoop--edit-complete))
-        (god-mode-enable)
-        (save-buffer)))
 
 ;; Other Keys
 (global-set-key [f1] 'copy-to-clipboard)
@@ -116,7 +109,6 @@
 (define-key helm-buffer-map (kbd "C-a") 'helm-buffers-toggle-show-hidden-buffers)
 (define-key helm-swoop-map (kbd "M-e") 'helm-swoop-edit)
 
-(define-key insert-mode-map (kbd "C-g") 'god-mode-enable)
 (define-key mc/keymap (kbd "<return>")  'newline)
 
 ;; eShell
@@ -139,10 +131,6 @@
 t " attic" 'attic-minor-mode-map)
 (defun attic-minibuffer-setup-hook ()
 (attic-minor-mode 0))
-
-;; Disable Control keys in insert mode
-(define-minor-mode insert-mode
-  "Insert mode" nil nil 'insert-mode-map)
 
 ;; Other unset keys
 (global-unset-key "\C-x\C-z")

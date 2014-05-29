@@ -67,8 +67,6 @@
 
 (defun god-mode-disable () (interactive)
   (god-local-mode-pause)
-  (unless (minibufferp)
-    (insert-mode 1))
   (if window-system
       (set-cursor-color "green")
       (if (getenv "TMUX")
@@ -78,7 +76,6 @@
 )
 
 (defun god-mode-enable () (interactive)
-  (insert-mode 0)
   (god-local-mode-resume)
   (if window-system
       (set-cursor-color "white")
@@ -89,13 +86,11 @@
 )
 
 (defun escape-key () (interactive)
-    (unless (and insert-mode multiple-cursors-mode)
+      (god-mode-enable)
+    (unless multiple-cursors-mode
       (progn
           (call-interactively (key-binding (kbd "C-g")))
-          (mc/keyboard-quit)
-          (keyboard-escape-quit)))
-    (god-mode-enable)
-)
+          (keyboard-escape-quit))))
 
 (defadvice keyboard-escape-quit (around my-keyboard-escape-quit activate)
   (let (orig-one-window-p)

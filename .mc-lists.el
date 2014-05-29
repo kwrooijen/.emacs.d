@@ -38,6 +38,7 @@
         haskell-indentation-delete-char
         haskell-newline-and-indent
         helm-buffers-list
+        indent-of-doom
         inferior-haskell-load-file
         info
         iy-go-to-char

@@ -159,7 +159,7 @@
 (defun clean-hook ()
   (interactive)
   (god-local-mode 0)
-  (insert-mode 0)
+
   (key-chord-mode 0)
   (linum-mode 0))
 
@@ -173,7 +173,6 @@
 
 (defun fix-tabs (x)
   (indent-of-doom-mode t)
-
   (setq tab-width x)
   (god-local-mode t))
 
@@ -182,7 +181,7 @@
 (add-hook 'dired-mode-hook       'ensure-buffer-name-begins-with-exl)
 (add-hook 'elixir-mode-hook      'elixir-keys-hook)
 (add-hook 'erlang-mode-hook      'erlang-keys-hook)
-(add-hook 'insert-mode-hook      'key-chord-force)
+
 (add-hook 'magit-mode-hook       'clean-hook)
 (add-hook 'erlang-mode-hook     (lambda () (fix-tabs 4)))
 (add-hook 'emacs-lisp-mode-hook (lambda () (fix-tabs 4)))
