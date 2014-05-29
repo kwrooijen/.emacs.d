@@ -297,9 +297,9 @@
     (while (/= (what-line-int) end-line )
          (next-line)
          (indent-of-doom-line t))
-    (set-mark begin)
     (goto-line old-line)
-    (move-to-column old-col)))
+    (move-to-column old-col)
+    (if (> (point) begin) (set-mark begin) (set-mark end))))
 
 (defun indent-of-doom-line (&optional region-true)
     "Indent of Doom for current line"

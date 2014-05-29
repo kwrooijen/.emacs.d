@@ -159,7 +159,6 @@
 (defun clean-hook ()
   (interactive)
   (god-local-mode 0)
-
   (key-chord-mode 0)
   (linum-mode 0))
 
@@ -182,10 +181,14 @@
 (add-hook 'elixir-mode-hook      'elixir-keys-hook)
 (add-hook 'erlang-mode-hook      'erlang-keys-hook)
 
-(add-hook 'magit-mode-hook       'clean-hook)
+(add-hook 'magit-mode-hook      'clean-hook)
 (add-hook 'erlang-mode-hook     (lambda () (fix-tabs 4)))
 (add-hook 'emacs-lisp-mode-hook (lambda () (fix-tabs 4)))
-(add-hook 'elixir-mode-hook     (lambda () (fix-tabs 2)))
+(add-hook 'elixir-mode-hook     (lambda ()
+    (fix-tabs 2)
+    (setq doom-use-tab-cycle nil)
+    (setq doom-indent-for-tab-command-fallback t)
+    ))
 (add-hook 'ruby-mode-hook       (lambda () (fix-tabs 2)))
 (add-hook 'haskell-mode-hook    (lambda () (fix-tabs 4)))
 
@@ -193,7 +196,7 @@
 (setq doom-use-tab-cycle t)
 (setq doom-tab-cycle-zero nil)
 (setq doom-region-cycle nil)
-(setq doom-indent-for-tab-command-fallback nil)
+
 (setq doom-indent-for-tab-command-region-fallback t)
 
 (setq my-doom '(
