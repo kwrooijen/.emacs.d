@@ -172,7 +172,8 @@
   (clean-hook))
 
 (defun fix-tabs (x)
-  (tab-of-doom-mode t)
+  (indent-of-doom-mode t)
+
   (setq tab-width x)
   (god-local-mode t))
 
