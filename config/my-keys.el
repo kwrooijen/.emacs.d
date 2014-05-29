@@ -116,6 +116,9 @@
 (define-key helm-buffer-map (kbd "C-a") 'helm-buffers-toggle-show-hidden-buffers)
 (define-key helm-swoop-map (kbd "M-e") 'helm-swoop-edit)
 
+(define-key insert-mode-map (kbd "C-g") 'god-mode-enable)
+(define-key mc/keymap (kbd "<return>")  'newline)
+
 ;; eShell
 (add-hook 'eshell-mode-hook
 '(lambda ()
@@ -140,16 +143,6 @@ t " attic" 'attic-minor-mode-map)
 ;; Disable Control keys in insert mode
 (define-minor-mode insert-mode
   "Insert mode" nil nil 'insert-mode-map)
-
-(define-key insert-mode-map (kbd "C-g") 'god-mode-enable)
-(let ((f (lambda () `(lambda () (interactive)
-              (message (concat "Exit insert mode first."))))))
-  (dolist (l '(("C-a") ("C-q") ("C-w") ("C-e") ("C-r") ("C-t")
-               ("C-y") ("C-u") ("C-o") ("C-p") ("C-a") ("C-s")
-               ("C-d") ("C-f") ("C-j") ("C-k") ("C-l") ("C-z")
-               ("C-x") ("C-v") ("C-b") ("C-n") ))
-    (define-key insert-mode-map
-      (read-kbd-macro (car l)) (funcall f))))
 
 ;; Other unset keys
 (global-unset-key "\C-x\C-z")
