@@ -6,14 +6,72 @@
 ;; Maintainer: Kevin van Rooijen
 ;; Created: May 25 2014
 ;; Version: 0.1.0
-;; Package-Requires: (dash)
+;; Package-Requires: ((dash "2.6.0"))
 ;; URL:
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Commentary:
+;; The DSL can be used as follows:
+;; First you have a target; prev, next or current.
+;; Next you choose a situation; ends-on, starts-with, indent, indent-char and
+;; indent-char-is.
+;; Lastly you can add an comparison, which is a string (however indent takes an
+;; int and indent-char doesn't take anything)
+;; Example: ---------------------------------------------------------------------
+;; (prev 'starts-with ";; Ex")
+;; Executing the previous line (C-x C-e) will return t. Because the line before
+;; that starts with the given string.
+;; (next 'ends-on "!!!")
+;; Executing the previous line will also return t !!!
+    ;;; (current 'indent)
+        ;;; Executing the previous line will return 4 because it has an indentation of 4 spaces.
+    ;;; (prev 'indent 2)
+;; And lastly executing the previous line will result in 8 + (* tab-width 2).
 ;;
+;; You can add custom rules for your indentation.
+;; Example: ---------------------------------------------------------------------
+;;(setq my-doom '(
+;;    (all . (
+;;        ((current 'starts-with "]" "}") (prev 'indent -1))
+;;        ((prev 'ends-on "[" "{")        (prev 'indent 1))
+;;        ((prev 'ends-on ",")            (prev 'indent))
+;;    ))
+;;))
 ;;
+;; Saving the my-doom varaible will add these rules to all major-modes which
+;; have indent-of-doom-mode active. It reads as follows from up to down:
+;;
+;; Line 36:
+;; If the current line starts with the characters "]" or "}" then
+;; the current line should have the same indentation as the
+;; previous line MINUS 1 tab-width.
+;;
+;; Line 37:
+;; If the previous line ends with the characters "[" or "{" then
+;; the current line should have the same indentation as the
+;; previous line PLUS 1 tab-width.
+;;
+;; Line 38:
+;; If the previous line ends with the character "," then
+;; the current line should have the same indentation as the
+;; previous line.
+;;
+;; These rules will indent these lines in the following matter automatically:
+;;
+;; myVariableList = [
+;;     valueOne,
+;;     valueTwo,
+;;     valueThree
+;; ]
+;;
+;; Whereas in certain modes this will be indented like this:
+;;
+;; myVariableList = [
+;;                   valueOne,
+;;                   valueTwo,
+;;                   valueThree
+;;                  ]
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -35,6 +93,51 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Code:
+
+;;;;;;;;;;;;;;;;;;;;;; Config ;;;;;;;;;;;;;;;;;;;;;
+
+(defgroup indent-of-doom ()
+  "Customize group for indent-of-doom.el"
+  :prefix "indent-of-doom-")
+
+(defcustom doom-use-tab-cycle t
+    "Use tab of doom to cycle through 3
+    indentations depending on previous line."
+    :type 'boolean
+    :group 'indent-of-doom)
+
+(defcustom doom-tab-cycle-zero nil
+    "When cycling through the 3 indentation you
+    also cycle to the beginning of the line."
+    :type 'boolean
+    :group 'indent-of-doom)
+
+(defcustom doom-region t
+    "Use indentation of doom while region is active."
+    :type 'boolean
+    :group 'indent-of-doom)
+
+(defcustom doom-region-cycle t
+    "Use the 3 indentation cycle while region is active.
+    Turning this off won't affect your custom indentation settings."
+    :type 'boolean
+    :group 'indent-of-doom)
+
+(defcustom doom-indent-for-tab-command-fallback nil
+    "When no indentation rules are found, fallback to the original tab."
+    :type 'boolean
+    :group 'indent-of-doom)
+
+(defcustom doom-indent-for-tab-command-region-fallback nil
+    "When no indentation rules are found while region is active,
+    fallback to the original tab."
+    :type 'boolean
+    :group 'indent-of-doom)
+
+(defcustom doom-indent-key "TAB"
+    "The key to run tab-of-doom."
+    :type '(string)
+    :group 'indent-of-doom)
 
 ;;;;;;;;;;;;;;;;;;;;;; Utils ;;;;;;;;;;;;;;;;;;;;;;
 
@@ -116,35 +219,19 @@
     (let ((new-pos (+ old-column (- (current 'indent) old-indent))))
         (if (>= new-pos 0) (move-to-column new-pos) (move-to-column 0)))))
 
-(defun mode-doom-rules ()
+(defun doom-mode-rules ()
     "Get the indent rules of the current major mode as well as the default 'all' rules"
     (let ((result (cdr (assoc (with-current-buffer (buffer-name) major-mode) my-doom)))
          (all (cdr (assoc 'all my-doom))))
-    (append (if result result '()) all)
-))
+    (append (if result result '()) all)))
 
 (defun calc-tab (&optional region-true)
     "Check which ident rule is true and evaluate the requested tab number.
     Custom indent rules can be added inside the my-doom variable"
     (eval (car (last (car (--drop-while (not (eval (car it)))
-        (append (mode-doom-rules) (IoD-standard region-true))))))))
+        (append (doom-mode-rules) (IoD-standard region-true))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;; DSL ;;;;;;;;;;;;;;;;;;;;;;;
-
-;; @DOC
-;; The DSL can be used as follows:
-;;; First you have a target; prev, next or current
-;;; Next you choose a situation; ends-on, starts-with, indent, indent-char and indent-char-is
-;;; Lastly you can add an comparison, which is a string (however indent takes an int and indent-char doesn't take anything)
-;;;; Example:
-;;; (prev 'starts-with ";;;; Ex")
-;;; Executing the previous line (C-x C-e) will return t. Because the line before that starts with the given string.
-;;; (next 'ends-on "!!!")
-;;; Executing the previous line will also return t because the this line has 3 exclamation marks at the end !!!
-    ;;; (current 'indent)
-        ;;; Executing the previous line will return 4 because it has an indentation of 4 spaces.
-    ;;; (prev 'indent 2)
-;;; And lastly executing the previous line will result in 8 + (* tab-width 2).
 
 (defun prev (function &rest values)
     "Previous line as a target"
@@ -188,7 +275,7 @@
 ;;;;;;;;;;;;;;;;;; End Functions ;;;;;;;;;;;;;;;;;;
 
 (defun indent-of-doom ()
-    "Tab of doom initial function"
+    "Indent of Doom initial function"
     (interactive)
     (if mark-active
         (if doom-region (indent-of-doom-region)
@@ -196,7 +283,7 @@
     (unless mark-active (indent-of-doom-line)))
 
 (defun indent-of-doom-region ()
-    "Tab of Doom for region selection"
+    "Indent of Doom for region selection"
     (let ((old-line   (what-line-int))
           (old-col    (current-column))
           (begin      (region-beginning))
@@ -216,7 +303,7 @@
     (move-to-column old-col)))
 
 (defun indent-of-doom-line (&optional region-true)
-    "Tab of Doom for current line"
+    "Indent of Doom for current line"
     (if (calc-tab region-true) (take-to-column (calc-tab region-true))
         (if (or doom-indent-for-tab-command-fallback
             (if region-true doom-indent-for-tab-command-region-fallback))
@@ -236,17 +323,10 @@
 (defvar indent-of-doom-mode-map (make-keymap) "indent-of-doom-mode keymap.")
 
 (define-minor-mode indent-of-doom-mode
-    "One tabbing mode to rule them all"
+    "One indentation mode to rule them all"
     nil " ToD" 'indent-of-doom-mode-map)
 
-(define-key indent-of-doom-mode-map (kbd "TAB") 'indent-of-doom)
-
-(setq doom-tab-cycle-zero nil) ; Tabbing will also cycle to column 0. Default off
-(setq doom-use-tab-cycle t)    ; Use the tabbing cycling (prev -1) (prev) (prev 1) (optionally 0). Default on
-(setq doom-region t)           ; Use Doom when mark is active. Default on
-(setq doom-region-cycle t)     ; Use cycling in region mode. Default on
-(setq doom-indent-for-tab-command-fallback nil) ; If no rules are found; Fallback to original tab. Default off
-(setq doom-indent-for-tab-command-region-fallback nil) ; If no rules are found for a line in region selection; Fallback to original tab. Default off
+(define-key indent-of-doom-mode-map (kbd doom-indent-key) 'indent-of-doom)
 
 (setq my-doom '())
 
