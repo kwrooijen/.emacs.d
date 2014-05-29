@@ -85,10 +85,11 @@
     (append (if result result '()) all)
 ))
 
-(defun calc-tab ()
+(defun calc-tab (&optional region-true)
     "Check which ident rule is true and evaluate the requested tab number.
     Custom indent rules can be added inside the my-doom variable"
-    (eval (car (last (car (--drop-while (not (eval (car it))) (append (mode-doom-rules) (IoD-standard))))))))
+    (eval (car (last (car (--drop-while (not (eval (car it)))
+        (append (mode-doom-rules) (IoD-standard region-true))))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;; DSL ;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -146,33 +147,15 @@
     is equal to one of the given characters"
     (equal (substring (trim-starting-whitespace value) 0 1) (car xs)))
 
-;;;;;;;;;;;;;;;;; Default Config ;;;;;;;;;;;;;;;;;;
-
-(defvar tab-of-doom-mode-map (make-keymap) "tab-of-doom-mode keymap.")
-
-(define-minor-mode tab-of-doom-mode
-    "One tabbing mode to rule them all"
-    nil " ToD" 'tab-of-doom-mode-map)
-
-(define-key tab-of-doom-mode-map (kbd "TAB") 'tab-of-doom)
-
-(setq my-doom '())
-
-(defun IoD-standard ()
-    "These are the standard tabbing rules. If the variable
-    doom-use-standard is not nil they will be automatically used."
-    (if doom-use-standard '(
-        ((< (current 'indent) (prev 'indent -1)) (prev 'indent -1) )
-        ((and (>= (current 'indent) (prev 'indent -1)) (< (current 'indent) (prev 'indent))) (prev 'indent))
-        ((and (>= (current 'indent) (prev 'indent)) (< (current 'indent) (prev 'indent 1))) (prev 'indent 1))
-    (t 0)) '() ))
-
 ;;;;;;;;;;;;;;;;;; End Functions ;;;;;;;;;;;;;;;;;;
 
 (defun tab-of-doom ()
     "Tab of doom initial function"
     (interactive)
-    (if mark-active (tab-of-doom-region) (tab-of-doom-line)))
+    (if mark-active
+        (if doom-region (tab-of-doom-region)
+        (indent-for-tab-command)))
+    (unless mark-active (tab-of-doom-line)))
 
 (defun tab-of-doom-region ()
     "Tab of Doom for region selection"
@@ -185,17 +168,48 @@
     (goto-char end)
     (setq end-line (what-line-int))
     (goto-char begin)
-    (unless (equal (what-line-int) end-line) (tab-of-doom-line))
+    (set-mark nil)
+    (unless (equal (what-line-int) end-line) (tab-of-doom-line t))
     (while (/= (what-line-int) end-line )
          (next-line)
-         (tab-of-doom-line))
-     (goto-line old-line)
-     (move-to-column old-col)
-     (error ""))) ;; Throw error to keep region active
+         (tab-of-doom-line t))
+    (set-mark begin)
+    (goto-line old-line)
+    (move-to-column old-col)))
 
-(defun tab-of-doom-line ()
+(defun tab-of-doom-line (&optional region-true)
     "Tab of Doom for current line"
-    (if (calc-tab) (take-to-column (calc-tab))
-        (indent-for-tab-command)))
+    (if (calc-tab region-true) (take-to-column (calc-tab region-true))
+        (if (or doom-indent-for-tab-command-fallback
+            (if region-true doom-indent-for-tab-command-region-fallback))
+        (indent-for-tab-command))))
+
+;;;;;;;;;;;;;;;;; Default Config ;;;;;;;;;;;;;;;;;;
+
+(defun IoD-standard (&optional region-true)
+    "These are the standard tabbing rules. If the variable
+    doom-use-tab-cycle is not nil they will be automatically used."
+    (if (and doom-use-tab-cycle (if region-true doom-region-cycle t)) '(
+        ((< (current 'indent) (prev 'indent -1)) (prev 'indent -1) )
+        ((and (>= (current 'indent) (prev 'indent -1)) (< (current 'indent) (prev 'indent))) (prev 'indent))
+        ((and (>= (current 'indent) (prev 'indent)) (< (current 'indent) (prev 'indent 1))) (prev 'indent 1))
+    (t (if doom-tab-cycle-zero 0 (prev 'indent -1)))) '() ))
+
+(defvar tab-of-doom-mode-map (make-keymap) "tab-of-doom-mode keymap.")
+
+(define-minor-mode tab-of-doom-mode
+    "One tabbing mode to rule them all"
+    nil " ToD" 'tab-of-doom-mode-map)
+
+(define-key tab-of-doom-mode-map (kbd "TAB") 'tab-of-doom)
+
+(setq doom-tab-cycle-zero nil) ; Tabbing will also cycle to column 0. Default off
+(setq doom-use-tab-cycle t)    ; Use the tabbing cycling (prev -1) (prev) (prev 1) (optionally 0). Default on
+(setq doom-region t)           ; Use Doom when mark is active. Default on
+(setq doom-region-cycle t)     ; Use cycling in region mode. Default on
+(setq doom-indent-for-tab-command-fallback nil) ; If no rules are found; Fallback to original tab. Default off
+(setq doom-indent-for-tab-command-region-fallback nil) ; If no rules are found for a line in region selection; Fallback to original tab. Default off
+
+(setq my-doom '())
 
 (provide 'tab-of-doom)

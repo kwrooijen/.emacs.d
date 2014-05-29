@@ -190,7 +190,11 @@
 (add-hook 'haskell-mode-hook    (lambda () (fix-tabs 4)))
 
 ;; Doom Indent Config
-(setq doom-use-standard t)
+(setq doom-use-tab-cycle t)
+(setq doom-tab-cycle-zero nil)
+(setq doom-region-cycle nil)
+(setq doom-indent-for-tab-command-fallback nil)
+(setq doom-indent-for-tab-command-region-fallback t)
 
 (setq my-doom '(
     (all . (
@@ -198,7 +202,11 @@
         ((current 'starts-with "]") (prev 'indent -1))
         ((prev 'ends-on "[" "{")    (prev 'indent 1))
         ((prev 'ends-on ",")        (prev 'indent))
+    ))
+    (haskell-mode . (
         ((prev 'indent-char-is ",") (prev 'indent))
+        ((prev 'indent-char-is "[") (prev 'indent))
+        ((prev 'ends-on "=" "= do" "=do") (prev 'indent 1))
     ))
 ))
 
