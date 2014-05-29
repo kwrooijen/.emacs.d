@@ -212,12 +212,12 @@
         (old-column (current-column))
         (old-indent (current 'indent))
     )
-    (beginning-of-line)
-    (just-one-space 0)
-    (-dotimes col (lambda (n) (insert " ")))
-
-    (let ((new-pos (+ old-column (- (current 'indent) old-indent))))
-        (if (>= new-pos 0) (move-to-column new-pos) (move-to-column 0)))))
+    (unless (equal col old-column)
+        (beginning-of-line)
+        (just-one-space 0)
+        (-dotimes col (lambda (n) (insert " ")))
+        (let ((new-pos (+ old-column (- (current 'indent) old-indent))))
+            (if (>= new-pos 0) (move-to-column new-pos) (move-to-column 0))))))
 
 (defun doom-mode-rules ()
     "Get the indent rules of the current major mode as well as the default 'all' rules"
