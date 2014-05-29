@@ -288,7 +288,6 @@
           (old-col    (current-column))
           (begin      (region-beginning))
           (end        (region-end))
-          (begin-line 0)
           (end-line   0))
     (goto-char end)
     (setq end-line (what-line-int))
