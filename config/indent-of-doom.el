@@ -98,7 +98,8 @@
 
 (defgroup indent-of-doom ()
   "Customize group for indent-of-doom.el"
-  :prefix "indent-of-doom-")
+  :prefix "indent-of-doom-"
+  :group 'indent)
 
 (defcustom doom-use-tab-cycle nil
     "Use tab of doom to cycle through 3
@@ -190,21 +191,21 @@
                 (setq r (- r 1)))
             result))))
 
+(defun recur (p &optional r)
+    "A helper function to recursively look for the next valid string"
+    (if r (while (point-is p "\n") (setq p (+ p 1)))) p
+    (let ((is-line p))
+        (if r (while (point-is is-line " ") (setq is-line (+ is-line 1))))
+        (if (point-is is-line "\n") (recur is-line r) p)))
+
 (defun get-next-line (&optional recursive)
     "Get the next line as a string"
     (let ((p (+ (point-at-eol) 1)) (result ""))
-        (setq p (recur p))
+        (setq p (recur p recursive))
           (while (not (equal (char-at-point p) "\n"))
             (setq result (concat result (char-at-point p)))
         (setq p (+ p 1))) p
         result))
-
-(defun recur (p)
-    "A helper function to recursively look for the next valid string"
-    (if recursive (while (point-is p "\n") (setq p (+ p 1)))) p
-    (let ((is-line p))
-        (if recursive (while (point-is is-line " ") (setq is-line (+ is-line 1))))
-        (if (point-is is-line "\n") (recur is-line) p)))
 
 (defun take-to-column (col)
     "Move line to column number and adjust cursor position accordingly"
@@ -295,9 +296,10 @@
     (set-mark nil)
     (unless (equal (what-line-int) end-line) (indent-of-doom-line t))
     (while (/= (what-line-int) end-line )
-         (next-line)
-         (indent-of-doom-line t))
-    (goto-line old-line)
+        (call-interactively 'next-line)
+        (indent-of-doom-line t))
+    (let ((current-prefix-arg old-line))
+        (call-interactively 'goto-line))
     (move-to-column old-col)
     (if (> (point) begin) (set-mark begin) (set-mark end))))
 
