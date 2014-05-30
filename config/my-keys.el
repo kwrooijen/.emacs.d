@@ -63,7 +63,7 @@
 ("M-N"   mc/mark-next-like-this)
 ("M-P"   mc/mark-previous-like-this)
 ("M-_"   redo)
-("M-g"   goto-line)
+("M-g"   escape-key)
 ("M-j"   (lambda() (interactive) (join-line -1)))
 ("M-k"   kill-this-buffer)
 ("M-o"   (lambda() (interactive) (vim-o 1)))
@@ -71,10 +71,12 @@
 ("M-s"   helm-swoop)
 ("M-x"   helm-M-x)
 ))
+
 (key-chord-define-global "xs"
     (lambda() (interactive) (god-mode-enable) (save-buffer)))
 
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
+(define-key isearch-mode-map (kbd "M-g") 'isearch-abort)
 
 ;; Other Keys
 (global-set-key [f1] 'copy-to-clipboard)
@@ -106,6 +108,8 @@
 (define-key helm-map (kbd "C-b") 'nil)
 (define-key helm-map (kbd "C-f") 'nil)
 (define-key helm-map (kbd "M-b") 'nil)
+(define-key helm-find-files-map (kbd "M-g") 'helm-keyboard-quit)
+(define-key helm-map (kbd "M-g") 'helm-keyboard-quit)
 (define-key helm-map (kbd "M-f") 'helm-select-action)
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-buffer-map (kbd "C-a") 'helm-buffers-toggle-show-hidden-buffers)
