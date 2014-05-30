@@ -20,6 +20,7 @@
 ("C-u" pop-to-mark-command)
 ("C-z" helm-buffers-list)
 ("C-o" vim-o)
+("C-;" helm-M-x)
 
 ;; Control Prefix
 ("C-c C-e" kmacro-end-or-call-macro-repeat)
