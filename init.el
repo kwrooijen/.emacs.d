@@ -171,7 +171,7 @@
 
 (defun fix-tabs (x)
   (indent-of-doom-mode t)
-  (setq tab-width x)
+  (setq-local tab-width x)
   (god-local-mode t))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -200,6 +200,9 @@
 ))
 (add-hook 'emacs-lisp-mode-hook (lambda ()
     (fix-tabs 4)
+))
+(add-hook 'rust-mode-hook (lambda ()
+    (setq-local tab-width 4)
 ))
 
 ;; Doom Indent Config

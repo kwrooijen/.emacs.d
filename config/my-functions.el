@@ -61,6 +61,7 @@
 
 (defun god-mode-disable () (interactive)
     (god-local-mode-pause)
+    (key-chord-mode 1)
     (if window-system
         (set-cursor-color "green")
         (if (getenv "TMUX")
@@ -96,12 +97,13 @@
     (if up
         (progn
             (beginning-of-line)
-            (open-line 1)
-            (indent-of-doom))
+            (open-line 1))
         (progn
         (end-of-line)
-        (newline)
-        (indent-of-doom)))
+        (newline)))
+    (if indent-of-doom-mode
+        (indent-of-doom)
+        (indent-for-tab-command))
     (god-mode-disable))
 
 (defun copy-to-clipboard ()

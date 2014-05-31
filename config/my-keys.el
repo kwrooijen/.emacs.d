@@ -77,6 +77,7 @@
 
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
 (define-key isearch-mode-map (kbd "M-g") 'isearch-abort)
+(define-key isearch-mode-map (kbd "TAB") 'isearch-exit)
 
 ;; Other Keys
 (global-set-key [f1] 'copy-to-clipboard)
