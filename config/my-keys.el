@@ -12,7 +12,7 @@
 ;; Control Keys
 ("C--" undo)
 ("C-." helm-resume)
-("C-/" comment-or-uncomment-region)
+("C-/" my-comment)
 ("C-h" iy-go-to-char-backward)
 ("C-j" ace-jump-mode)
 ("C-l" iy-go-to-char)
@@ -33,6 +33,7 @@
 ("C-c C-y" yank-rectangle)
 ("C-c C-p" copy-line-up)
 ("C-c C-n" copy-line-down)
+("C-x C-/" comment-or-uncomment-region)
 ("C-x C-0" delete-window)
 ("C-x C-1" delete-other-windows)
 ("C-x C-2" split-window-below)
@@ -79,6 +80,7 @@
 (define-key isearch-mode-map (kbd "M-g") 'isearch-abort)
 (define-key isearch-mode-map (kbd "TAB") 'isearch-exit)
 
+
 ;; Other Keys
 (global-set-key [f1] 'copy-to-clipboard)
 (global-set-key [f2] 'paste-from-clipboard)
@@ -100,6 +102,10 @@
   (define-key elixir-mode-map (kbd "C-c C-v C-v") 'elixir-mix-test)
 )
 
+;; Rust Keys
+(defun rust-keys-hook ()
+  (define-key rust-mode-map (kbd "C-c C-l") 'execute-rust)
+)
 ;; C Keys
 (defun c-keys-hook ()
   (define-key c-mode-base-map (kbd "C-c C-l") 'execute-c)
@@ -109,12 +115,14 @@
 (define-key helm-map (kbd "C-b") 'nil)
 (define-key helm-map (kbd "C-f") 'nil)
 (define-key helm-map (kbd "M-b") 'nil)
-(define-key helm-find-files-map (kbd "M-g") 'helm-keyboard-quit)
-(define-key helm-map (kbd "M-g") 'helm-keyboard-quit)
 (define-key helm-map (kbd "M-f") 'helm-select-action)
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-buffer-map (kbd "C-a") 'helm-buffers-toggle-show-hidden-buffers)
 (define-key helm-swoop-map (kbd "M-e") 'helm-swoop-edit)
+; Helm keyboard quits
+(define-key helm-find-files-map     (kbd "M-g") 'helm-keyboard-quit)
+(define-key helm-map                (kbd "M-g") 'helm-keyboard-quit)
+(define-key helm-generic-files-map  (kbd "M-g") 'helm-keyboard-quit)
 
 (define-key mc/keymap (kbd "<return>")  'newline)
 

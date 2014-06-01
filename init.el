@@ -203,6 +203,7 @@
 ))
 (add-hook 'rust-mode-hook (lambda ()
     (setq-local tab-width 4)
+    (rust-keys-hook)
 ))
 
 ;; Doom Indent Config
@@ -241,6 +242,7 @@
     ("\\.elm\\'"     . haskell-mode)
     ("\\.js\\'"      . js2-mode)
     ("\\.dtl\\'"     . web-mode)
+    ("\\.eex\\'"     . web-mode)
     ("\\.erb\\'"     . web-mode)
     ("\\.tpl\\'"     . web-mode)
     ) auto-mode-alist))
@@ -260,7 +262,7 @@
  '(font-lock-comment-face ((t (:foreground "#707070"))))
  '(font-lock-constant-face ((t (:foreground "#dc1e6a"))))
  '(font-lock-doc-face ((t (:foreground "#bc853d"))))
- '(font-lock-type-face ((t (:foreground "#145e74"))))
+ '(font-lock-type-face ((t (:foreground "#9d4fcf"))))
  '(fringe ((t (:background "#383838" :foreground "#DCDCCC"))))
  '(helm-ff-directory ((t (:background "#121212" :foreground "cyan"))))
  '(helm-ff-executable ((t (:background "#1c1c1c" :foreground "#9FC59F" :weight bold))))

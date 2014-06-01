@@ -235,6 +235,34 @@
             (async-shell-command
                 (format " ./%s" (file-name-sans-extension (buffer-name)))))))
 
+(defun execute-rust () (interactive)
+    (if (buffer-file-name)
+        (let ((result (shell-command-to-string (format "rustc %s ; echo $?" (buffer-file-name))))
+              (origin (buffer-name)))
+          (if (equal (get-return-code result) "0")
+              (async-shell-command (format " ./%s" (file-name-sans-extension (buffer-name))) "[Rust Compile]")
+              (progn
+                  (async-shell-command "" "[Rust Compile]")
+                  (switch-to-buffer "[Rust Compile]")
+                  (insert result)
+                  (switch-to-buffer origin))))))
+
+(defun test-rust () (interactive)
+    (if (buffer-file-name)
+        (let ((result (shell-command-to-string (format "rustc --test %s ; echo $?" (buffer-file-name))))
+              (origin (buffer-name)))
+          (if (equal (get-return-code result) "0")
+              (async-shell-command (format " ./%s" (file-name-sans-extension (buffer-name))) "[Rust Compile]")
+              (progn
+                  (async-shell-command "" "[Rust Compile]")
+                  (switch-to-buffer "[Rust Compile]")
+                  (insert result)
+                  (switch-to-buffer origin))))))
+
+
+(defun get-return-code (s)
+    (nth 1 (reverse (split-string s "\n"))))
+
 (defun iex-compile ()
     (interactive)
     (let ((current (buffer-name)))
@@ -264,5 +292,11 @@
 (defun copy-line-down ()
     (interactive)
     (copy-line-fun nil))
+
+(defun my-comment ()
+    (interactive)
+    (if (region-active-p)
+        (comment-or-uncomment-region (region-beginning) (region-end))
+        (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 
 (provide 'my-functions)
