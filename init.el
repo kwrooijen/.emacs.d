@@ -112,6 +112,9 @@
 ;; Let C-v M-v brings back where you were.
 (setq scroll-preserve-screen-position t)
 
+;; Don't use deep indent in Ruby
+(setq ruby-deep-indent-paren nil)
+
 ;;; Helm configurations START
 ;; Don't ask to create new file
 (setq helm-ff-newfile-prompt-p nil)
@@ -193,7 +196,7 @@
     (setq-local doom-use-tab-cycle nil)
 ))
 (add-hook 'ruby-mode-hook (lambda ()
-    (fix-tabs 2)
+    (god-local-mode t)
 ))
 (add-hook 'haskell-mode-hook (lambda ()
     (fix-tabs 4)
@@ -232,12 +235,12 @@
 (setq auto-mode-alist (append '(
     ("\\.less\\'"    . css-mode)
     ("\\.scss\\'"    . css-mode)
-    ("Gemfile$"      . enh-ruby-mode)
-    ("Rakefile$"     . enh-ruby-mode)
-    ("\\.gemspec$"   . enh-ruby-mode)
-    ("\\.rake$"      . enh-ruby-mode)
-    ("\\.rb$"        . enh-ruby-mode)
-    ("\\.ru$"        . enh-ruby-mode)
+    ("Gemfile$"      . ruby-mode)
+    ("Rakefile$"     . ruby-mode)
+    ("\\.gemspec$"   . ruby-mode)
+    ("\\.rake$"      . ruby-mode)
+    ("\\.rb$"        . ruby-mode)
+    ("\\.ru$"        . ruby-mode)
     ("\\.app.src\\'" . erlang-mode)
     ("\\.elm\\'"     . haskell-mode)
     ("\\.js\\'"      . js2-mode)
