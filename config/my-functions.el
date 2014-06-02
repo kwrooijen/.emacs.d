@@ -279,11 +279,18 @@
 
 (defun copy-line-fun (up)
     (let ((current (current-column)))
-        (copy-line 1)
-        (beginning-of-line)
-        (yank)
-        (if up (previous-line))
-        (move-to-column current)))
+        (if (region-active-p)
+            (progn
+                (copy-region-as-kill (region-beginning) (region-end))
+                (goto-char (if up (region-beginning) (region-end)))
+                (if up (open-line 1) (newline 1))
+                (yank (region-beginning)))
+            (progn
+                (copy-line 1)
+                (beginning-of-line)
+                (yank)
+                (if up (previous-line))
+                (move-to-column current)))))
 
 (defun copy-line-up ()
     (interactive)

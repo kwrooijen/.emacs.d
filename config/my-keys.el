@@ -59,11 +59,10 @@
 ("M-*"   mc/mark-all-like-this)
 ("M-+"   align-regexp)
 ("M-@"   er/expand-region)
-("M-C--" redo)
-("M-C-_" redo)
+("M--"   redo)
+("M-_"   negative-argument)
 ("M-N"   mc/mark-next-like-this)
 ("M-P"   mc/mark-previous-like-this)
-("M-_"   redo)
 ("M-g"   escape-key)
 ("M-j"   (lambda() (interactive) (join-line -1)))
 ("M-k"   kill-this-buffer)
@@ -132,7 +131,7 @@
    (define-key eshell-mode-map (kbd "C-i") 'helm-esh-pcomplete)))
 
 ;; God mode
-(define-key god-local-mode-map (kbd "g") 'god-g)
+(define-key god-local-mode-map (kbd "g") 'goto-line)
 (define-key god-local-mode-map (kbd "i") 'god-mode-disable)
 (define-key god-local-mode-map (kbd "[") (lambda ()
     (interactive) (scroll-down-line 3)))
