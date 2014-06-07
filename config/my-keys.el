@@ -107,6 +107,10 @@
       (lambda() (interactive) (run-mix "coveralls")))
   (define-key elixir-mode-map (kbd "C-c C-c C-d")
       (lambda() (interactive) (run-mix "coveralls.detail")))
+  (define-key elixir-mode-map (kbd "C-c C-c C-l")
+      (lambda() (interactive) (run-mix "help")))
+  (define-key elixir-mode-map (kbd "C-c C-c C-e")
+      (lambda(x) (interactive "sRun Mix > ") (run-mix x)))
 )
 
 ;; Rust Keys
@@ -130,6 +134,7 @@
 (define-key helm-find-files-map     (kbd "M-g") 'helm-keyboard-quit)
 (define-key helm-map                (kbd "M-g") 'helm-keyboard-quit)
 (define-key helm-generic-files-map  (kbd "M-g") 'helm-keyboard-quit)
+(define-key helm-buffer-map         (kbd "M-g") 'helm-keyboard-quit)
 
 (define-key mc/keymap (kbd "<return>")  'newline)
 
