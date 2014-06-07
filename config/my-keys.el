@@ -99,8 +99,11 @@
 ;; Elixir Keys
 (defun elixir-keys-hook ()
   (define-key elixir-mode-map (kbd "C-c C-l") 'iex-compile)
+  (define-key elixir-mode-map (kbd "C-c C-c C-e")
+      (lambda(x) (interactive "sRun Mix > ") (run-mix x)))
+
   (define-key elixir-mode-map (kbd "C-c C-c C-v")
-      (lambda() (interactive) (run-mix "")))
+      (lambda() (interactive) (run-mix "compile")))
   (define-key elixir-mode-map (kbd "C-c C-c C-s")
       (lambda() (interactive) (run-mix "start")))
   (define-key elixir-mode-map (kbd "C-c C-c C-c")
@@ -109,8 +112,8 @@
       (lambda() (interactive) (run-mix "coveralls.detail")))
   (define-key elixir-mode-map (kbd "C-c C-c C-l")
       (lambda() (interactive) (run-mix "help")))
-  (define-key elixir-mode-map (kbd "C-c C-c C-e")
-      (lambda(x) (interactive "sRun Mix > ") (run-mix x)))
+  (define-key elixir-mode-map (kbd "C-c C-c C-y")
+      (lambda() (interactive) (run-mix "dialyzer")))
 )
 
 ;; Rust Keys
@@ -121,6 +124,10 @@
 (defun c-keys-hook ()
   (define-key c-mode-base-map (kbd "C-c C-l") 'execute-c)
 )
+
+;; Dired keys
+(define-key dired-mode-map (kbd "c f") 'helm-ls-git-ls)
+(define-key dired-mode-map (kbd "z")   'helm-buffers-list)
 
 ;; Helm keys
 (define-key helm-map (kbd "C-b") 'nil)
