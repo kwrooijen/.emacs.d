@@ -2,6 +2,8 @@
 .#*
 *~
 .*.swp
+*.elc
+session.*
 /dist
 /auto-save-list
 /elim

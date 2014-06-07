@@ -1,0 +1,9 @@
+#!/bin/bash
+
+while [ $PWD != "/" ]; do
+    if [ -f mix.exs ]; then
+        mix $1
+        exit 0
+    fi
+    cd ..
+done

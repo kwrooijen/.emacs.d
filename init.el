@@ -119,7 +119,7 @@
 ;; Don't ask to create new file
 (setq helm-ff-newfile-prompt-p nil)
 (setq helm-grep-default-recurse-command
-      "grep --exclude-dir=\"dist\" -a -d recurse %e -n%cH -e %p %f")
+    "grep --exclude-dir=\"dist\" -a -d recurse %e -n%cH -e %p %f")
 (setq helm-reuse-last-window-split-state t)
 (setq helm-ff-transformer-show-only-basename nil)
 ;; Split window down
@@ -136,8 +136,8 @@
 
 ;; Smooth Scrolling
 (setq redisplay-dont-pause t
-      scroll-margin 1
-      scroll-conservatively 10000)
+    scroll-margin 1
+    scroll-conservatively 10000)
 
 ;;; Autocomplete / Yasnippet settings START
 ;; Add auto complete to these modes
@@ -181,6 +181,7 @@
 (add-hook 'c-initialization-hook 'c-keys-hook)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
 (add-hook 'magit-mode-hook 'clean-hook)
+(add-hook 'shell-mode-hook 'clean-hook)
 
 (add-hook 'erlang-mode-hook (lambda ()
     (key-chord-force)
@@ -200,7 +201,11 @@
 ))
 (add-hook 'haskell-mode-hook (lambda ()
     (fix-tabs 4)
+    (turn-on-haskell-doc-mode)
+    (turn-on-haskell-indentation)
+    (setq-local doom-indent-fallback t)
 ))
+
 (add-hook 'emacs-lisp-mode-hook (lambda ()
     (fix-tabs 4)
 ))

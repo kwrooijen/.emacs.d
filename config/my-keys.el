@@ -98,7 +98,14 @@
 ;; Elixir Keys
 (defun elixir-keys-hook ()
   (define-key elixir-mode-map (kbd "C-c C-l") 'iex-compile)
-  (define-key elixir-mode-map (kbd "C-c C-v C-v") 'elixir-mix-test)
+  (define-key elixir-mode-map (kbd "C-c C-c C-v")
+      (lambda() (interactive) (run-mix "")))
+  (define-key elixir-mode-map (kbd "C-c C-c C-s")
+      (lambda() (interactive) (run-mix "start")))
+  (define-key elixir-mode-map (kbd "C-c C-c C-c")
+      (lambda() (interactive) (run-mix "coveralls")))
+  (define-key elixir-mode-map (kbd "C-c C-c C-d")
+      (lambda() (interactive) (run-mix "coveralls.detail")))
 )
 
 ;; Rust Keys

@@ -38,19 +38,22 @@
 
 (defun erlang-get-error ()
     (interactive)
-    (shell-command (format "~/.emacs.d/scripts/erlangscript %s" buffer-file-name)))
+    (shell-command (format "~/.emacs.d/scripts/erlang/erlangscript %s" buffer-file-name)))
 
 (defun run-haskell-test ()
     (interactive)
-    (async-shell-command "~/.emacs.d/scripts/cabal-test" "[Haskell Tests]"))
+    (async-shell-command "~/.emacs.d/scripts/haskell/cabal-test" "[Haskell Tests]"))
 
 (defun run-make (args)
     (interactive)
-    (async-shell-command (format "~/.emacs.d/scripts/make-script %s" args) "[Make Project]"))
+    (async-shell-command (format "~/.emacs.d/scripts/other/make-script %s" args) "[Make Project]"))
+
+(defun run-mix (args)
+    (async-shell-command (format "~/.emacs.d/scripts/elixir/mix-script %s" args) "[Mix Execution]"))
 
 (defun guard ()
     (interactive)
-    (async-shell-command "~/.emacs.d/scripts/my-guard" "[Guard]"))
+    (async-shell-command "~/.emacs.d/scripts/other/my-guard" "[Guard]"))
 
 (defun underscores-to-camel-case (str)
     "Converts STR, which is a word using underscores, to camel case."
@@ -259,7 +262,6 @@
                   (insert result)
                   (switch-to-buffer origin))))))
 
-
 (defun get-return-code (s)
     (nth 1 (reverse (split-string s "\n"))))
 
@@ -284,7 +286,7 @@
                 (copy-region-as-kill (region-beginning) (region-end))
                 (goto-char (if up (region-beginning) (region-end)))
                 (if up (open-line 1) (newline 1))
-                (yank (region-beginning)))
+                (yank))
             (progn
                 (copy-line 1)
                 (beginning-of-line)

@@ -50,6 +50,7 @@
         keyboard-escape-quit-mc
         kill-region
         magit-stage-item
+        my-comment
         org-beginning-of-line
         org-delete-char
         org-end-of-line
@@ -82,4 +83,5 @@
         god-mode-enable
         goto-line
         helm-M-x
+        markdown-next-link
         ))
