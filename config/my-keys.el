@@ -43,6 +43,7 @@
 ;; Control Prefix 3
 ("C-c C-s C-f" helm-swoop-find-files-recursively)
 ("C-c C-s C-a" helm-bookmarks)
+("C-c C-s C-d" helm-dash)
 ("C-c C-s C-s" helm-multi-swoop)
 ("C-c C-s C-r" (lambda () (interactive)
     (let ((current-prefix-arg '(1)))

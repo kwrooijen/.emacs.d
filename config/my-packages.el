@@ -17,6 +17,7 @@
     hackernews
     haskell-mode
     helm
+    helm-dash
     helm-ls-git
     helm-swoop
     iy-go-to-char
@@ -34,6 +35,15 @@
     zenburn-theme
     ))
 
+(defvar my-docs '(
+    "Elixir"
+    "Erlang"
+    "Haskell"
+    "Emacs_Lisp"
+    "Ruby"
+    "Javascript"
+    ))
+
 (defun my-install-packages ()
   (interactive)
   (package-refresh-contents)
@@ -41,5 +51,11 @@
             (unless (package-installed-p package)
               (package-install package)))
         my-packages))
+
+(defun my-install-docs ()
+  (interactive)
+    (mapc #'(lambda (doc)
+        (helm-dash-install-docset doc))
+    my-docs))
 
 (provide 'my-packages)

@@ -132,6 +132,7 @@
 (setq helm-ff-tramp-not-fancy nil)
 ;; Smarter completion for Helm
 (setq helm-ff-smart-completion t)
+
 ;;; Helm configurations END ;;;
 
 ;; Smooth Scrolling
@@ -187,6 +188,7 @@
     (key-chord-force)
     (erlang-keys-hook)
     (fix-tabs 4)
+    (setq-local helm-dash-docsets '("Erlang"))
 ))
 (add-hook 'elixir-mode-hook (lambda ()
     (key-chord-force)
@@ -195,23 +197,27 @@
     (fix-tabs 2)
     (setq-local doom-indent-fallback t)
     (setq-local doom-use-tab-cycle nil)
+    (setq-local helm-dash-docsets '("Elixir"))
 ))
 (add-hook 'ruby-mode-hook (lambda ()
     (god-local-mode t)
+    (setq-local helm-dash-docsets '("Ruby"))
 ))
 (add-hook 'haskell-mode-hook (lambda ()
     (fix-tabs 4)
     (turn-on-haskell-doc-mode)
     (turn-on-haskell-indentation)
     (setq-local doom-indent-fallback t)
+    (setq-local helm-dash-docsets '("Haskell"))
 ))
-
 (add-hook 'emacs-lisp-mode-hook (lambda ()
     (fix-tabs 4)
+    (setq-local helm-dash-docsets '("Emacs_Lisp"))
 ))
 (add-hook 'rust-mode-hook (lambda ()
     (setq-local tab-width 4)
     (rust-keys-hook)
+    (setq-local helm-dash-docsets '("Rust"))
 ))
 
 ;; Doom Indent Config
