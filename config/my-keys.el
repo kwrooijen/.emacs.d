@@ -33,12 +33,17 @@
 ("C-c C-y" yank-rectangle)
 ("C-c C-p" copy-line-up)
 ("C-c C-n" copy-line-down)
+("C-c C-u" winner-undo)
+("C-c C-i" winner-redo)
 ("C-x C-/" comment-or-uncomment-region)
 ("C-x C-0" delete-window)
 ("C-x C-1" delete-other-windows)
 ("C-x C-2" split-window-below)
 ("C-x C-3" split-window-right)
 ("C-x C-f" helm-find-files)
+("C-c C-d" (lambda () (interactive)
+    (winner-undo)
+    (command-repeater '(("d" . winner-undo)))))
 
 ;; Control Prefix 3
 ("C-c C-s C-f" helm-swoop-find-files-recursively)
@@ -98,6 +103,12 @@
 
 ;; Elixir Keys
 (defun elixir-keys-hook ()
+  (setq-local doom-indent-key "") ;;; HACK FOR ELIXIR MODE
+  (define-key elixir-mode-map (kbd "TAB") (lambda() (interactive)
+    (if (and (equal major-mode 'elixir-mode) (not auto-complete-mode))
+    (auto-complete-mode 1))
+    (indent-of-doom))) ;;; HACK FOR ELIXIR MODE
+
   (define-key elixir-mode-map (kbd "C-c C-l") 'iex-compile)
   (define-key elixir-mode-map (kbd "C-c C-c C-e")
       (lambda(x) (interactive "sRun Mix > ") (run-mix x)))
@@ -112,7 +123,7 @@
       (lambda() (interactive) (run-mix "coveralls.detail")))
   (define-key elixir-mode-map (kbd "C-c C-c C-l")
       (lambda() (interactive) (run-mix "help")))
-  (define-key elixir-mode-map (kbd "C-c C-c C-y")
+  (define-key elixir-mode-map (kbd "C-c C-c C-i")
       (lambda() (interactive) (run-mix "dialyzer")))
 )
 

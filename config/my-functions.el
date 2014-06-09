@@ -308,4 +308,60 @@
         (comment-or-uncomment-region (region-beginning) (region-end))
         (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 
+(defun tv-require (feature &optional filename noerror)
+  (message "Loading %s..." (symbol-name feature))
+  (condition-case err
+      (if (require feature filename noerror)
+          (message "Loading %s done" (symbol-name feature))
+          (message "Loading %s Failed" (symbol-name feature)))
+    (error
+     (signal 'error (list feature (car err) (cadr err))))))
+
+(when (tv-require 'winner)
+  (defvar winner-boring-buffers-regexp "\\*[hH]elm.*")
+  (defun winner-set1 (conf)
+    ;; For the format of `conf', see `winner-conf'.
+    (let* ((buffers nil)
+           (alive
+            ;; Possibly update `winner-point-alist'
+            (cl-loop for buf in (mapcar 'cdr (cdr conf))
+                     for pos = (winner-get-point buf nil)
+                     if (and pos (not (memq buf buffers)))
+                     do (push buf buffers)
+                     collect pos)))
+      (winner-set-conf (car conf))
+      (let (xwins) ; to be deleted
+
+        ;; Restore points
+        (dolist (win (winner-sorted-window-list))
+          (unless (and (pop alive)
+                       (setf (window-point win)
+                             (winner-get-point (window-buffer win) win))
+                       (not (or (member (buffer-name (window-buffer win))
+                                        winner-boring-buffers)
+                                (string-match winner-boring-buffers-regexp
+                                              (buffer-name (window-buffer win))))))
+            (push win xwins))) ; delete this window
+
+        ;; Restore marks
+        (letf (((current-buffer)))
+              (cl-loop for buf in buffers
+                       for entry = (cadr (assq buf winner-point-alist))
+                       for win-ac-reg = (winner-active-region)
+                       do (progn (set-buffer buf)
+                                 (set-mark (car entry))
+                                 (setf win-ac-reg (cdr entry)))))
+        ;; Delete windows, whose buffers are dead or boring.
+        ;; Return t if this is still a possible configuration.
+        (or (null xwins)
+            (progn
+              (mapc 'delete-window (cdr xwins)) ; delete all but one
+              (unless (one-window-p t)
+                (delete-window (car xwins))
+                t)))
+        )))
+
+  (defalias 'winner-set 'winner-set1))
+(winner-mode 1)
+
 (provide 'my-functions)
