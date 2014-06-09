@@ -169,6 +169,9 @@
 (define-key god-local-mode-map (kbd "]") (lambda ()
     (interactive) (scroll-up-line 3)))
 
+;; Magit mode
+(define-key magit-status-mode-map (kbd "RET") (lambda () (interactive) (magit-visit-item t)))
+
 ;; Modes
 (define-minor-mode attic-minor-mode
 "A minor mode so that my key settings override annoying major modes."
