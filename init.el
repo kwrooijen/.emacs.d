@@ -7,6 +7,7 @@
 (require 'helm-swoop)
 (require 'multiple-cursors)
 (require 'redo+)
+(require 'magit)
 
 ;; Modes
 (global-auto-complete-mode t)
