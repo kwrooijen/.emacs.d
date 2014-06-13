@@ -20,6 +20,7 @@
     helm-dash
     helm-ls-git
     helm-swoop
+    highlight-symbol
     iy-go-to-char
     js2-mode
     key-chord

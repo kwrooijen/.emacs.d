@@ -67,17 +67,19 @@
     (key-chord-mode 1)
     (if window-system
         (set-cursor-color "green")
-        (if (getenv "TMUX")
+        (if (getenv "DISPLAY")
+            (if (getenv "TMUX")
             (send-string-to-terminal "\033Ptmux;\033\033]12;Green\007\033\\")
-            (send-string-to-terminal "\033]12;Green\007"))))
+            (send-string-to-terminal "\033]12;Green\007")))))
 
 (defun god-mode-enable () (interactive)
     (god-local-mode-resume)
     (if window-system
         (set-cursor-color "white")
-        (if (getenv "TMUX")
-            (send-string-to-terminal "\033Ptmux;\033\033]12;White\007\033\\")
-            (send-string-to-terminal "\033]12;White\007"))))
+        (if (getenv "DISPLAY")
+            (if (getenv "TMUX")
+                (send-string-to-terminal "\033Ptmux;\033\033]12;White\007\033\\")
+                (send-string-to-terminal "\033]12;White\007")))))
 
 (defun escape-key () (interactive)
     (god-mode-enable)

@@ -1,4 +1,5 @@
 (add-to-list 'load-path "~/.emacs.d/config")
+(add-to-list 'load-path "~/.emacs.d/plugins")
 (require 'my-packages)
 (require 'auto-complete-config)
 (require 'god-mode)
@@ -11,7 +12,6 @@
 
 ;; Modes
 (global-auto-complete-mode t)
-(global-hl-line-mode t)
 (global-linum-mode t)
 (global-rainbow-delimiters-mode)
 (god-mode)
@@ -21,7 +21,11 @@
 (window-numbering-mode 1)
 (wrap-region-global-mode t)
 (yas-global-mode 1)
+(highlight-symbol-mode 1)
 
+(if (getenv "DISPLAY")
+    (global-hl-line-mode t)
+)
 ;; My configurations
 (require 'my-functions)
 (require 'my-powerline)
@@ -115,6 +119,9 @@
 
 ;; Don't use deep indent in Ruby
 (setq ruby-deep-indent-paren nil)
+
+;; Highlight delay for multiple occurences
+(setq highlight-symbol-idle-delay 0.4)
 
 ;;; Helm configurations START
 ;; Don't ask to create new file
@@ -282,13 +289,14 @@
  '(helm-ff-directory ((t (:background "#121212" :foreground "cyan"))))
  '(helm-ff-executable ((t (:background "#1c1c1c" :foreground "#9FC59F" :weight bold))))
  '(helm-ff-file ((t (:background "#1c1c1c" :foreground "#DCDCCC" :weight bold))))
- '(helm-swoop-target-line-block-face ((t (:background "#585858" :foreground "#FFF"))))
- '(helm-swoop-target-line-face ((t (:background "#585858" :foreground "#FFF"))))
+ '(helm-swoop-target-line-block-face ((t (:background "#585858" :foreground "#fff"))))
+ '(helm-swoop-target-line-face ((t (:background "#585858" :foreground "#fff"))))
  '(helm-swoop-target-word-face ((t (:background "#7700ff" :foreground "#fff"))))
+ '(highlight-symbol-face ((t (:background "#7700ff" :foreground "#fff"))))
  '(hl-line ((t (:inherit highlight :background "#303030"))))
  '(linum ((t (:inherit (shadow default) :background "#383838" :foreground "#8FB28F"))))
- '(magit-branch ((t (:background "#111111"))) t)
- '(region ((t (:background "#585858" :foreground "#FFF"))))
+ '(magit-branch ((t (:background "#111111"))))
+ '(region ((t (:background "#585858" :foreground "#fff"))))
  '(show-paren-match ((t (:background "#4e4e4e" :foreground "#7CB8BB" :weight bold))))
  '(vertical-border ((t (:background "#383838" :foreground "#383838"))))
  '(web-mode-block-attr-name-face ((t (:foreground "#808080"))) t)
