@@ -21,7 +21,6 @@
 (window-numbering-mode 1)
 (wrap-region-global-mode t)
 (yas-global-mode 1)
-(highlight-symbol-mode 1)
 
 (if (getenv "DISPLAY")
     (global-hl-line-mode t)
@@ -121,7 +120,7 @@
 (setq ruby-deep-indent-paren nil)
 
 ;; Highlight delay for multiple occurences
-(setq highlight-symbol-idle-delay 0.4)
+(setq highlight-symbol-idle-delay 0)
 
 ;;; Helm configurations START
 ;; Don't ask to create new file
@@ -197,6 +196,7 @@
     (erlang-keys-hook)
     (fix-tabs 4)
     (setq-local helm-dash-docsets '("Erlang"))
+    (highlight-symbol-mode 1)
 ))
 (add-hook 'elixir-mode-hook (lambda ()
     (key-chord-force)
@@ -206,10 +206,12 @@
     (setq-local doom-indent-fallback t)
     (setq-local doom-use-tab-cycle nil)
     (setq-local helm-dash-docsets '("Elixir"))
+    (highlight-symbol-mode 1)
 ))
 (add-hook 'ruby-mode-hook (lambda ()
     (god-local-mode t)
     (setq-local helm-dash-docsets '("Ruby"))
+    (highlight-symbol-mode 1)
 ))
 (add-hook 'haskell-mode-hook (lambda ()
     (fix-tabs 4)
@@ -217,15 +219,18 @@
     (turn-on-haskell-indentation)
     (setq-local doom-indent-fallback t)
     (setq-local helm-dash-docsets '("Haskell"))
+    (highlight-symbol-mode 1)
 ))
 (add-hook 'emacs-lisp-mode-hook (lambda ()
     (fix-tabs 4)
     (setq-local helm-dash-docsets '("Emacs_Lisp"))
+    (highlight-symbol-mode 1)
 ))
 (add-hook 'rust-mode-hook (lambda ()
     (setq-local tab-width 4)
     (rust-keys-hook)
     (setq-local helm-dash-docsets '("Rust"))
+    (highlight-symbol-mode 1)
 ))
 
 ;; Doom Indent Config
@@ -292,7 +297,7 @@
  '(helm-swoop-target-line-block-face ((t (:background "#585858" :foreground "#fff"))))
  '(helm-swoop-target-line-face ((t (:background "#585858" :foreground "#fff"))))
  '(helm-swoop-target-word-face ((t (:background "#7700ff" :foreground "#fff"))))
- '(highlight-symbol-face ((t (:background "#7700ff" :foreground "#fff"))))
+ '(highlight-symbol-face ((t (:background "#5F5F5F" :foreground "#D0BF8F"))))
  '(hl-line ((t (:inherit highlight :background "#303030"))))
  '(linum ((t (:inherit (shadow default) :background "#383838" :foreground "#8FB28F"))))
  '(magit-branch ((t (:background "#111111"))))
