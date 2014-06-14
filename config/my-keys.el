@@ -4,7 +4,8 @@
   (define-key attic-minor-mode-map (kbd key) function)
   (global-set-key (kbd key) function)
 )
-
+(space-chord-define-global " " 'escape-key)
+(space-chord-define isearch-mode-map " " 'isearch-abort)
 (mapcar (lambda(a) (attic-key (nth 0 a) (nth 1 a))) '(
 
 ("<escape>" escape-key)

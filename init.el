@@ -9,6 +9,8 @@
 (require 'multiple-cursors)
 (require 'redo+)
 (require 'magit)
+(require 'space-chord)
+(require 'fbterm)
 
 ;; Modes
 (global-auto-complete-mode t)
@@ -61,7 +63,10 @@
 (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68
                         72 76 80 84 88 92 96 100 104 108 112 116 120))
 
-; Delete seleted text when typing
+;; Personal Info
+(setq user-full-name "Kevin W. van Rooijen")
+
+;; Delete seleted text when typing
 (delete-selection-mode 1)
 
 ;; Make mc work better with iy-go-to-char
@@ -191,13 +196,17 @@
 (add-hook 'magit-mode-hook 'clean-hook)
 (add-hook 'shell-mode-hook 'clean-hook)
 
+(add-hook 'isearch-mode-hook (lambda()
+    (key-chord-mode 1)
+))
+
 (add-hook 'erlang-mode-hook (lambda ()
     (key-chord-force)
     (erlang-keys-hook)
     (fix-tabs 4)
     (setq-local helm-dash-docsets '("Erlang"))
-    (highlight-symbol-mode 1)
 ))
+
 (add-hook 'elixir-mode-hook (lambda ()
     (key-chord-force)
     (elixir-keys-hook)
@@ -206,31 +215,30 @@
     (setq-local doom-indent-fallback t)
     (setq-local doom-use-tab-cycle nil)
     (setq-local helm-dash-docsets '("Elixir"))
-    (highlight-symbol-mode 1)
 ))
+
 (add-hook 'ruby-mode-hook (lambda ()
     (god-local-mode t)
     (setq-local helm-dash-docsets '("Ruby"))
-    (highlight-symbol-mode 1)
 ))
+
 (add-hook 'haskell-mode-hook (lambda ()
     (fix-tabs 4)
     (turn-on-haskell-doc-mode)
     (turn-on-haskell-indentation)
     (setq-local doom-indent-fallback t)
     (setq-local helm-dash-docsets '("Haskell"))
-    (highlight-symbol-mode 1)
 ))
+
 (add-hook 'emacs-lisp-mode-hook (lambda ()
     (fix-tabs 4)
     (setq-local helm-dash-docsets '("Emacs_Lisp"))
-    (highlight-symbol-mode 1)
 ))
+
 (add-hook 'rust-mode-hook (lambda ()
     (setq-local tab-width 4)
     (rust-keys-hook)
     (setq-local helm-dash-docsets '("Rust"))
-    (highlight-symbol-mode 1)
 ))
 
 ;; Doom Indent Config
