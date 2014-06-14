@@ -4,8 +4,6 @@
   (define-key attic-minor-mode-map (kbd key) function)
   (global-set-key (kbd key) function)
 )
-(space-chord-define-global " " 'escape-key)
-(space-chord-define isearch-mode-map " " 'isearch-abort)
 (mapcar (lambda(a) (attic-key (nth 0 a) (nth 1 a))) '(
 
 ("<escape>" escape-key)
@@ -63,20 +61,20 @@
 ("C-c C-z C-z" (lambda() (interactive) (run-make "")))
 
 ;; Meta keys
-("M-*"   mc/mark-all-like-this)
-("M-+"   align-regexp)
-("M-@"   er/expand-region)
-("M--"   redo)
-("M-_"   negative-argument)
-("M-N"   mc/mark-next-like-this)
-("M-P"   mc/mark-previous-like-this)
-("M-g"   escape-key)
-("M-j"   (lambda() (interactive) (join-line -1)))
-("M-k"   kill-this-buffer)
-("M-o"   (lambda() (interactive) (vim-o 1)))
-("M-q"   backward-kill-word)
-("M-s"   helm-swoop)
-("M-x"   helm-M-x)
+("M-*" mc/mark-all-like-this)
+("M-+" align-regexp)
+("M-@" er/expand-region)
+("M--" redo)
+("M-_" negative-argument)
+("M-N" mc/mark-next-like-this)
+("M-P" mc/mark-previous-like-this)
+("M-g" escape-key)
+("M-j" (lambda() (interactive) (join-line -1)))
+("M-k" kill-this-buffer)
+("M-o" (lambda() (interactive) (vim-o 1)))
+("M-q" backward-kill-word)
+("M-s" helm-swoop)
+("M-x" helm-M-x)
 ))
 
 (key-chord-define-global "xs"
@@ -141,6 +139,14 @@
 (define-key dired-mode-map (kbd "c f") 'helm-ls-git-ls)
 (define-key dired-mode-map (kbd "z")   'helm-buffers-list)
 
+;; Key Chord
+(space-chord-define-global                   " " 'escape-key)
+(space-chord-define isearch-mode-map         " " 'isearch-abort)
+(space-chord-define helm-map                 " " 'helm-keyboard-quit)
+(space-chord-define helm-find-files-map      " " 'helm-keyboard-quit)
+(space-chord-define helm-generic-files-map   " " 'helm-keyboard-quit)
+(space-chord-define helm-buffer-map          " " 'helm-keyboard-quit)
+
 ;; Helm keys
 (define-key helm-map (kbd "C-b") 'nil)
 (define-key helm-map (kbd "C-f") 'nil)
@@ -150,8 +156,8 @@
 (define-key helm-buffer-map (kbd "C-a") 'helm-buffers-toggle-show-hidden-buffers)
 (define-key helm-swoop-map (kbd "M-e") 'helm-swoop-edit)
 ; Helm keyboard quits
-(define-key helm-find-files-map     (kbd "M-g") 'helm-keyboard-quit)
 (define-key helm-map                (kbd "M-g") 'helm-keyboard-quit)
+(define-key helm-find-files-map     (kbd "M-g") 'helm-keyboard-quit)
 (define-key helm-generic-files-map  (kbd "M-g") 'helm-keyboard-quit)
 (define-key helm-buffer-map         (kbd "M-g") 'helm-keyboard-quit)
 
