@@ -1,9 +1,26 @@
+(defun dash-string (d s)
+    "Execute dash expression with a string. Converts string to a
+    list, applies the dash function and wraps it back to a string again"
+    (let ((result (funcall d (-drop 1 (split-string s "")))))
+        (if result (list-to-string result) "")))
+
+(defun string/reverse (str)
+      "Reverse the str where str is a string"
+      (apply #'string
+	     (reverse
+	      (string-to-list str))))
+
 (defpowerline god-mode-bar
  (if mark-active
      (format "[VISUAL]")
      (if (and (boundp 'god-local-mode) god-local-mode)
               (format "[NORMAL]")
               (format "[INSERT]"))))
+
+(defpowerline my-garak-notify ;; TODO Fix colors that are lost
+    (string/reverse (dash-string (lambda(x)
+        (--drop-while (not (equal it "]")) x))
+        (string/reverse (powerline-raw mode-line-modes)))))
 
 (defun my-powerline-theme ()
   "Setup the default mode-line."
@@ -23,8 +40,9 @@
                                                (cdr powerline-default-separator-dir))))
 
               (lhs (list
-                         (format "%i" total-unread)
                          (powerline-raw "%*" nil 'l)
+                         (format " %i" total-unread)
+                         (my-garak-notify nil 'l)
                          (powerline-raw mode-line-mule-info nil 'l)
                          (powerline-buffer-id nil 'l)
                          (god-mode-bar nil 'l)

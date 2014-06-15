@@ -108,4 +108,19 @@
 (defadvice mu4e-update-mail-and-index (after mu4e-update-mail-and-index-after activate)
     (setq total-unread (new-messages)))
 
+
+;=================================================================;
+;============================= Chat ==============================;
+;=================================================================;
+
+(require 'elim)
+(require 'garak)
+
+;; Garak Keys
+(define-key garak-mode-map (kbd "\r") nil)
+(define-key garak-mode-map (kbd "M-<RET>") 'lui-send-input)
+
+;; Set elim executable
+(setq elim-executable "/usr/bin/elim-client")
+
 (provide 'my-extras)
