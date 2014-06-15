@@ -1,5 +1,6 @@
 (add-to-list 'load-path "~/.emacs.d/config")
 (add-to-list 'load-path "~/.emacs.d/plugins")
+
 (require 'my-packages)
 (require 'auto-complete-config)
 (require 'god-mode)
@@ -170,6 +171,13 @@
     (setq ac-sources (delq 'ac-source-yasnippet ac-sources))
       (add-to-list 'ac-sources 'ac-source-yasnippet))
 ;;; Autocomplete / Yasnippet settings END
+
+;; Modes with no Linum
+(setq linum-disabled-modes-list '(
+    mu4e-compose-mode
+    mu4e-headers-mode
+    mu4e-main-mode
+))
 
 ;; Hooks
 (defun clean-hook ()

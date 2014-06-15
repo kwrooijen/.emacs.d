@@ -48,6 +48,7 @@
 ("C-c C-s C-f" helm-swoop-find-files-recursively)
 ("C-c C-s C-a" helm-bookmarks)
 ("C-c C-s C-d" helm-dash)
+("C-c C-s C-m" mu4e)
 ("C-c C-s C-s" helm-multi-swoop)
 ("C-c C-s C-r" (lambda () (interactive)
     (let ((current-prefix-arg '(1)))
@@ -83,7 +84,6 @@
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
 (define-key isearch-mode-map (kbd "M-g") 'isearch-abort)
 (define-key isearch-mode-map (kbd "TAB") 'isearch-exit)
-
 
 ;; Other Keys
 (global-set-key [f1] 'copy-to-clipboard)

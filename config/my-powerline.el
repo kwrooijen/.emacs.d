@@ -22,10 +22,13 @@
                                                powerline-default-separator
                                                (cdr powerline-default-separator-dir))))
 
-              (lhs (list (powerline-raw "%*" nil 'l)
+              (lhs (list
+                         (format "%i" total-unread)
+                         (powerline-raw "%*" nil 'l)
                          (powerline-raw mode-line-mule-info nil 'l)
                          (powerline-buffer-id nil 'l)
                          (god-mode-bar nil 'l)
+
                          (when (and (boundp 'which-func-mode) which-func-mode)
                            (powerline-raw which-func-format nil 'l))
                          (powerline-raw " ")
