@@ -1,5 +1,6 @@
 (add-to-list 'load-path "~/.emacs.d/config")
 (add-to-list 'load-path "~/.emacs.d/plugins")
+(add-to-list 'load-path "/usr/share/distel/elisp")
 
 (require 'my-packages)
 (require 'auto-complete-config)
@@ -12,6 +13,9 @@
 (require 'magit)
 (require 'space-chord)
 (require 'fbterm)
+(require 'rebar)
+(require 'flymake)
+(require 'distel)
 
 ;; Modes
 (global-auto-complete-mode t)
@@ -209,10 +213,16 @@
 ))
 
 (add-hook 'erlang-mode-hook (lambda ()
+    (setq inferior-erlang-machine-options '("-sname" "emacs"))
     (key-chord-force)
-    (erlang-keys-hook)
     (fix-tabs 4)
+    (rebar-mode 1)
+    (flymake-erlang-init)
+    (flymake-mode 1)
     (setq-local helm-dash-docsets '("Erlang"))
+    (erlang-extended-mode)
+    (distel-setup)
+    (erlang-keys-hook)
 ))
 
 (add-hook 'elixir-mode-hook (lambda ()
@@ -289,6 +299,15 @@
     ("\\.erb\\'"     . web-mode)
     ("\\.tpl\\'"     . web-mode)
     ) auto-mode-alist))
+
+(defun flymake-erlang-init ()
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+		     'flymake-create-temp-inplace))
+	 (local-file (file-relative-name temp-file
+		(file-name-directory buffer-file-name))))
+    (list "/home/kevin/.emacs.d/scripts/erlang/erlang-flymake" (list local-file))))
+
+(add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

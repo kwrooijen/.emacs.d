@@ -38,7 +38,7 @@
 
 (defun erlang-get-error ()
     (interactive)
-    (shell-command (format "~/.emacs.d/scripts/erlang/erlangscript %s" buffer-file-name)))
+    (shell-command (format "~/.emacs.d/scripts/erlang/erlang-flymake %s" buffer-file-name)))
 
 (defun run-haskell-test ()
     (interactive)

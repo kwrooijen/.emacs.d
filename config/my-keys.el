@@ -40,9 +40,9 @@
 ("C-x C-2" split-window-below)
 ("C-x C-3" split-window-right)
 ("C-x C-f" helm-find-files)
-("C-c C-d" (lambda () (interactive)
-    (winner-undo)
-    (command-repeater '(("d" . winner-undo)))))
+;; ("C-c C-d" (lambda () (interactive)
+;;     (winner-undo)
+;;     (command-repeater '(("d" . winner-undo)))))
 
 ;; Control Prefix 3
 ("C-c C-s C-f" helm-swoop-find-files-recursively)
@@ -94,10 +94,27 @@
 
 ;; Erlang Keys
 (defun erlang-keys-hook ()
-  (local-set-key (kbd "M-?") 'erlang-get-error)
-  (local-set-key (kbd "M-n") 'flymake-goto-next-error)
-  (local-set-key (kbd "M-p") 'flymake-goto-prev-error)
-  (local-set-key (kbd "M-q") 'backward-kill-word)
+    (local-set-key (kbd "M-?") 'erlang-get-error)
+    (local-set-key (kbd "M-n") 'flymake-goto-next-error)
+    (local-set-key (kbd "M-p") 'flymake-goto-prev-error)
+    (local-set-key (kbd "M-q") 'backward-kill-word)
+
+    ;; (local-set-key (kbd "M-/") 'dabbrev-expand)      ;- Complete a module or remote function name.
+    ;; (local-set-key (kbd "M-.") )      ;- Jump from a function call to its definition.
+    ;; (local-set-key (kbd "M-,") )      ;- Jump back from a function definition (multi-level).
+    (local-set-key (kbd "C-c C-d C-n") 'erl-choose-nodename) ;- set the erlang node name
+    (local-set-key (kbd "C-c C-d C-g") 'erl-ping) ;- upload the distel modules to the erlang node
+    (local-set-key (kbd "C-c C-d C-d") 'erl-eval-expression) ;- Evaluate an erlang expression from the minibuffer.
+    (local-set-key (kbd "C-c C-d C-f") 'erl-refactor-subfunction) ;- Refactor expressions in the region as a new function.
+    (local-set-key (kbd "C-c C-d C-F") 'erl-find-module) ;- Find a module.
+    (local-set-key (kbd "C-c C-d C-i") 'edb-toggle-interpret) ;- Toggle debug interpretping of the module.
+    (local-set-key (kbd "C-c C-d C-b") 'edb-toggle-breakpoint) ;- Toggle a debugger breakpoint at the current line.
+    (local-set-key (kbd "C-c C-d C-p") 'fprof) ;- Profile (with fprof) an expression from the minibuffer.
+    (local-set-key (kbd "C-c C-d C-L") 'erl-reload-module) ;- Reload an Erlang module.
+    (local-set-key (kbd "C-c C-d C-r") 'erl-reload-modules) ;- Reload all Erlang modules that are out of date.
+    (local-set-key (kbd "C-c C-d C-w") 'erl-who-calls) ;- Who calls function under point.
+    (local-set-key (kbd "C-c C-d C-H") 'erl-find-doc) ;- Show the html documentation for a function.
+    (local-set-key (kbd "C-c C-d C-Z") 'erl-find-sig) ;- Show the signature for a function.
 )
 
 ;; Elixir Keys
