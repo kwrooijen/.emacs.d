@@ -14,3 +14,4 @@ session.*
 /backups
 /tramp
 /eshell
+*_flymake*

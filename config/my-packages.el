@@ -59,4 +59,13 @@
         (helm-dash-install-docset doc))
     my-docs))
 
+;; If elpa directory doesn't exist, install packages and reload
+(if (not (file-exists-p "~/.emacs.d/elpa/")) (progn
+    (my-install-packages)
+    (load-file "~/.emacs.d/init.el")
+    (delete-other-windows)
+    (insert "Welcome to the Attic!")))
+
+
+
 (provide 'my-packages)

@@ -182,11 +182,11 @@
     (interactive)
     (format "/home/%s/" (user-login-name)))
 
-(defun shell-command-string (x)
+(defun find-files-recursively-shell-command (x)
     (interactive)
     (format "find %s | grep -v '#' | grep -v '/\\.' | grep -v '/Downloads' |
         grep -v '/Dropbox' | grep -v '/Music' | grep -v '/Videos' | grep -v '/Pictures' |
-        grep -v 'ebin' | grep -v 'deps' | grep -v 'dist'" x))
+        grep -v '/Mail' | grep -v 'ebin' | grep -v 'deps' | grep -v 'dist'" x))
 
 (defun helm-swoop-find-files-recursively ()
     (interactive)
@@ -194,7 +194,7 @@
            (current-dir default-directory))
         (switch-to-buffer "*helm-find-files-recursively*")
         (erase-buffer)
-        (shell-command (shell-command-string (home-directory)) -1)
+        (shell-command (find-files-recursively-shell-command (home-directory)) -1)
         (helm-swoop :$query "")
         (if (equal helm-exit-status 0)
             (setq final-location (buffer-substring
@@ -365,5 +365,8 @@
 
   (defalias 'winner-set 'winner-set1))
 (winner-mode 1)
+
+(defun is-tramp-mode ()
+    (tramp-tramp-file-p (buffer-file-name (current-buffer))))
 
 (provide 'my-functions)

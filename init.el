@@ -14,8 +14,8 @@
 (require 'space-chord)
 (require 'fbterm)
 (require 'rebar)
-(require 'flymake)
 (require 'distel)
+(require 'flymake)
 
 ;; Modes
 (global-auto-complete-mode t)
@@ -213,16 +213,17 @@
 ))
 
 (add-hook 'erlang-mode-hook (lambda ()
+    (if (not (is-tramp-mode)) (progn
+        (flymake-erlang-init)
+        (flymake-mode 1)))
     (setq inferior-erlang-machine-options '("-sname" "emacs"))
     (key-chord-force)
     (fix-tabs 4)
     (rebar-mode 1)
-    (flymake-erlang-init)
-    (flymake-mode 1)
     (setq-local helm-dash-docsets '("Erlang"))
-    (erlang-extended-mode)
     (distel-setup)
     (erlang-keys-hook)
+    (erlang-extended-mode)
 ))
 
 (add-hook 'elixir-mode-hook (lambda ()
@@ -281,6 +282,15 @@
     ))
 ))
 
+(defun flymake-erlang-init ()
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+		     'flymake-create-temp-inplace))
+	 (local-file (file-relative-name temp-file
+		(file-name-directory buffer-file-name))))
+    (list "/home/kevin/.emacs.d/scripts/erlang/erlang-flymake" (list local-file))))
+
+(add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
+
 ;; Load mode on certain file extensions
 (setq auto-mode-alist (append '(
     ("\\.less\\'"    . css-mode)
@@ -299,15 +309,6 @@
     ("\\.erb\\'"     . web-mode)
     ("\\.tpl\\'"     . web-mode)
     ) auto-mode-alist))
-
-(defun flymake-erlang-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-		     'flymake-create-temp-inplace))
-	 (local-file (file-relative-name temp-file
-		(file-name-directory buffer-file-name))))
-    (list "/home/kevin/.emacs.d/scripts/erlang/erlang-flymake" (list local-file))))
-
-(add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
