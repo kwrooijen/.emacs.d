@@ -33,10 +33,7 @@
     (global-hl-line-mode t)
 )
 ;; My configurations
-(require 'my-functions)
-(require 'my-powerline)
-(require 'my-keys)
-(require 'my-extras)
+(require 'my-requires)
 (require 'indent-of-doom)
 
 ;; Enable Zenburn Theme
