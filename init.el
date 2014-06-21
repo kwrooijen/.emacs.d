@@ -319,11 +319,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:background "#1c1c1c" :foreground "#e5e3e3"))))
- '(erm-syn-errline ((t (:foreground "red" :box (:line-width 1 :color "red") :underline "red"))) t)
- '(erm-syn-warnline ((t (:foreground "yellow" :box (:line-width 1 :color "yellow") :underline "yellow"))) t)
- '(flymake-errline ((t (:foreground "red" :underline "red"))) t)
- '(flymake-warnline ((((class color)) (:foreground "yellow" :underline "yellow"))) t)
- '(flyspell-incorrect ((t (:underline (:color "red" :style wave)))) t)
+ '(erm-syn-errline ((t (:foreground "ff0000" :box (:line-width 1 :color "ff0000") :underline "ff0000"))) t)
+ '(erm-syn-warnline ((t (:foreground "ffeb08" :box (:line-width 1 :color "ffeb08") :underline "ffeb08"))) t)
+ '(flymake-errline ((t (:foreground "#ff0000" :underline "#ff0000"))) t)
+ '(flymake-warnline ((((class color)) (:foreground "#ffeb08" :underline "#ffeb08"))) t)
+ '(flyspell-incorrect ((t (:underline (:color "ff0000" :style wave)))) t)
  '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :foreground "#707070"))))
  '(font-lock-comment-face ((t (:foreground "#707070"))))
  '(font-lock-constant-face ((t (:foreground "#dc1e6a"))))
