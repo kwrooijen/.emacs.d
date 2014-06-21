@@ -2,6 +2,7 @@
 -export([main/1]).
 
 main([File_Name]) ->
+    io:format("-------------------------------- Initiate Error Check ---------------------------------~n~n~n"),
     Includes = case filelib:is_dir("../deps") of
                    false ->
                        ["../include"];
@@ -16,4 +17,15 @@ main([File_Name]) ->
 
     compile:file(File_Name, [warn_obsolete_guard, warn_unused_import,
                              warn_shadow_vars, warn_export_vars,
-                             strong_validation, report | Includes]).
+                             strong_validation, report | Includes]),
+    case catch dialyzer:run([{files, [File_Name]}, {from, src_code}]) of
+        {ok, Warnings}          -> print_dialyzer(File_Name, Warnings);
+        _ -> ok
+    end,
+    io:format("~n~n-------------------------------- Error Check Finished ---------------------------------~n").
+
+
+print_dialyzer(File_Name, DiaWarnings) ->
+    lists:map(fun({_, {_, I}, {_,Message}}) ->
+        io:format("~s:~p: Warning: ~p~n", [File_Name, I, Message])
+    end, DiaWarnings).

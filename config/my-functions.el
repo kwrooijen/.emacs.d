@@ -38,7 +38,7 @@
 
 (defun erlang-get-error ()
     (interactive)
-    (shell-command (format "~/.emacs.d/scripts/erlang/erlang-flymake %s" buffer-file-name)))
+    (async-shell-command (format "~/.emacs.d/scripts/erlang/erlang-flymake %s" buffer-file-name) "[Erlang Errors]"))
 
 (defun run-haskell-test ()
     (interactive)
@@ -172,7 +172,6 @@
         (delete-window)
         (switch-to-buffer current)
         (makunbound 'current)))))
-
 (defun default-directory-full ()
     (if (equal (substring default-directory 0 1) "~")
         (format "/home/%s%s" (user-login-name) (substring default-directory 1))
@@ -395,5 +394,44 @@ makes)."
          )
     (flymake-log 3 "create-temp-intemp: file=%s temp=%s" file-name temp-name)
     temp-name))
+
+(defadvice erlang-compile (before erlang-compile activate)
+    (setq glob-prev-buffer (current-buffer)))
+
+(defadvice erlang-compile (after erlang-compile activate)
+    "Load ebin beam files after compile"
+        (if (upward-find-file "ebin") (progn
+            (switch-to-buffer "*erlang*")
+            (insert (format "code:add_path(\"%sebin\")." (upward-find-file "ebin")))
+            (erlang-RET-command)
+            (delete-windows-on "*erlang*")
+            (switch-to-buffer glob-prev-buffer))))
+
+(defun upward-find-file (filename &optional startdir)
+  "Move up directories until we find a certain filename. If we
+  manage to find it, return the containing directory. Else if we
+  get to the toplevel directory and still can't find it, return
+  nil. Start at startdir or . if startdir not given"
+  (interactive)
+  (let ((dirname (expand-file-name
+          (if startdir startdir ".")))
+    (found nil) ; found is set as a flag to leave loop if we find it
+    (top nil))  ; top is set when we get
+            ; to / so that we only check it once
+
+    ; While we've neither been at the top last time nor have we found
+    ; the file.
+    (while (not (or found top))
+      ; If we're at / set top flag.
+      (if (string= (expand-file-name dirname) "/")
+      (setq top t))
+
+      ; Check for the file
+      (if (file-exists-p (expand-file-name filename dirname))
+      (setq found t)
+    ; If not, move up a directory
+    (setq dirname (expand-file-name ".." dirname))))
+    ; return statement
+    (if found (concat dirname "/") nil)))
 
 (provide 'my-functions)
