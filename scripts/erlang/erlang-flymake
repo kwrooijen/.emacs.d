@@ -4,26 +4,28 @@
 main([File_Name]) ->
     io:format("-------------------------------- Initiate Error Check ---------------------------------~n~n~n"),
     Includes = case filelib:is_dir("../deps") of
-                   false ->
-                       ["../include"];
-                   true ->
-                       {ok, Deps} = file:list_dir("../deps"),
-                       [{i, "../include"}| [{i,Di} || D <- Deps,
-                              begin
-                                  Di = "../deps/"++D++"/include",
-                                  filelib:is_dir(Di)
-                              end]]
-               end,
-
+        false ->
+            ["../include"];
+        true ->
+            {ok, Deps} = file:list_dir("../deps"),
+            [{i, "../include"}| [{i,Di} || D <- Deps,
+                begin
+                    Di = "../deps/"++D++"/include",
+                    filelib:is_dir(Di)
+                end
+            ]]
+        end,
     compile:file(File_Name, [warn_obsolete_guard, warn_unused_import,
                              warn_shadow_vars, warn_export_vars,
                              strong_validation, report | Includes]),
+
     case catch dialyzer:run([{files, [File_Name]}, {from, src_code}]) of
-        {ok, Warnings}          -> print_dialyzer(File_Name, Warnings);
-        _ -> ok
+        {ok, Warnings} -> print_dialyzer(File_Name, Warnings);
+        Warnings when is_list(Warnings) -> print_dialyzer(File_Name, Warnings);
+        _ -> error
+
     end,
     io:format("~n~n-------------------------------- Error Check Finished ---------------------------------~n").
-
 
 print_dialyzer(File_Name, DiaWarnings) ->
     lists:map(fun({_, {_, I}, {_,Message}}) ->
