@@ -1,0 +1,3 @@
+[submodule "plugins/distel"]
+	path = plugins/distel
+	url = git@github.com:massemanet/distel.git
