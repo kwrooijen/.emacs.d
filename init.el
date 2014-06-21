@@ -225,8 +225,8 @@
     (rebar-mode 1)
     (setq-local helm-dash-docsets '("Erlang"))
     (distel-setup)
-    (erlang-keys-hook)
     (erlang-extended-mode)
+    (erlang-keys-hook)
 ))
 
 (add-hook 'elixir-mode-hook (lambda ()

@@ -94,7 +94,7 @@
 
 ;; Erlang Keys
 (defun erlang-keys-hook ()
-    (local-set-key (kbd "M-?") 'erlang-get-error)
+    (local-set-key (kbd "M-/") 'erlang-get-error)
     (local-set-key (kbd "M-n") 'flymake-goto-next-error)
     (local-set-key (kbd "M-p") 'flymake-goto-prev-error)
     (local-set-key (kbd "M-q") 'backward-kill-word)
