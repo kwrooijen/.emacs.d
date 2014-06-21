@@ -71,6 +71,9 @@
 ;; Personal Info
 (setq user-full-name "Kevin W. van Rooijen")
 
+;; Emacs temp directory
+(setq temporary-file-directory "~/.emacs.d/tmp/")
+
 ;; Delete seleted text when typing
 (delete-selection-mode 1)
 
@@ -284,7 +287,7 @@
 
 (defun flymake-erlang-init ()
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
-		     'flymake-create-temp-inplace))
+		     'flymake-create-temp-intemp))
 	 (local-file (file-relative-name temp-file
 		(file-name-directory buffer-file-name))))
     (list "/home/kevin/.emacs.d/scripts/erlang/erlang-flymake" (list local-file))))
