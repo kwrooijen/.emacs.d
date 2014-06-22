@@ -18,7 +18,6 @@
 (require 'flymake)
 
 ;; Modes
-(global-auto-complete-mode t)
 (global-linum-mode t)
 (global-rainbow-delimiters-mode)
 (god-mode)
@@ -160,6 +159,7 @@
 ;;; Autocomplete / Yasnippet settings START
 ;; Add auto complete to these modes
 (add-to-list 'ac-modes 'erlang-mode)
+(add-to-list 'ac-modes 'elixir-mode)
 (add-to-list 'ac-modes 'haskell-mode)
 (add-to-list 'ac-modes 'js2-mode)
 (add-to-list 'ac-modes 'web-mode)

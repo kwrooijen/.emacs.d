@@ -25,9 +25,12 @@ main([File_Name]) ->
         _ -> error
 
     end,
-    io:format("~n~n-------------------------------- Error Check Finished ---------------------------------~n").
+    io:format("~n-------------------------------- Error Check Finished ---------------------------------~n").
 
 print_dialyzer(File_Name, DiaWarnings) ->
     lists:map(fun({_, {_, I}, {_,Message}}) ->
-        io:format("~s:~p: Warning: ~p~n", [File_Name, I, Message])
+        case I of
+            0 -> ok;
+            I -> io:format("~s:~p: Warning: ~n~p~n~n", [File_Name, I, Message])
+        end
     end, DiaWarnings).

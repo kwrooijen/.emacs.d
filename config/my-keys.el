@@ -74,7 +74,8 @@
 ("M-k" kill-this-buffer)
 ("M-o" (lambda() (interactive) (vim-o 1)))
 ("M-q" backward-kill-word)
-("M-s" helm-swoop)
+("M-s" (lambda() (interactive) (helm-swoop :$query "")))
+("M-S" helm-swoop)
 ("M-x" helm-M-x)
 ))
 
