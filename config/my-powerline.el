@@ -41,7 +41,7 @@
 
               (lhs (list
                          (powerline-raw "%*" nil 'l)
-                         (if (fboundp 'total-unread) (format " %i" total-unread))
+                         (if (boundp 'total-unread) (format " %i" total-unread))
                          (my-garak-notify nil 'l)
                          (powerline-raw mode-line-mule-info nil 'l)
                          (powerline-buffer-id nil 'l)
