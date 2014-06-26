@@ -29,6 +29,7 @@
     powerline
     rainbow-delimiters
     redo+
+    w3m
     web-mode
     window-numbering
     wrap-region

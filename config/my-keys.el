@@ -111,11 +111,16 @@
     (local-set-key (kbd "C-c C-d C-i") 'edb-toggle-interpret) ;- Toggle debug interpretping of the module.
     (local-set-key (kbd "C-c C-d C-b") 'edb-toggle-breakpoint) ;- Toggle a debugger breakpoint at the current line.
     (local-set-key (kbd "C-c C-d C-p") 'fprof) ;- Profile (with fprof) an expression from the minibuffer.
-    (local-set-key (kbd "C-c C-d C-L") 'erl-reload-module) ;- Reload an Erlang module.
+    (local-set-key (kbd "C-c C-d C-l") 'erl-process-list) ;- Reload an Erlang module.
     (local-set-key (kbd "C-c C-d C-r") 'erl-reload-modules) ;- Reload all Erlang modules that are out of date.
     (local-set-key (kbd "C-c C-d C-w") 'erl-who-calls) ;- Who calls function under point.
     (local-set-key (kbd "C-c C-d C-H") 'erl-find-doc) ;- Show the html documentation for a function.
     (local-set-key (kbd "C-c C-d C-Z") 'erl-find-sig) ;- Show the signature for a function.
+    (define-key erl-process-list-mode-map (kbd "n") 'next-line)
+    (define-key erl-process-list-mode-map (kbd "p") 'previous-line)
+    (define-key erl-process-list-mode-map (kbd "s") 'isearch-forward)
+    (define-key erl-process-list-mode-map (kbd "r") 'isearch-backward)
+    (define-key erl-process-list-mode-map (kbd "v") 'scroll-up-command)
 )
 
 ;; Elixir Keys

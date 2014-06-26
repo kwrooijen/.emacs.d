@@ -148,7 +148,8 @@
 (setq helm-ff-tramp-not-fancy nil)
 ;; Smarter completion for Helm
 (setq helm-ff-smart-completion t)
-
+;; Helm-dash should use W3m for showing documentation
+(setq helm-dash-browser-func 'w3m-goto-url)
 ;;; Helm configurations END ;;;
 
 ;; Smooth Scrolling
