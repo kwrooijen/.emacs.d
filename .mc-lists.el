@@ -73,6 +73,7 @@
         transpose-words
         undefined
         yas-expand
+        erlang-electric-semicolon
         ))
 
 (setq mc/cmds-to-run-once
