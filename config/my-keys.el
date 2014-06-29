@@ -96,9 +96,9 @@
 ;; Erlang Keys
 (defun erlang-keys-hook ()
     (local-set-key (kbd "M-/") 'erlang-get-error)
-    (local-set-key (kbd "M-n") 'flymake-goto-next-error)
-    (local-set-key (kbd "M-p") 'flymake-goto-prev-error)
+    (local-set-key (kbd "M-n") 'capitalize-previous-word)
     (local-set-key (kbd "M-q") 'backward-kill-word)
+    (local-set-key (kbd "M-p") (lambda () (interactive) (insert "{}") (backward-char 1) (god-mode-disable)))
 
     ;; (local-set-key (kbd "M-/") 'dabbrev-expand)      ;- Complete a module or remote function name.
     ;; (local-set-key (kbd "M-.") )      ;- Jump from a function call to its definition.
@@ -121,6 +121,9 @@
     (define-key erl-process-list-mode-map (kbd "s") 'isearch-forward)
     (define-key erl-process-list-mode-map (kbd "r") 'isearch-backward)
     (define-key erl-process-list-mode-map (kbd "v") 'scroll-up-command)
+
+    ;; Auto complete mode
+    (define-key ac-menu-map (kbd "M-n") 'capitalize-previous-word)
 )
 
 ;; Elixir Keys

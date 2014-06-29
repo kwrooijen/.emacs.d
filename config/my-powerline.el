@@ -19,7 +19,7 @@
 
 (defpowerline my-garak-notify ;; TODO Fix colors that are lost
     (string/reverse (dash-string (lambda(x)
-        (--drop-while (not (equal it "]")) x))
+        (-drop 1 (--drop-while (not (equal it "[")) x)))
         (string/reverse (powerline-raw mode-line-modes)))))
 
 (defun my-powerline-theme ()

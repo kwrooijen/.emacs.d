@@ -208,6 +208,9 @@
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
 (add-hook 'magit-mode-hook 'clean-hook)
 (add-hook 'shell-mode-hook 'clean-hook)
+(add-hook 'doc-view-mode-hook 'clean-hook)
+(add-hook 'w3m-mode-hook 'clean-hook)
+
 
 (add-hook 'isearch-mode-hook (lambda()
     (key-chord-mode 1)
@@ -220,6 +223,8 @@
     (setq inferior-erlang-machine-options '("-sname" "emacs"))
     (key-chord-force)
     (fix-tabs 4)
+    (setq-local doom-indent-fallback t)
+    (setq-local doom-use-tab-cycle nil)
     (rebar-mode 1)
     (setq-local helm-dash-docsets '("Erlang"))
     (distel-setup)
@@ -272,6 +277,9 @@
         ((prev 'ends-on "[")        (prev 'indent 1))
         ((prev 'ends-on ",")        (prev 'indent))
     ))
+    (erlang-mode . (
+        ((prev 'ends-on "->") (prev 'indent 1))
+    ))
     (haskell-mode . (
         ((prev 'indent-char-is ",") (prev 'indent))
         ((prev 'indent-char-is "[") (prev 'indent))
@@ -303,6 +311,7 @@
     ("\\.rb$"        . ruby-mode)
     ("\\.ru$"        . ruby-mode)
     ("\\.app.src\\'" . erlang-mode)
+    ("rebar.conf"    . erlang-mode)
     ("\\.elm\\'"     . haskell-mode)
     ("\\.js\\'"      . js2-mode)
     ("\\.dtl\\'"     . web-mode)
@@ -317,6 +326,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:background "#1c1c1c" :foreground "#e5e3e3"))))
+ '(dired-ignored ((t (:foreground "#8f8a8a"))))
+ '(magit-diff-none ((t (:foreground "#ababab"))))
  '(erm-syn-errline ((t (:foreground "ff0000" :box (:line-width 1 :color "ff0000") :underline "ff0000"))) t)
  '(erm-syn-warnline ((t (:foreground "ffeb08" :box (:line-width 1 :color "ffeb08") :underline "ffeb08"))) t)
  '(flymake-errline ((t (:foreground "#ff0000" :underline "#ff0000"))) t)
