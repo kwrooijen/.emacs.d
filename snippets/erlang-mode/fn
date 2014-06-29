@@ -1,0 +1,6 @@
+# -*- mode: erlang-mode -*-
+# name: fn
+# key: fn
+# --
+$1($2) ->
+    $0
