@@ -177,6 +177,11 @@
       (add-to-list 'ac-sources 'ac-source-yasnippet))
 ;;; Autocomplete / Yasnippet settings END
 
+;; Web mode
+(setq web-mode-markup-indent-offset 4)
+(setq web-mode-css-indent-offset 4)
+(setq web-mode-code-indent-offset 4)
+
 ;; Modes with no Linum
 (setq linum-disabled-modes-list '(
     mu4e-compose-mode
