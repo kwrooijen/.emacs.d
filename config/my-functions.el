@@ -70,7 +70,8 @@
         (if (getenv "DISPLAY")
             (if (getenv "TMUX")
             (send-string-to-terminal "\033Ptmux;\033\033]12;Green\007\033\\")
-            (send-string-to-terminal "\033]12;Green\007")))))
+            (send-string-to-terminal "\033]12;Green\007"))))
+            (message nil))
 
 (defun god-mode-enable () (interactive)
     (god-local-mode-resume)

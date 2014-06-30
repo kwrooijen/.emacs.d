@@ -44,6 +44,8 @@
                          (if (boundp 'total-unread) (format " %i" total-unread))
                          (my-garak-notify nil 'l)
                          (powerline-raw mode-line-mule-info nil 'l)
+                         (powerline-raw " ")
+                         (powerline-raw (substring (shell-command-to-string "date +'%H:%M'") 0 -1))
                          (powerline-buffer-id nil 'l)
                          (god-mode-bar nil 'l)
                          (when (and (boundp 'which-func-mode) which-func-mode)
