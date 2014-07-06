@@ -27,7 +27,8 @@
 ("C-c C-m" magit-status)
 ("C-c C-o" hoogle-search)
 ("C-c C-q" kmacro-start-macro)
-("C-c C-t" transpose-paragraphs)
+("C-c C-t" transpose-lines-at-point)
+("C-c M-t" transpose-paragraphs)
 ("C-c C-w" kill-rectangle)
 ("C-c C-y" yank-rectangle)
 ("C-c C-p" copy-line-up)
@@ -162,8 +163,9 @@
 )
 
 ;; Dired keys
-(define-key dired-mode-map (kbd "c f") 'helm-ls-git-ls)
-(define-key dired-mode-map (kbd "z")   'helm-buffers-list)
+(define-key dired-mode-map (kbd "c f")   'helm-ls-git-ls)
+(define-key dired-mode-map (kbd "z")     'helm-buffers-list)
+(define-key dired-mode-map (kbd "c s a") 'helm-bookmarks)
 
 ;; Key Chord
 (space-chord-define-global                   " " 'escape-key)
