@@ -217,7 +217,7 @@ If t use all backends in `vc-handled-backends'."
 ;;;###autoload
 (defun rebar-compile (&optional clean)
   (interactive "P")
-  (rebar-start (and clean "clean") "compile"))
+  (rebar-start (and clean "clean") "compile skip_deps=false"))
 
 (defvar rebar-build-command "get-deps update-deps compile skip_deps=false")
 

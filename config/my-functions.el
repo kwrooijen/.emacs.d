@@ -371,20 +371,19 @@ makes)."
     temp-name))
 
 (defadvice erlang-compile (after erlang-compile activate)
-    "Load ebin bem files after compile"
+    "Load ebin beam files after compile"
         (let ((deps (upward-find-file "deps"))
               (ebin (upward-find-file "ebin"))
               (source-files '()))
         (if ebin (setq source-files (cons (concat ebin "ebin") source-files)))
         (if deps (progn
-            (setq source-files (append source-files (mapcar (lambda(x) (concat x "/ebin"))
-                (directory-files (concat (upward-find-file "deps") "/deps")))))))
+            (setq source-files (append source-files (mapcar (lambda(x) (concat (upward-find-file "deps") "deps/" x "/ebin"))
+                (-filter (lambda(x) (and (not (equal x "..")) (not (equal x "."))))
+                    (directory-files (concat (upward-find-file "deps") "/deps"))))))))
         (setq result (mapconcat (lambda (x) (format "\"%s\"" x)) source-files ", "))
         (unless (boundp 'node-is-set) (erl-choose-nodename))
         (setq node-is-set t)
-        (erl-eval-expression (make-symbol (concat "emacs@" (car (split-string system-name "\\.")))) (format "code:add_paths([%s])." result))
-))
-
+        (erl-eval-expression (make-symbol (concat "emacs@" (car (split-string system-name "\\.")))) (format "code:add_paths([%s])." result))))
 
 (defun upward-find-file (filename &optional startdir)
   "Move up directories until we find a certain filename. If we

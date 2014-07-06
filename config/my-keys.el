@@ -10,6 +10,7 @@
 
 ;; Control Keys
 ("C--" undo)
+("C-=" repeat)
 ("C-." helm-resume)
 ("C-/" my-comment)
 ("C-;" helm-M-x)
