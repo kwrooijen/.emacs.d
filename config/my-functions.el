@@ -426,20 +426,36 @@ makes)."
 (defadvice forward-sentence (before forward-sentence activate)
     (unless (region-active-p) (set-mark-command nil)))
 
+(defun swap-lines-at-points (point1 point2)
+    (goto-line point1)
+    (beginning-of-line)
+    (kill-line)
+    (goto-line point2)
+    (beginning-of-line)
+    (yank)
+    (kill-line)
+    (goto-line point1)
+    (beginning-of-line)
+    (yank)
+    (pop-mark))
+
 (defun transpose-lines-at-point ()
   (interactive)
   (beginning-of-line)
-  (let ((current (point)))
-      (kill-line)
+  (let ((current (what-line-int)))
       (pop-to-mark-command)
-      (beginning-of-line)
-      (set-mark-command nil)
-      (yank)
-      (kill-line)
-      (goto-char current)
-      (beginning-of-line)
-      (yank)
-      (pop-mark)
-))
+      (let ((next (what-line-int)))
+      (swap-lines-at-points current next))))
+
+(defun what-line-int (&optional p)
+    "Get the current line number as an int"
+    (interactive)
+    (save-restriction
+        (widen)
+        (save-excursion
+            (beginning-of-line)
+            (if p
+                (1+ (count-lines 1 p))
+                (1+ (count-lines 1 (point)))))))
 
 (provide 'my-functions)
