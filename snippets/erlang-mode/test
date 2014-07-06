@@ -1,0 +1,8 @@
+#name : test
+#group : gen_server
+# --
+$1test_() ->
+    $0
+    [
+        ?_assert(true)
+    ].
