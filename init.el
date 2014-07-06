@@ -301,7 +301,7 @@
 		     'flymake-create-temp-intemp))
 	 (local-file (file-relative-name temp-file
 		(file-name-directory buffer-file-name))))
-    (list "/home/kevin/.emacs.d/scripts/erlang/erlang-flymake" (list local-file))))
+    (list "~/.emacs.d/scripts/erlang/erlang-flymake" (list local-file))))
 
 (add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
 

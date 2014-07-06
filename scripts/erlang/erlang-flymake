@@ -1,11 +1,11 @@
 #!/usr/bin/env escript
 -export([main/1]).
 
-main([File_Name]) ->
+main([FileName]) ->
     io:format("-------------------------------- Initiate Error Check ---------------------------------~n~n~n"),
     Includes = case filelib:is_dir("../deps") of
         false ->
-            ["../include"];
+            [{i, "../include"}];
         true ->
             {ok, Deps} = file:list_dir("../deps"),
             [{i, "../include"}| [{i,Di} || D <- Deps,
@@ -15,15 +15,16 @@ main([File_Name]) ->
                 end
             ]]
         end,
-    compile:file(File_Name, [warn_obsolete_guard, warn_unused_import,
+
+    compile:file(FileName, [warn_obsolete_guard, warn_unused_import,
                              warn_shadow_vars, warn_export_vars,
                              strong_validation, report | Includes]),
 
-    case catch dialyzer:run([{files, [File_Name]}, {from, src_code}]) of
-        {ok, Warnings} -> print_dialyzer(File_Name, Warnings);
-        Warnings when is_list(Warnings) -> print_dialyzer(File_Name, Warnings);
+    case catch dialyzer:run([{files, [FileName]}, {from, src_code}]) of
+        {ok, Warnings} -> print_dialyzer(FileName, Warnings);
+        Warnings when is_list(Warnings) ->
+            print_dialyzer(FileName, Warnings);
         _ -> error
-
     end,
     io:format("~n-------------------------------- Error Check Finished ---------------------------------~n").
 
