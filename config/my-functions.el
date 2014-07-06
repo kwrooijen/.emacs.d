@@ -370,17 +370,21 @@ makes)."
     (flymake-log 3 "create-temp-intemp: file=%s temp=%s" file-name temp-name)
     temp-name))
 
-(defadvice erlang-compile (before erlang-compile activate)
-    (setq glob-prev-buffer (current-buffer)))
-
 (defadvice erlang-compile (after erlang-compile activate)
-    "Load ebin beam files after compile"
-        (if (upward-find-file "ebin") (progn
-            (switch-to-buffer "*erlang*")
-            (insert (format "code:add_path(\"%sebin\")." (upward-find-file "ebin")))
-            (erlang-RET-command)
-            (delete-windows-on "*erlang*")
-            (switch-to-buffer glob-prev-buffer))))
+    "Load ebin bem files after compile"
+        (let ((deps (upward-find-file "deps"))
+              (ebin (upward-find-file "ebin"))
+              (source-files '()))
+        (if ebin (setq source-files (cons (concat ebin "ebin") source-files)))
+        (if deps (progn
+            (setq source-files (append source-files (mapcar (lambda(x) (concat x "/ebin"))
+                (directory-files (concat (upward-find-file "deps") "/deps")))))))
+        (setq result (mapconcat (lambda (x) (format "\"%s\"" x)) source-files ", "))
+        (unless (boundp 'node-is-set) (erl-choose-nodename))
+        (setq node-is-set t)
+        (erl-eval-expression (make-symbol (concat "emacs@" (car (split-string system-name "\\.")))) (format "code:add_paths([%s])." result))
+))
+
 
 (defun upward-find-file (filename &optional startdir)
   "Move up directories until we find a certain filename. If we
