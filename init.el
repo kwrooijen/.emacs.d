@@ -11,7 +11,6 @@
 (require 'multiple-cursors)
 (require 'redo+)
 (require 'magit)
-(require 'space-chord)
 (require 'fbterm)
 (require 'rebar)
 (require 'distel)

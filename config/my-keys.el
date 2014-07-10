@@ -79,9 +79,6 @@
 ("M-x" helm-M-x)
 ))
 
-(key-chord-define-global "xs"
-    (lambda() (interactive) (god-mode-enable) (save-buffer)))
-
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
 (define-key isearch-mode-map (kbd "M-g") 'isearch-abort)
 (define-key isearch-mode-map (kbd "TAB") 'isearch-exit)
@@ -167,12 +164,8 @@
 (define-key dired-mode-map (kbd "c s a") 'helm-bookmarks)
 
 ;; Key Chord
-(space-chord-define-global                   " " 'escape-key)
-(space-chord-define isearch-mode-map         " " 'isearch-abort)
-(space-chord-define helm-map                 " " 'helm-keyboard-quit)
-(space-chord-define helm-find-files-map      " " 'helm-keyboard-quit)
-(space-chord-define helm-generic-files-map   " " 'helm-keyboard-quit)
-(space-chord-define helm-buffer-map          " " 'helm-keyboard-quit)
+(key-chord-define-global "xs"
+    (lambda() (interactive) (god-mode-enable) (save-buffer)))
 
 ;; Helm keys
 (define-key helm-map (kbd "C-b") 'nil)
