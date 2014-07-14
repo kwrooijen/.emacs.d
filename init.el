@@ -15,6 +15,7 @@
 (require 'rebar)
 (require 'distel)
 (require 'flymake)
+(require 'tempo)
 
 ;; Modes
 (global-linum-mode t)
@@ -129,6 +130,9 @@
 
 ;; Highlight delay for multiple occurences
 (setq highlight-symbol-idle-delay 0)
+
+;; Enable interactive behavior for Tempo
+(setq tempo-interactive t)
 
 ;;; Helm configurations START
 ;; Don't ask to create new file
