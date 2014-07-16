@@ -22,3 +22,12 @@ n>
     "ok."n>
 
 ) nil "Erlang Eunit template.")
+
+(tempo-define-template "erlang-header" '(
+"%%%==================================================================="n>
+"%%%" r> n>
+"%%%==================================================================="n>
+) nil "Erlang header template.")
+
+
+(provide 'tempo-erlang)
