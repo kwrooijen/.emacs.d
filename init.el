@@ -1,3 +1,7 @@
+(setq
+    user-mail-address "kevin.van.rooijen@gmail.com"
+    user-full-name    "Kevin W. van Rooijen")
+
 (add-to-list 'load-path "~/.emacs.d/config")
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/tempo")

@@ -74,11 +74,6 @@
 ;; Allow for updating mail using 'U' in the main view:
 (setq mu4e-get-mail-command "offlineimap")
 
-;; Info
-(setq
-    user-mail-address "kevin.van.rooijen@gmail.com"
-    user-full-name    "Kevin W. van Rooijen")
-
 ;; smtp configurations
 (require 'smtpmail)
 (setq message-send-mail-function 'smtpmail-send-it
