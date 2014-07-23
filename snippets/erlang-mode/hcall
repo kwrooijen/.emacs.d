@@ -3,4 +3,4 @@
 # --
 handle_call($1, _From, State) ->
     $0
-    {reply, ok, State}.
+    {reply, ok, State};
