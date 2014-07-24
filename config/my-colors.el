@@ -4,14 +4,16 @@
 (defun set-foreground-background (face foreground &optional background)
     (set-face-foreground face foreground)
     (if background (set-face-background face background)))
+(defun sfb(l)
+    (mapcar (lambda(list) (set-foreground-background (nth 0 list)(nth 1 list)(nth 2 list) )) l))
 
 ;; Enable Zenburn Theme
 (progn (load-theme 'zenburn t) (setq zenburn t))
 ;; (progn (load-theme 'anti-zenburn t) (setq anti-zenburn t))
 
 (if (boundp 'zenburn)
-(mapcar (lambda(list) (set-foreground-background (nth 0 list)(nth 1 list)(nth 2 list) ))
- '((default "#e5e3e3" "#1c1c1c")
+ (sfb '(
+ (default "#e5e3e3" "#1c1c1c")
  (ac-candidate-face "#8FB28F" "#2B2B2B")
  (ac-selection-face "#6F6F6F" "#8FB28F")
  (ac-yasnippet-candidate-face "#F0DFAF" "#2B2B2B" )
@@ -47,7 +49,7 @@
 )))
 
 (if (boundp 'anti-zenburn)
-    (mapcar (lambda(list) (set-foreground-background (nth 0 list)(nth 1 list)(nth 2 list) )) '(
+ (sfb '(
  (ac-candidate-face "#8FB28F" "#2B2B2B")
  (ac-selection-face "#6F6F6F" "#8FB28F")
  (ac-yasnippet-candidate-face "#F0DFAF" "#2B2B2B" )
@@ -60,14 +62,14 @@
  (font-lock-constant-face "#dc1e6a")
  (font-lock-doc-face "#bc853d")
  (font-lock-type-face "#000")
- ;; (helm-ff-directory "cyan" "#121212")
- ;; (helm-ff-executable "#9FC59F" "#1c1c1c")
- ;; (helm-ff-file "#DCDCCC" "#1c1c1c")
- ;; (helm-swoop-target-line-block-face "#fff" "#585858")
- ;; (helm-swoop-target-line-face "#fff" "#585858")
- ;; (helm-swoop-target-word-face "#fff" "#7700ff")
- ;; (hl-line nil "#303030")
- ;; (linum "#8FB28F" "#383838")
+ (helm-ff-directory "#6c1f1c"  "#c0c0c0")
+ (helm-ff-executable "#603a60" "#c0c0c0")
+ (helm-ff-file "#232333" "#c0c0c0")
+ (helm-swoop-target-line-block-face "#222222" "#cccc00")
+ (helm-swoop-target-line-face "#222222" "#e3e300")
+ (helm-swoop-target-word-face "#fff" "#7700ff")
+ (hl-line nil "#c7c7c7")
+ (linum "#603a60" "#c0c0c0" )
  (magit-branch nil "#111111")
  (magit-diff-none "#ababab")
  (region "#fff" "#585858")
@@ -80,7 +82,6 @@
  (web-mode-html-tag-bracket-face "#808080")
  (web-mode-html-tag-face "#808080")
  (web-mode-symbol-face "#2a55d4")
-
 )))
 
 (provide 'my-colors)
