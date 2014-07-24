@@ -32,6 +32,7 @@
 (window-numbering-mode 1)
 (wrap-region-global-mode t)
 (yas-global-mode 1)
+(smartparens-global-mode t)
 
 (if (getenv "DISPLAY")
     (global-hl-line-mode t)

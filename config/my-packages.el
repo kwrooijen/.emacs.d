@@ -29,6 +29,7 @@
     powerline
     rainbow-delimiters
     redo+
+    smartparens
     w3m
     web-mode
     window-numbering

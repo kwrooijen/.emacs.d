@@ -64,6 +64,7 @@
 ("M-*" mc/mark-all-like-this)
 ("M-+" align-regexp)
 ("M--" redo)
+("M-;" capitalize-previous-word)
 ("M-@" er/expand-region)
 ("M-N" mc/mark-next-like-this)
 ("M-P" mc/mark-previous-like-this)
@@ -93,9 +94,7 @@
 ;; Erlang Keys
 (defun erlang-keys-hook ()
     (local-set-key (kbd "M-/") 'erlang-get-error)
-    (local-set-key (kbd "M-n") 'capitalize-previous-word)
     (local-set-key (kbd "M-q") 'backward-kill-word)
-    (local-set-key (kbd "M-p") (lambda () (interactive) (insert "{}") (backward-char 1) (god-mode-disable)))
 
     ;; (local-set-key (kbd "M-/") 'dabbrev-expand)      ;- Complete a module or remote function name.
     ;; (local-set-key (kbd "M-.") )      ;- Jump from a function call to its definition.
