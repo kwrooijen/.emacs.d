@@ -6,6 +6,7 @@
 
 (defvar my-packages '(
     ace-jump-mode
+    anti-zenburn-theme
     auto-complete
     elixir-mix
     elixir-mode
