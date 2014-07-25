@@ -31,7 +31,7 @@
 ("C-c C-t" transpose-lines-at-point)
 ("C-c M-t" transpose-paragraphs)
 ("C-c C-w" kill-rectangle)
-("C-c C-v" point-to-register)
+("C-c C-v" inc-register)
 ("C-c C-y" yank-rectangle)
 ("C-c C-p" copy-line-up)
 ("C-c C-n" copy-line-down)

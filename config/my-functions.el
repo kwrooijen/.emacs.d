@@ -463,4 +463,11 @@ makes)."
                 (1+ (count-lines 1 p))
                 (1+ (count-lines 1 (point)))))))
 
+(setq reg-num 0)
+(defun inc-register ()
+  (interactive)
+  (setq reg-num (+ 1 reg-num))
+  (point-to-register reg-num)
+  (message nil))
+
 (provide 'my-functions)
