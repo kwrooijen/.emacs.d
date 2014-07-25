@@ -174,8 +174,8 @@
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-buffer-map (kbd "C-a") 'helm-buffers-toggle-show-hidden-buffers)
 (define-key helm-swoop-map (kbd "M-e") 'helm-swoop-edit)
-; Helm keyboard quits
 
+;; Special up / down for helm-register
 (define-key helm-map (kbd "C-n")
     (lambda() (interactive) (if (boundp 'helm-register-active)
         (progn (helm-next-line) (helm-execute-persistent-action))
@@ -185,6 +185,7 @@
         (progn (helm-previous-line) (helm-execute-persistent-action))
         (helm-previous-line))))
 
+; Helm keyboard quits
 (define-key helm-map                (kbd "M-g") 'helm-keyboard-quit)
 (define-key helm-find-files-map     (kbd "M-g") 'helm-keyboard-quit)
 (define-key helm-generic-files-map  (kbd "M-g") 'helm-keyboard-quit)
