@@ -425,6 +425,12 @@ makes)."
 (defadvice forward-sentence (before forward-sentence activate)
     (unless (region-active-p) (set-mark-command nil)))
 
+(defadvice helm-register (before helm-register activate)
+    (setq helm-register-active t))
+
+(defadvice helm-register (after helm-register activate)
+    (makunbound 'helm-register-active))
+
 (defun swap-lines-at-points (point1 point2)
     (goto-line point1)
     (beginning-of-line)
