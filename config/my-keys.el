@@ -90,6 +90,7 @@
 (global-set-key [f3] 'describe-key)
 (global-set-key [f6] 'describe-mode)
 (global-set-key [f7] 'get-current-buffer-major-mode)
+(global-set-key [f11] 'screenshot-frame)
 
 ;; Erlang Keys
 (defun erlang-keys-hook ()
@@ -166,6 +167,20 @@
 (key-chord-define-global "xs"
     (lambda() (interactive) (god-mode-enable) (save-buffer)))
 
+(key-chord-define-global "0j" ")")
+(key-chord-define-global "1j" "!")
+(key-chord-define-global "2j" "@")
+(key-chord-define-global "3j" "#")
+(key-chord-define-global "4j" "$")
+(key-chord-define-global "5j" "%")
+(key-chord-define-global "6j" "^")
+(key-chord-define-global "7j" "&")
+(key-chord-define-global "8j" "*")
+(key-chord-define-global "9j" "(")
+(key-chord-define-global "0j" ")")
+(key-chord-define-global "-j" "_")
+(key-chord-define-global "+j" "+")
+
 ;; Helm keys
 (define-key helm-map (kbd "C-b") 'nil)
 (define-key helm-map (kbd "C-f") 'nil)
@@ -186,6 +201,7 @@
         (helm-previous-line))))
 
 ; Helm keyboard quits
+(define-key helm-map                (kbd "M-?") 'helm-help)
 (define-key helm-map                (kbd "M-g") 'helm-keyboard-quit)
 (define-key helm-find-files-map     (kbd "M-g") 'helm-keyboard-quit)
 (define-key helm-generic-files-map  (kbd "M-g") 'helm-keyboard-quit)

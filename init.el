@@ -5,7 +5,6 @@
 
 (require 'my-packages)
 (require 'my-powerline)
-(require 'my-modes)
 (require 'my-colors)
 (require 'my-functions)
 (require 'my-keys)

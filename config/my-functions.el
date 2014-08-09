@@ -470,4 +470,11 @@ makes)."
   (point-to-register reg-num)
   (message nil))
 
+(defun screenshot-frame ()
+  (interactive)
+  (shell-command-to-string
+   (concat "sleep 1; "
+           "import -window 0x2a00003 "
+           "-crop 958x523+0+0 +repage /tmp/frames/`date +%s`.png")))
+
 (provide 'my-functions)

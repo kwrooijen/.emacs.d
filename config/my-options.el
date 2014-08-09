@@ -8,6 +8,9 @@
     (line-spacing . 0)
 ))
 
+;; Make rendering faster
+(setq jit-lock-defer-time 0.15)
+
 ;; Disable Tool bar
 (tool-bar-mode 0)
 ;; Disable Menu bar
@@ -114,6 +117,19 @@
 ;; Helm-dash should use W3m for showing documentation
 (setq helm-dash-browser-func 'w3m-goto-url)
 ;;; Helm configurations END ;;;
+
+;;; Tramp Mode
+;; Set Tramp backup file location
+(setq tramp-backup-directory-alist backup-directory-alist)
+
+;; Don't use version control for all files
+(setq vc-ignore-dir-regexp
+    (format "\\(%s\\)\\|\\(%s\\)"
+        vc-ignore-dir-regexp
+        tramp-file-name-regexp))
+
+(setq remote-file-name-inhibit-cache nil)
+(setq tramp-completion-reread-directory-timeout nil)
 
 ;; Smooth Scrolling
 (setq redisplay-dont-pause t

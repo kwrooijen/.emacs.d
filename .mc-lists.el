@@ -19,6 +19,7 @@
         end-of-buffer
         enh-ruby-electric-brace
         erlang-electric-comma
+        erlang-electric-semicolon
         eval-last-sexp
         evil-backward-char
         evil-delete
@@ -69,11 +70,11 @@
         sh-assignment
         shm/:
         shrink-window-if-larger-than-buffer
+        sp--self-insert-command
         tab-to-tab-stop
         transpose-words
         undefined
         yas-expand
-        erlang-electric-semicolon
         ))
 
 (setq mc/cmds-to-run-once
@@ -84,5 +85,6 @@
         god-mode-enable
         goto-line
         helm-M-x
+        helm-maybe-exit-minibuffer
         markdown-next-link
         ))
