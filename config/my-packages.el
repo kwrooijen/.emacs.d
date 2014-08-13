@@ -30,7 +30,7 @@
     powerline
     rainbow-delimiters
     redo+
-    smartparens
+    simpleclip
     w3m
     web-mode
     window-numbering
@@ -103,7 +103,5 @@
 (window-numbering-mode 1)
 (wrap-region-global-mode t)
 (yas-global-mode 1)
-(smartparens-global-mode t)
-
 
 (provide 'my-packages)

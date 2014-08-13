@@ -52,6 +52,9 @@
 ;; Prevent Extraneous Tabs
 (setq-default indent-tabs-mode nil)
 
+;; Set xml tabs to 4
+(setq nxml-child-indent 4)
+
 ;; No confirmation when creating new buffer
 (setq confirm-nonexistent-file-or-buffer nil)
 

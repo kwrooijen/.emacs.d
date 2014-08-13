@@ -89,6 +89,11 @@
         ((and (prev 'ends-on "[") (current 'starts-with "]")) (prev 'indent))
         ((current 'starts-with "]") (prev 'indent -1))
         ((prev 'ends-on "[")        (prev 'indent 1))
+
+        ((and (prev 'ends-on "{") (current 'starts-with "}")) (prev 'indent))
+        ((current 'starts-with "}") (prev 'indent -1))
+        ((prev 'ends-on "{")        (prev 'indent 1))
+
         ((prev 'ends-on ",")        (prev 'indent))
     ))
     (erlang-mode . (

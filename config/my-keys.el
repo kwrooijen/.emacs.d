@@ -85,8 +85,8 @@
 (define-key isearch-mode-map (kbd "TAB") 'isearch-exit)
 
 ;; Other Keys
-(global-set-key [f1] 'copy-to-clipboard)
-(global-set-key [f2] 'paste-from-clipboard)
+(global-set-key [f1] 'simpleclip-copy)
+(global-set-key [f2] 'simpleclip-paste)
 (global-set-key [f3] 'describe-key)
 (global-set-key [f6] 'describe-mode)
 (global-set-key [f7] 'get-current-buffer-major-mode)
@@ -192,11 +192,14 @@
 
 ;; Special up / down for helm-register
 (define-key helm-map (kbd "C-n")
-    (lambda() (interactive) (if (boundp 'helm-register-active)
+    (lambda() (interactive) (if (or (boundp 'helm-swoop-active)
+                                    (boundp 'helm-register-active))
         (progn (helm-next-line) (helm-execute-persistent-action))
         (helm-next-line))))
+
 (define-key helm-map (kbd "C-p")
-    (lambda() (interactive) (if (boundp 'helm-register-active)
+    (lambda() (interactive) (if (or (boundp 'helm-swoop-active)
+                                    (boundp 'helm-register-active))
         (progn (helm-previous-line) (helm-execute-persistent-action))
         (helm-previous-line))))
 
