@@ -35,7 +35,6 @@
 ("C-c C-y" yank-rectangle)
 ("C-c C-p" copy-line-up)
 ("C-c C-n" copy-line-down)
-("C-c C-u" (lambda() (interactive) (winner-undo) (deactivate-mark)))
 ("C-x C-/" comment-or-uncomment-region)
 ("C-x C-0" delete-window)
 ("C-x C-1" delete-other-windows)
@@ -219,6 +218,7 @@
 
 ;; God mode
 (define-key god-local-mode-map (kbd "g") 'goto-line)
+(define-key god-local-mode-map (kbd ",") (lambda() (interactive (winner-undo) (keyboard-escape-quit))))
 (define-key god-local-mode-map (kbd "i") 'god-mode-disable)
 (define-key god-local-mode-map (kbd "[") (lambda ()
     (interactive) (scroll-down-line 3)))

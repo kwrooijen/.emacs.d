@@ -106,5 +106,6 @@
 (wrap-region-global-mode t)
 (yas-global-mode t)
 (global-git-gutter+-mode t)
+(winner-mode t)
 
 (provide 'my-packages)
