@@ -8,9 +8,6 @@
     (line-spacing . 0)
 ))
 
-;; Make rendering faster
-(setq jit-lock-defer-time 0.15)
-
 ;; Disable Tool bar
 (tool-bar-mode 0)
 ;; Disable Menu bar
@@ -153,6 +150,8 @@
 (setq ac-use-menu-map t)
 ;; Show menu instantly
 (setq ac-auto-show-menu 0.0)
+;; Show help menu in 0.5 sec
+(setq ac-quick-help-delay 0.5)
 ;; Add yasnippets to menu
 (defadvice ac-common-setup (after give-yasnippet-highest-priority activate)
     (setq ac-sources (delq 'ac-source-yasnippet ac-sources))

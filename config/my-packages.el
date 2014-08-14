@@ -31,6 +31,7 @@
     rainbow-delimiters
     redo+
     simpleclip
+    twittering-mode
     w3m
     web-mode
     window-numbering
@@ -94,14 +95,13 @@
 (require 'indent-of-doom)
 
 ;; Modes
-(global-linum-mode t)
-(global-rainbow-delimiters-mode)
+(global-rainbow-delimiters-mode t)
 (god-mode)
-(key-chord-mode 1)
-(multiple-cursors-mode 1)
+(key-chord-mode t)
+(multiple-cursors-mode t)
 (show-paren-mode t)
-(window-numbering-mode 1)
+(window-numbering-mode t)
 (wrap-region-global-mode t)
-(yas-global-mode 1)
+(yas-global-mode t)
 
 (provide 'my-packages)
