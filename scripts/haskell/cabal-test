@@ -1,9 +1,0 @@
-#!/bin/bash
-
-while [ $PWD != "/" ]; do
-    if [ -f *.cabal ]; then
-        cabal build ; cabal test --log=/dev/stdout
-        exit 0
-    fi
- cd ..
-done

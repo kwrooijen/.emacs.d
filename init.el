@@ -10,6 +10,7 @@
 (require 'my-keys)
 (require 'my-options)
 (require 'my-hooks)
+(require 'my-scripts)
 
 (require 'tempo-erlang)
 ;; (require 'my-extras)

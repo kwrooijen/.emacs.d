@@ -42,18 +42,19 @@
 
 (defun run-haskell-test ()
     (interactive)
-    (async-shell-command "~/.emacs.d/scripts/haskell/cabal-test" "[Haskell Tests]"))
+    (my-up-to-script "*.cabal" "cabal build ; cabal test --log=/dev/stdout" "[Haskell Tests]"))
 
-(defun run-make (args)
+(defun run-make (arg)
     (interactive)
-    (async-shell-command (format "~/.emacs.d/scripts/other/make-script %s" args) "[Make Project]"))
-
-(defun run-mix (args)
-    (async-shell-command (format "~/.emacs.d/scripts/elixir/mix-script %s" args) "[Mix Execution]"))
+    (my-up-to-script "Makefile" (concat "make " arg) "[Make Project]"))
 
 (defun guard ()
     (interactive)
-    (async-shell-command "~/.emacs.d/scripts/other/my-guard" "[Guard]"))
+    (my-up-to-script "Guardfile" "bundle exec guard start --clear" "[Guard]"))
+
+(defun run-mix (arg)
+    (interactive)
+    (my-up-to-script "mix.exs" (concat "mix " arg) "[Mix]"))
 
 (defun underscores-to-camel-case (str)
     "Converts STR, which is a word using underscores, to camel case."
