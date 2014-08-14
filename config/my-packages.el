@@ -14,6 +14,7 @@
     emms
     erlang
     expand-region
+    git-gutter+
     god-mode
     hackernews
     haskell-mode
@@ -93,6 +94,7 @@
 (require 'tempo)
 (require 'web-mode)
 (require 'indent-of-doom)
+(require 'git-gutter+)
 
 ;; Modes
 (global-rainbow-delimiters-mode t)
@@ -103,5 +105,6 @@
 (window-numbering-mode t)
 (wrap-region-global-mode t)
 (yas-global-mode t)
+(global-git-gutter+-mode t)
 
 (provide 'my-packages)

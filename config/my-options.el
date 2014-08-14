@@ -175,4 +175,7 @@
     mu4e-main-mode
 ))
 
+;; Git gutter
+(setq git-gutter+-unchanged-sign " ")
+
 (provide 'my-options)
