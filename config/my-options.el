@@ -136,6 +136,11 @@
     scroll-margin 1
     scroll-conservatively 10000)
 
+;; Keyboard scroll one line at a time
+(setq scroll-step 1)
+
+(setq auto-window-vscroll nil)
+
 ;;; Autocomplete / Yasnippet settings START
 ;; Add auto complete to these modes
 (add-to-list 'ac-modes 'erlang-mode)
