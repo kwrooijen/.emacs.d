@@ -13,4 +13,9 @@
 (require 'my-scripts)
 
 (require 'tempo-erlang)
-;; (require 'my-extras)
+
+;; (setq my-extra-music t)
+;; (setq my-extra-mail t)
+;; (setq my-extra-chat t)
+
+(require 'my-extras)

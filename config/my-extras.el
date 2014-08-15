@@ -1,3 +1,4 @@
+(if (boundp 'my-extra-music) (progn
 (require 'emms-setup)
 
 ;=================================================================;
@@ -38,9 +39,13 @@
     ("[" . emms-seek-backward)
     ("]" . emms-seek-forward)))))
 
+))
+
 ;=================================================================;
 ;============================== Mail =============================;
 ;=================================================================;
+(if (boundp 'my-extra-mail) (progn
+
 (add-to-list 'load-path "~/.emacs.d/plugins/mu4e")
 (add-to-list 'load-path "~/.emacs.d/plugins/helm-mu")
 (require 'mu4e)
@@ -103,7 +108,8 @@
 (defadvice mu4e-update-mail-and-index (after mu4e-update-mail-and-index-after activate)
     (setq total-unread (new-messages)))
 
-
+))
+(if (boundp 'my-extra-chat) (progn
 ;=================================================================;
 ;============================= Chat ==============================;
 ;=================================================================;
@@ -119,6 +125,8 @@
 (setq elim-executable "/usr/bin/elim-client")
 
 ;; Use master password for twitter instead of authenticating every time
+(setq twittering-cert-file "/etc/ssl/certs/ca-bundle.crt")
 (setq twittering-use-master-password t)
 
+))
 (provide 'my-extras)
