@@ -1,13 +1,13 @@
-(defun zsh (buffer-name)
+(defun sh (buffer-name)
     "Start a terminal and rename buffer."
     (interactive "sbuffer name: ")
     (eshell)
     (rename-buffer (format "%s%s" "$" buffer-name) t))
 
-(defun zsht (buffer-name)
+(defun sht (buffer-name)
     "Start a terminal and rename buffer."
     (interactive "sbuffer name: ")
-    (ansi-term "/bin/zsh")
+    (ansi-term "/bin/sh")
     (rename-buffer (format "%s%s" "$" buffer-name) t))
 
 (defun get-current-buffer-major-mode ()
