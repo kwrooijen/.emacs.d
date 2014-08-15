@@ -59,6 +59,22 @@
 ("C-c C-z C-t" (lambda() (interactive) (run-make "test")))
 ("C-c C-z C-z" (lambda() (interactive) (run-make "")))
 
+;; Escreen Keys
+("C-c C-j C-n" escreen-goto-next-screen)
+("C-c C-j C-p" escreen-goto-prev-screen)
+("C-c C-j C-c" escreen-create-screen)
+("C-c C-j C-k" escreen-kill-screen)
+("C-c C-j C-1" escreen-goto-screen-1)
+("C-c C-j C-2" escreen-goto-screen-2)
+("C-c C-j C-3" escreen-goto-screen-3)
+("C-c C-j C-4" escreen-goto-screen-4)
+("C-c C-j C-5" escreen-goto-screen-5)
+("C-c C-j C-6" escreen-goto-screen-6)
+("C-c C-j C-7" escreen-goto-screen-7)
+("C-c C-j C-8" escreen-goto-screen-8)
+("C-c C-j C-9" escreen-goto-screen-9)
+("C-c C-j C-0" escreen-goto-screen-0)
+
 ;; Meta keys
 ("M-*" mc/mark-all-like-this)
 ("M-+" align-regexp)
@@ -165,20 +181,6 @@
 ;; Key Chord
 (key-chord-define-global "xs"
     (lambda() (interactive) (god-mode-enable) (save-buffer)))
-
-(key-chord-define-global "0j" ")")
-(key-chord-define-global "1j" "!")
-(key-chord-define-global "2j" "@")
-(key-chord-define-global "3j" "#")
-(key-chord-define-global "4j" "$")
-(key-chord-define-global "5j" "%")
-(key-chord-define-global "6j" "^")
-(key-chord-define-global "7j" "&")
-(key-chord-define-global "8j" "*")
-(key-chord-define-global "9j" "(")
-(key-chord-define-global "0j" ")")
-(key-chord-define-global "-j" "_")
-(key-chord-define-global "+j" "+")
 
 ;; Helm keys
 (define-key helm-map (kbd "C-b") 'nil)

@@ -10,7 +10,6 @@
     auto-complete
     elixir-mix
     elixir-mode
-    elixir-yasnippets
     emms
     erlang
     expand-region
@@ -39,6 +38,8 @@
     wrap-region
     yasnippet
     zenburn-theme
+    elixir-yasnippets
+    escreen
     ))
 
 (defvar my-docs '(
@@ -95,6 +96,7 @@
 (require 'web-mode)
 (require 'indent-of-doom)
 (require 'git-gutter+)
+(require 'escreen)
 
 ;; Modes
 (global-rainbow-delimiters-mode t)

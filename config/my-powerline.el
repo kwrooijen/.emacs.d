@@ -39,6 +39,7 @@
                                                powerline-default-separator
                                                (cdr powerline-default-separator-dir))))
               (lhs (list
+                         (powerline-raw (concat "[" (number-to-string (escreen-get-current-screen-number)) "]") nil 'l)
                          (powerline-raw "%*" nil 'l)
                          (if (boundp 'total-unread) (format " %i" total-unread))
                          (my-garak-notify nil 'l)

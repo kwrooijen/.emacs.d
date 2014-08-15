@@ -192,4 +192,13 @@
 ;; Git gutter
 (setq git-gutter+-unchanged-sign " ")
 
+;; Create 6 initial screens and move to number 1
+(escreen-create-screen)
+(escreen-create-screen)
+(escreen-create-screen)
+(escreen-create-screen)
+(escreen-create-screen)
+(escreen-create-screen)
+(escreen-goto-screen-1)
+
 (provide 'my-options)
