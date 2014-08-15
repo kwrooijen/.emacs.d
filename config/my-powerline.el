@@ -38,16 +38,13 @@
               (separator-right (intern (format "powerline-%s-%s"
                                                powerline-default-separator
                                                (cdr powerline-default-separator-dir))))
-
               (lhs (list
                          (powerline-raw "%*" nil 'l)
                          (if (boundp 'total-unread) (format " %i" total-unread))
                          (my-garak-notify nil 'l)
                          (powerline-raw "%3l:%2c " nil 'l)
-                         (if (not (is-tramp-mode)) (progn
-                            (powerline-raw " ")
-                            (powerline-raw (substring (shell-command-to-string "date +'%H:%M'") 0 -1))
-                         ))
+                         (powerline-raw " ")
+                         (powerline-raw (format-time-string "%-I:%M%p"))
                          (powerline-buffer-id nil 'l)
                          (god-mode-bar nil 'l)
                          (when (and (boundp 'which-func-mode) which-func-mode)

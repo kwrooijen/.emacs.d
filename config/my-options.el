@@ -175,6 +175,20 @@
     mu4e-main-mode
 ))
 
+;; Buffers to be ignored by Winner
+(setq winner-boring-buffers '(
+    "*Completions*"
+    "*Compile-Log*"
+    "*inferior-lisp*"
+    "*Fuzzy Completions*"
+    "*Apropos*"
+    "*dvc-error*"
+    "*Help*"
+    "*cvs*"
+    "*Buffer List*"
+    "*Ibuffer*"
+))
+
 ;; Git gutter
 (setq git-gutter+-unchanged-sign " ")
 
