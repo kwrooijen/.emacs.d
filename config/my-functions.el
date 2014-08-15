@@ -450,4 +450,52 @@ makes)."
            "import -window 0x2a00003 "
            "-crop 958x523+0+0 +repage /tmp/frames/`date +%s`.png")))
 
+(defun camelcase-region (start end)
+  "Changes region from snake_case to camelCase"
+  (interactive "r")
+  (save-restriction (narrow-to-region start end)
+                    (goto-char (point-min))
+                    (while (re-search-forward "_\\(.\\)" nil t)
+                      (replace-match (upcase (match-string 1))))))
+
+(defun camelcase-word-or-region ()
+  "Changes word or region from snake_case to camelCase"
+  (interactive)
+  (let (pos1 pos2 bds)
+    (if (and transient-mark-mode mark-active)
+        (setq pos1 (region-beginning) pos2 (region-end))
+      (progn
+        (setq bds (bounds-of-thing-at-point 'symbol))
+        (setq pos1 (car bds) pos2 (cdr bds))))
+    (camelcase-region pos1 pos2)))
+
+(defun camelcase-region+ (start end)
+  "Changes region from snake_case to camelCase"
+  (interactive "r")
+  (save-restriction (narrow-to-region start end)
+      (capitalize-region start end)
+                    (goto-char (point-min))
+                    (while (re-search-forward "_\\(.\\)" nil t)
+                      (replace-match (upcase (match-string 1))))))
+
+(defun camelcase-word-or-region+ ()
+  "Changes word or region from snake_case to camelCase"
+  (interactive)
+  (let (pos1 pos2 bds)
+    (if (and transient-mark-mode mark-active)
+        (setq pos1 (region-beginning) pos2 (region-end))
+      (progn
+        (setq bds (bounds-of-thing-at-point 'symbol))
+        (setq pos1 (car bds) pos2 (cdr bds))))
+    (camelcase-region+ pos1 pos2)))
+
+(defun snakecase-word-or-region ()
+  (interactive)
+  (if mark-active (message "Don't have snakecase-region yet")
+  (save-excursion
+    (let ((bounds (bounds-of-thing-at-point 'word)))
+      (replace-regexp "\\([A-Z]\\)" "_\\1" nil
+                      (1+ (car bounds)) (cdr bounds))
+      (downcase-region (car bounds) (cdr bounds))))))
+
 (provide 'my-functions)

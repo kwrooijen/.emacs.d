@@ -10,10 +10,11 @@
 
 ;; Control Keys
 ("C--" undo)
-("C-=" repeat)
 ("C-." helm-resume)
 ("C-/" my-comment)
 ("C-;" helm-M-x)
+("C-=" repeat)
+("C-\\" glasses-mode)
 ("C-h" iy-go-to-char)
 ("C-j" ace-jump-mode)
 ("C-l" helm-register)
@@ -36,6 +37,9 @@
 ("C-c C-p" copy-line-up)
 ("C-c C-n" copy-line-down)
 ("C-x C-/" comment-or-uncomment-region)
+("C-c C--" camelcase-word-or-region)
+("C-c C-=" camelcase-word-or-region+)
+("C-c C-_" snakecase-word-or-region)
 ("C-x C-0" delete-window)
 ("C-x C-1" delete-other-windows)
 ("C-x C-2" split-window-below)
