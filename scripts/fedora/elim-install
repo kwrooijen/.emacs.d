@@ -1,0 +1,33 @@
+#!/bin/bash
+
+DEPS=(
+    glib.i686
+    glib.x86_64
+    glib-devel.i686
+    glib-devel.x86_64
+    glib2.i686
+    glib2.x86_64
+    glib2-devel.i686
+    glib2-devel.x86_64
+    libxml-devel.i686
+    libxml-devel.x86_64
+    libxml2-devel.i686
+    libxml2-devel.x86_64
+    libxml.i686
+    libxml.x86_64
+    libxml2.i686
+    libxml2.x86_64
+)
+
+ORIG=`pwd`
+yum install ${DEPS[*]}
+mkdir /tmp/elim-install
+cd /tmp/elim-install
+git clone git://git.sv.gnu.org/elim.git
+cd elim
+make
+cp /tmp/elim-install/elim/elim-client /usr/bin/elim-client
+cp /tmp/elim-install/elim/elisp/* /usr/share/emacs/2*/lisp/
+cd $ORIG
+echo done
+exit 0

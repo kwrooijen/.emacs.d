@@ -2,8 +2,8 @@
 
 (defun attic-key(key function)
   (define-key attic-minor-mode-map (kbd key) function)
-  (global-set-key (kbd key) function)
-)
+  (global-set-key (kbd key) function))
+
 (mapcar (lambda(a) (attic-key (nth 0 a) (nth 1 a))) '(
 
 ("<escape>" escape-key)
