@@ -16,10 +16,12 @@
         comment-or-uncomment-region
         control-lock-enable
         dabbrev-expand
+        downcase-region
         end-of-buffer
         enh-ruby-electric-brace
         erlang-electric-comma
         erlang-electric-semicolon
+        escape-key
         eval-last-sexp
         evil-backward-char
         evil-delete
@@ -74,8 +76,8 @@
         tab-to-tab-stop
         transpose-words
         undefined
+        upcase-region
         yas-expand
-        escape-key
         ))
 
 (setq mc/cmds-to-run-once
