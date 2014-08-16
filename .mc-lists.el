@@ -75,12 +75,13 @@
         transpose-words
         undefined
         yas-expand
+        escape-key
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        describe-key
         emms-pause
-        escape-key
         god-g
         god-mode-enable
         goto-line

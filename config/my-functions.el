@@ -84,6 +84,7 @@
                 (send-string-to-terminal "\033]12;White\007")))))
 
 (defun escape-key () (interactive)
+    (deactivate-mark)
     (god-mode-enable)
     (unless multiple-cursors-mode
         (progn
@@ -385,12 +386,6 @@ makes)."
       (backward-word)
       (capitalize-word 1)
       (goto-char old-point)))
-
-(defadvice backward-sentence (before backward-sentence activate)
-    (unless (region-active-p) (set-mark-command nil)))
-
-(defadvice forward-sentence (before forward-sentence activate)
-    (unless (region-active-p) (set-mark-command nil)))
 
 (defadvice helm-register (before helm-register activate)
     (setq helm-register-active t))
