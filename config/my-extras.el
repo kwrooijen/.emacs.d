@@ -125,6 +125,10 @@
 ;; Set elim executable
 (setq elim-executable "/usr/bin/elim-client")
 
+
+;; Twitter
+
+(require 'twittering-mode)
 ;; Use master password for twitter instead of authenticating every time
 (setq twittering-cert-file "/etc/ssl/certs/ca-bundle.crt")
 (setq twittering-use-master-password t)

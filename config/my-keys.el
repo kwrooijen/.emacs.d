@@ -22,6 +22,7 @@
 ("C-q" backward-delete-char)
 ("C-u" pop-to-mark-command)
 ("C-z" helm-buffers-list)
+("C-," (lambda() (interactive (winner-undo) (deactivate-mark))))
 
 ;; Control Prefix
 ("C-c C-e" kmacro-end-or-call-macro-repeat)
@@ -225,7 +226,7 @@
 
 ;; God mode
 (define-key god-local-mode-map (kbd "g") 'goto-line)
-(define-key god-local-mode-map (kbd ",") (lambda() (interactive (winner-undo) (keyboard-escape-quit))))
+(define-key god-local-mode-map (kbd ",") (lambda() (interactive (winner-undo) (deactivate-mark))))
 (define-key god-local-mode-map (kbd "i") 'god-mode-disable)
 (define-key god-local-mode-map (kbd "[") (lambda ()
     (interactive) (scroll-down-line 3)))
