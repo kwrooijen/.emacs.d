@@ -136,4 +136,13 @@
 (define-key twittering-mode-map (kbd "s") 'twittering-search)
 
 )) ;=================== Chat ends here ===========================;
+
+(if (boundp 'my-extra-web) (progn
+;=================================================================;
+;============================= Web ===============================;
+;=================================================================;
+(require 'w3m)
+(define-key w3m-mode-map (kbd "n") 'w3m-next-anchor)
+(define-key w3m-mode-map (kbd "p") 'w3m-previous-anchor)
+)) ;==================== Web ends here ===========================;
 (provide 'my-extras)

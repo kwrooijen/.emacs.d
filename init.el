@@ -17,5 +17,6 @@
 ;; (setq my-extra-music t)
 ;; (setq my-extra-mail t)
 ;; (setq my-extra-chat t)
+;; (setq my-extra-web t)
 
 (require 'my-extras)

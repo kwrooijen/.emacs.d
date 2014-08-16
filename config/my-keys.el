@@ -67,6 +67,7 @@
 ;; Escreen Keys
 ("C-c C-j C-n" escreen-goto-next-screen)
 ("C-c C-j C-p" escreen-goto-prev-screen)
+("C-c C-j C-j" escreen-goto-last-screen)
 ("C-c C-j C-c" escreen-create-screen)
 ("C-c C-j C-k" escreen-kill-screen)
 ("C-c C-j C-1" escreen-goto-screen-1)
