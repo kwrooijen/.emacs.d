@@ -1,9 +1,9 @@
 (if (boundp 'my-extra-music) (progn
-(require 'emms-setup)
-
 ;=================================================================;
 ;============================= Music =============================;
 ;=================================================================;
+
+(require 'emms-setup)
 
 ;; Don't use mplayer, after suspend it crashes and violates your ears
 (setq emms-setup-default-player-list '(emms-player-vlc))
@@ -39,7 +39,7 @@
     ("[" . emms-seek-backward)
     ("]" . emms-seek-forward)))))
 
-))
+)) ;=================== Music ends here ==========================;
 
 ;=================================================================;
 ;============================== Mail =============================;
@@ -108,7 +108,8 @@
 (defadvice mu4e-update-mail-and-index (after mu4e-update-mail-and-index-after activate)
     (setq total-unread (new-messages)))
 
-))
+)) ;=================== Mail ends here ===========================;
+
 (if (boundp 'my-extra-chat) (progn
 ;=================================================================;
 ;============================= Chat ==============================;
@@ -128,5 +129,7 @@
 (setq twittering-cert-file "/etc/ssl/certs/ca-bundle.crt")
 (setq twittering-use-master-password t)
 
-))
+(define-key twittering-mode-map (kbd "s") 'twittering-search)
+
+)) ;=================== Chat ends here ===========================;
 (provide 'my-extras)

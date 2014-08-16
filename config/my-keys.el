@@ -107,6 +107,7 @@
 (global-set-key [f1] 'simpleclip-copy)
 (global-set-key [f2] 'simpleclip-paste)
 (global-set-key [f3] 'describe-key)
+(global-set-key [f4] 'pastie-region)
 (global-set-key [f6] 'describe-mode)
 (global-set-key [f7] 'get-current-buffer-major-mode)
 (global-set-key [f11] 'screenshot-frame)

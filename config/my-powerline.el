@@ -19,7 +19,7 @@
 
 (defpowerline my-garak-notify
     (let  ((result (concat (car (s-slice-at "]" (powerline-raw mode-line-modes))) "]")))
-    (if (s-contains? "attic" result) nil result)
+        (if (s-contains? "[(" result) nil result)
 ))
 
 (defun my-powerline-theme ()

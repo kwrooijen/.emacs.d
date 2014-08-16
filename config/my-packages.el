@@ -1,8 +1,7 @@
 (when (>= emacs-major-version 24)
   (require 'package)
   (package-initialize)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-  )
+  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t))
 
 (defvar my-packages '(
     ace-jump-mode
@@ -101,6 +100,7 @@
 (require 'escreen)
 (require 's)
 (require 'dash)
+(require 'pastie)
 
 ;; Modes
 (global-rainbow-delimiters-mode t)
