@@ -17,10 +17,10 @@
               (format "[NORMAL]")
               (format "[INSERT]"))))
 
-(defpowerline my-garak-notify ;; TODO Fix colors that are lost
-    (string/reverse (dash-string (lambda(x)
-        (-drop 1 (--drop-while (not (equal it "[")) x)))
-        (string/reverse (powerline-raw mode-line-modes)))))
+(defpowerline my-garak-notify
+    (let  ((result (concat (car (s-slice-at "]" (powerline-raw mode-line-modes))) "]")))
+    (if (s-contains? "attic" result) nil result)
+))
 
 (defun my-powerline-theme ()
   "Setup the default mode-line."

@@ -8,10 +8,13 @@
     ace-jump-mode
     anti-zenburn-theme
     auto-complete
+    dash
     elixir-mix
     elixir-mode
+    elixir-yasnippets
     emms
     erlang
+    escreen
     expand-region
     git-gutter+
     god-mode
@@ -30,6 +33,7 @@
     powerline
     rainbow-delimiters
     redo+
+    s
     simpleclip
     twittering-mode
     w3m
@@ -38,8 +42,6 @@
     wrap-region
     yasnippet
     zenburn-theme
-    elixir-yasnippets
-    escreen
     ))
 
 (defvar my-docs '(
@@ -97,6 +99,8 @@
 (require 'indent-of-doom)
 (require 'git-gutter+)
 (require 'escreen)
+(require 's)
+(require 'dash)
 
 ;; Modes
 (global-rainbow-delimiters-mode t)
