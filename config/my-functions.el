@@ -493,4 +493,26 @@ makes)."
                       (1+ (car bounds)) (cdr bounds))
       (downcase-region (car bounds) (cdr bounds))))))
 
+(defun set-window-width (args)
+    (shrink-window-horizontally (window-body-width))
+    (enlarge-window-horizontally (- args (window-body-width))))
+
+(defun set-window-height (args)
+    (shrink-window (window-body-height))
+    (enlarge-window (- args (window-body-height))))
+
+(defun doc-center-window ()
+    (interactive)
+    (delete-other-windows)
+    (split-window-right)
+    (split-window-right)
+    (select-window-by-number 1)
+    (set-window-width 40)
+    (switch-to-buffer "empty-buffer")
+    (select-window-by-number 3)
+    (set-window-width 40)
+    (switch-to-buffer "empty-buffer")
+    (select-window-by-number 2)
+    (doc-view-fit-width-to-window))
+
 (provide 'my-functions)

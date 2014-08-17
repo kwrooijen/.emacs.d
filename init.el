@@ -18,5 +18,6 @@
 ;; (setq my-extra-mail t)
 ;; (setq my-extra-chat t)
 ;; (setq my-extra-web t)
+;; (setq my-extra-doc t)
 
 (require 'my-extras)
