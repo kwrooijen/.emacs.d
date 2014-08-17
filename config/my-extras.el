@@ -150,7 +150,7 @@
 
 (define-key w3m-jump-map (kbd "n") 'escreen-goto-next-screen)
 (define-key w3m-jump-map (kbd "p") 'escreen-goto-prev-screen)
-(define-key w3m-jump-map (kbd "'") 'escreen-goto-last-screen)
+(define-key w3m-jump-map (kbd ";") 'escreen-goto-last-screen)
 (define-key w3m-jump-map (kbd "c") 'escreen-create-screen)
 (define-key w3m-jump-map (kbd "k") 'escreen-kill-screen)
 (define-key w3m-jump-map (kbd "1") 'escreen-goto-screen-1)
