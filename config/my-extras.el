@@ -51,10 +51,28 @@
 (require 'mu4e)
 (require 'helm-mu)
 
+(define-prefix-command 'mu4e-main-jump-map)
+(define-key mu4e-main-mode-map (kbd ";") 'mu4e-main-jump-map)
+
+(define-key mu4e-main-jump-map (kbd "n") 'escreen-goto-next-screen)
+(define-key mu4e-main-jump-map (kbd "p") 'escreen-goto-prev-screen)
+(define-key mu4e-main-jump-map (kbd ";") 'escreen-goto-last-screen)
+(define-key mu4e-main-jump-map (kbd "c") 'escreen-create-screen)
+(define-key mu4e-main-jump-map (kbd "k") 'escreen-kill-screen)
+(define-key mu4e-main-jump-map (kbd "1") 'escreen-goto-screen-1)
+(define-key mu4e-main-jump-map (kbd "2") 'escreen-goto-screen-2)
+(define-key mu4e-main-jump-map (kbd "3") 'escreen-goto-screen-3)
+(define-key mu4e-main-jump-map (kbd "4") 'escreen-goto-screen-4)
+(define-key mu4e-main-jump-map (kbd "5") 'escreen-goto-screen-5)
+(define-key mu4e-main-jump-map (kbd "6") 'escreen-goto-screen-6)
+(define-key mu4e-main-jump-map (kbd "7") 'escreen-goto-screen-7)
+(define-key mu4e-main-jump-map (kbd "8") 'escreen-goto-screen-8)
+(define-key mu4e-main-jump-map (kbd "9") 'escreen-goto-screen-9)
+(define-key mu4e-main-jump-map (kbd "0") 'escreen-goto-screen-0)
+
 (define-key mu4e-main-mode-map (kbd "p") 'helm-mu-contacts)
 (define-key mu4e-main-mode-map (kbd "o") 'helm-mu)
 (define-key mu4e-main-mode-map (kbd "z") 'helm-buffers-list)
-(define-key mu4e-main-mode-map (kbd "u") 'helm-buffers-list)
 (define-key mu4e-main-mode-map (kbd "c s a") 'helm-bookmarks)
 (define-key mu4e-main-mode-map (kbd "x f") 'helm-find-files)
 
@@ -65,7 +83,13 @@
 (setq smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg"))
 
 ;; Do not use gpg agent when runing in terminal
-(when (file-executable-p "/usr/bin/gpg1") (setq epg-gpg-program "/usr/bin/gpg1"))
+(defadvice epg--start (around advice-epg-disable-agent activate)
+  (let ((agent (getenv "GPG_AGENT_INFO")))
+    (when (not (display-graphic-p))
+      (setenv "GPG_AGENT_INFO" nil))
+    ad-do-it
+    (when (not (display-graphic-p))
+      (setenv "GPG_AGENT_INFO" agent))))
 
 ;; Mail directory for mu4e to use
 (setq mu4e-maildir "~/Mail")
