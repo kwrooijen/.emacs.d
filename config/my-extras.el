@@ -6,7 +6,7 @@
 (require 'emms-setup)
 
 ;; Don't use mplayer, after suspend it crashes and violates your ears
-(setq emms-setup-default-player-list '(emms-player-vlc))
+(setq emms-setup-default-player-list '(emms-player-mplayer))
 
 ;; Default config for emms
 (emms-standard)
@@ -144,5 +144,25 @@
 (require 'w3m)
 (define-key w3m-mode-map (kbd "n") 'w3m-next-anchor)
 (define-key w3m-mode-map (kbd "p") 'w3m-previous-anchor)
+
+(define-prefix-command 'w3m-jump-map)
+(define-key w3m-mode-map (kbd ";") 'w3m-jump-map)
+
+(define-key w3m-jump-map (kbd "n") 'escreen-goto-next-screen)
+(define-key w3m-jump-map (kbd "p") 'escreen-goto-prev-screen)
+(define-key w3m-jump-map (kbd "'") 'escreen-goto-last-screen)
+(define-key w3m-jump-map (kbd "c") 'escreen-create-screen)
+(define-key w3m-jump-map (kbd "k") 'escreen-kill-screen)
+(define-key w3m-jump-map (kbd "1") 'escreen-goto-screen-1)
+(define-key w3m-jump-map (kbd "2") 'escreen-goto-screen-2)
+(define-key w3m-jump-map (kbd "3") 'escreen-goto-screen-3)
+(define-key w3m-jump-map (kbd "4") 'escreen-goto-screen-4)
+(define-key w3m-jump-map (kbd "5") 'escreen-goto-screen-5)
+(define-key w3m-jump-map (kbd "6") 'escreen-goto-screen-6)
+(define-key w3m-jump-map (kbd "7") 'escreen-goto-screen-7)
+(define-key w3m-jump-map (kbd "8") 'escreen-goto-screen-8)
+(define-key w3m-jump-map (kbd "9") 'escreen-goto-screen-9)
+(define-key w3m-jump-map (kbd "0") 'escreen-goto-screen-0)
+
 )) ;==================== Web ends here ===========================;
 (provide 'my-extras)
