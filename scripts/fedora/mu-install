@@ -1,0 +1,26 @@
+DEPS=(
+    git
+    libtool
+    uuid.i686
+    uuid.x86_64
+    uuid-devel.i686
+    uuid-devel.x86_64
+    libuuid.i686
+    libuuid.x86_64
+    libuuid-devel.i686
+    libuuid-devel.x86_64
+    texinfo
+    gmime-devel
+    xapian-core-devel
+)
+ORIG=`pwd`
+yum install ${DEPS[*]}
+mkdir /tmp/mu-install
+cd /tmp/mu-install
+git clone git://github.com/djcb/mu.git
+cd mu
+autoreconf -i && ./configure && make
+sudo make install
+cd $ORIG
+echo done
+exit 0

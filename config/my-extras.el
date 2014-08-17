@@ -46,8 +46,8 @@
 ;=================================================================;
 (if (boundp 'my-extra-mail) (progn
 
-(add-to-list 'load-path "~/.emacs.d/plugins/mu4e")
-(add-to-list 'load-path "~/.emacs.d/plugins/helm-mu")
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/")
+
 (require 'mu4e)
 (require 'helm-mu)
 
