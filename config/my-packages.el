@@ -101,6 +101,7 @@
 (require 's)
 (require 'dash)
 (require 'pastie)
+(require 'sticky-windows)
 
 ;; Modes
 (global-rainbow-delimiters-mode t)
