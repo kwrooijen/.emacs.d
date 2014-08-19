@@ -528,7 +528,6 @@ makes)."
     (set-window-width 80)
     (select-window-3)
     (twit)
-    (sticky-window-keep-window-visible)
-)
+    (sticky-window-keep-window-visible))
 
 (provide 'my-functions)

@@ -2,9 +2,6 @@ DEPS=(
     git
     libtool
     uuid.i686
-    uuid.x86_64
-    uuid-devel.i686
-    uuid-devel.x86_64
     libuuid.i686
     libuuid.x86_64
     libuuid-devel.i686
@@ -14,7 +11,7 @@ DEPS=(
     xapian-core-devel
 )
 ORIG=`pwd`
-yum install ${DEPS[*]}
+yum install ${DEPS[*]} -y
 mkdir /tmp/mu-install
 cd /tmp/mu-install
 git clone git://github.com/djcb/mu.git

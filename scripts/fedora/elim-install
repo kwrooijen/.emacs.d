@@ -17,10 +17,16 @@ DEPS=(
     libxml.x86_64
     libxml2.i686
     libxml2.x86_64
+    libpurple.i686
+    libpurple.x86_64
+    libpurple-devel.i686
+    libpurple-devel.x86_64
+    libpurple-perl.x86_64
+
 )
 
 ORIG=`pwd`
-yum install ${DEPS[*]}
+yum install ${DEPS[*]} -y
 mkdir /tmp/elim-install
 cd /tmp/elim-install
 git clone git://git.sv.gnu.org/elim.git

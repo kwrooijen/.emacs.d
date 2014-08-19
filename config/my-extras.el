@@ -76,8 +76,8 @@
 (define-key mu4e-main-mode-map (kbd "c s a") 'helm-bookmarks)
 (define-key mu4e-main-mode-map (kbd "x f") 'helm-find-files)
 
-;; Update every 2 minutes
-(setq mu4e-update-interval 120)
+;; Update every minute
+(setq mu4e-update-interval 60)
 
 ;; Use .authinfo.gpg (encryped) instead of .authinfo
 (setq smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg"))
@@ -130,6 +130,9 @@
 
 ;; When mu4e updates mail, update the unread messages afterwards
 (defadvice mu4e-update-mail-and-index (after mu4e-update-mail-and-index-after activate)
+    (setq total-unread (new-messages)))
+
+(defadvice mu4e-update-index (after mu4e-update-index-after activate)
     (setq total-unread (new-messages)))
 
 )) ;=================== Mail ends here ===========================;

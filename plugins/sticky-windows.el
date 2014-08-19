@@ -55,6 +55,14 @@ with `sticky-window-keep-window-visible'."
 
 (setq sticky-list '())
 
+(defun sticky-window-delete-other-windows-focus ()
+  (interactive)
+  (let ((current (buffer-name)))
+    (select-window-1)
+    (sticky-window-delete-other-windows)
+    (switch-to-buffer current)))
+
+
 (provide 'sticky-windows)
 
 ;;; sticky-windows.el ends here
