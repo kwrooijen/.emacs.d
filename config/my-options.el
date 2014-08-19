@@ -201,4 +201,16 @@
 (escreen-create-screen)
 (escreen-goto-screen-1)
 
+;; Prompt for eshell, a bit buggy but it will do for now...
+(setq eshell-prompt-function
+  (lambda nil
+      (if (equal (car (s-split "/scpc:" (eshell/pwd))) (eshell/pwd))
+        (setq tramp-prompt "")
+        (setq tramp-prompt "/scpc:"))
+      (let ((split (s-split "/" (eshell/pwd))))
+          (let ((bot (car (last split)))
+                (top (car (last (butlast split)))))
+        (concat tramp-prompt top "/" bot " $ ")
+      ))))
+
 (provide 'my-options)
