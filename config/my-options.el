@@ -141,9 +141,6 @@
 
 (setq auto-window-vscroll nil)
 
-;; Add final new line for Dennis
-(setq require-final-newline t)
-
 ;;; Autocomplete / Yasnippet settings START
 ;; Add auto complete to these modes
 (add-to-list 'ac-modes 'erlang-mode)
@@ -217,3 +214,4 @@
       ))))
 
 (provide 'my-options)
+
