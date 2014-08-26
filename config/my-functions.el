@@ -387,6 +387,14 @@ makes)."
       (capitalize-word 1)
       (goto-char old-point)))
 
+(defadvice forward-list (before forward-list activate)
+    (set-mark-command nil)
+    (deactivate-mark))
+
+(defadvice backward-list (before backward-list activate)
+    (set-mark-command nil)
+    (deactivate-mark))
+
 (defadvice helm-register (before helm-register activate)
     (setq helm-register-active t))
 
@@ -394,6 +402,8 @@ makes)."
     (makunbound 'helm-register-active))
 
 (defadvice helm-swoop (before helm-swoop activate)
+    (set-mark-command nil)
+    (deactivate-mark)
     (setq helm-swoop-active t))
 
 (defadvice helm-swoop (after helm-swoop activate)
