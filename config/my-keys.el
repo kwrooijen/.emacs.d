@@ -37,9 +37,9 @@
 ("C-c C-p" copy-line-up)
 ("C-c C-n" copy-line-down)
 ("C-x C-/" comment-or-uncomment-region)
-("C-c C--" camelcase-word-or-region)
+("C-c C-+" camelcase-word-or-region)
 ("C-c C-=" camelcase-word-or-region+)
-("C-c C-_" snakecase-word-or-region)
+("C-c C--" snakecase-word-or-region)
 ("C-x C-0" sticky-window-delete-window)
 ("C-x   0" sticky-window-delete-window)
 ("C-x C-1" sticky-window-delete-other-windows-focus)
@@ -101,6 +101,7 @@
 ("M-s" (lambda() (interactive) (helm-swoop :$query "")))
 ("M-x" helm-M-x)
 ))
+
 
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
 (define-key isearch-mode-map (kbd "M-g") 'isearch-abort)
@@ -281,3 +282,4 @@ t " attic" 'attic-minor-mode-map)
 ;; Other unset keys
 (global-unset-key "\C-x\C-z")
 (provide 'my-keys)
+
