@@ -90,6 +90,8 @@
 ("M-@" er/expand-region)
 ("M-N" mc/mark-next-like-this)
 ("M-P" mc/mark-previous-like-this)
+("M-n" highlight-symbol-next)
+("M-p" highlight-symbol-prev)
 ("M-S" helm-swoop)
 ("M-_" negative-argument)
 ("M-g" escape-key)

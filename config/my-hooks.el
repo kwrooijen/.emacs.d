@@ -42,6 +42,7 @@
         (flymake-erlang-init)
         (flymake-mode 1)))
     (setq inferior-erlang-machine-options '("-sname" "emacs"))
+    (highlight-symbol-mode t)
     (key-chord-force)
     (fix-tabs 4)
     (setq-local doom-indent-fallback t)

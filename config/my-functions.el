@@ -541,3 +541,4 @@ makes)."
     (sticky-window-keep-window-visible))
 
 (provide 'my-functions)
+

@@ -371,7 +371,7 @@ Needs these entries in rebar.config:
 
 (defvar rebar-mode-map
   (let ((m (make-sparse-keymap)))
-    (define-key m "\M-A" 'rebar-cover-annotate)
+    ;; (define-key m "\M-A" 'rebar-cover-annotate)
     (define-key m "\M-B" 'rebar-build)
     (define-key m "\M-H" 'rebar-help)
     (define-key m "\M-K" 'rebar-compile)
@@ -425,3 +425,4 @@ Needs these entries in rebar.config:
 
 (provide 'rebar)
 ;;; rebar.el ends here
+
