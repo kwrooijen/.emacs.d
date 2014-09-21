@@ -20,6 +20,7 @@
         end-of-buffer
         enh-ruby-electric-brace
         erlang-electric-comma
+        erlang-electric-newline
         erlang-electric-semicolon
         escape-key
         eval-last-sexp
@@ -84,6 +85,7 @@
       '(
         describe-key
         emms-pause
+        execute-rust
         god-g
         god-mode-enable
         goto-line

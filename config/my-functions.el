@@ -10,6 +10,15 @@
     (ansi-term "/bin/sh")
     (rename-buffer (format "%s%s" "$" buffer-name) t))
 
+(defun eshell-back-to-indentation ()
+ (interactive)
+ (eshell-bol)
+ (while (and
+    (char-after (point))
+    (equal (string (char-after (point))) " "))
+    (forward-char 1)
+))
+
 (defun get-current-buffer-major-mode ()
     (interactive)
     (message "%s" major-mode))

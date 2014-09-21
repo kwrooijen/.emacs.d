@@ -28,7 +28,7 @@
 (add-hook 'c-initialization-hook 'c-keys-hook)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
 (add-hook 'magit-mode-hook 'clean-hook)
-(add-hook 'shell-mode-hook 'clean-hook)
+(add-hook 'shell-mode-hook 'god-local-mode)
 (add-hook 'doc-view-mode-hook 'clean-hook)
 (add-hook 'w3m-mode-hook 'clean-hook)
 
@@ -85,6 +85,8 @@
 ))
 
 (add-hook 'rust-mode-hook (lambda ()
+    (if (not (is-tramp-mode)) (progn
+        (flymake-rust-load)))
     (setq-local tab-width 4)
     (rust-keys-hook)
     (setq-local helm-dash-docsets '("Rust"))

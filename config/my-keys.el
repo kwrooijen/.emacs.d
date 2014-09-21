@@ -90,8 +90,6 @@
 ("M-@" er/expand-region)
 ("M-N" mc/mark-next-like-this)
 ("M-P" mc/mark-previous-like-this)
-("M-n" highlight-symbol-next)
-("M-p" highlight-symbol-prev)
 ("M-S" helm-swoop)
 ("M-_" negative-argument)
 ("M-g" escape-key)
@@ -103,7 +101,6 @@
 ("M-s" (lambda() (interactive) (helm-swoop :$query "")))
 ("M-x" helm-M-x)
 ))
-
 
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
 (define-key isearch-mode-map (kbd "M-g") 'isearch-abort)
@@ -139,6 +136,9 @@
     (local-set-key (kbd "C-c C-d C-w") 'erl-who-calls) ;- Who calls function under point.
     (local-set-key (kbd "C-c C-d C-H") 'erl-find-doc) ;- Show the html documentation for a function.
     (local-set-key (kbd "C-c C-d C-Z") 'erl-find-sig) ;- Show the signature for a function.
+    (local-set-key (kbd "M-n") 'highlight-symbol-next)
+    (local-set-key (kbd "M-p") 'highlight-symbol-prev)
+
     (define-key erl-process-list-mode-map (kbd "n") 'next-line)
     (define-key erl-process-list-mode-map (kbd "p") 'previous-line)
     (define-key erl-process-list-mode-map (kbd "s") 'isearch-forward)
@@ -161,6 +161,8 @@
   (define-key elixir-mode-map (kbd "C-c C-c C-e")
       (lambda(x) (interactive "sRun Mix > ") (run-mix x)))
 
+  (define-key elixir-mode-map (kbd "M-n") 'highlight-symbol-next)
+  (define-key elixir-mode-map (kbd "M-p") 'highlight-symbol-prev)
   (define-key elixir-mode-map (kbd "C-c C-c C-v")
       (lambda() (interactive) (run-mix "compile")))
   (define-key elixir-mode-map (kbd "C-c C-c C-s")
@@ -173,6 +175,7 @@
       (lambda() (interactive) (run-mix "help")))
   (define-key elixir-mode-map (kbd "C-c C-c C-i")
       (lambda() (interactive) (run-mix "dialyzer")))
+
 )
 
 ;; Rust Keys
@@ -243,7 +246,9 @@
 ;; eShell
 (add-hook 'eshell-mode-hook
 '(lambda ()
-   (define-key eshell-mode-map (kbd "C-i") 'helm-esh-pcomplete)))
+   (define-key eshell-mode-map (kbd "C-i") 'helm-esh-pcomplete)
+   (define-key eshell-mode-map (kbd "M-m") 'eshell-back-to-indentation)
+))
 
 ;; God mode
 (define-key god-local-mode-map (kbd "g") 'goto-line)
