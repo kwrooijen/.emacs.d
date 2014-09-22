@@ -97,6 +97,9 @@
 ;; Enable interactive behavior for Tempo
 (setq tempo-interactive t)
 
+;; C-u C-SPC will repeat if C-SPC is pressed again
+(setq set-mark-command-repeat-pop t)
+
 ;;; Helm configurations START
 ;; Don't ask to create new file
 (setq helm-ff-newfile-prompt-p nil)

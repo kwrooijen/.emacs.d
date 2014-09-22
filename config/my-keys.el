@@ -19,10 +19,10 @@
 ("C-l" helm-register)
 ("C-o" vim-o)
 ("C-q" backward-delete-char)
-("C-u" pop-to-mark-command)
 ("C-z" helm-buffers-list)
 ("C-," (lambda() (interactive (winner-undo) (deactivate-mark))))
 
+("C-M-q" backward-kill-sexp)
 ;; Control Prefix
 ("C-c C-e" kmacro-end-or-call-macro-repeat)
 ("C-c C-f" helm-ls-git-ls)
