@@ -58,9 +58,8 @@
 ("C-c C-s C-d" helm-dash)
 ("C-c C-s C-f" helm-swoop-find-files-recursively)
 ("C-c C-s C-m" mu4e)
-("C-c C-s C-r" (lambda () (interactive)
-    (let ((current-prefix-arg '(1)))
-        (call-interactively 'helm-do-grep))))
+
+("C-c C-s C-r" my/grep)
 ("C-c C-s C-s" helm-multi-swoop)
 
 ;; Make keys
@@ -196,6 +195,7 @@
 (define-key dired-mode-map (kbd "c f")   'helm-ls-git-ls)
 (define-key dired-mode-map (kbd "z")     'helm-buffers-list)
 (define-key dired-mode-map (kbd "c s a") 'helm-bookmarks)
+(define-key dired-mode-map (kbd "c s r") 'my/grep)
 (define-key dired-mode-map (kbd "c m")   'magit-status)
 (define-key dired-mode-map (kbd "; n") 'escreen-goto-next-screen)
 (define-key dired-mode-map (kbd "; p") 'escreen-goto-prev-screen)
