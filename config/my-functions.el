@@ -23,6 +23,7 @@
             "! -wholename '*/deps/*' "
             "! -wholename '*/tmp/*' "
             "! -wholename '*/elpa/*' "
+            "! -wholename '*/backups/*' "
             "-exec grep -nH -e %s {} + "
             "| grep -v 'Binary file' "
         (mapconcat (lambda(X) (concat " | grep " X)) (cdr term-list) ""))
@@ -34,8 +35,7 @@
  (while (and
     (char-after (point))
     (equal (string (char-after (point))) " "))
-    (forward-char 1)
-))
+    (forward-char 1)))
 
 (defun get-current-buffer-major-mode ()
     (interactive)

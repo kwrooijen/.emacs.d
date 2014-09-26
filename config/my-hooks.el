@@ -41,6 +41,7 @@
     (if (not (is-tramp-mode)) (progn
         (flymake-erlang-init)
         (flymake-mode 1)))
+    (rainbow-delimiters-mode)
     (setq inferior-erlang-machine-options '("-sname" "emacs"))
     (highlight-symbol-mode t)
     (key-chord-force)
@@ -68,11 +69,13 @@
 
 (add-hook 'ruby-mode-hook (lambda ()
     (god-local-mode t)
+    (rainbow-delimiters-mode)
     (setq-local helm-dash-docsets '("Ruby"))
 ))
 
 (add-hook 'haskell-mode-hook (lambda ()
     (fix-tabs 4)
+    (rainbow-delimiters-mode)
     (turn-on-haskell-doc-mode)
     (turn-on-haskell-indentation)
     (setq-local doom-indent-fallback t)
@@ -81,12 +84,14 @@
 
 (add-hook 'emacs-lisp-mode-hook (lambda ()
     (fix-tabs 4)
-    (setq-local helm-dash-docsets '("Emacs_Lisp"))
+    (rainbow-delimiters-mode)
+    (setq-local helm-dash-docsets '("Emacs Lisp"))
 ))
 
 (add-hook 'rust-mode-hook (lambda ()
     (if (not (is-tramp-mode)) (progn
         (flymake-rust-load)))
+    (rainbow-delimiters-mode)
     (setq-local tab-width 4)
     (rust-keys-hook)
     (setq-local helm-dash-docsets '("Rust"))

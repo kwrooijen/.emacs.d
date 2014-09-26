@@ -104,7 +104,6 @@
 (require 'sticky-windows)
 
 ;; Modes
-(global-rainbow-delimiters-mode t)
 (god-mode)
 (key-chord-mode t)
 (multiple-cursors-mode t)
