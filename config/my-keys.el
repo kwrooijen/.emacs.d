@@ -23,6 +23,11 @@
 ("C-," (lambda() (interactive (winner-undo) (deactivate-mark))))
 
 ("C-M-q" backward-kill-sexp)
+("M-y" (lambda() (interactive)
+    (if (or (equal last-command 'yank) (equal last-command 'yank-pop))
+        (yank-pop)
+        (helm-show-kill-ring))))
+
 ;; Control Prefix
 ("C-c C-e" kmacro-end-or-call-macro-repeat)
 ("C-c C-f" helm-ls-git-ls)
@@ -216,7 +221,8 @@
 (define-key helm-map (kbd "C-b") 'nil)
 (define-key helm-map (kbd "C-f") 'nil)
 (define-key helm-map (kbd "M-b") 'nil)
-(define-key helm-map (kbd "M-f") 'helm-select-action)
+(define-key helm-map (kbd "M-f") 'forward-word)
+(define-key helm-map (kbd "M-s") 'helm-select-action)
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-buffer-map (kbd "C-a") 'helm-buffers-toggle-show-hidden-buffers)
 (define-key helm-swoop-map (kbd "M-e") 'helm-swoop-edit)

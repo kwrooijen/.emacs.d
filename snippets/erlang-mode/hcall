@@ -2,5 +2,6 @@
 #group : gen_server
 # --
 handle_call($1, _From, State) ->
-    $0
-    {reply, ok, State};
+    Reply = $0,
+    {reply, Reply, State};
+
