@@ -13,17 +13,20 @@
 (defun my/grep (term)
     "Start a terminal and rename buffer."
     (interactive "sGrep value: ")
-    (grep-find (format (concat
-        "find . -type f "
-        "! -name '*.log' "
-        "! -name '*.dump' "
-        "! -name '*#*' "
-        "! -wholename '*/deps/*' "
-        "! -wholename '*/tmp/*' "
-        "! -wholename '*/elpa/*' "
-        "-exec grep -nH -e %s {} + "
-        "| grep -v 'Binary file' "
-    ) term)))
+    (let ((term-list (split-string term)))
+        (grep-find (format (concat
+            "find . -type f "
+            "! -name '*.log' "
+            "! -name '*.dump' "
+            "! -name '*#*' "
+            "! -path '*/\.*' "
+            "! -wholename '*/deps/*' "
+            "! -wholename '*/tmp/*' "
+            "! -wholename '*/elpa/*' "
+            "-exec grep -nH -e %s {} + "
+            "| grep -v 'Binary file' "
+        (mapconcat (lambda(X) (concat " | grep " X)) (cdr term-list) ""))
+        term))))
 
 (defun eshell-back-to-indentation ()
  (interactive)
