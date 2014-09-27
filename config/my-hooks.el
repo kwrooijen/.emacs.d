@@ -18,11 +18,10 @@
   (god-local-mode t))
 
 (defun my-before-save()
+  (save-excursion
     (delete-trailing-whitespace)
-    (let ((current (point)))
-        (goto-char (point-max))
-        (newline)
-        (goto-char current)))
+    (goto-char (point-max))
+    (newline)))
 
 (add-hook 'before-save-hook 'my-before-save)
 (add-hook 'c-initialization-hook 'c-keys-hook)
@@ -156,7 +155,6 @@
     ("\\.erb\\'"     . web-mode)
     ("\\.tpl\\'"     . web-mode)
     ) auto-mode-alist))
-
 
 (provide 'my-hooks)
 

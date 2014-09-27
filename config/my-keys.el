@@ -41,10 +41,10 @@
 ("C-c C-y" yank-rectangle)
 ("C-c C-p" copy-line-up)
 ("C-c C-n" copy-line-down)
-("C-x C-/" comment-or-uncomment-region)
 ("C-c C-+" camelcase-word-or-region)
 ("C-c C-=" camelcase-word-or-region+)
 ("C-c C--" snakecase-word-or-region)
+("C-x C-/" comment-or-uncomment-region)
 ("C-x C-0" sticky-window-delete-window)
 ("C-x   0" sticky-window-delete-window)
 ("C-x C-1" sticky-window-delete-other-windows-focus)
@@ -256,14 +256,26 @@
    (define-key eshell-mode-map (kbd "M-m") 'eshell-back-to-indentation)
 ))
 
+;; Grep mode
+(define-key grep-mode-map (kbd "n") 'next-line)
+(define-key grep-mode-map (kbd "p") 'previous-line)
+(define-key grep-mode-map (kbd "TAB") (lambda() (interactive) (error-preview "*grep*")))
+
+;; u-map
+(define-prefix-command 'u-map)
+(global-set-key (kbd "C-u") 'u-map)
+(define-key u-map (kbd "C-u") 'helm-M-x)
+
+;; God mode u-map
+(define-key god-local-mode-map (kbd "u SPC") 'pop-to-mark-command)
+(define-key god-local-mode-map (kbd "u u") 'helm-M-x)
+
 ;; God mode
 (define-key god-local-mode-map (kbd "g") 'goto-line)
 (define-key god-local-mode-map (kbd ",") (lambda() (interactive (winner-undo) (deactivate-mark))))
 (define-key god-local-mode-map (kbd "i") 'god-mode-disable)
-(define-key god-local-mode-map (kbd "[") (lambda ()
-    (interactive) (scroll-down-line 3)))
-(define-key god-local-mode-map (kbd "]") (lambda ()
-    (interactive) (scroll-up-line 3)))
+(define-key god-local-mode-map (kbd "[") 'cm-fast-step-upward)
+(define-key god-local-mode-map (kbd "]") 'cm-fast-step-downward)
 
 (define-key god-local-mode-map (kbd "; n")  'escreen-goto-next-screen)
 (define-key god-local-mode-map (kbd "; p")  'escreen-goto-prev-screen)

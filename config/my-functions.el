@@ -1,3 +1,8 @@
+(defun error-preview (buff)
+  (interactive)
+  (compile-goto-error)
+  (switch-to-buffer-other-window buff))
+
 (defun sh (buffer-name)
     "Start a terminal and rename buffer."
     (interactive "sbuffer name: ")
@@ -566,6 +571,18 @@ makes)."
     (select-window-3)
     (twit)
     (sticky-window-keep-window-visible))
+
+(defun cm-fast-step-upward ()
+  "Step 3 lines up, recenteres the screen."
+  (interactive)
+  (forward-line -3)
+  (recenter))
+
+(defun cm-fast-step-downward ()
+  "Step 3 lines down, recenteres the screen."
+  (interactive)
+  (forward-line 3)
+  (recenter))
 
 (provide 'my-functions)
 

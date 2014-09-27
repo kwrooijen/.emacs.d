@@ -21,6 +21,7 @@
     haskell-mode
     helm
     helm-dash
+    helm-descbinds
     helm-ls-git
     helm-swoop
     highlight-symbol
