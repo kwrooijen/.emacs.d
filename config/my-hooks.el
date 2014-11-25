@@ -108,10 +108,10 @@
 
         ((current 'starts-with "]" "}" ")") (prev 'indent -1))
         ((prev 'ends-on "[" "{" "(")        (prev 'indent 1))
-        ((prev 'ends-on ",")        (prev 'indent))
+        ((prev 'ends-on ",")                (prev 'indent))
     ))
     (erlang-mode . (
-        ((prev 'ends-on "->" "fun" "of") (prev 'indent 1))
+        ((prev 'ends-on "->" "fun" "of" "begin") (prev 'indent 1))
         ((prev 'ends-on ";") (prev 'indent -1))
         ((current 'ends-on "end") (prev 'indent -1))
     ))

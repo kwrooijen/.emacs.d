@@ -1,9 +1,9 @@
 (defvar attic-minor-mode-map (make-keymap) "attic-minor-mode keymap.")
 
 (defun attic-key(key function)
-  (define-key attic-minor-mode-map (kbd key) function)
-  (global-set-key (kbd key) function))
+  (define-key attic-minor-mode-map (kbd key) function))
 
+(global-set-key (kbd "C-M-]") 'attic-minor-mode)
 (mapcar (lambda(a) (attic-key (nth 0 a) (nth 1 a))) '(
 
 ("<escape>" escape-key)
@@ -63,11 +63,12 @@
 ("C-c C-s C-s" helm-multi-swoop)
 
 ;; Make keys
-("C-c C-z C-p" (lambda() (interactive) (run-make "stop")))
-("C-c C-z C-r" (lambda() (interactive) (run-make "restart")))
-("C-c C-z C-s" (lambda() (interactive) (run-make "start")))
-("C-c C-z C-t" (lambda() (interactive) (run-make "test")))
-("C-c C-z C-z" (lambda() (interactive) (run-make "")))
+("C-c C-z C-p" (lambda() (interactive) (run-make "stop"    "[Make Stop]")))
+("C-c C-z C-r" (lambda() (interactive) (run-make "restart" "[Make Restart]")))
+("C-c C-z C-s" (lambda() (interactive) (run-make "start"   "[Make Start]")))
+("C-c C-z C-t" (lambda() (interactive) (run-make "test"    "[Make Test]")))
+("C-c C-z C-o" (lambda() (interactive) (run-make "go"      "[Make Go]")))
+("C-c C-z C-z" (lambda() (interactive) (run-make ""        "[Make]")))
 
 ;; Escreen Keys
 ("C-; C-n" escreen-goto-next-screen)
@@ -184,8 +185,9 @@
 
 ;; Rust Keys
 (defun rust-keys-hook ()
-  (define-key rust-mode-map (kbd "C-c C-l") 'execute-rust)
-)
+  (define-key rust-mode-map (kbd "C-c C-l") (lambda()
+      (interactive)
+      (async-shell-command "cargo run" "[Cargo Run]"))))
 ;; C Keys
 (defun c-keys-hook ()
   (define-key c-mode-base-map (kbd "C-c C-l") 'execute-c)
@@ -260,6 +262,7 @@
 (define-key grep-mode-map (kbd "n") 'next-line)
 (define-key grep-mode-map (kbd "p") 'previous-line)
 (define-key grep-mode-map (kbd "TAB") (lambda() (interactive) (error-preview "*grep*")))
+(define-key grep-mode-map (kbd "v") 'scroll-up-command)
 
 ;; u-map
 (define-prefix-command 'u-map)
