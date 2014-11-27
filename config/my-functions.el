@@ -76,9 +76,10 @@
     (interactive)
     (my-up-to-script "*.cabal" "cabal build ; cabal test --log=/dev/stdout" "[Haskell Tests]"))
 
-(defun run-make (arg)
+(defun run-make (arg name)
     (interactive)
-    (my-up-to-script "Makefile" (concat "make " arg) "[Make Project]"))
+    (if (get-buffer name) (kill-buffer name))
+    (my-up-to-script "Makefile" (concat "make " arg) name))
 
 (defun guard ()
     (interactive)
@@ -585,4 +586,3 @@ makes)."
   (recenter))
 
 (provide 'my-functions)
-
