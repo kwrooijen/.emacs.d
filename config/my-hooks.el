@@ -17,13 +17,6 @@
   (setq-local tab-width x)
   (god-local-mode t))
 
-(defun my-before-save()
-  (save-excursion
-    (delete-trailing-whitespace)
-    (goto-char (point-max))
-    (newline)))
-
-(add-hook 'before-save-hook 'my-before-save)
 (add-hook 'c-initialization-hook 'c-keys-hook)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
 (add-hook 'magit-mode-hook 'clean-hook)

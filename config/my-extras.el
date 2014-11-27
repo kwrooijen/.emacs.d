@@ -24,19 +24,20 @@
 ;; List of commands for emms "C-c C-a C-?"
 ;; These command can be repeated by pressing the last
 ;; pressed key thanks to command-repeater
+
 (define-key attic-minor-mode-map (kbd "C-c C-a")
   (lambda () (interactive) (command-repeater '(
-    ("a" . emms-pause)
-    ("g" . emms-playlist-mode-go)
-    ("n" . emms-next)
-    ("f" . emms-next)
-    ("p" . emms-previous)
-    ("b" . emms-previous)
-    ("w" . emms-volume-raise)
-    ("q" . emms-volume-lower)
+    ("a" . spotify-playpause)
+    ("g" . spotify-playlist-mode-go)
+    ("n" . spotify-next)
+    ("f" . spotify-next)
+    ("p" . spotify-playpause)
+    ("b" . spotify-previous)
+    ("w" . spotify-volume-raise)
+    ("q" . spotify-volume-lower)
     ("s" . helm-swoop-emms)
-    ("[" . emms-seek-backward)
-    ("]" . emms-seek-forward)))))
+    ("[" . spotify-seek-backward)
+    ("]" . spotify-seek-forward)))))
 
 )) ;=================== Music ends here ==========================;
 

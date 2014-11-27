@@ -92,6 +92,7 @@
 ("M--" redo)
 ("M-;" capitalize-previous-word)
 ("M-@" er/expand-region)
+("M-#" align-regexp)
 ("M-N" mc/mark-next-like-this)
 ("M-P" mc/mark-previous-like-this)
 ("M-S" helm-swoop)
@@ -152,6 +153,9 @@
     ;; Auto complete mode
     (define-key ac-menu-map (kbd "M-n") 'capitalize-previous-word)
 )
+    (define-key erlang-mode-map (kbd "M-n") 'highlight-symbol-next)
+    (define-key erlang-mode-map (kbd "M-p") 'highlight-symbol-prev)
+    (define-key erlang-mode-map (kbd ">")   (lambda() (interactive) (insert ">")))
 
 ;; Elixir Keys
 (defun elixir-keys-hook ()

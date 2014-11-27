@@ -100,6 +100,12 @@
 ;; C-u C-SPC will repeat if C-SPC is pressed again
 (setq set-mark-command-repeat-pop t)
 
+;; Make sure the file ends with a newline
+(setq require-final-newline t)
+
+;; Default alignment should be 80
+(setq fill-column 80)
+
 ;;; Helm configurations START
 ;; Don't ask to create new file
 (setq helm-ff-newfile-prompt-p nil)
@@ -113,8 +119,8 @@
 (setq helm-swoop-split-with-multiple-windows t)
 ;; Show relative path
 (setq helm-ls-git-show-abs-or-relative 'relative)
-;; Show colors in Tramp mode
-(setq helm-ff-tramp-not-fancy nil)
+;; Don't show colors in Tramp mode
+(setq helm-ff-tramp-not-fancy t)
 ;; Smarter completion for Helm
 (setq helm-ff-smart-completion t)
 ;; Helm-dash should use W3m for showing documentation
