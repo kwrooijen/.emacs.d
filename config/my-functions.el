@@ -76,6 +76,11 @@
     (interactive)
     (my-up-to-script "*.cabal" "cabal build ; cabal test --log=/dev/stdout" "[Haskell Tests]"))
 
+(defun run-make-input (input)
+    "Run make with user input."
+    (interactive "sMake: ")
+    (run-make input "[Custom Make]"))
+
 (defun run-make (arg name)
     (interactive)
     (if (get-buffer name) (kill-buffer name))

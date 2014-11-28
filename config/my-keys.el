@@ -87,6 +87,11 @@
 ("C-; C-9" escreen-goto-screen-9)
 ("C-; C-0" escreen-goto-screen-0)
 
+;; The magic C-u
+("C-u C-a" async-shell-command)
+("C-u C-s" shell-command)
+("C-u C-s" run-make-input)
+
 ;; Meta keys
 ("M-*" mc/mark-all-like-this)
 ("M-+" align-regexp)
@@ -299,6 +304,11 @@
 (define-key god-local-mode-map (kbd "; 8")  'escreen-goto-screen-8)
 (define-key god-local-mode-map (kbd "; 9")  'escreen-goto-screen-9)
 (define-key god-local-mode-map (kbd "; 0")  'escreen-goto-screen-0)
+
+;; The magic C-u
+(define-key god-local-mode-map (kbd "u a")  'async-shell-command)
+(define-key god-local-mode-map (kbd "u s")  'shell-command)
+(define-key god-local-mode-map (kbd "u e")  'run-make-input)
 
 ;; Magit mode
 (define-key magit-status-mode-map (kbd "RET") (lambda () (interactive) (magit-visit-item t)))
