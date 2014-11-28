@@ -69,6 +69,7 @@
 ("C-c C-z C-t" (lambda() (interactive) (run-make "test"    "[Make Test]")))
 ("C-c C-z C-o" (lambda() (interactive) (run-make "go"      "[Make Go]")))
 ("C-c C-z C-z" (lambda() (interactive) (run-make ""        "[Make]")))
+("C-c C-z C-c" run-make-input)
 
 ;; Escreen Keys
 ("C-; C-n" escreen-goto-next-screen)
@@ -90,7 +91,6 @@
 ;; The magic C-u
 ("C-u C-a" async-shell-command)
 ("C-u C-s" shell-command)
-("C-u C-s" run-make-input)
 
 ;; Meta keys
 ("M-*" mc/mark-all-like-this)
@@ -308,7 +308,6 @@
 ;; The magic C-u
 (define-key god-local-mode-map (kbd "u a")  'async-shell-command)
 (define-key god-local-mode-map (kbd "u s")  'shell-command)
-(define-key god-local-mode-map (kbd "u e")  'run-make-input)
 
 ;; Magit mode
 (define-key magit-status-mode-map (kbd "RET") (lambda () (interactive) (magit-visit-item t)))
