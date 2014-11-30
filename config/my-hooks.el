@@ -89,6 +89,14 @@
     (setq-local helm-dash-docsets '("Rust"))
 ))
 
+(add-hook 'org-mode-hook (lambda ()
+    (org-keys-hook)
+))
+
+(add-hook 'erc-mode-hook (lambda ()
+    (erc-keys-hook)
+))
+
 ;; Doom Indent Config
 (setq doom-use-tab-cycle t)
 (setq doom-region-cycle nil)

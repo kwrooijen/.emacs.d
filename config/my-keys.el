@@ -32,7 +32,6 @@
 ("C-c C-e" kmacro-end-or-call-macro-repeat)
 ("C-c C-f" helm-ls-git-ls)
 ("C-c C-m" magit-status)
-("C-c C-o" hoogle-search)
 ("C-c C-q" kmacro-start-macro)
 ("C-c C-t" transpose-lines-at-point)
 ("C-c M-t" transpose-paragraphs)
@@ -88,10 +87,6 @@
 ("C-; C-9" escreen-goto-screen-9)
 ("C-; C-0" escreen-goto-screen-0)
 
-;; The magic C-u
-("C-u C-a" async-shell-command)
-("C-u C-s" shell-command)
-
 ;; Meta keys
 ("M-*" mc/mark-all-like-this)
 ("M-+" align-regexp)
@@ -118,13 +113,17 @@
 (define-key isearch-mode-map (kbd "TAB") 'isearch-exit)
 
 ;; Other Keys
-(global-set-key [f1] 'simpleclip-copy)
-(global-set-key [f2] 'simpleclip-paste)
 (global-set-key [f3] 'describe-key)
 (global-set-key [f4] 'pastie-region)
 (global-set-key [f6] 'describe-mode)
 (global-set-key [f7] 'get-current-buffer-major-mode)
 (global-set-key [f11] 'screenshot-frame)
+
+
+(defun erc-keys-hook ()
+    (define-key erc-mode-map (kbd "C-M-m") 'erc-send-current-line)
+    (define-key erc-mode-map (kbd "RET") (lambda() (interactive)(message "Use C-M-m to send")))
+)
 
 ;; Erlang Keys
 (defun erlang-keys-hook ()
@@ -202,6 +201,12 @@
   (define-key c-mode-base-map (kbd "C-c C-l") 'execute-c)
 )
 
+(defun org-keys-hook ()
+    (define-prefix-command 'org-mode-custom-map)
+    (define-key org-mode-map (kbd "C-c C-o") 'org-mode-custom-map)
+    (define-key org-mode-custom-map (kbd "C-l") 'browse-url-at-point)
+)
+
 ;; Dired keys
 (define-key dired-mode-map (kbd "c f")   'helm-ls-git-ls)
 (define-key dired-mode-map (kbd "z")     'helm-buffers-list)
@@ -276,11 +281,25 @@
 ;; u-map
 (define-prefix-command 'u-map)
 (global-set-key (kbd "C-u") 'u-map)
+(define-key god-local-mode-map (kbd "u") 'u-map)
 (define-key u-map (kbd "C-u") 'helm-M-x)
+(define-key u-map (kbd "u") 'helm-M-x)
+
+(define-key u-map (kbd "C-a") 'async-shell-command)
+(define-key u-map (kbd "a") 'async-shell-command)
+
+(define-key u-map (kbd "C-s") 'shell-command)
+(define-key u-map (kbd "s") 'shell-command)
+
+(define-key u-map (kbd "C-y") 'simpleclip-paste)
+(define-key u-map (kbd "y") 'simpleclip-paste)
+
+(define-key u-map (kbd "C-w") 'simpleclip-copy)
+(define-key u-map (kbd "w") 'simpleclip-copy)
 
 ;; God mode u-map
-(define-key god-local-mode-map (kbd "u SPC") 'pop-to-mark-command)
-(define-key god-local-mode-map (kbd "u u") 'helm-M-x)
+;; (define-key god-local-mode-map (kbd "u SPC") 'pop-to-mark-command)
+;; (define-key god-local-mode-map (kbd "u u") 'helm-M-x)
 
 ;; God mode
 (define-key god-local-mode-map (kbd "g") 'goto-line)
@@ -304,10 +323,6 @@
 (define-key god-local-mode-map (kbd "; 8")  'escreen-goto-screen-8)
 (define-key god-local-mode-map (kbd "; 9")  'escreen-goto-screen-9)
 (define-key god-local-mode-map (kbd "; 0")  'escreen-goto-screen-0)
-
-;; The magic C-u
-(define-key god-local-mode-map (kbd "u a")  'async-shell-command)
-(define-key god-local-mode-map (kbd "u s")  'shell-command)
 
 ;; Magit mode
 (define-key magit-status-mode-map (kbd "RET") (lambda () (interactive) (magit-visit-item t)))

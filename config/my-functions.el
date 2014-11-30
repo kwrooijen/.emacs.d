@@ -425,6 +425,10 @@ makes)."
       (capitalize-word 1)
       (goto-char old-point)))
 
+(defadvice erc (before erc activate)
+  (load "~/.erc.gpg")
+  (setq erc-password ercpass))
+
 (defadvice forward-list (before forward-list activate)
     (set-mark-command nil)
     (deactivate-mark))

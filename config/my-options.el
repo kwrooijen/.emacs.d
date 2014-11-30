@@ -153,6 +153,13 @@
 
 (setq auto-window-vscroll nil)
 
+;; ERC Mode
+(setq erc-nick "attic")
+(setq erc-prompt-for-password nil)
+
+;; Org Mode
+(setq org-log-done 'time)
+
 ;;; Autocomplete / Yasnippet settings START
 ;; Add auto complete to these modes
 (add-to-list 'ac-modes 'erlang-mode)
