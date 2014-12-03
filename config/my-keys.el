@@ -13,7 +13,6 @@
 ("C-." helm-resume)
 ("C-/" my-comment)
 ("C-=" repeat)
-("C-\\" glasses-mode)
 ("C-h" iy-go-to-char)
 ("C-j" ace-jump-mode)
 ("C-l" helm-register)
@@ -38,6 +37,7 @@
 ("C-c C-w" kill-rectangle)
 ("C-c C-v" inc-register)
 ("C-c C-y" yank-rectangle)
+("C-c C-o" switch-to-minibuffer)
 ("C-c C-p" copy-line-up)
 ("C-c C-n" copy-line-down)
 ("C-c C-+" camelcase-word-or-region)
@@ -101,7 +101,6 @@
 ("M-g" escape-key)
 ("M-h" iy-go-to-char-backward)
 ("M-j" (lambda() (interactive) (join-line -1)))
-("M-k" kill-this-buffer)
 ("M-o" (lambda() (interactive) (vim-o 1)))
 ("M-q" backward-kill-word)
 ("M-s" (lambda() (interactive) (helm-swoop :$query "")))
@@ -205,6 +204,7 @@
     (define-prefix-command 'org-mode-custom-map)
     (define-key org-mode-map (kbd "C-c C-o") 'org-mode-custom-map)
     (define-key org-mode-custom-map (kbd "C-l") 'browse-url-at-point)
+    (define-key org-mode-custom-map (kbd "C-t") 'org-todo)
 )
 
 ;; Dired keys
@@ -284,6 +284,7 @@
 (define-key god-local-mode-map (kbd "u") 'u-map)
 (define-key u-map (kbd "C-u") 'helm-M-x)
 (define-key u-map (kbd "u") 'helm-M-x)
+(define-key u-map (kbd "SPC") 'pop-to-mark-command)
 
 (define-key u-map (kbd "C-a") 'async-shell-command)
 (define-key u-map (kbd "a") 'async-shell-command)
@@ -296,10 +297,6 @@
 
 (define-key u-map (kbd "C-w") 'simpleclip-copy)
 (define-key u-map (kbd "w") 'simpleclip-copy)
-
-;; God mode u-map
-;; (define-key god-local-mode-map (kbd "u SPC") 'pop-to-mark-command)
-;; (define-key god-local-mode-map (kbd "u u") 'helm-M-x)
 
 ;; God mode
 (define-key god-local-mode-map (kbd "g") 'goto-line)
