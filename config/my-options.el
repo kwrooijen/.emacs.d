@@ -156,6 +156,7 @@
 ;; ERC Mode
 (setq erc-nick "attic")
 (setq erc-prompt-for-password nil)
+(setq erc-ignore-list '("*Flowdock*" "Flowdock" "-Flowdock-"))
 
 ;; Org Mode
 (setq org-log-done 'time)
@@ -223,9 +224,9 @@
 ;; Prompt for eshell, a bit buggy but it will do for now...
 (setq eshell-prompt-function
   (lambda nil
-      (if (equal (car (s-split "/scpc:" (eshell/pwd))) (eshell/pwd))
+      (if (equal (car (s-split "/scp:" (eshell/pwd))) (eshell/pwd))
         (setq tramp-prompt "")
-        (setq tramp-prompt "/scpc:"))
+        (setq tramp-prompt "/scp:"))
       (let ((split (s-split "/" (eshell/pwd))))
           (let ((bot (car (last split)))
                 (top (car (last (butlast split)))))

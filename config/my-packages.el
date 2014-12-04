@@ -103,6 +103,8 @@
 (require 'dash)
 (require 'pastie)
 (require 'sticky-windows)
+(require 'erc)
+(require 'erc-image)
 
 ;; Modes
 (god-mode)
