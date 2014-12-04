@@ -87,6 +87,7 @@
 (require 'helm)
 (require 'helm-ls-git)
 (require 'helm-swoop)
+(require 'helm-dash)
 (require 'multiple-cursors)
 (require 'redo+)
 (require 'magit)

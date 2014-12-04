@@ -1,3 +1,10 @@
+(defun switch-to-minibuffer ()
+  "Switch to minibuffer window."
+  (interactive)
+  (if (active-minibuffer-window)
+      (select-window (active-minibuffer-window))
+    (error "Minibuffer is not active")))
+
 (defun error-preview (buff)
   (interactive)
   (compile-goto-error)
@@ -124,7 +131,7 @@
 (defun escape-key () (interactive)
     (deactivate-mark)
     (god-mode-enable)
-    (unless multiple-cursors-mode
+    (unless (or multiple-cursors-mode macro-active)
         (progn
             (call-interactively (key-binding (kbd "C-g")))
             (keyboard-escape-quit))))
@@ -425,6 +432,12 @@ makes)."
       (capitalize-word 1)
       (goto-char old-point)))
 
+(defadvice kmacro-start-macro (before kmacro-start-macro activate)
+    (setq macro-active t))
+
+(defadvice kmacro-end-or-call-macro-repeat (before kmacro-end-or-call-macro-repeat activate)
+    (setq macro-active nil))
+
 (defadvice erc (before erc activate)
   (setq erc-prompt-for-password nil)
       (load "~/.erc.gpg")
@@ -594,5 +607,25 @@ makes)."
   (interactive)
   (forward-line 3)
   (recenter))
+
+(defun helm-dash-fun ()
+    (interactive)
+    (setq use-doc (cond
+        ((equal major-mode 'erlang-mode) "Erlang")
+        ((equal major-mode 'elixir-mode) "Elxir")
+        ((equal major-mode 'haskell-mode) "Haskell")
+        ((equal major-mode 'emacs-lisp-mode) "Emacs_Lisp")
+        ((equal major-mode 'ruby-mode) "Ruby")
+        ((equal major-mode 'js2-mode) "Javascript")
+        (t "Erlang")
+    ))
+    (unless (equal '(use-doc) helm-dash-common-docsets) (helm-dash-activate-docset use-doc))
+    (dired "~")
+    (rename-buffer "TEMPDOC")
+    (switch-to-buffer "GOTOTEMPBUFFER")
+    (kill-buffer "TEMPDOC")
+    (helm-dash)
+    (kill-buffer "GOTOTEMPBUFFER")
+    (setq helm-dash-common-docsets '()))
 
 (provide 'my-functions)

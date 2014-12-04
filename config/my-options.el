@@ -212,6 +212,9 @@
 ;; Git gutter
 (setq git-gutter+-unchanged-sign " ")
 
+;; Macro is not active at boot, setting variable
+(setq macro-active nil)
+
 ;; Create 6 initial screens and move to number 1
 (escreen-create-screen)
 (escreen-create-screen)
