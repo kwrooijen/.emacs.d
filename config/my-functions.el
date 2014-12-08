@@ -443,8 +443,9 @@ makes)."
   (setq macro-active nil))
 
 (defadvice erc (before erc activate)
-  (load "~/.erc.gpg")
-  (setq erc-password ercpass))
+  (setq erc-prompt-for-password nil)
+      (load "~/.erc.gpg")
+      (setq erc-password ercpass))
 
 (defadvice forward-list (before forward-list activate)
     (set-mark-command nil)
