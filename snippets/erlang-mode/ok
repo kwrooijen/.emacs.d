@@ -1,0 +1,5 @@
+# -*- mode: erlang-mode -*-
+# name: ok
+# key: ok
+# --
+{ok, $1}$0

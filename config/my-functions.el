@@ -1,3 +1,5 @@
+
+
 (defun switch-to-minibuffer ()
   "Switch to minibuffer window."
   (interactive)
@@ -383,20 +385,22 @@ makes)."
     (flymake-log 3 "create-temp-intemp: file=%s temp=%s" file-name temp-name)
     temp-name))
 
-(defadvice erlang-compile (after erlang-compile activate)
-    "Load ebin beam files after compile"
-        (let ((deps (upward-find-file "deps"))
-              (ebin (upward-find-file "ebin"))
-              (source-files '()))
-        (if ebin (setq source-files (cons (concat ebin "ebin") source-files)))
-        (if deps (progn
-            (setq source-files (append source-files (mapcar (lambda(x) (concat (upward-find-file "deps") "deps/" x "/ebin"))
-                (-filter (lambda(x) (and (not (equal x "..")) (not (equal x "."))))
-                    (directory-files (concat (upward-find-file "deps") "/deps"))))))))
-        (setq result (mapconcat (lambda (x) (format "\"%s\"" x)) source-files ", "))
-        (unless (boundp 'node-is-set) (erl-choose-nodename))
-        (setq node-is-set t)
-        (erl-eval-expression (make-symbol (concat "emacs@" (car (split-string system-name "\\.")))) (format "code:add_paths([%s])." result))))
+(defadvice erlang-compile (before erlang-compile activate)
+    (setq-local deps (remove-if-not 'identity 
+        (mapcar (lambda(x) 
+            (unless (or (equal x ".") (equal x ".."))
+                (concat "../deps/" x "/ebin"))) 
+             (directory-files "../deps"))))
+    (setq-local core '("../ebin"))
+
+    (setq inferior-erlang-machine-options
+        (-flatten (mapcar (lambda(x)
+            (setq-local ll '())
+            (add-to-list 'll x)
+            (add-to-list 'll "-pa")
+            ll) (append core deps) ))))
+    ;; (setq inferior-erlang-machine-options '("-pa" "../ebin/" "-pa" "../deps/ranch/ebin/"))
+
 
 (defun upward-find-file (filename &optional startdir)
   "Move up directories until we find a certain filename. If we
@@ -435,8 +439,8 @@ makes)."
 (defadvice kmacro-start-macro (before kmacro-start-macro activate)
     (setq macro-active t))
 
-(defadvice kmacro-end-or-call-macro-repeat (before kmacro-end-or-call-macro-repeat activate)
-    (setq macro-active nil))
+(defadvice kmacro-end-or-call-macro-repeat (after kmacro-end-or-call-macro-repeat activate)
+  (setq macro-active nil))
 
 (defadvice erc (before erc activate)
   (load "~/.erc.gpg")
@@ -606,25 +610,5 @@ makes)."
   (interactive)
   (forward-line 3)
   (recenter))
-
-(defun helm-dash-fun ()
-    (interactive)
-    (setq use-doc (cond
-        ((equal major-mode 'erlang-mode) "Erlang")
-        ((equal major-mode 'elixir-mode) "Elxir")
-        ((equal major-mode 'haskell-mode) "Haskell")
-        ((equal major-mode 'emacs-lisp-mode) "Emacs_Lisp")
-        ((equal major-mode 'ruby-mode) "Ruby")
-        ((equal major-mode 'js2-mode) "Javascript")
-        (t "Erlang")
-    ))
-    (unless (equal '(use-doc) helm-dash-common-docsets) (helm-dash-activate-docset use-doc))
-    (dired "~")
-    (rename-buffer "TEMPDOC")
-    (switch-to-buffer "GOTOTEMPBUFFER")
-    (kill-buffer "TEMPDOC")
-    (helm-dash)
-    (kill-buffer "GOTOTEMPBUFFER")
-    (setq helm-dash-common-docsets '()))
 
 (provide 'my-functions)

@@ -1,0 +1,5 @@
+# -*- mode: erlang-mode -*-
+# name: error
+# key: error
+# --
+{error, $1}$0

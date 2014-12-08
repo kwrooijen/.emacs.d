@@ -55,7 +55,7 @@
 
 ;; Control Prefix 3
 ("C-c C-s C-a" helm-bookmarks)
-("C-c C-s C-d" helm-dash-fun)
+("C-c C-s C-d" helm-dash)
 ("C-c C-s C-f" helm-swoop-find-files-recursively)
 ("C-c C-s C-m" mu4e)
 

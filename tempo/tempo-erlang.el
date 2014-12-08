@@ -80,3 +80,16 @@ n>
 
 (provide 'tempo-erlang)
 
+
+(tempo-define-template "erlang-gitignore" '(
+"*#"n>
+".#*"n>
+"*~"n>
+".*.swp"n>
+"*.beam"n>
+"log/"n>
+"ebin/"n>
+"deps/"n>
+".rebar/"n>
+".eunit/"
+) nil "Erlang gitignore.")
