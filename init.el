@@ -3,6 +3,8 @@
 (add-to-list 'load-path "~/.emacs.d/tempo")
 (add-to-list 'load-path "~/.emacs.d/plugins/distel/elisp")
 
+(load-theme 'wombat)
+
 (require 'my-packages)
 (require 'my-powerline)
 (require 'my-colors)
@@ -20,4 +22,4 @@
 ;; (setq my-extra-web t)
 ;; (setq my-extra-doc t)
 
-(require 'my-extras)
+;; (require 'my-extras)

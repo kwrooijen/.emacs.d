@@ -1,6 +1,12 @@
 (if (getenv "DISPLAY")
     (global-hl-line-mode t))
 
+(if window-system (progn
+  (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
+  (let ((path-from-shell (shell-command-to-string "$SHELL -i -c 'echo -n $PATH'")))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator)))))
+
 ;; Font for X
 (setq default-frame-alist '(
     (font . "Fira Mono OT-12:weight=bold")

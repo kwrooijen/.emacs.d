@@ -132,11 +132,13 @@
 
 (defun escape-key () (interactive)
     (deactivate-mark)
-    (god-mode-enable)
-    (unless (or multiple-cursors-mode macro-active)
-        (progn
-            (call-interactively (key-binding (kbd "C-g")))
-            (keyboard-escape-quit))))
+    (if (equal " *Minibuf-1*" (buffer-name))
+        (keyboard-escape-quit)
+        (unless (or multiple-cursors-mode macro-active (not god-local-mode) (not macro-active))
+            (progn
+                (call-interactively (key-binding (kbd "C-g")))
+                (keyboard-escape-quit))))
+    (god-mode-enable))
 
 (defadvice keyboard-escape-quit (around my-keyboard-escape-quit activate)
     (let (orig-one-window-p)

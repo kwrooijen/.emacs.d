@@ -1,17 +1,18 @@
 (when (>= emacs-major-version 24)
   (require 'package)
   (package-initialize)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t))
+  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  (add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/") t)
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
+  )
 
 (defvar my-packages '(
     ace-jump-mode
-    anti-zenburn-theme
     auto-complete
     dash
-    elixir-mix
+    ;; elixir-mix
     elixir-mode
     elixir-yasnippets
-    emms
     erlang
     escreen
     expand-region
@@ -41,7 +42,6 @@
     window-numbering
     wrap-region
     yasnippet
-    zenburn-theme
     ))
 
 (defvar my-docs '(
@@ -83,6 +83,7 @@
     (insert "Welcome to the Attic!")))
 
 (require 'auto-complete-config)
+(require 'erlang)
 (require 'god-mode)
 (require 'helm)
 (require 'helm-ls-git)
@@ -93,7 +94,6 @@
 (require 'magit)
 (require 'fbterm)
 (require 'rebar)
-(require 'distel)
 (require 'flymake)
 (require 'tempo)
 (require 'web-mode)
