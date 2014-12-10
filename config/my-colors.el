@@ -15,7 +15,7 @@
     (git-gutter+-unchanged nil "#383838")
     (helm-selection "white" "royalblue")
     (hl-line nil "gray18")
-    (helm-ff-directory "deep sky blue" nil)
+    (helm-ff-directory "deep sky blue" unspecified)
 ))
 
 (provide 'my-colors)
