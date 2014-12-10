@@ -13,8 +13,9 @@
     (git-gutter+-deleted "red" "#383838" )
     (git-gutter+-modified "magenta" "#383838" )
     (git-gutter+-unchanged nil "#383838")
-    (helm-selection "gray6" "lightgray")
+    (helm-selection "white" "royalblue")
     (hl-line nil "gray18")
+    (helm-ff-directory "deep sky blue" nil)
 ))
 
 (provide 'my-colors)
