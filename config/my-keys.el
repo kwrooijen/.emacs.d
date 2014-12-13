@@ -92,7 +92,8 @@
 ("M-*" mc/mark-all-like-this)
 ("M-+" align-regexp)
 ("M--" redo)
-("M-;" capitalize-previous-word)
+("M-C" capitalize-previous-word)
+("M-;" yas/expand)
 ("M-@" er/expand-region)
 ("M-#" align-regexp)
 ("M-N" mc/mark-next-like-this)
@@ -154,22 +155,29 @@
     (define-key erl-process-list-mode-map (kbd "s") 'isearch-forward)
     (define-key erl-process-list-mode-map (kbd "r") 'isearch-backward)
     (define-key erl-process-list-mode-map (kbd "v") 'scroll-up-command)
-
-    ;; Auto complete mode
-    (define-key ac-menu-map (kbd "M-n") 'capitalize-previous-word)
 )
     (define-key erlang-mode-map (kbd "M-n") 'highlight-symbol-next)
     (define-key erlang-mode-map (kbd "M-p") 'highlight-symbol-prev)
     (define-key erlang-mode-map (kbd ">")   (lambda() (interactive) (insert ">")))
 
+(define-key company-active-map (kbd "M-g")
+    (lambda() (interactive) (company-abort) (escape-key)))
+(define-key company-active-map (kbd "M-f") 'company-complete-selection)
+(define-key company-active-map (kbd "<return>")
+    (lambda() (interactive) (company-abort) (newline)))
+(define-key company-active-map (kbd "C-m")
+    (lambda() (interactive) (company-abort) (newline)))
+(define-key company-active-map (kbd "M-h") 'helm-company)
+(define-key company-active-map (kbd "M-j") 'yas/expand)
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+
+
 ;; Elixir Keys
 (defun elixir-keys-hook ()
   (setq-local doom-indent-key "") ;;; HACK FOR ELIXIR MODE
   (define-key elixir-mode-map (kbd "TAB") (lambda() (interactive)
-    (if (and (equal major-mode 'elixir-mode) (not auto-complete-mode))
-    (auto-complete-mode 1))
     (indent-of-doom))) ;;; HACK FOR ELIXIR MODE
-
   (define-key elixir-mode-map (kbd "C-c C-l") 'iex-compile)
   (define-key elixir-mode-map (kbd "C-c C-c C-e")
       (lambda(x) (interactive "sRun Mix > ") (run-mix x)))

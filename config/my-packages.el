@@ -8,11 +8,11 @@
 
 (defvar my-packages '(
     ace-jump-mode
-    auto-complete
+    company
     dash
-    ;; elixir-mix
     elixir-mode
     elixir-yasnippets
+    erc-image
     erlang
     escreen
     expand-region
@@ -37,6 +37,7 @@
     s
     simpleclip
     twittering-mode
+    underwater-theme
     w3m
     web-mode
     window-numbering
@@ -82,7 +83,6 @@
     (delete-other-windows)
     (insert "Welcome to the Attic!")))
 
-(require 'auto-complete-config)
 (require 'erlang)
 (require 'god-mode)
 (require 'helm)
@@ -106,6 +106,7 @@
 (require 'sticky-windows)
 (require 'erc)
 (require 'erc-image)
+(require 'setup-company)
 
 ;; Modes
 (god-mode)
@@ -117,6 +118,7 @@
 (yas-global-mode t)
 (global-git-gutter+-mode t)
 (winner-mode t)
-
+(global-company-mode t)
+(global-hl-line-mode t)
 (provide 'my-packages)
 

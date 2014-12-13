@@ -50,6 +50,7 @@
 ))
 
 (add-hook 'elixir-mode-hook (lambda ()
+    (god-local-mode t)
     (key-chord-force)
     (elixir-keys-hook)
     (global-elixir-mix-mode 1)

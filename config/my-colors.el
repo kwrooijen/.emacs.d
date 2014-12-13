@@ -16,7 +16,14 @@
     (helm-selection "white" "royalblue")
     (hl-line nil "gray18")
     (helm-ff-directory "deep sky blue" unspecified)
+    (company-scrollbar-bg   nil "gainsboro")
+    (company-template-field "black" "gainsboro")
+    (company-tooltip        "black" "gainsboro")
 ))
+(load-theme 'underwater t)
+
+(set-face-underline 'hl-line nil)
+
 
 (provide 'my-colors)
 

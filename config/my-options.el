@@ -167,27 +167,10 @@
 ;; Org Mode
 (setq org-log-done 'time)
 
-;;; Autocomplete / Yasnippet settings START
-;; Add auto complete to these modes
-(add-to-list 'ac-modes 'erlang-mode)
-(add-to-list 'ac-modes 'elixir-mode)
-(add-to-list 'ac-modes 'haskell-mode)
-(add-to-list 'ac-modes 'js2-mode)
-(add-to-list 'ac-modes 'web-mode)
-
-;; Autocomplete default config
-(ac-config-default)
-;; Use auto complete menu
-(setq ac-use-menu-map t)
-;; Show menu instantly
-(setq ac-auto-show-menu 0.0)
-;; Show help menu in 0.5 sec
-(setq ac-quick-help-delay 0.5)
-;; Add yasnippets to menu
-(defadvice ac-common-setup (after give-yasnippet-highest-priority activate)
-    (setq ac-sources (delq 'ac-source-yasnippet ac-sources))
-      (add-to-list 'ac-sources 'ac-source-yasnippet))
-;;; Autocomplete / Yasnippet settings END
+;; Company Mode
+(setq company-auto-complete t)
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 2)
 
 ;; Web mode
 (setq web-mode-markup-indent-offset 4)
