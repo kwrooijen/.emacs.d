@@ -8,6 +8,7 @@
 
 (defvar my-packages '(
     ace-jump-mode
+    alchemist
     company
     dash
     elixir-mode
@@ -21,6 +22,7 @@
     hackernews
     haskell-mode
     helm
+    helm-company
     helm-dash
     helm-descbinds
     helm-ls-git
