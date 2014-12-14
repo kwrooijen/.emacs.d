@@ -165,6 +165,8 @@
 (define-key company-active-map (kbd "M-f") 'company-complete-selection)
 (define-key company-active-map (kbd "<return>")
     (lambda() (interactive) (company-abort) (newline)))
+(define-key company-active-map (kbd "SPC")
+    (lambda() (interactive) (company-abort) (insert " ")))
 (define-key company-active-map (kbd "C-m")
     (lambda() (interactive) (company-abort) (newline)))
 (define-key company-active-map (kbd "M-h") 'helm-company)
