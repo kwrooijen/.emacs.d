@@ -109,6 +109,9 @@
 (require 'erc)
 (require 'erc-image)
 (require 'setup-company)
+(require 'elixir-mode)
+(require 'distel)
+(require 'alchemist)
 
 ;; Modes
 (god-mode)

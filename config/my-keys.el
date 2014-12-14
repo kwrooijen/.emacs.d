@@ -93,7 +93,7 @@
 ("M-+" align-regexp)
 ("M--" redo)
 ("M-C" capitalize-previous-word)
-("M-;" yas/expand)
+("M-;" (lambda() (interactive) (company-abort) (yas/expand)))
 ("M-@" er/expand-region)
 ("M-#" align-regexp)
 ("M-N" mc/mark-next-like-this)
@@ -169,11 +169,14 @@
     (lambda() (interactive) (company-abort) (insert " ")))
 (define-key company-active-map (kbd "C-m")
     (lambda() (interactive) (company-abort) (newline)))
+(define-key company-active-map (kbd ":")
+    (lambda() (interactive) (company-abort) (insert ":")))
+(define-key company-active-map (kbd ".")
+  (lambda() (interactive) (company-abort) (insert ".")))
 (define-key company-active-map (kbd "M-h") 'helm-company)
 (define-key company-active-map (kbd "M-j") 'yas/expand)
 (define-key company-active-map (kbd "C-n") 'company-select-next)
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
-
 
 ;; Elixir Keys
 (defun elixir-keys-hook ()

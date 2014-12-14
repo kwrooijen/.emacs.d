@@ -19,6 +19,7 @@
     (company-template-field     "black" "gainsboro")
     (company-tooltip            "black" "gainsboro")
     (region                     "white" "deep sky blue")
+    (font-lock-string-face      "cadet blue" unspecified)
 ))
 
 
