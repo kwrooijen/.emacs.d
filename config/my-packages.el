@@ -8,11 +8,12 @@
 
 (defvar my-packages '(
     ace-jump-mode
-    auto-complete
+    alchemist
+    company
     dash
-    ;; elixir-mix
     elixir-mode
     elixir-yasnippets
+    erc-image
     erlang
     escreen
     expand-region
@@ -21,6 +22,7 @@
     hackernews
     haskell-mode
     helm
+    helm-company
     helm-dash
     helm-descbinds
     helm-ls-git
@@ -37,6 +39,7 @@
     s
     simpleclip
     twittering-mode
+    underwater-theme
     w3m
     web-mode
     window-numbering
@@ -82,7 +85,6 @@
     (delete-other-windows)
     (insert "Welcome to the Attic!")))
 
-(require 'auto-complete-config)
 (require 'erlang)
 (require 'god-mode)
 (require 'helm)
@@ -106,6 +108,10 @@
 (require 'sticky-windows)
 (require 'erc)
 (require 'erc-image)
+(require 'setup-company)
+(require 'elixir-mode)
+(require 'distel)
+(require 'alchemist)
 
 ;; Modes
 (god-mode)
@@ -117,6 +123,7 @@
 (yas-global-mode t)
 (global-git-gutter+-mode t)
 (winner-mode t)
-
+(global-company-mode t)
+(global-hl-line-mode t)
 (provide 'my-packages)
 

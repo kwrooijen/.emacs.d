@@ -50,10 +50,11 @@
 ))
 
 (add-hook 'elixir-mode-hook (lambda ()
+    (god-local-mode t)
     (key-chord-force)
     (elixir-keys-hook)
-    (global-elixir-mix-mode 1)
     (fix-tabs 2)
+    (setq tab-stop-list tab-stop-list-2)
     (setq-local doom-indent-fallback t)
     (setq-local doom-use-tab-cycle nil)
     (setq-local helm-dash-docsets '("Elixir"))

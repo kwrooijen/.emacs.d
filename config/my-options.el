@@ -30,8 +30,21 @@
 (setq x-select-enable-clipboard nil)
 
 ;; Set tab stop list
-(setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68
+(setq tab-stop-list-4 '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68
                         72 76 80 84 88 92 96 100 104 108 112 116 120))
+
+(setq tab-stop-list-2 '( 0  2  4  6  8
+                         10 12 14 16 18
+                         20 22 24 26 28
+                         30 32 34 36 38
+                         40 42 44 46 48
+                         50 52 54 56 58
+                         60 62 64 66 68
+                         70 72 74 76 78
+                         80 82 84 86 88
+                         90 92 94 96 98 ))
+
+(setq tab-stop-list tab-stop-list-4)
 
 ;; Personal Info
 (setq user-full-name "Kevin W. van Rooijen")
@@ -167,27 +180,10 @@
 ;; Org Mode
 (setq org-log-done 'time)
 
-;;; Autocomplete / Yasnippet settings START
-;; Add auto complete to these modes
-(add-to-list 'ac-modes 'erlang-mode)
-(add-to-list 'ac-modes 'elixir-mode)
-(add-to-list 'ac-modes 'haskell-mode)
-(add-to-list 'ac-modes 'js2-mode)
-(add-to-list 'ac-modes 'web-mode)
-
-;; Autocomplete default config
-(ac-config-default)
-;; Use auto complete menu
-(setq ac-use-menu-map t)
-;; Show menu instantly
-(setq ac-auto-show-menu 0.0)
-;; Show help menu in 0.5 sec
-(setq ac-quick-help-delay 0.5)
-;; Add yasnippets to menu
-(defadvice ac-common-setup (after give-yasnippet-highest-priority activate)
-    (setq ac-sources (delq 'ac-source-yasnippet ac-sources))
-      (add-to-list 'ac-sources 'ac-source-yasnippet))
-;;; Autocomplete / Yasnippet settings END
+;; Company Mode
+(setq company-auto-complete t)
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 2)
 
 ;; Web mode
 (setq web-mode-markup-indent-offset 4)

@@ -3,7 +3,6 @@
 (add-to-list 'load-path "~/.emacs.d/tempo")
 (add-to-list 'load-path "~/.emacs.d/plugins/distel/elisp")
 
-(load-theme 'wombat)
 
 (require 'my-packages)
 (require 'my-powerline)
