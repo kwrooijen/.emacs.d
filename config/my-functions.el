@@ -123,7 +123,7 @@
 ; God functions
 
 (defun god-mode-disable () (interactive)
-    (god-local-mode-pause)
+    (god-mode-all-set -1)
     (key-chord-mode 1)
     (if window-system
         (set-cursor-color "green")
@@ -134,13 +134,23 @@
             (message nil))
 
 (defun god-mode-enable () (interactive)
-    (god-local-mode-resume)
+    (god-mode-all-set 1)
     (if window-system
         (set-cursor-color "white")
         (if (getenv "DISPLAY")
             (if (getenv "TMUX")
                 (send-string-to-terminal "\033Ptmux;\033\033]12;White\007\033\\")
                 (send-string-to-terminal "\033]12;White\007")))))
+
+(defun god-mode-all-set (arg)
+  "Set God mode in all buffers by argument."
+  (interactive)
+  (setq god-global-mode t)
+  (mapc (lambda (buffer)
+    (with-current-buffer buffer
+        (god-mode-maybe-activate arg)))
+    (buffer-list))
+    (setq god-global-mode (= arg 1)))
 
 (defun escape-key () (interactive)
     (deactivate-mark)
@@ -626,4 +636,46 @@ makes)."
   (forward-line 3)
   (recenter))
 
+
+;; (require 'company)
+
+;; (defconst erlang-modules
+;;   '(
+;;     "gen_server"
+;;     "lists"
+;;     "proplists"
+;;     "supervisor"
+;;     ))
+
+;; (defconst erlang-lists-functions
+;;   '(
+;;     "lists:append"
+;;     "lists:concat"
+;;     "lists:flatten"
+;;     "lists:foldl"
+;;     "lists:foldr"
+;;     "lists:map"
+;;     ))
+
+;; (defun company-sample-backend (command &optional arg &rest ignored)
+;;   (interactive (list 'interactive))
+;;   (case command
+;;     (interactive (company-begin-backend 'company-sample-backend))
+;;     (prefix (and (eq major-mode 'erlang-mode)
+;;                  (company-grab-symbol)))
+
+;;     (candidates
+;;     (if  (looking-back "lists")
+;;             erlang-lists-functions
+;;         (remove-if    
+;;             (lambda (c) (not (string-prefix-p arg c)))
+;;                erlang-modules)
+;;         ))
+;;     ))
+
+;; (add-to-list 'company-backends 'company-sample-backend)
+
+
+
 (provide 'my-functions)
+
