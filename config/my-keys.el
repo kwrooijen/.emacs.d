@@ -101,6 +101,8 @@
 ("M-S" helm-swoop)
 ("M-_" negative-argument)
 ("M-g" escape-key)
+("M-i" tab-to-tab-stop-line-or-region)
+("M-I" (lambda() (interactive) (tab-to-tab-stop-line-or-region t)))
 ("M-j" iy-go-to-char-backward)
 ("M-h" (lambda() (interactive) (join-line -1)))
 ("M-o" (lambda() (interactive) (vim-o 1)))

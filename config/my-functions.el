@@ -1,4 +1,16 @@
-
+(defun tab-to-tab-stop-line-or-region (&optional left)
+  (interactive)
+  (if (region-active-p) (progn
+  (if left
+    (if (< (mark) (point))
+    (indent-rigidly-left-to-tab-stop (mark) (point))
+    (indent-rigidly-left-to-tab-stop (point) (mark)))
+    (if (< (mark) (point))
+    (indent-rigidly-right-to-tab-stop (mark) (point))
+    (indent-rigidly-right-to-tab-stop (point) (mark))))
+  (activate-mark)
+  (error "Region tab"))
+  (tab-to-tab-stop)))
 
 (defun switch-to-minibuffer ()
   "Switch to minibuffer window."
