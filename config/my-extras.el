@@ -2,25 +2,6 @@
 (if (boundp 'my-extra-music) (progn ;; Music =====================;
 ;=================================================================;
 
-(require 'emms-setup)
-
-;; Don't use mplayer, after suspend it crashes and violates your ears
-(setq emms-setup-default-player-list '(emms-player-mplayer))
-
-;; Default config for emms
-(emms-standard)
-(emms-default-players)
-
-;; Use the Music directory as default playlist
-(emms-add-directory-tree "~/Music/")
-
-;; Toggle repeat and shuffle Music playlist
-(emms-toggle-repeat-playlist)
-(emms-shuffle)
-
-;; Adjust volume by 10 on change
-(setq emms-volume-change-amount 5)
-
 ;; List of commands for emms "C-c C-a C-?"
 ;; These command can be repeated by pressing the last
 ;; pressed key thanks to command-repeater
@@ -41,154 +22,13 @@
 
 )) ;=================== Music ends here ==========================;
 
-;=================================================================;
-(if (boundp 'my-extra-mail) (progn ;; Mail =======================;
-;=================================================================;
-
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e/")
-
-(require 'mu4e)
-(require 'helm-mu)
-
-(define-prefix-command 'mu4e-main-jump-map)
-(define-key mu4e-main-mode-map (kbd ";") 'mu4e-main-jump-map)
-
-(define-key mu4e-main-jump-map (kbd "n") 'escreen-goto-next-screen)
-(define-key mu4e-main-jump-map (kbd "p") 'escreen-goto-prev-screen)
-(define-key mu4e-main-jump-map (kbd ";") 'escreen-goto-last-screen)
-(define-key mu4e-main-jump-map (kbd "c") 'escreen-create-screen)
-(define-key mu4e-main-jump-map (kbd "k") 'escreen-kill-screen)
-(define-key mu4e-main-jump-map (kbd "1") 'escreen-goto-screen-1)
-(define-key mu4e-main-jump-map (kbd "2") 'escreen-goto-screen-2)
-(define-key mu4e-main-jump-map (kbd "3") 'escreen-goto-screen-3)
-(define-key mu4e-main-jump-map (kbd "4") 'escreen-goto-screen-4)
-(define-key mu4e-main-jump-map (kbd "5") 'escreen-goto-screen-5)
-(define-key mu4e-main-jump-map (kbd "6") 'escreen-goto-screen-6)
-(define-key mu4e-main-jump-map (kbd "7") 'escreen-goto-screen-7)
-(define-key mu4e-main-jump-map (kbd "8") 'escreen-goto-screen-8)
-(define-key mu4e-main-jump-map (kbd "9") 'escreen-goto-screen-9)
-(define-key mu4e-main-jump-map (kbd "0") 'escreen-goto-screen-0)
-
-(define-key mu4e-main-mode-map (kbd "p") 'helm-mu-contacts)
-(define-key mu4e-main-mode-map (kbd "o") 'helm-mu)
-(define-key mu4e-main-mode-map (kbd "z") 'helm-buffers-list)
-(define-key mu4e-main-mode-map (kbd "c s a") 'helm-bookmarks)
-(define-key mu4e-main-mode-map (kbd "x f") 'helm-find-files)
-
-;; Update every minute
-(setq mu4e-update-interval 60)
-
-;; Use .authinfo.gpg (encryped) instead of .authinfo
-(setq smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg"))
-
-;; Do not use gpg agent when runing in terminal
-(defadvice epg--start (around advice-epg-disable-agent activate)
-  (let ((agent (getenv "GPG_AGENT_INFO")))
-    (when (not (display-graphic-p))
-      (setenv "GPG_AGENT_INFO" nil))
-    ad-do-it
-    (when (not (display-graphic-p))
-      (setenv "GPG_AGENT_INFO" agent))))
-
-;; Mail directory for mu4e to use
-(setq mu4e-maildir "~/Mail")
-
-;; Email adres for mu4e to use
-(setq mu4e-my-email-addresses '("kevin.van.rooijen@gmail.com"))
-
-;; Don't save message to Sent Messages, Gmail/IMAP takes care of this
-(setq mu4e-sent-messages-behavior 'delete)
-
-;; Allow for updating mail using 'U' in the main view:
-(setq mu4e-get-mail-command "offlineimap")
-
-;; smtp configurations
-(require 'smtpmail)
-(setq message-send-mail-function 'smtpmail-send-it
-      starttls-use-gnutls t
-      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-      smtpmail-auth-credentials
-      '(("smtp.gmail.com" 587 "kevin.van.rooijen@gmail.com" nil))
-      smtpmail-default-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-service 587)
-
-;; don't keep message buffers around
-(setq message-kill-buffer-on-exit t)
-
-;; Some settings to check how many unread messages there are
-;; This is used with my Powerline to display the amount of unread messages
-(defun new-messages ()
-  "Check our Maildir for 'new' messages and return the count"
-  (let ((cmd (concat "find " (expand-file-name "~/Mail")
-                     " -type f | grep -i new | wc -l")))
-    (string-to-number (replace-regexp-in-string "![0-9]" "" (shell-command-to-string cmd)))))
-
-;; Set the unread variable
-(setq total-unread (new-messages))
-
-;; When mu4e updates mail, update the unread messages afterwards
-(defadvice mu4e-update-mail-and-index (after mu4e-update-mail-and-index-after activate)
-    (setq total-unread (new-messages)))
-
-(defadvice mu4e-update-index (after mu4e-update-index-after activate)
-    (setq total-unread (new-messages)))
-
-)) ;=================== Mail ends here ===========================;
-
-
-;=================================================================;
-(if (boundp 'my-extra-chat) (progn ;; Chat =======================;
-;=================================================================;
-
-(require 'elim)
-(require 'garak)
-
-;; Garak Keys
-(define-key garak-mode-map (kbd "\r") nil)
-(define-key garak-mode-map (kbd "M-<RET>") 'lui-send-input)
-
-;; Set elim executable
-(setq elim-executable "/usr/bin/elim-client")
-
-
-;; Twitter
-
 (require 'twittering-mode)
+(setq twittering-icon-mode t)    
 ;; Use master password for twitter instead of authenticating every time
 (setq twittering-cert-file "/etc/ssl/certs/ca-bundle.crt")
 (setq twittering-use-master-password t)
 
 (define-key twittering-mode-map (kbd "s") 'twittering-search)
-
-)) ;=================== Chat ends here ===========================;
-
-
-;=================================================================;
-(if (boundp 'my-extra-web) (progn ;; Web =========================;
-;=================================================================;
-
-(define-key eww-mode-map (kbd "n") 'next-line)
-(define-key eww-mode-map (kbd "p") 'previous-line)
-(define-key eww-mode-map (kbd "s") (lambda() (interactive) (eww-view-source) (web-mode)))
-
-(defun shr-browse-url ()
-  (interactive)
-  (scroll-up-command)
-)
-(define-key eww-mode-map (kbd "v") 'scroll-up-command)
-(define-key eww-mode-map (kbd "M-v") 'scroll-down-command)
-
-)) ;==================== Web ends here ===========================;
-
-
-;=================================================================;
-(if (boundp 'my-extra-doc) (progn ;; Doc =========================;
-;=================================================================;
-(require 'doc-view)
-(define-key doc-view-mode-map (kbd "w") 'doc-center-window)
-
-)) ;==================== Doc ends here ===========================;
 
 (provide 'my-extras)
 
