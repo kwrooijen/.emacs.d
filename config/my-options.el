@@ -190,9 +190,13 @@
 (setq org-log-done 'time)
 
 ;; Company Mode
-(setq company-auto-complete t)
 (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 2)
+
+;; Projectile
+; Enable Caching
+(setq projectile-enable-caching t)
+(setq projectile-projects-cache (make-hash-table))
 
 ;; Web mode
 (setq web-mode-markup-indent-offset 4)
