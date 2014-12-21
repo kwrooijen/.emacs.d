@@ -1,7 +1,6 @@
 ;; Hooks
 (defun clean-hook ()
   (interactive)
-  (god-local-mode 0)
   (key-chord-mode 0)
   (linum-mode 0))
 
@@ -14,8 +13,7 @@
 
 (defun fix-tabs (x)
   (indent-of-doom-mode t)
-  (setq-local tab-width x)
-  (god-local-mode t))
+  (setq-local tab-width x))
 
 (add-hook 'c-initialization-hook 'c-keys-hook)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
@@ -50,7 +48,6 @@
 ))
 
 (add-hook 'elixir-mode-hook (lambda ()
-    (god-local-mode t)
     (key-chord-force)
     (elixir-keys-hook)
     (fix-tabs 2)
@@ -61,7 +58,6 @@
 ))
 
 (add-hook 'ruby-mode-hook (lambda ()
-    (god-local-mode t)
     (rainbow-delimiters-mode)
     (setq-local helm-dash-docsets '("Ruby"))
 ))

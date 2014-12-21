@@ -30,6 +30,7 @@
 ;; Control Prefix
 ("C-c C-e" kmacro-end-or-call-macro-repeat)
 ("C-c C-f" helm-ls-git-ls)
+("C-c M-f" helm-projectile-switch-project)
 ("C-c C-m" magit-status)
 ("C-c C-q" kmacro-start-macro)
 ("C-c C-t" transpose-lines-at-point)
@@ -337,8 +338,12 @@
 (define-key god-local-mode-map (kbd "; 9")  'escreen-goto-screen-9)
 (define-key god-local-mode-map (kbd "; 0")  'escreen-goto-screen-0)
 
+;; Because I have no idea how to remap M-g in helm-projectile
+(defun helm-projectile-vc (_) (helm-keyboard-quit))
+
 ;; Magit mode
 (define-key magit-status-mode-map (kbd "RET") (lambda () (interactive) (magit-visit-item t)))
+(define-key magit-status-mode-map (kbd "g") 'magit-refresh)
 
 ;; Modes
 (define-minor-mode attic-minor-mode
