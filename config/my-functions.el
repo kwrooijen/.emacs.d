@@ -1,3 +1,7 @@
+(defun get-battery-percentage ()
+  (interactive)
+  (concat (cdr (assoc '112 (funcall battery-status-function))) "%%"))
+
 (defun tab-to-tab-stop-line-or-region (&optional left)
   (interactive)
   (if (region-active-p) (progn
@@ -124,6 +128,7 @@
 
 (defun god-mode-disable () (interactive)
     (god-mode-all-set -1)
+    (god-local-mode -1)
     (key-chord-mode 1)
     (if window-system
         (set-cursor-color "green")
@@ -135,6 +140,7 @@
 
 (defun god-mode-enable () (interactive)
     (god-mode-all-set 1)
+    (god-local-mode 1)
     (if window-system
         (set-cursor-color "white")
         (if (getenv "DISPLAY")
@@ -422,7 +428,9 @@ makes)."
             (setq-local ll '())
             (add-to-list 'll x)
             (add-to-list 'll "-pa")
-            ll) (append core deps) ))))
+            (add-to-list 'll "../include")
+            (add-to-list 'll "-i")
+            ll) (append core deps)))))
     ;; (setq inferior-erlang-machine-options '("-pa" "../ebin/" "-pa" "../deps/ranch/ebin/"))
 
 

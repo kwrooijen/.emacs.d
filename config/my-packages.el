@@ -26,6 +26,7 @@
     helm-dash
     helm-descbinds
     helm-ls-git
+    helm-projectile
     helm-swoop
     highlight-symbol
     iy-go-to-char
@@ -89,6 +90,7 @@
 (require 'god-mode)
 (require 'helm)
 (require 'helm-ls-git)
+(require 'helm-projectile)
 (require 'helm-swoop)
 (require 'helm-dash)
 (require 'multiple-cursors)
@@ -125,5 +127,6 @@
 (winner-mode t)
 (global-company-mode t)
 (global-hl-line-mode t)
+(display-battery-mode t)
 (provide 'my-packages)
 
