@@ -341,6 +341,8 @@
 
 (define-key u-map (kbd "C-w") 'simpleclip-copy)
 (define-key u-map (kbd "w") 'simpleclip-copy)
+(define-key u-map (kbd "e") 'eww)
+(define-key u-map (kbd "b") 'eww-list-bookmarks)
 
 ;; God mode
 (define-key god-local-mode-map (kbd "g") 'goto-line)

@@ -27,6 +27,10 @@
     (key-chord-mode 1)
 ))
 
+(add-hook 'eshell-mode-hook (lambda()
+    (company-mode 0)
+))
+
 (add-hook 'erlang-mode-hook (lambda ()
     (if (not (is-tramp-mode)) (progn
         (flymake-erlang-init)
