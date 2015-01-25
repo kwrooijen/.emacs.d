@@ -78,8 +78,6 @@
 ))
 
 (add-hook 'rust-mode-hook (lambda ()
-    (if (not (is-tramp-mode)) (progn
-        (flymake-rust-load)))
     (rainbow-delimiters-mode)
     (setq-local tab-width 4)
     (rust-keys-hook)
