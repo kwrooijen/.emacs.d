@@ -27,6 +27,10 @@
     (key-chord-mode 1)
 ))
 
+(add-hook 'eshell-mode-hook (lambda()
+    (company-mode 0)
+))
+
 (add-hook 'erlang-mode-hook (lambda ()
     (if (not (is-tramp-mode)) (progn
         (flymake-erlang-init)
@@ -78,8 +82,6 @@
 ))
 
 (add-hook 'rust-mode-hook (lambda ()
-    (if (not (is-tramp-mode)) (progn
-        (flymake-rust-load)))
     (rainbow-delimiters-mode)
     (setq-local tab-width 4)
     (rust-keys-hook)
