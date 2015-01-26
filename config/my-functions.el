@@ -415,11 +415,11 @@ makes)."
     (flymake-log 3 "create-temp-intemp: file=%s temp=%s" file-name temp-name)
     temp-name))
 
-(defadvice erlang-compile (before erlang-compile activate)
-    (setq-local deps (remove-if-not 'identity 
-        (mapcar (lambda(x) 
+(defadvice inferior-erlang (before inferior-erlang activate)
+    (setq-local deps (remove-if-not 'identity
+        (mapcar (lambda(x)
             (unless (or (equal x ".") (equal x ".."))
-                (concat "../deps/" x "/ebin"))) 
+                (concat "../deps/" x "/ebin")))
              (directory-files "../deps"))))
     (setq-local core '("../ebin"))
 
@@ -428,8 +428,26 @@ makes)."
             (setq-local ll '())
             (add-to-list 'll x)
             (add-to-list 'll "-pa")
-            (add-to-list 'll "../include")
-            (add-to-list 'll "-i")
+            (add-to-list 'll "include")
+            (add-to-list 'll "-I")
+            ll) (append core deps)))))
+
+
+(defadvice erlang-compile (before erlang-compile activate)
+    (setq-local deps (remove-if-not 'identity
+        (mapcar (lambda(x)
+            (unless (or (equal x ".") (equal x ".."))
+                (concat "../deps/" x "/ebin")))
+             (directory-files "../deps"))))
+    (setq-local core '("../ebin"))
+
+    (setq inferior-erlang-machine-options
+        (-flatten (mapcar (lambda(x)
+            (setq-local ll '())
+            (add-to-list 'll x)
+            (add-to-list 'll "-pa")
+            (add-to-list 'll "include")
+            (add-to-list 'll "-I")
             ll) (append core deps)))))
     ;; (setq inferior-erlang-machine-options '("-pa" "../ebin/" "-pa" "../deps/ranch/ebin/"))
 
@@ -675,7 +693,7 @@ makes)."
 ;;     (candidates
 ;;     (if  (looking-back "lists")
 ;;             erlang-lists-functions
-;;         (remove-if    
+;;         (remove-if
 ;;             (lambda (c) (not (string-prefix-p arg c)))
 ;;                erlang-modules)
 ;;         ))
@@ -686,4 +704,3 @@ makes)."
 
 
 (provide 'my-functions)
-

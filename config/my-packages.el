@@ -26,7 +26,6 @@
     helm-dash
     helm-descbinds
     helm-ls-git
-    helm-projectile
     helm-swoop
     highlight-symbol
     iy-go-to-char
@@ -90,7 +89,6 @@
 (require 'god-mode)
 (require 'helm)
 (require 'helm-ls-git)
-(require 'helm-projectile)
 (require 'helm-swoop)
 (require 'helm-dash)
 (require 'multiple-cursors)
@@ -110,7 +108,7 @@
 (require 'sticky-windows)
 (require 'erc)
 (require 'erc-image)
-(require 'setup-company)
+;(require 'setup-company)
 (require 'elixir-mode)
 (require 'distel)
 (require 'alchemist)
