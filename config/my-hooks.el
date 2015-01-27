@@ -76,7 +76,6 @@
 ))
 
 (add-hook 'emacs-lisp-mode-hook (lambda ()
-    (fix-tabs 4)
     (rainbow-delimiters-mode)
     (setq-local helm-dash-docsets '("Emacs Lisp"))
 ))

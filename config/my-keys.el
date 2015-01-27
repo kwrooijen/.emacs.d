@@ -53,6 +53,7 @@
 ("C-x C-3" split-window-right)
 ("C-x C-f" helm-find-files)
 ("C-x C-k" kill-this-buffer)
+("C-x M-k" kill-buffer-and-window)
 
 ;; Control Prefix 3
 ("C-c C-s C-a" helm-bookmarks)
@@ -110,6 +111,7 @@
 ("M-q" backward-kill-word)
 ("M-s" (lambda() (interactive) (helm-swoop :$query "")))
 ("M-x" helm-M-x)
+("M-\\" spawn-eshell)
 ))
 
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
@@ -314,6 +316,7 @@
 '(lambda ()
    (define-key eshell-mode-map (kbd "C-i") 'helm-esh-pcomplete)
    (define-key eshell-mode-map (kbd "M-m") 'eshell-back-to-indentation)
+   (define-key eshell-mode-map (kbd "C-M-m") 'eshell-broadcast)
 ))
 
 ;; Grep mode

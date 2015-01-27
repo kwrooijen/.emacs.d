@@ -415,11 +415,64 @@ makes)."
     (flymake-log 3 "create-temp-intemp: file=%s temp=%s" file-name temp-name)
     temp-name))
 
+(defun spawn-eshell ()
+  (interactive)
+  (if (> (/ (window-width) 2) (window-height))
+      (progn
+        (split-window-horizontally)
+        (other-window 1)
+        (sh "TERM")
+        )
+    (progn
+      (split-window)
+      (other-window 1)
+      (sh "TERM"))
+    ))
+
+(defun eshell-broadcast(&optional yank-eshell-input)
+  (interactive)
+  (if eshell-mode
+      (let ((buff (get-buffer-window))
+            (col (current-column)))
+        (eshell-back-to-indentation)
+        (setq eshell-indentation-column (point))
+        (move-end-of-line 1)
+        (setq eshell-oel-column (point))
+        (kill-ring-save eshell-indentation-column eshell-oel-column)
+        (move-to-column col)
+        (unless yank-eshell-input (eshell-send-input))
+        (other-window 1)
+        (while (not (eq (get-buffer-window) buff))
+          (if eshell-mode
+              (progn
+                (end-of-buffer)
+                (yank)
+                (unless yank-eshell-input (eshell-send-input))))
+          (other-window 1)
+          ))))
+
+(defun eshell-broadcast-diff()
+  (interactive)
+  (let ((buff-win (get-buffer-window))
+        (buff (current-buffer)))
+    (other-window 1)
+    (while (not (eq (get-buffer-window) buff-win))
+      (if eshell-mode
+          (progn
+            (highlight-changes-mode -1)
+            (highlight-compare-buffers buff (current-buffer))))
+      (sleep-for 0.1)
+      (end-of-buffer)
+      (other-window 1)
+      )
+    (highlight-changes-mode -1)
+    ))
+
 (defadvice erlang-compile (before erlang-compile activate)
-    (setq-local deps (remove-if-not 'identity 
-        (mapcar (lambda(x) 
+    (setq-local deps (remove-if-not 'identity
+        (mapcar (lambda(x)
             (unless (or (equal x ".") (equal x ".."))
-                (concat "../deps/" x "/ebin"))) 
+                (concat "../deps/" x "/ebin")))
              (directory-files "../deps"))))
     (setq-local core '("../ebin"))
 
@@ -675,7 +728,7 @@ makes)."
 ;;     (candidates
 ;;     (if  (looking-back "lists")
 ;;             erlang-lists-functions
-;;         (remove-if    
+;;         (remove-if
 ;;             (lambda (c) (not (string-prefix-p arg c)))
 ;;                erlang-modules)
 ;;         ))
@@ -686,4 +739,3 @@ makes)."
 
 
 (provide 'my-functions)
-
