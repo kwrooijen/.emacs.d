@@ -468,6 +468,23 @@ makes)."
     (highlight-changes-mode -1)
     ))
 
+(defadvice inferior-erlang (before inferior-erlang activate)
+    (setq-local deps (remove-if-not 'identity
+        (mapcar (lambda(x)
+            (unless (or (equal x ".") (equal x ".."))
+                (concat "../deps/" x "/ebin")))
+             (directory-files "../deps"))))
+    (setq-local core '("../ebin"))
+
+    (setq inferior-erlang-machine-options
+        (-flatten (mapcar (lambda(x)
+            (setq-local ll '())
+            (add-to-list 'll x)
+            (add-to-list 'll "-pa")
+            (add-to-list 'll "include")
+            (add-to-list 'll "-I")
+            ll) (append core deps)))))
+
 (defadvice erlang-compile (before erlang-compile activate)
     (setq-local deps (remove-if-not 'identity
         (mapcar (lambda(x)
@@ -481,8 +498,8 @@ makes)."
             (setq-local ll '())
             (add-to-list 'll x)
             (add-to-list 'll "-pa")
-            (add-to-list 'll "../include")
-            (add-to-list 'll "-i")
+            (add-to-list 'll "include")
+            (add-to-list 'll "-I")
             ll) (append core deps)))))
     ;; (setq inferior-erlang-machine-options '("-pa" "../ebin/" "-pa" "../deps/ranch/ebin/"))
 

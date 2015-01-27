@@ -64,7 +64,6 @@
                          (funcall separator-right face1 mode-line)
                          (powerline-raw " ")
                          (powerline-raw "%6p" nil 'r)
-                         (powerline-raw (get-battery-percentage) nil 'r)
                          (powerline-hud face2 face1)))
 )
          (concat (powerline-render lhs)

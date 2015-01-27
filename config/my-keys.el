@@ -152,6 +152,14 @@
     (local-set-key (kbd "C-c C-d C-w") 'erl-who-calls) ;- Who calls function under point.
     (local-set-key (kbd "C-c C-d C-H") 'erl-find-doc) ;- Show the html documentation for a function.
     (local-set-key (kbd "C-c C-d C-Z") 'erl-find-sig) ;- Show the signature for a function.
+    (local-set-key (kbd "C-c C-k") (lambda() (interactive)
+        (rebar-compile)
+        (inferior-erlang)
+        (split-window)
+        (other-window 1)
+        (switch-to-buffer "*rebar-compilation*")
+        (other-window -1)
+    ))
     (local-set-key (kbd "M-n") 'highlight-symbol-next)
     (local-set-key (kbd "M-p") 'highlight-symbol-prev)
 
@@ -161,6 +169,7 @@
     (define-key erl-process-list-mode-map (kbd "r") 'isearch-backward)
     (define-key erl-process-list-mode-map (kbd "v") 'scroll-up-command)
 )
+
     (define-key erlang-mode-map (kbd "M-n") 'highlight-symbol-next)
     (define-key erlang-mode-map (kbd "M-p") 'highlight-symbol-prev)
     (define-key erlang-mode-map (kbd ">")   (lambda() (interactive) (insert ">")))
@@ -388,4 +397,3 @@ t " attic" 'attic-minor-mode-map)
 ;; Other unset keys
 (global-unset-key "\C-x\C-z")
 (provide 'my-keys)
-
