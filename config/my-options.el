@@ -56,6 +56,12 @@
 
 ;; Personal Info
 (setq user-full-name "Kevin W. van Rooijen")
+(setq user-mail-address "kevin.van.rooijen@attichacker.com")
+(setq mail-signature "
+--------------------
+Kevin W. van Rooijen
+@attichacker
+")
 
 ;; Emacs temp directory
 (setq temporary-file-directory "~/.emacs.d/tmp/")
