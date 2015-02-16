@@ -18,7 +18,7 @@
 ("C-l" helm-register)
 ("C-o" vim-o)
 ("C-q" backward-delete-char)
-("C-z" helm-buffers-list)
+("C-z" helm-mini)
 ("C-," (lambda() (interactive (winner-undo) (deactivate-mark))))
 
 ("C-M-q" backward-kill-sexp)
