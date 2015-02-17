@@ -93,6 +93,25 @@
 ("C-; C-y" simpleclip-paste)
 ("C-; C-w" simpleclip-copy)
 
+("C-; n" escreen-goto-next-screen)
+("C-; p" escreen-goto-prev-screen)
+("C-; ;" escreen-goto-last-screen)
+("C-; c" escreen-create-screen)
+("C-; 1" escreen-goto-screen-1)
+("C-; 2" escreen-goto-screen-2)
+("C-; 3" escreen-goto-screen-3)
+("C-; 4" escreen-goto-screen-4)
+("C-; 5" escreen-goto-screen-5)
+("C-; 6" escreen-goto-screen-6)
+("C-; 7" escreen-goto-screen-7)
+("C-; 8" escreen-goto-screen-8)
+("C-; 9" escreen-goto-screen-9)
+("C-; 0" escreen-goto-screen-0)
+("C-; a" async-shell-command)
+("C-; s" shell-command)
+("C-; y" simpleclip-paste)
+("C-; w" simpleclip-copy)
+
 ;; Meta keys
 ("M-*" mc/mark-all-like-this)
 ("M-+" align-regexp)
@@ -372,6 +391,7 @@
 ;; Magit mode
 (define-key magit-status-mode-map (kbd "RET") (lambda () (interactive) (magit-visit-item t)))
 (define-key magit-status-mode-map (kbd "g") 'magit-refresh)
+(define-key magit-status-mode-map (kbd ";") (key-binding (kbd "C-;")))
 
 ;; Modes
 (define-minor-mode attic-minor-mode
