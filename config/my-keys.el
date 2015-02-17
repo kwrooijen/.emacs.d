@@ -10,7 +10,8 @@
 
 ;; Control Keys
 ("C--" undo)
-("C-." helm-resume)
+("C-," helm-resume)
+("C-." repeat)
 ("C-/" my-comment)
 ("C-=" repeat)
 ("C-j" iy-go-to-char)
@@ -19,7 +20,6 @@
 ("C-o" vim-o)
 ("C-q" backward-delete-char)
 ("C-z" helm-mini)
-("C-," (lambda() (interactive (winner-undo) (deactivate-mark))))
 
 ("C-M-q" backward-kill-sexp)
 ("M-y" (lambda() (interactive)
@@ -78,7 +78,6 @@
 ("C-; C-p" escreen-goto-prev-screen)
 ("C-; C-;" escreen-goto-last-screen)
 ("C-; C-c" escreen-create-screen)
-("C-; C-k" escreen-kill-screen)
 ("C-; C-1" escreen-goto-screen-1)
 ("C-; C-2" escreen-goto-screen-2)
 ("C-; C-3" escreen-goto-screen-3)
@@ -89,6 +88,10 @@
 ("C-; C-8" escreen-goto-screen-8)
 ("C-; C-9" escreen-goto-screen-9)
 ("C-; C-0" escreen-goto-screen-0)
+("C-; C-a" async-shell-command)
+("C-; C-s" shell-command)
+("C-; C-y" simpleclip-paste)
+("C-; C-w" simpleclip-copy)
 
 ;; Meta keys
 ("M-*" mc/mark-all-like-this)
@@ -112,6 +115,7 @@
 ("M-s" (lambda() (interactive) (helm-swoop :$query "")))
 ("M-x" helm-M-x)
 ("M-\\" spawn-eshell)
+("M-," (lambda() (interactive (winner-undo) (deactivate-mark))))
 ))
 
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
@@ -272,7 +276,6 @@
 (define-key dired-mode-map (kbd "; p") 'escreen-goto-prev-screen)
 (define-key dired-mode-map (kbd "; ;") 'escreen-goto-last-screen)
 (define-key dired-mode-map (kbd "; c") 'escreen-create-screen)
-(define-key dired-mode-map (kbd "; k") 'escreen-kill-screen)
 (define-key dired-mode-map (kbd "; 1") 'escreen-goto-screen-1)
 (define-key dired-mode-map (kbd "; 2") 'escreen-goto-screen-2)
 (define-key dired-mode-map (kbd "; 3") 'escreen-goto-screen-3)
@@ -334,40 +337,24 @@
 (define-key grep-mode-map (kbd "TAB") (lambda() (interactive) (error-preview "*grep*")))
 (define-key grep-mode-map (kbd "v") 'scroll-up-command)
 
-;; u-map
-(define-prefix-command 'u-map)
-(global-set-key (kbd "C-u") 'u-map)
-(define-key god-local-mode-map (kbd "u") 'u-map)
-(define-key u-map (kbd "C-u") 'helm-M-x)
-(define-key u-map (kbd "u") 'helm-M-x)
-(define-key u-map (kbd "SPC") 'pop-to-mark-command)
-
-(define-key u-map (kbd "C-a") 'async-shell-command)
-(define-key u-map (kbd "a") 'async-shell-command)
-
-(define-key u-map (kbd "C-s") 'shell-command)
-(define-key u-map (kbd "s") 'shell-command)
-
-(define-key u-map (kbd "C-y") 'simpleclip-paste)
-(define-key u-map (kbd "y") 'simpleclip-paste)
-
-(define-key u-map (kbd "C-w") 'simpleclip-copy)
-(define-key u-map (kbd "w") 'simpleclip-copy)
-(define-key u-map (kbd "e") 'eww)
-(define-key u-map (kbd "b") 'eww-list-bookmarks)
-
 ;; God mode
 (define-key god-local-mode-map (kbd "g") 'goto-line)
-(define-key god-local-mode-map (kbd ",") (lambda() (interactive (winner-undo) (deactivate-mark))))
 (define-key god-local-mode-map (kbd "i") 'god-mode-disable)
 (define-key god-local-mode-map (kbd "[") 'cm-fast-step-upward)
 (define-key god-local-mode-map (kbd "]") 'cm-fast-step-downward)
+
+
+(define-key god-local-mode-map (kbd "; a") 'async-shell-command)
+(define-key god-local-mode-map (kbd "; s") 'shell-command)
+(define-key god-local-mode-map (kbd "; y") 'simpleclip-paste)
+(define-key god-local-mode-map (kbd "; w") 'simpleclip-copy)
+(define-key god-local-mode-map (kbd "; e") 'eww)
+(define-key god-local-mode-map (kbd "; b") 'eww-list-bookmarks)
 
 (define-key god-local-mode-map (kbd "; n")  'escreen-goto-next-screen)
 (define-key god-local-mode-map (kbd "; p")  'escreen-goto-prev-screen)
 (define-key god-local-mode-map (kbd "; ;")  'escreen-goto-last-screen)
 (define-key god-local-mode-map (kbd "; c")  'escreen-create-screen)
-(define-key god-local-mode-map (kbd "; k")  'escreen-kill-screen)
 (define-key god-local-mode-map (kbd "; 1")  'escreen-goto-screen-1)
 (define-key god-local-mode-map (kbd "; 2")  'escreen-goto-screen-2)
 (define-key god-local-mode-map (kbd "; 3")  'escreen-goto-screen-3)
