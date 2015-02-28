@@ -305,6 +305,13 @@
 (define-key dired-mode-map (kbd "; 8") 'escreen-goto-screen-8)
 (define-key dired-mode-map (kbd "; 9") 'escreen-goto-screen-9)
 (define-key dired-mode-map (kbd "; 0") 'xsescreen-goto-screen-0)
+(define-key dired-mode-map (kbd "c z p") (lambda() (interactive) (run-make "stop"    "[Make Stop]")))
+(define-key dired-mode-map (kbd "c z r") (lambda() (interactive) (run-make "restart" "[Make Restart]")))
+(define-key dired-mode-map (kbd "c z s") (lambda() (interactive) (run-make "start"   "[Make Start]")))
+(define-key dired-mode-map (kbd "c z t") (lambda() (interactive) (run-make "test"    "[Make Test]")))
+(define-key dired-mode-map (kbd "c z o") (lambda() (interactive) (run-make "go"      "[Make Go]")))
+(define-key dired-mode-map (kbd "c z z") (lambda() (interactive) (run-make ""        "[Make]")))
+(define-key dired-mode-map (kbd "c z c") 'run-make-input)
 
 ;; Key Chord
 (key-chord-define-global "xs"
