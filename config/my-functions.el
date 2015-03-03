@@ -1,3 +1,7 @@
+(defun ssh-add ()
+  (interactive)
+  (async-shell-command "ssh-add ~/.ssh/id_rsa"))
+
 (defun get-battery-percentage ()
   (interactive)
   (concat (cdr (assoc '112 (funcall battery-status-function))) "%%"))
@@ -754,5 +758,13 @@ makes)."
 ;; (add-to-list 'company-backends 'company-sample-backend)
 
 
+(defun flowdock ()
+  (interactive)
+  (setq-default erc-ignore-list '("*Flowdock*" "Flowdock" "-Flowdock-"))
+  (setq-default erc-hide-list '("JOIN" "PART" "QUIT"))
+  (erc-ssl :server "irc.flowdock.com"
+           :nick "KevinR"
+           :port 6697
+           :password (concat "kevin.vanrooijen@spilgames.com" " " (read-passwd "Flowdock Password: "))))
 
 (provide 'my-functions)
