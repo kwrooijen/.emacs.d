@@ -48,8 +48,8 @@
     (distel-setup)
     (erlang-extended-mode)
     (subword-mode t)
-    (erlang-keys-hook)
-))
+    ;; (font-lock-mode 0)
+    (erlang-keys-hook)))
 
 (add-hook 'elixir-mode-hook (lambda ()
     (key-chord-force)

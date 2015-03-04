@@ -1,6 +1,3 @@
-(if (getenv "DISPLAY")
-    (global-hl-line-mode t))
-
 (if window-system (progn
   (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
   (let ((path-from-shell (shell-command-to-string "$SHELL -i -c 'echo -n $PATH'")))

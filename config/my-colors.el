@@ -23,8 +23,12 @@
 ))
 
 
+;; (if (getenv "DISPLAY")
+;;     (global-hl-line-mode t))
+
 (set-face-underline 'hl-line nil)
 
+;(global-font-lock-mode 0)
 
 (provide 'my-colors)
 
