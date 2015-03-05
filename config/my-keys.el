@@ -277,6 +277,9 @@
 (key-chord-define-global "xs"
     (lambda() (interactive) (god-mode-enable) (save-buffer)))
 
+(key-chord-define-global ";j"
+    (lambda() (interactive) (god-mode-enable)))
+
 ;; Helm keys
 (define-key helm-map (kbd "C-b") 'nil)
 (define-key helm-map (kbd "C-f") 'nil)
