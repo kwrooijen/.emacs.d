@@ -553,6 +553,10 @@ makes)."
       (load "~/.erc.gpg")
       (setq erc-password ercpass))
 
+(defadvice digit-argument (before digit-argument activate)
+    (set-mark-command nil)
+    (deactivate-mark))
+
 (defadvice forward-list (before forward-list activate)
     (set-mark-command nil)
     (deactivate-mark))
