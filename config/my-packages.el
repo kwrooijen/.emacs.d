@@ -9,6 +9,7 @@
 (defvar my-packages '(
     ace-jump-mode
     alchemist
+    buffer-move
     company
     dash
     elixir-mode

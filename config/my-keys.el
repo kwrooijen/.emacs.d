@@ -53,7 +53,6 @@
 ("C-x C-3" split-window-right)
 ("C-x C-f" helm-find-files)
 ("C-x C-k" kill-this-buffer)
-("C-x M-k" kill-buffer-and-window)
 
 ;; Control Prefix 3
 ("C-c C-s C-a" helm-bookmarks)
@@ -72,45 +71,6 @@
 ("C-c C-z C-o" (lambda() (interactive) (run-make "go"      "[Make Go]")))
 ("C-c C-z C-z" (lambda() (interactive) (run-make ""        "[Make]")))
 ("C-c C-z C-c" run-make-input)
-
-;; Escreen Keys
-("C-; C-n" escreen-goto-next-screen)
-("C-; C-p" escreen-goto-prev-screen)
-("C-; C-;" escreen-goto-last-screen)
-("C-; C-c" escreen-create-screen)
-("C-; C-1" escreen-goto-screen-1)
-("C-; C-2" escreen-goto-screen-2)
-("C-; C-3" escreen-goto-screen-3)
-("C-; C-4" escreen-goto-screen-4)
-("C-; C-5" escreen-goto-screen-5)
-("C-; C-6" escreen-goto-screen-6)
-("C-; C-7" escreen-goto-screen-7)
-("C-; C-8" escreen-goto-screen-8)
-("C-; C-9" escreen-goto-screen-9)
-("C-; C-0" escreen-goto-screen-0)
-("C-; C-a" async-shell-command)
-("C-; C-s" shell-command)
-("C-; C-y" simpleclip-paste)
-("C-; C-w" simpleclip-copy)
-
-("C-; n" escreen-goto-next-screen)
-("C-; p" escreen-goto-prev-screen)
-("C-; ;" escreen-goto-last-screen)
-("C-; c" escreen-create-screen)
-("C-; 1" escreen-goto-screen-1)
-("C-; 2" escreen-goto-screen-2)
-("C-; 3" escreen-goto-screen-3)
-("C-; 4" escreen-goto-screen-4)
-("C-; 5" escreen-goto-screen-5)
-("C-; 6" escreen-goto-screen-6)
-("C-; 7" escreen-goto-screen-7)
-("C-; 8" escreen-goto-screen-8)
-("C-; 9" escreen-goto-screen-9)
-("C-; 0" escreen-goto-screen-0)
-("C-; a" async-shell-command)
-("C-; s" shell-command)
-("C-; y" simpleclip-paste)
-("C-; w" simpleclip-copy)
 
 ;; Meta keys
 ("M-*" mc/mark-all-like-this)
@@ -366,8 +326,8 @@
 ;; God mode
 (define-key god-local-mode-map (kbd "g") 'goto-line)
 (define-key god-local-mode-map (kbd "i") 'god-mode-disable)
-(define-key god-local-mode-map (kbd "[") 'cm-fast-step-upward)
-(define-key god-local-mode-map (kbd "]") 'cm-fast-step-downward)
+(define-key god-local-mode-map (kbd "[") 'scroll-down-line)
+(define-key god-local-mode-map (kbd "]") 'scroll-up-line)
 
 
 (define-key god-local-mode-map (kbd "; a") 'async-shell-command)
