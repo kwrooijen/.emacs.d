@@ -1,3 +1,11 @@
+(defpowerline powerline-region-counter
+  (if (region-active-p)
+      (format "C%s | W%s | L%s"
+              (- (region-end) (region-beginning))
+              (count-words (region-beginning) (region-end))
+              (count-lines (region-beginning) (region-end)))
+    (format "")))
+
 (defun dash-string (d s)
     "Execute dash expression with a string. Converts string to a
     list, applies the dash function and wraps it back to a string again"
@@ -49,6 +57,7 @@
                          (powerline-raw (format-time-string "%-I:%M%p"))
                          (powerline-buffer-id nil 'l)
                          (god-mode-bar nil 'l)
+                         (powerline-region-counter nil 'l)
                          (when (and (boundp 'which-func-mode) which-func-mode)
                            (powerline-raw which-func-format nil 'l))
                          (powerline-raw " ")
