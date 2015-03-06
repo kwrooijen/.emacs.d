@@ -1,6 +1,6 @@
 (defpowerline powerline-region-counter
   (if (region-active-p)
-      (format "C%s|W%s|L%s"
+      (format "%sC|%sW|%sL"
               (- (region-end) (region-beginning))
               (count-words (region-beginning) (region-end))
               (count-lines (region-beginning) (region-end)))
@@ -53,8 +53,8 @@
                          (if (boundp 'total-unread) (format " %i" total-unread))
                          (when (boundp 'erc-modified-channels-object)
                            (powerline-raw erc-modified-channels-object nil 'l))
-                         (powerline-raw "L%3l:C%2c " nil 'l)
-                         (powerline-raw " ")
+                         (powerline-raw "%3lL:%2cC " nil 'l)
+                         (powerline-raw "")
                          (powerline-raw (format-time-string "%-I:%M%p"))
                          (powerline-buffer-id nil 'l)
                          (god-mode-bar nil 'l)
