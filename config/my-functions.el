@@ -735,44 +735,6 @@ makes)."
   (recenter))
 
 
-;; (require 'company)
-
-;; (defconst erlang-modules
-;;   '(
-;;     "gen_server"
-;;     "lists"
-;;     "proplists"
-;;     "supervisor"
-;;     ))
-
-;; (defconst erlang-lists-functions
-;;   '(
-;;     "lists:append"
-;;     "lists:concat"
-;;     "lists:flatten"
-;;     "lists:foldl"
-;;     "lists:foldr"
-;;     "lists:map"
-;;     ))
-
-;; (defun company-sample-backend (command &optional arg &rest ignored)
-;;   (interactive (list 'interactive))
-;;   (case command
-;;     (interactive (company-begin-backend 'company-sample-backend))
-;;     (prefix (and (eq major-mode 'erlang-mode)
-;;                  (company-grab-symbol)))
-
-;;     (candidates
-;;     (if  (looking-back "lists")
-;;             erlang-lists-functions
-;;         (remove-if
-;;             (lambda (c) (not (string-prefix-p arg c)))
-;;                erlang-modules)
-;;         ))
-;;     ))
-
-;; (add-to-list 'company-backends 'company-sample-backend)
-
 
 (defun flowdock ()
   (interactive)
@@ -782,6 +744,21 @@ makes)."
            :nick "KevinR"
            :port 6697
            :password (concat "kevin.vanrooijen@spilgames.com" " " (read-passwd "Flowdock Password: "))))
+
+
+(defvar bzg-big-fringe-mode nil)
+(define-minor-mode bzg-big-fringe-mode
+  "Minor mode to use big fringe in the current buffer."
+  :init-value nil
+  :global nil
+  :variable bzg-big-fringe-mode
+  :group 'editing-basics
+  (if (not bzg-big-fringe-mode)
+      (set-fringe-style nil)
+    (set-fringe-mode
+     (/ (- (frame-pixel-width)
+           (* 100 (frame-char-width)))
+        2))))
 
 (defhydra buffer-move (god-local-mode-map "; m")
   "buffer-move"
@@ -794,4 +771,11 @@ makes)."
   ("o" buf-move-up)
   ("p" buf-move-right)
   ("k" buf-move-left))
+
+(defun ddg (input)
+  (interactive "sDuckDuckGo Seach: ")
+  (let ((ddg-base "www.duckduckgo.com/html/?q=")
+        (input (replace-regexp-in-string "\s" "+" input)))
+    (eww (format "%s%s" ddg-base input))))
+
 (provide 'my-functions)

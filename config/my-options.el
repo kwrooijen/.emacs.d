@@ -157,7 +157,7 @@ Kevin W. van Rooijen
 ;; Smarter completion for Helm
 (setq helm-ff-smart-completion t)
 ;; Helm-dash should use W3m for showing documentation
-(setq helm-dash-browser-func 'w3m-goto-url)
+(setq helm-dash-browser-func 'eww)
 ;; Don't add delay when choosing
 (setq helm-exit-idle-delay 0)
 ;;; Helm configurations END ;;;
