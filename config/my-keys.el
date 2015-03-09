@@ -390,7 +390,7 @@
 (defhydra godly (god-local-mode-map "g") ("s" (lambda() (interactive) (call-interactively (key-binding (kbd "M-s"))))))
 (defhydra godly (god-local-mode-map "g") ("d" (lambda() (interactive) (call-interactively (key-binding (kbd "M-d"))))))
 (defhydra godly (god-local-mode-map "g") ("f" (lambda() (interactive) (call-interactively (key-binding (kbd "M-f"))))))
-(defhydra godly (god-local-mode-map "g") ("g" (lambda() (interactive) (call-interactively (key-binding (kbd "M-g"))))))
+(defhydra godly (god-local-mode-map "g") ("g" goto-line))
 (defhydra godly (god-local-mode-map "g") ("h" (lambda() (interactive) (call-interactively (key-binding (kbd "M-h"))))))
 (defhydra godly (god-local-mode-map "g") ("j" (lambda() (interactive) (call-interactively (key-binding (kbd "M-j"))))))
 (defhydra godly (god-local-mode-map "g") ("k" (lambda() (interactive) (call-interactively (key-binding (kbd "M-k"))))))
