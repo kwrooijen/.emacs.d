@@ -22,7 +22,6 @@
 (add-hook 'doc-view-mode-hook 'clean-hook)
 (add-hook 'w3m-mode-hook 'clean-hook)
 
-
 (add-hook 'isearch-mode-hook (lambda()
     (key-chord-mode 1)
 ))
@@ -48,7 +47,7 @@
     (distel-setup)
     (erlang-extended-mode)
     (subword-mode t)
-    ;; (font-lock-mode 0)
+    (font-lock-mode 0)
     (erlang-keys-hook)))
 
 (add-hook 'elixir-mode-hook (lambda ()

@@ -734,8 +734,6 @@ makes)."
   (forward-line 3)
   (recenter))
 
-
-
 (defun flowdock ()
   (interactive)
   (setq-default erc-ignore-list '("*Flowdock*" "Flowdock" "-Flowdock-"))
@@ -744,7 +742,6 @@ makes)."
            :nick "KevinR"
            :port 6697
            :password (concat "kevin.vanrooijen@spilgames.com" " " (read-passwd "Flowdock Password: "))))
-
 
 (defvar bzg-big-fringe-mode nil)
 (define-minor-mode bzg-big-fringe-mode

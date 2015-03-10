@@ -255,6 +255,7 @@ Kevin W. van Rooijen
                 (top (car (last (butlast split)))))
         (concat tramp-prompt top "/" bot " $ ")
       ))))
+(add-hook 'gnus-after-getting-new-news-hook 'gnus-notifications)
 
 (provide 'my-options)
 

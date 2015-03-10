@@ -287,6 +287,7 @@
     (lambda() (interactive) (escape-key) (god-mode-enable)))
 
 (key-chord-define isearch-mode-map ";j" 'isearch-abort)
+(key-chord-define helm-map ";j" 'helm-keyboard-quit)
 
 ;; Helm keys
 (define-key helm-map (kbd "C-b") 'nil)
