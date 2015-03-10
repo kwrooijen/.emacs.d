@@ -259,6 +259,8 @@ Kevin W. van Rooijen
 (add-hook 'gnus-after-getting-new-news-hook 'gnus-notifications)
 (setq gnus-demon-timestep 1)
 (gnus-demon-add-handler 'gnus-group-get-new-news 30 3)
+(setq gnus-always-read-dribble-file t)
+(fmakunbound 'gnus-group-delete-articles) ;; Because no.
 
 (provide 'my-options)
 
