@@ -255,7 +255,10 @@ Kevin W. van Rooijen
                 (top (car (last (butlast split)))))
         (concat tramp-prompt top "/" bot " $ ")
       ))))
+;; Gnus
 (add-hook 'gnus-after-getting-new-news-hook 'gnus-notifications)
+(setq gnus-demon-timestep 1)
+(gnus-demon-add-handler 'gnus-group-get-new-news 30 3)
 
 (provide 'my-options)
 

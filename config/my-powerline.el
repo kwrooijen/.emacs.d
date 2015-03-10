@@ -15,7 +15,7 @@
 
 (setq mode-line-format
       '(" " (:eval (concat "[" (number-to-string (escreen-get-current-screen-number)) "]")) " "
-        (:eval (if (gnus-mst-notify-modeline-form) "[M] "))
+        (:eval (if (not (equal (gnus-mst-notify-modeline-form) "")) "[M] "))
         (:eval erc-modified-channels-object)
         "%*" "_"
         mode-line-remote " "

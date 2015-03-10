@@ -591,6 +591,9 @@ makes)."
 (defadvice helm-swoop (after helm-swoop activate)
     (makunbound 'helm-swoop-active))
 
+(defadvice gnus (after gnus activate)
+    (gnus-demon-init))
+
 (defun swap-lines-at-points (point1 point2)
     (goto-line point1)
     (beginning-of-line)
