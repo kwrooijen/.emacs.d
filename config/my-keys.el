@@ -19,7 +19,7 @@
 ("C-l" helm-register)
 ("C-o" vim-o)
 ("C-q" backward-delete-char)
-("C-z" helm-mini)
+("C-z" ido-switch-buffer)
 
 ("C-M-q" backward-kill-sexp)
 ("M-y" (lambda() (interactive)
@@ -54,6 +54,8 @@
 ("C-x C-f" helm-find-files)
 ("C-x C-k" kill-this-buffer)
 
+("C-; C-a" async-shell-command)
+("C-; C-s" shell-command)
 ("C-; C-y" simpleclip-paste)
 ("C-; C-w" simpleclip-copy)
 
@@ -106,7 +108,7 @@
 
 ;; Other Keys
 (global-set-key [f3] 'describe-key)
-(global-set-key [f4] 'pastie-region)
+(global-set-key [f4] 'send-to-pastie)
 (global-set-key [f6] 'describe-mode)
 (global-set-key [f7] 'get-current-buffer-major-mode)
 (global-set-key [f11] 'screenshot-frame)
@@ -283,7 +285,6 @@
     (lambda() (interactive) (god-mode-enable) (save-buffer)))
 
 (key-chord-define-global ";j"
-    (lambda() (interactive) (god-mode-enable)))
     (lambda() (interactive) (escape-key) (god-mode-enable)))
 
 (key-chord-define isearch-mode-map ";j" 'isearch-abort)
@@ -342,6 +343,7 @@
 
 
 (define-key god-local-mode-map (kbd "; a") 'async-shell-command)
+(define-key god-local-mode-map (kbd "; C-a") 'async-shell-command)
 (define-key god-local-mode-map (kbd "; s") 'shell-command)
 (define-key god-local-mode-map (kbd "; y") 'simpleclip-paste)
 (define-key god-local-mode-map (kbd "; w") 'simpleclip-copy)
@@ -402,6 +404,17 @@
 (defhydra godly (god-local-mode-map "g") ("b" (lambda() (interactive) (call-interactively (key-binding (kbd "M-b"))))))
 (defhydra godly (god-local-mode-map "g") ("n" (lambda() (interactive) (call-interactively (key-binding (kbd "M-n"))))))
 (defhydra godly (god-local-mode-map "g") ("m" (lambda() (interactive) (call-interactively (key-binding (kbd "M-m"))))))
+
+(defhydra godly (god-local-mode-map "g") ("-" (lambda() (interactive) (call-interactively (key-binding (kbd "M--"))))))
+(defhydra godly (god-local-mode-map "g") ("=" (lambda() (interactive) (call-interactively (key-binding (kbd "M-="))))))
+(defhydra godly (god-local-mode-map "g") ("[" (lambda() (interactive) (call-interactively (key-binding (kbd "M-["))))))
+(defhydra godly (god-local-mode-map "g") ("]" (lambda() (interactive) (call-interactively (key-binding (kbd "M-]"))))))
+(defhydra godly (god-local-mode-map "g") (";" (lambda() (interactive) (call-interactively (key-binding (kbd "M-;"))))))
+(defhydra godly (god-local-mode-map "g") ("'" (lambda() (interactive) (call-interactively (key-binding (kbd "M-'"))))))
+(defhydra godly (god-local-mode-map "g") ("\\" (lambda() (interactive) (call-interactively (key-binding (kbd "M-\\"))))))
+(defhydra godly (god-local-mode-map "g") ("," (lambda() (interactive) (call-interactively (key-binding (kbd "M-,"))))))
+(defhydra godly (god-local-mode-map "g") ("." (lambda() (interactive) (call-interactively (key-binding (kbd "M-."))))))
+(defhydra godly (god-local-mode-map "g") ("/" (lambda() (interactive) (call-interactively (key-binding (kbd "M-/"))))))
 
 ;; Modes
 (define-minor-mode attic-minor-mode

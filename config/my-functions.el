@@ -50,6 +50,11 @@ buffer is not visiting a file."
     (eshell)
     (rename-buffer (format "%s%s" "$" buffer-name) t))
 
+(defun send-to-pastie (answer)
+    "Start a terminal and rename buffer."
+    (interactive "cSend region to Pastie?: (y/n) ")
+    (if (equal answer "y") (pastie-region (region-beginning) (region-end))))
+
 (defun sht (buffer-name)
     "Start a terminal and rename buffer."
     (interactive "sbuffer name: ")
@@ -734,8 +739,6 @@ makes)."
   (forward-line 3)
   (recenter))
 
-
-
 (defun flowdock ()
   (interactive)
   (setq-default erc-ignore-list '("*Flowdock*" "Flowdock" "-Flowdock-"))
@@ -744,7 +747,6 @@ makes)."
            :nick "KevinR"
            :port 6697
            :password (concat "kevin.vanrooijen@spilgames.com" " " (read-passwd "Flowdock Password: "))))
-
 
 (defvar bzg-big-fringe-mode nil)
 (define-minor-mode bzg-big-fringe-mode
