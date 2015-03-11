@@ -262,7 +262,9 @@ Kevin W. van Rooijen
 (setq gnus-always-read-dribble-file t)
 (fmakunbound 'gnus-group-delete-articles) ;; Because no.
 
+;; Ido
 (setq ido-enable-flex-matching t)
 (setq ido-separator " | ")
+
 (provide 'my-options)
 

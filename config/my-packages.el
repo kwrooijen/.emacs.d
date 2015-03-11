@@ -128,5 +128,6 @@
 (global-company-mode t)
 (global-hl-line-mode t)
 (display-battery-mode t)
+(ido-mode t)
 (provide 'my-packages)
 
