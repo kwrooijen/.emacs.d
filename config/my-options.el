@@ -253,9 +253,10 @@ Kevin W. van Rooijen
       (let ((split (s-split "/" (eshell/pwd))))
           (let ((bot (car (last split)))
                 (top (car (last (butlast split)))))
-        (concat tramp-prompt top "/" bot " $ ")
-      ))))
+            (concat tramp-prompt top "/" bot " $ ")))))
+
 ;; Gnus
+;; In Group buffer press "G p" and add this to the list (modeline-notify t)
 (add-hook 'gnus-after-getting-new-news-hook 'gnus-notifications)
 (setq gnus-demon-timestep 1)
 (gnus-demon-add-handler 'gnus-group-get-new-news 30 3)

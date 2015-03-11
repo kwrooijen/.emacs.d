@@ -126,7 +126,6 @@
 (global-git-gutter+-mode t)
 (winner-mode t)
 (global-company-mode t)
-(global-hl-line-mode t)
 (display-battery-mode t)
 (ido-mode t)
 

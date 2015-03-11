@@ -19,6 +19,7 @@
     (region                     "white" "deep sky blue")
     (font-lock-string-face      "cadet blue" unspecified)
     (mode-line                  "black" "grey" unspecified)
+    (magit-item-highlight       nil "dim grey" unspecified)
     (default                    "grey" "black" unspecified)
 ))
 

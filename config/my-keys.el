@@ -254,7 +254,7 @@
 
 ;; Dired keys
 (define-key dired-mode-map (kbd "c f")   'helm-ls-git-ls)
-(define-key dired-mode-map (kbd "z")     'helm-buffers-list)
+(define-key dired-mode-map (kbd "z")     'ido-switch-buffer)
 (define-key dired-mode-map (kbd "c s a") 'helm-bookmarks)
 (define-key dired-mode-map (kbd "c s r") 'my/grep)
 (define-key dired-mode-map (kbd "c m")   'magit-status)
