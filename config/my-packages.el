@@ -34,7 +34,6 @@
     key-chord
     magit
     multiple-cursors
-    powerline
     rainbow-delimiters
     redo+
     s
@@ -113,6 +112,8 @@
 (require 'elixir-mode)
 (require 'distel)
 (require 'alchemist)
+
+(require 'gnus-notify)
 
 ;; Modes
 (god-mode)
