@@ -11,6 +11,8 @@
     (git-gutter+-deleted        "red" "#383838")
     (git-gutter+-modified       "magenta" "#383838")
     (git-gutter+-unchanged  nil "#383838")
+    (magit-diff-add             "black" "green")
+    (magit-diff-del             "white" "red")
     (helm-selection             "white" "royalblue")
     (helm-ff-directory          "deep sky blue" unspecified)
     (company-scrollbar-bg   nil "gainsboro")
@@ -20,7 +22,9 @@
     (font-lock-string-face      "cadet blue" unspecified)
     (mode-line                  "black" "grey" unspecified)
     (default                    "grey" "black" unspecified)
-))
+    ))
+(set-face-attribute 'magit-diff-none nil :inherit nil)
+(set-face-attribute 'magit-item-highlight nil :inherit nil)
 
 (if window-system
     (progn)

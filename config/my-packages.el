@@ -20,6 +20,7 @@
     expand-region
     git-gutter+
     god-mode
+    gh
     hackernews
     haskell-mode
     helm
@@ -33,6 +34,7 @@
     js2-mode
     key-chord
     magit
+    magit-gh-pulls
     multiple-cursors
     rainbow-delimiters
     redo+
@@ -94,6 +96,7 @@
 (require 'multiple-cursors)
 (require 'redo+)
 (require 'magit)
+(require 'magit-gh-pulls)
 (require 'fbterm)
 (require 'rebar)
 (require 'flymake)
@@ -126,7 +129,7 @@
 (global-git-gutter+-mode t)
 (winner-mode t)
 (global-company-mode t)
-(global-hl-line-mode t)
 (display-battery-mode t)
+
 (provide 'my-packages)
 

@@ -12,6 +12,7 @@
 (require 'my-options)
 (require 'my-hooks)
 (require 'my-scripts)
+(require 'magit-gh-pull-comment)
 
 ;; (setq my-extra-music t)
 ;; (setq my-extra-mail t)
@@ -36,7 +37,13 @@
                (escreen-get-current-screen-number))
               "]"))
      " "
-     (:eval (if (not (equal (gnus-mst-notify-modeline-form) "")) "[M] "))
+     (:eval
+      (if
+          (not
+           (equal
+            (gnus-mst-notify-modeline-form)
+            ""))
+          "[M] "))
      (:eval erc-modified-channels-object)
      "%*" "_" mode-line-remote " "
      (:eval
