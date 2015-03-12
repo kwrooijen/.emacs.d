@@ -378,6 +378,8 @@
 (define-key magit-status-mode-map (kbd "RET") (lambda () (interactive) (magit-visit-item t)))
 (define-key magit-status-mode-map (kbd "g") 'magit-refresh)
 (define-key magit-status-mode-map (kbd ";") (key-binding (kbd "C-;")))
+(define-key magit-diff-mode-map   (kbd ";") (key-binding (kbd "C-;")))
+(define-key magit-commit-mode-map (kbd ";") (key-binding (kbd "C-;")))
 
 (defhydra godly (god-local-mode-map "g") ("q" (lambda() (interactive) (call-interactively (key-binding (kbd "M-q"))))))
 (defhydra godly (god-local-mode-map "g") ("w" (lambda() (interactive) (call-interactively (key-binding (kbd "M-w"))))))

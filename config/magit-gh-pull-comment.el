@@ -1,4 +1,3 @@
-(require 'thingatpt)
 (require 'gh-pull-comments)
 
 (defun magit-gh-pull-comment-line ()
@@ -14,8 +13,14 @@
                                 :body body
                                 :path path
                                 :position (get-diff-position)
-                                :commit-id (get-commit-id))))
+                                :commit-id current-commit-id)))
     (gh-pull-comments-new api (magit-get-user) (magit-get-repo) pull-id comment)))
+
+(defun magit-gh-pulls-compare-with-master ()
+  (interactive)
+  (setq current-commit-id (get-commit-id))
+  ;; TODO get remote repository of PR (origin / other)
+  (magit-diff (format "origin/master..origin/%s" (get-branch-name))))
 
 (defun magit-get-user ()
   (car (magit-gh-pulls-guess-repo)))
@@ -24,15 +29,38 @@
   (cdr (magit-gh-pulls-guess-repo)))
 
 (defun get-pull-id ()
+  (oref (get-data) :number))
+
+(defun get-pull-branch ()
+  (oref (get-data) :commits))
+
+(defun get-data ()
   (let ((repo (magit-gh-pulls-guess-repo)))
     (let ((api (magit-gh-pulls-get-api))
           (user (car repo))
           (proj (cdr repo)))
-      (format "%s" (oref (car
-                          (funcall
-                           magit-gh-pulls-maybe-filter-pulls
-                           (oref (gh-pulls-list api user proj) :data))) :number)))))
+      (car
+       (funcall
+        magit-gh-pulls-maybe-filter-pulls
+        (oref (gh-pulls-list api user proj) :data))))))
 
+(defun get-gh-pulls-request()
+  (car (let ((repo (magit-gh-pulls-guess-repo)))
+  (let ((api (magit-gh-pulls-get-api))
+            (user (car repo))
+            (proj (cdr repo)))
+  (funcall magit-gh-pulls-maybe-filter-pulls
+           (oref (gh-pulls-list api user proj) :data))))))
+
+(defun get-gh-repos-ref()
+  (oref (get-gh-pulls-request) :head))
+
+(defun get-branch-name()
+  (message (oref (get-gh-repos-ref) :ref)))
+
+;; TODO This only works when comparing the entire PR to master
+;; Would be nice if that wasn't necessary
+;; This is also a bit of a dirty hack
 (defun get-diff-position ()
   (save-excursion
     (let ((cur-line (what-line-int)))
@@ -45,4 +73,3 @@
     (thing-at-point 'word)))
 
 (provide 'magit-gh-pull-comment)
-
