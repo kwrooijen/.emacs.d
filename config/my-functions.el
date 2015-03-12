@@ -50,6 +50,11 @@ buffer is not visiting a file."
     (eshell)
     (rename-buffer (format "%s%s" "$" buffer-name) t))
 
+(defun send-to-pastie (answer)
+    "Start a terminal and rename buffer."
+    (interactive "cSend region to Pastie?: (y/n) ")
+    (if (equal answer "y") (pastie-region (region-beginning) (region-end))))
+
 (defun sht (buffer-name)
     "Start a terminal and rename buffer."
     (interactive "sbuffer name: ")

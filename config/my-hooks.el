@@ -111,6 +111,7 @@
     (erlang-mode . (
         ((prev 'ends-on "->" "fun" "of" "begin") (prev 'indent 1))
         ((prev 'ends-on ";") (prev 'indent -1))
+        ((and (prev 'ends-on "end") (current 'starts-with "end")) (prev 'indent -1))
         ((current 'ends-on "end") (prev 'indent -1))
     ))
     (haskell-mode . (

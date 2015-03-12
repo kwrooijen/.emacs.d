@@ -9,12 +9,14 @@
         attic-lock-disable
         attic-rock-lock
         backward-delete-char
+        backward-kill-sexp
         backward-to-word
         c-electric-delete-forward
         c-electric-semi&comma
         c-electric-slash
         comment-or-uncomment-region
         control-lock-enable
+        copy-line-down
         dabbrev-expand
         downcase-region
         end-of-buffer
@@ -53,6 +55,7 @@
         keyboard-escape-quit
         keyboard-escape-quit-mc
         kill-region
+        kill-sexp
         magit-stage-item
         my-comment
         org-beginning-of-line
@@ -75,6 +78,7 @@
         shrink-window-if-larger-than-buffer
         sp--self-insert-command
         tab-to-tab-stop
+        tab-to-tab-stop-line-or-region
         transpose-words
         undefined
         upcase-region

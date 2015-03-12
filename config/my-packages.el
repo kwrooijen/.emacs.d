@@ -130,6 +130,7 @@
 (winner-mode t)
 (global-company-mode t)
 (display-battery-mode t)
+(ido-mode t)
 
 (provide 'my-packages)
 
