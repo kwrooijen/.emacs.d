@@ -1,4 +1,5 @@
 (require 'gh-pull-comments)
+(setq gnus-use-cache t)
 
 (defun magit-gh-pull-comment-line ()
   (interactive)

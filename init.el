@@ -2,17 +2,19 @@
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/tempo")
 (add-to-list 'load-path "~/.emacs.d/plugins/distel/elisp")
-
+(add-to-list 'load-path "~/.emacs.d/plugins/magit-gh-pulls")
 
 (require 'my-packages)
 (require 'my-powerline)
 (require 'my-colors)
 (require 'my-functions)
 (require 'my-keys)
+(require 'my-hydra)
 (require 'my-options)
 (require 'my-hooks)
 (require 'my-scripts)
 (require 'magit-gh-pull-comment)
+(require 'magit-gh-pulls)
 
 ;; (setq my-extra-music t)
 ;; (setq my-extra-mail t)

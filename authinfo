@@ -1,3 +1,0 @@
-machine mail.hover.com login kevin.van.rooijen@attichacker.com port 587 password PASSWORD
-machine mail.hover.com login kevin.van.rooijen@attichacker.com password "PASSWORD" port 993
-machine mail.hover.com login kevin.van.rooijen@attichacker.com password "PASSWORD" port 465

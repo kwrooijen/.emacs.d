@@ -22,6 +22,7 @@
 (add-hook 'doc-view-mode-hook 'clean-hook)
 (add-hook 'w3m-mode-hook 'clean-hook)
 (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+(add-hook 'message-mode-hook (lambda () (interactive) (company-mode 0)))
 
 (add-hook 'isearch-mode-hook (lambda()
     (key-chord-mode 1)

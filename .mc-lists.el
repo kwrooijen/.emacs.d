@@ -10,10 +10,12 @@
         attic-rock-lock
         backward-delete-char
         backward-kill-sexp
+        backward-sexp
         backward-to-word
         c-electric-delete-forward
         c-electric-semi&comma
         c-electric-slash
+        capitalize-previous-word
         comment-or-uncomment-region
         control-lock-enable
         copy-line-down
@@ -36,11 +38,13 @@
         evil-normal-state
         evil-substitute
         forward-sentence
+        forward-sexp
         ghc-insert-template
         ghc-save-buffer
         god-mode-disable
         god-mode-meta
         god-mode-self-insert
+        godly/lambda-c
         haskell-indentation-delete-char
         haskell-newline-and-indent
         helm-buffers-list
@@ -76,22 +80,29 @@
         sh-assignment
         shm/:
         shrink-window-if-larger-than-buffer
+        simpleclip-paste
         sp--self-insert-command
         tab-to-tab-stop
         tab-to-tab-stop-line-or-region
         transpose-words
         undefined
         upcase-region
+        vim-o
         yas-expand
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        ace-jump-done
         describe-key
         emms-pause
         execute-rust
         god-g
         god-mode-enable
+        godly/lambda-N
+        godly/lambda-P
+        godly/lambda-n
+        godly/lambda-p
         goto-line
         helm-M-x
         helm-maybe-exit-minibuffer
