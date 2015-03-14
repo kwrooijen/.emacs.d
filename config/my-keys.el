@@ -364,6 +364,7 @@
 (define-key magit-diff-mode-map   (kbd ";") 'semi-colon-map)
 (define-key magit-commit-mode-map (kbd ";") 'semi-colon-map)
 
+(require 'doc-view)
 (define-key doc-view-mode-map (kbd "j") 'doc-view-next-line-or-next-page)
 (define-key doc-view-mode-map (kbd "k") 'doc-view-previous-line-or-previous-page)
 

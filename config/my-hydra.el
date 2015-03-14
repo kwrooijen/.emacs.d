@@ -96,4 +96,16 @@
 (defhydra godly (god-local-mode-map "g") ("`" (lambda() (interactive) (call-interactively (key-binding (kbd "M-`"))))))
 (defhydra godly (god-local-mode-map "g") ("~" (lambda() (interactive) (call-interactively (key-binding (kbd "M-~"))))))
 
+(defhydra buffer-move (semi-colon-map "m")
+  "buffer-move"
+  ("n" buf-move-down)
+  ("p" buf-move-up)
+  ("f" buf-move-right)
+  ("b" buf-move-left)
+
+  ("l" buf-move-down)
+  ("o" buf-move-up)
+  ("p" buf-move-right)
+  ("k" buf-move-left))
+
 (provide 'my-hydra)

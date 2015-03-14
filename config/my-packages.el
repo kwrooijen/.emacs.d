@@ -72,16 +72,8 @@
         (helm-dash-install-docset doc))
     my-docs))
 
-
-(defun get-submodules ()
-    (let ((git-init "cd ~/.emacs.d ; git submodule init ; git submodule update;")
-          (make-distel "make -C ~/.emacs.d/plugins/distel/;"))
-      (async-shell-command (format "%s %s" git-init make-distel) "[Clone submodules]")
-    ))
-
 ;; If elpa directory doesn't exist, install packages and reload
 (if (not (file-exists-p "~/.emacs.d/elpa/")) (progn
-    (get-submodules)
     (my-install-packages)
     (load-file "~/.emacs.d/init.el")
     (delete-other-windows)
@@ -113,7 +105,6 @@
 (require 'erc-image)
 ;(require 'setup-company)
 (require 'elixir-mode)
-(require 'distel)
 (require 'alchemist)
 
 (require 'gnus-notify)

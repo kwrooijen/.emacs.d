@@ -765,18 +765,6 @@ makes)."
            (* 100 (frame-char-width)))
         2))))
 
-(defhydra buffer-move (god-local-mode-map "; m")
-  "buffer-move"
-  ("n" buf-move-down)
-  ("p" buf-move-up)
-  ("f" buf-move-right)
-  ("b" buf-move-left)
-
-  ("l" buf-move-down)
-  ("o" buf-move-up)
-  ("p" buf-move-right)
-  ("k" buf-move-left))
-
 (defun ddg (input)
   (interactive "sDuckDuckGo Seach: ")
   (let ((ddg-base "www.duckduckgo.com/html/?q=")
