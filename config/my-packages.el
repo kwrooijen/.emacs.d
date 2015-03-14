@@ -30,6 +30,7 @@
     helm-ls-git
     helm-swoop
     highlight-symbol
+    hydra
     iy-go-to-char
     js2-mode
     key-chord
