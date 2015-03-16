@@ -160,6 +160,13 @@ Kevin W. van Rooijen
 (setq helm-dash-browser-func 'eww)
 ;; Don't add delay when choosing
 (setq helm-exit-idle-delay 0)
+;; Don't display header
+(setq helm-display-header-line nil)
+;; Try to hide source header as much as possible
+(set-face-attribute 'helm-source-header nil :height 0.1 :background "#000"  :foreground "#000")
+;; Set a min / max height of 30% of current buffer
+(setq helm-autoresize-max-height 30)
+(setq helm-autoresize-min-height 30)
 ;;; Helm configurations END ;;;
 
 ;;; Tramp Mode
