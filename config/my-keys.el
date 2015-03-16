@@ -341,6 +341,7 @@
 (define-key grep-mode-map (kbd "p") 'previous-line)
 (define-key grep-mode-map (kbd "TAB") (lambda() (interactive) (error-preview "*grep*")))
 (define-key grep-mode-map (kbd "v") 'scroll-up-command)
+(define-key grep-mode-map (kbd ";") 'semi-colon-map)
 
 ;; God mode
 (define-key god-local-mode-map (kbd "g") 'goto-line)
