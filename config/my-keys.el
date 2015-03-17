@@ -270,6 +270,7 @@
 (define-key semi-colon-map (kbd "8") 'escreen-goto-screen-8)
 (define-key semi-colon-map (kbd "9") 'escreen-goto-screen-9)
 (define-key semi-colon-map (kbd "0") 'xsescreen-goto-screen-0)
+(define-key semi-colon-map (kbd "'") 'org-capture)
 
 ;; Dired keys
 (define-key dired-mode-map (kbd "c f")   'helm-ls-git-ls)

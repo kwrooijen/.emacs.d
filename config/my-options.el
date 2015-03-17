@@ -199,7 +199,14 @@ Kevin W. van Rooijen
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
 
 ;; Org Mode
+
+;; Log time
 (setq org-log-done 'time)
+;; Add Capture Templates
+(add-to-list 'org-capture-templates
+             '("d" "Done" entry
+               (file+headline "~/Documents/notes/Org/Done.org" "Done")
+               (file "~/.emacs.d/Templates/Done.orgtpl")))
 
 ;; Company Mode
 (setq company-idle-delay 0)
