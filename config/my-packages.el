@@ -40,6 +40,7 @@
     rainbow-delimiters
     redo+
     s
+    sauron
     simpleclip
     twittering-mode
     underwater-theme

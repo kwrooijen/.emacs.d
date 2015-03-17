@@ -29,6 +29,7 @@
 (setq twittering-use-master-password t)
 
 (define-key twittering-mode-map (kbd "s") 'twittering-search)
+(define-key twittering-mode-map (kbd ";") 'semi-colon-map)
 
 (provide 'my-extras)
 

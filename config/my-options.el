@@ -222,6 +222,9 @@ Kevin W. van Rooijen
     mu4e-main-mode
 ))
 
+;; Sauron
+(setq sauron-hide-mode-line t)
+
 ;; Buffers to be ignored by Winner
 (setq winner-boring-buffers '(
     "*Completions*"
