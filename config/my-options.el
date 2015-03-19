@@ -203,10 +203,16 @@ Kevin W. van Rooijen
 ;; Log time
 (setq org-log-done 'time)
 ;; Add Capture Templates
-(add-to-list 'org-capture-templates
-             '("d" "Done" entry
-               (file+headline "~/Documents/notes/Org/Done.org" "Done")
-               (file "~/.emacs.d/Templates/Done.orgtpl")))
+(setq org-capture-templates
+      '(("d" "Done" entry
+         (file+headline "~/Documents/notes/Org/Done.org" "Done")
+         (file "~/.emacs.d/Templates/Done.orgtpl"))
+        ("r" "Retro" entry
+         (file+headline "~/Documents/notes/Org/Retro.org" "Done")
+         (file "~/.emacs.d/Templates/Retro.orgtpl"))
+        ("t" "Todo" entry
+         (file+headline "~/Documents/notes/Org/Todo.org" "Todo")
+         (file "~/.emacs.d/Templates/Todo.orgtpl"))))
 
 ;; Company Mode
 (setq company-idle-delay 0)
