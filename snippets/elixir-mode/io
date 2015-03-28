@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: io
+# key: io
+# binding: direct-keybinding
+# --
+IO.puts("$1")$0

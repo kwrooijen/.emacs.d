@@ -2,4 +2,4 @@
 # name: iop
 # key: iop
 # --
-io:format("$1~p~n", [$1$2])$0
+io:format("$1 ~p~n", [$1$2])$0
