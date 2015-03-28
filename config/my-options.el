@@ -202,6 +202,7 @@ Kevin W. van Rooijen
 
 ;; Log time
 (setq org-log-done 'time)
+(setq org-capture-templates '())
 ;; Add Capture Templates
 (add-to-list 'org-capture-templates
              '("d" "Done" entry

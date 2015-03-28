@@ -294,6 +294,7 @@
 (key-chord-define-global ";j"
     (lambda() (interactive) (escape-key) (god-mode-enable)))
 
+(key-chord-define attic-minor-mode-map ";j" (lambda() (interactive) (escape-key) (god-mode-enable)))
 (key-chord-define isearch-mode-map ";j" 'isearch-abort)
 (key-chord-define helm-map ";j" 'helm-keyboard-quit)
 
