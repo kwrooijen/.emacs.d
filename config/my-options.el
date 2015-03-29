@@ -254,5 +254,10 @@ Kevin W. van Rooijen
 (add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
 (add-to-list 'god-exempt-major-modes 'gnus-group-mode)
 
+;; Electric pair
+(setq electric-pair-pairs
+      '((?\" . ?\")
+        (?\{ . ?\})))
+
 (provide 'my-options)
 

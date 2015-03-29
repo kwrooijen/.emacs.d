@@ -17,9 +17,9 @@
     erlang
     escreen
     expand-region
+    gh
     git-gutter+
     god-mode
-    gh
     hackernews
     haskell-mode
     helm
@@ -49,75 +49,77 @@
     yasnippet
     ))
 
-(defvar my-docs '(
-    "Elixir"
+(defvar my-docs
+  '("Elixir"
     "Erlang"
     "Haskell"
     "Emacs_Lisp"
     "Ruby"
-    "Javascript"
-    ))
+    "Javascript"))
 
 (defun my-install-packages ()
   (interactive)
   (package-refresh-contents)
-  (mapc #'(lambda (package)
-            (unless (package-installed-p package)
-              (package-install package)))
-        my-packages))
+  (mapc
+   #'(lambda (package)
+       (unless (package-installed-p package)
+         (package-install package)))
+   my-packages))
 
 (defun my-install-docs ()
   (interactive)
-    (mapc #'(lambda (doc)
-        (helm-dash-install-docset doc))
-    my-docs))
+  (mapc
+   #'(lambda (doc)
+       (helm-dash-install-docset doc))
+   my-docs))
 
 ;; If elpa directory doesn't exist, install packages and reload
-(if (not (file-exists-p "~/.emacs.d/elpa/")) (progn
-    (my-install-packages)
-    (load-file "~/.emacs.d/init.el")
-    (delete-other-windows)
-    (insert "Welcome to the Attic!")))
+(if (not (file-exists-p "~/.emacs.d/elpa/"))
+    (progn
+      (my-install-packages)
+      (load-file "~/.emacs.d/init.el")
+      (delete-other-windows)
+      (insert "Welcome to the Attic!")))
 
-(require 'erlang)
-(require 'god-mode)
-(require 'helm)
-(require 'helm-ls-git)
-(require 'helm-swoop)
-(require 'helm-dash)
-(require 'multiple-cursors)
-(require 'redo+)
-(require 'magit)
-(require 'fbterm)
-(require 'rebar)
-(require 'flymake)
-(require 'tempo)
-(require 'web-mode)
-(require 'indent-of-doom)
-(require 'git-gutter+)
-(require 'escreen)
-(require 's)
 (require 'dash)
-(require 'pastie)
-(require 'sticky-windows)
+(require 'elixir-mode)
 (require 'erc)
 (require 'erc-image)
-(require 'elixir-mode)
+(require 'erlang)
+(require 'escreen)
+(require 'fbterm)
+(require 'flymake)
+(require 'git-gutter+)
 (require 'gnus-notify)
+(require 'god-mode)
+(require 'helm)
+(require 'helm-dash)
+(require 'helm-ls-git)
+(require 'helm-swoop)
+(require 'indent-of-doom)
+(require 'magit)
+(require 'multiple-cursors)
+(require 'pastie)
+(require 'rebar)
+(require 'redo+)
+(require 's)
+(require 'sticky-windows)
+(require 'tempo)
+(require 'web-mode)
 
 ;; Modes
+(display-battery-mode t)
+(global-company-mode t)
+(global-git-gutter+-mode t)
 (god-mode)
+(ido-mode t)
 (key-chord-mode t)
 (multiple-cursors-mode t)
 (show-paren-mode t)
 (window-numbering-mode t)
+(winner-mode t)
 (wrap-region-global-mode t)
 (yas-global-mode t)
-(global-git-gutter+-mode t)
-(winner-mode t)
-(global-company-mode t)
-(display-battery-mode t)
-(ido-mode t)
 (electric-pair-mode t)
 
 (provide 'my-packages)

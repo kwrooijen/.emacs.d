@@ -391,8 +391,7 @@ makes)."
   (beginning-of-line)
   (let ((current (what-line-int)))
     (pop-to-mark-command)
-    (let ((next (what-line-int)))
-      (swap-lines-at-points current next))))
+    (swap-lines-at-points current (what-line-int))))
 
 (defun what-line-int (&optional p)
   "Get the current line number as an int"
