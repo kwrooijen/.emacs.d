@@ -21,7 +21,7 @@
         (let ((split (s-split "/" (eshell/pwd))))
           (let ((bot (car (last split)))
                 (top (car (last (butlast split)))))
-            (concat tramp-prompt top "/" bot " $ ")))))
+            (concat tramp-prompt top "/" bot " λ ")))))
 
 ;===============================================================================
 ;=== Hook
