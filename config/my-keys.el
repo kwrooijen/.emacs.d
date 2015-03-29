@@ -31,7 +31,6 @@
 ;; Control Prefix
 ("C-c C-e" kmacro-end-or-call-macro-repeat)
 ("C-c C-f" helm-ls-git-ls)
-("C-c M-f" helm-projectile-switch-project)
 ("C-c C-m" magit-status)
 ("C-c C-q" kmacro-start-macro)
 ("C-c C-t" transpose-lines-at-point)
@@ -114,28 +113,7 @@
 
 (defun erc-keys-hook ()
     (define-key erc-mode-map (kbd "C-M-m") 'erc-send-current-line)
-    (define-key erc-mode-map (kbd "RET") (lambda() (interactive)(message "Use C-M-m to send")))
-)
-
-;; Erlang Keys
-(defun erlang-keys-hook ()
-    (local-set-key (kbd "M-/") 'erlang-get-error)
-    (local-set-key (kbd "M-q") 'backward-kill-word)
-    (local-set-key (kbd "C-c C-k") (lambda() (interactive)
-        (rebar-compile)
-        (inferior-erlang)
-        (split-window)
-        (other-window 1)
-        (switch-to-buffer "*rebar-compilation*")
-        (other-window -1)
-    ))
-    (local-set-key (kbd "M-n") 'highlight-symbol-next)
-    (local-set-key (kbd "M-p") 'highlight-symbol-prev)
-)
-
-    (define-key erlang-mode-map (kbd "M-n") 'highlight-symbol-next)
-    (define-key erlang-mode-map (kbd "M-p") 'highlight-symbol-prev)
-    (define-key erlang-mode-map (kbd ">")   (lambda() (interactive) (insert ">")))
+    (define-key erc-mode-map (kbd "RET") (lambda() (interactive)(message "Use C-M-m to send"))))
 
 (define-key company-active-map (kbd "M-g")
     (lambda() (interactive) (company-abort) (escape-key)))
@@ -155,99 +133,61 @@
 (define-key company-active-map (kbd "C-n") 'company-select-next)
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
 
-;; Elixir Keys
-(defun elixir-keys-hook ()
-  (setq-local doom-indent-key "") ;;; HACK FOR ELIXIR MODE
-  (define-key elixir-mode-map (kbd "TAB") (lambda() (interactive)
-    (indent-of-doom))) ;;; HACK FOR ELIXIR MODE
-  (define-key elixir-mode-map (kbd "C-c C-l") 'iex-compile)
-  (define-key elixir-mode-map (kbd "C-c C-c C-e")
-      (lambda(x) (interactive "sRun Mix > ") (run-mix x)))
 
-  (define-key elixir-mode-map (kbd "M-n") 'highlight-symbol-next)
-  (define-key elixir-mode-map (kbd "M-p") 'highlight-symbol-prev)
-  (define-key elixir-mode-map (kbd "C-c C-c C-v")
-      (lambda() (interactive) (run-mix "compile")))
-  (define-key elixir-mode-map (kbd "C-c C-c C-s")
-      (lambda() (interactive) (run-mix "start")))
-  (define-key elixir-mode-map (kbd "C-c C-c C-c")
-      (lambda() (interactive) (run-mix "coveralls")))
-  (define-key elixir-mode-map (kbd "C-c C-c C-d")
-      (lambda() (interactive) (run-mix "coveralls.detail")))
-  (define-key elixir-mode-map (kbd "C-c C-c C-l")
-      (lambda() (interactive) (run-mix "help")))
-  (define-key elixir-mode-map (kbd "C-c C-c C-i")
-      (lambda() (interactive) (run-mix "dialyzer")))
-
-)
-
-;; Rust Keys
-(defun rust-keys-hook ()
-    (define-prefix-command 'c-map)
-    (define-key rust-mode-map (kbd "C-c") 'c-map)
-    (define-key c-map (kbd "C-c C-t") (lambda()
-        (interactive)
-        (async-shell-command "cargo test" "[Cargo test]")))
-
-    (define-key c-map (kbd "C-c C-s") (lambda()
-        (interactive)
-        (async-shell-command "cargo test" "[Cargo test]")))
-
-    (define-key c-map (kbd "C-c C-b") (lambda()
-        (interactive)
-        (async-shell-command "cargo bench" "[Cargo bench]")))
-
-    (define-key c-map (kbd "C-c C-l") (lambda()
-        (interactive)
-        (async-shell-command "cargo clean" "[Cargo clean]")))
-
-    (define-key c-map (kbd "C-c C-u") (lambda()
-        (interactive)
-        (async-shell-command "cargo update" "[Cargo update]")))
-
-    (define-key c-map (kbd "C-c C-c") (lambda()
-        (interactive)
-        (async-shell-command "cargo run" "[Cargo run]")))
-
-    (define-key rust-mode-map (kbd "C-c C-l") (lambda()
-        (interactive)
-        (async-shell-command "cargo run" "[Cargo Run]")))
-  )
 ;; C Keys
 (defun c-keys-hook ()
 (define-key c-mode-base-map (kbd "C-c C-l") 'execute-c)
 (define-key c-mode-base-map (kbd "C-/") 'my-comment)
-(define-key god-local-mode-map (kbd "/") 'my-comment)
-)
+(define-key god-local-mode-map (kbd "/") 'my-comment))
 
 (defun org-keys-hook ()
     (define-prefix-command 'org-mode-custom-map)
     (define-key org-mode-map (kbd "C-c C-o") 'org-mode-custom-map)
     (define-key org-mode-custom-map (kbd "C-l") 'browse-url-at-point)
-    (define-key org-mode-custom-map (kbd "C-t") 'org-todo)
-)
+    (define-key org-mode-custom-map (kbd "C-t") 'org-todo))
 
-(define-key semi-colon-map (kbd "n") 'escreen-goto-next-screen)
-(define-key semi-colon-map (kbd "p") 'escreen-goto-prev-screen)
-(define-key semi-colon-map (kbd ";") 'escreen-goto-last-screen)
-(define-key semi-colon-map (kbd "c") 'escreen-create-screen)
-(define-key semi-colon-map (kbd "a") 'async-shell-command)
-(define-key semi-colon-map (kbd "s") 'shell-command)
-(define-key semi-colon-map (kbd "y") 'simpleclip-paste)
-(define-key semi-colon-map (kbd "w") 'simpleclip-copy)
-(define-key semi-colon-map (kbd "e") 'eww)
-(define-key semi-colon-map (kbd "b") 'eww-list-bookmarks)
-(define-key semi-colon-map (kbd "1") 'escreen-goto-screen-1)
-(define-key semi-colon-map (kbd "2") 'escreen-goto-screen-2)
-(define-key semi-colon-map (kbd "3") 'escreen-goto-screen-3)
-(define-key semi-colon-map (kbd "4") 'escreen-goto-screen-4)
-(define-key semi-colon-map (kbd "5") 'escreen-goto-screen-5)
-(define-key semi-colon-map (kbd "6") 'escreen-goto-screen-6)
-(define-key semi-colon-map (kbd "7") 'escreen-goto-screen-7)
-(define-key semi-colon-map (kbd "8") 'escreen-goto-screen-8)
-(define-key semi-colon-map (kbd "9") 'escreen-goto-screen-9)
-(define-key semi-colon-map (kbd "0") 'xsescreen-goto-screen-0)
-(define-key semi-colon-map (kbd "'") 'org-capture)
+(define-key semi-colon-map (kbd "n")   'escreen-goto-next-screen)
+(define-key semi-colon-map (kbd "C-n") 'escreen-goto-next-screen)
+(define-key semi-colon-map (kbd "p")   'escreen-goto-prev-screen)
+(define-key semi-colon-map (kbd "C-p") 'escreen-goto-prev-screen)
+(define-key semi-colon-map (kbd ";")   'escreen-goto-last-screen)
+(define-key semi-colon-map (kbd "C-;") 'escreen-goto-last-screen)
+(define-key semi-colon-map (kbd "c")   'escreen-create-screen)
+(define-key semi-colon-map (kbd "C-c") 'escreen-create-screen)
+(define-key semi-colon-map (kbd "a")   'async-shell-command)
+(define-key semi-colon-map (kbd "C-a") 'async-shell-command)
+(define-key semi-colon-map (kbd "s")   'shell-command)
+(define-key semi-colon-map (kbd "C-s") 'shell-command)
+(define-key semi-colon-map (kbd "y")   'simpleclip-paste)
+(define-key semi-colon-map (kbd "C-y") 'simpleclip-paste)
+(define-key semi-colon-map (kbd "w")   'simpleclip-copy)
+(define-key semi-colon-map (kbd "C-w") 'simpleclip-copy)
+(define-key semi-colon-map (kbd "e")   'eww)
+(define-key semi-colon-map (kbd "C-e") 'eww)
+(define-key semi-colon-map (kbd "b")   'eww-list-bookmarks)
+(define-key semi-colon-map (kbd "C-b") 'eww-list-bookmarks)
+(define-key semi-colon-map (kbd "1")   'escreen-goto-screen-1)
+(define-key semi-colon-map (kbd "C-1") 'escreen-goto-screen-1)
+(define-key semi-colon-map (kbd "2")   'escreen-goto-screen-2)
+(define-key semi-colon-map (kbd "C-2") 'escreen-goto-screen-2)
+(define-key semi-colon-map (kbd "3")   'escreen-goto-screen-3)
+(define-key semi-colon-map (kbd "C-3") 'escreen-goto-screen-3)
+(define-key semi-colon-map (kbd "4")   'escreen-goto-screen-4)
+(define-key semi-colon-map (kbd "C-4") 'escreen-goto-screen-4)
+(define-key semi-colon-map (kbd "5")   'escreen-goto-screen-5)
+(define-key semi-colon-map (kbd "C-5") 'escreen-goto-screen-5)
+(define-key semi-colon-map (kbd "6")   'escreen-goto-screen-6)
+(define-key semi-colon-map (kbd "C-6") 'escreen-goto-screen-6)
+(define-key semi-colon-map (kbd "7")   'escreen-goto-screen-7)
+(define-key semi-colon-map (kbd "C-7") 'escreen-goto-screen-7)
+(define-key semi-colon-map (kbd "8")   'escreen-goto-screen-8)
+(define-key semi-colon-map (kbd "C-8") 'escreen-goto-screen-8)
+(define-key semi-colon-map (kbd "9")   'escreen-goto-screen-9)
+(define-key semi-colon-map (kbd "C-9") 'escreen-goto-screen-9)
+(define-key semi-colon-map (kbd "0")   'xsescreen-goto-screen-0)
+(define-key semi-colon-map (kbd "C-0") 'xsescreen-goto-screen-0)
+(define-key semi-colon-map (kbd "'")   'org-capture)
+(define-key semi-colon-map (kbd "C-'") 'org-capture)
 
 ;; Dired keys
 (define-key dired-mode-map (kbd "c f")   'helm-ls-git-ls)
@@ -255,7 +195,7 @@
 (define-key dired-mode-map (kbd "c s a") 'helm-bookmarks)
 (define-key dired-mode-map (kbd "c s r") 'my/grep)
 (define-key dired-mode-map (kbd "c m")   'magit-status)
-(define-key dired-mode-map (kbd ";") 'semi-colon-map)
+(define-key dired-mode-map (kbd ";")     'semi-colon-map)
 (define-key dired-mode-map (kbd "c z p") (lambda() (interactive) (run-make "stop"    "[Make Stop]")))
 (define-key dired-mode-map (kbd "c z r") (lambda() (interactive) (run-make "restart" "[Make Restart]")))
 (define-key dired-mode-map (kbd "c z s") (lambda() (interactive) (run-make "start"   "[Make Start]")))
@@ -273,47 +213,8 @@
 
 (key-chord-define attic-minor-mode-map ";j" (lambda() (interactive) (escape-key) (god-mode-enable)))
 (key-chord-define isearch-mode-map ";j" 'isearch-abort)
-(key-chord-define helm-map ";j" 'helm-keyboard-quit)
-
-;; Helm keys
-(define-key helm-map (kbd "C-b") 'nil)
-(define-key helm-map (kbd "C-f") 'nil)
-(define-key helm-map (kbd "M-b") 'nil)
-(define-key helm-map (kbd "M-f") 'forward-word)
-(define-key helm-map (kbd "M-s") 'helm-select-action)
-(define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
-(define-key helm-buffer-map (kbd "C-a") 'helm-buffers-toggle-show-hidden-buffers)
-(define-key helm-swoop-map (kbd "M-e") 'helm-swoop-edit)
-
-;; Special up / down for helm-register
-(define-key helm-map (kbd "C-n")
-    (lambda() (interactive) (if (or (boundp 'helm-swoop-active)
-                                    (boundp 'helm-register-active))
-        (progn (helm-next-line) (helm-execute-persistent-action))
-        (helm-next-line))))
-
-(define-key helm-map (kbd "C-p")
-    (lambda() (interactive) (if (or (boundp 'helm-swoop-active)
-                                    (boundp 'helm-register-active))
-        (progn (helm-previous-line) (helm-execute-persistent-action))
-        (helm-previous-line))))
-
-; Helm keyboard quits
-(define-key helm-map                (kbd "M-?") 'helm-help)
-(define-key helm-map                (kbd "M-g") 'helm-keyboard-quit)
-(define-key helm-find-files-map     (kbd "M-g") 'helm-keyboard-quit)
-(define-key helm-generic-files-map  (kbd "M-g") 'helm-keyboard-quit)
-(define-key helm-buffer-map         (kbd "M-g") 'helm-keyboard-quit)
 
 (define-key mc/keymap (kbd "<return>")  'newline)
-
-;; eShell
-(add-hook 'eshell-mode-hook
-'(lambda ()
-   (define-key eshell-mode-map (kbd "C-i") 'helm-esh-pcomplete)
-   (define-key eshell-mode-map (kbd "M-m") 'eshell-back-to-indentation)
-   (define-key eshell-mode-map (kbd "C-M-m") 'eshell-broadcast)
-))
 
 ;; Grep mode
 (define-key grep-mode-map (kbd "n") 'next-line)
@@ -334,9 +235,6 @@
 (define-key eww-mode-map (kbd "p") (lambda() (interactive) (scroll-down 1)))
 (define-key eww-mode-map (kbd "v") 'scroll-up-command)
 
-;; Because I have no idea how to remap M-g in helm-projectile
-(defun helm-projectile-vc (_) (helm-keyboard-quit))
-
 ;; Magit mode
 (define-key magit-status-mode-map (kbd "RET") (lambda () (interactive) (magit-visit-item t)))
 (define-key magit-status-mode-map (kbd "g") 'magit-refresh)
@@ -353,11 +251,11 @@
 
 ;; Modes
 (define-minor-mode attic-minor-mode
-"A minor mode so that my key settings override annoying major modes."
+  "A minor mode so that my key settings override annoying major modes."
+  t " attic" 'attic-minor-mode-map)
 
-t " attic" 'attic-minor-mode-map)
 (defun attic-minibuffer-setup-hook ()
-(attic-minor-mode 0))
+  (attic-minor-mode 0))
 
 ;; Other unset keys
 (global-unset-key "\C-x\C-z")

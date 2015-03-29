@@ -44,12 +44,6 @@ buffer is not visiting a file."
   (compile-goto-error)
   (switch-to-buffer-other-window buff))
 
-(defun sh (buffer-name)
-    "Start a terminal and rename buffer."
-    (interactive "sbuffer name: ")
-    (eshell)
-    (rename-buffer (format "%s%s" "$" buffer-name) t))
-
 (defun send-to-pastie (answer)
     "Start a terminal and rename buffer."
     (interactive "cSend region to Pastie?: (y/n) ")
@@ -80,47 +74,16 @@ buffer is not visiting a file."
         (mapconcat (lambda(X) (concat " | grep " X)) (cdr term-list) ""))
         term))))
 
-(defun eshell-back-to-indentation ()
- (interactive)
- (eshell-bol)
- (while (and
-    (char-after (point))
-    (equal (string (char-after (point))) " "))
-    (forward-char 1)))
 
 (defun get-current-buffer-major-mode ()
     (interactive)
     (message "%s" major-mode))
-
-(defun hoogle-search (query)
-    "Search with hoogle commandline"
-    (interactive "sHoogle query: ")
-    (if (get-buffer "*Hoogle*") (kill-buffer "*Hoogle*"))
-    ; get the version of hoogle so I don't have to manually adjust it for each update
-    (shell-command (format "version=`hoogle --version | head -n 1 | awk '{print $2}' |
-        cut -c 2- | rev | cut -c 2- | rev`;
-        data=\"/databases\";
-        two=$version$data;
-        hoogle \"%s\" --data=$HOME/.lazyVault/sandboxes/hoogle/cabal/share/hoogle-$two" query))
-    (switch-to-buffer "*Shell Command Output*")
-    (rename-buffer "*Hoogle*")
-    (haskell-mode)
-    (linum-mode 0)
-    (previous-buffer))
 
 (defun ensure-buffer-name-begins-with-exl ()
     "change buffer name to end with slash"
     (let ((name (buffer-name)))
         (if (not (string-match "/$" name))
             (rename-buffer (concat "!" name) t))))
-
-(defun erlang-get-error ()
-    (interactive)
-    (async-shell-command (format "~/.emacs.d/scripts/erlang/erlang-flymake %s" buffer-file-name) "[Erlang Errors]"))
-
-(defun run-haskell-test ()
-    (interactive)
-    (my-up-to-script "*.cabal" "cabal build ; cabal test --log=/dev/stdout" "[Haskell Tests]"))
 
 (defun run-make-input (input)
     "Run make with user input."
@@ -239,18 +202,6 @@ buffer is not visiting a file."
             (makunbound 'repeated-char)
             (call-interactively (key-binding (kbd char))))))
 
-(defun helm-swoop-emms ()
-    (interactive)
-    (let ((current (current-buffer)))
-    (split-window)
-    (other-window 1)
-    (emms-playlist-mode-go)
-    (funcall (lambda ()
-        (helm-swoop :$query "")
-        (if (equal helm-exit-status 0) (emms-playlist-mode-play-smart))
-        (delete-window)
-        (switch-to-buffer current)
-        (makunbound 'current)))))
 (defun default-directory-full ()
     (if (equal (substring default-directory 0 1) "~")
         (format "/home/%s%s" (user-login-name) (substring default-directory 1))
@@ -266,23 +217,6 @@ buffer is not visiting a file."
         grep -v '/Dropbox' | grep -v '/Music' | grep -v '/Videos' | grep -v '/Pictures' |
         grep -v '/Mail' | grep -v 'ebin' | grep -v 'deps' | grep -v 'dist'" x))
 
-(defun helm-swoop-find-files-recursively ()
-    (interactive)
-    (let ( (current (current-buffer))
-           (current-dir default-directory))
-        (switch-to-buffer "*helm-find-files-recursively*")
-        (erase-buffer)
-        (shell-command (find-files-recursively-shell-command (home-directory)) -1)
-        (helm-swoop :$query "")
-        (if (equal helm-exit-status 0)
-            (setq final-location (buffer-substring
-            (line-beginning-position) (line-end-position))))
-        (switch-to-buffer current)
-        (if (boundp 'final-location)
-            (find-file final-location))
-        (makunbound 'final-location)
-        (makunbound 'current)))
-
 (defun execute-c () (interactive)
     (if (buffer-file-name)
         (progn
@@ -292,40 +226,8 @@ buffer is not visiting a file."
             (async-shell-command
                 (format " ./%s" (file-name-sans-extension (buffer-name)))))))
 
-(defun execute-rust () (interactive)
-    (if (buffer-file-name)
-        (let ((result (shell-command-to-string (format "rustc %s ; echo $?" (buffer-file-name))))
-              (origin (buffer-name)))
-          (if (equal (get-return-code result) "0")
-              (async-shell-command (format " ./%s" (file-name-sans-extension (buffer-name))) "[Rust Compile]")
-              (progn
-                  (async-shell-command "" "[Rust Compile]")
-                  (switch-to-buffer "[Rust Compile]")
-                  (insert result)
-                  (switch-to-buffer origin))))))
-
-(defun test-rust () (interactive)
-    (if (buffer-file-name)
-        (let ((result (shell-command-to-string (format "rustc --test %s ; echo $?" (buffer-file-name))))
-              (origin (buffer-name)))
-          (if (equal (get-return-code result) "0")
-              (async-shell-command (format " ./%s" (file-name-sans-extension (buffer-name))) "[Rust Compile]")
-              (progn
-                  (async-shell-command "" "[Rust Compile]")
-                  (switch-to-buffer "[Rust Compile]")
-                  (insert result)
-                  (switch-to-buffer origin))))))
-
 (defun get-return-code (s)
     (nth 1 (reverse (split-string s "\n"))))
-
-(defun iex-compile ()
-    (interactive)
-    (let ((current (buffer-name)))
-        (elixir-mode-iex)
-        (kill-line 0)
-        (insert (format "c(\"%s\")" current))
-        (comint-send-input)))
 
 (defun copy-line (arg)
     "Copy lines (as many as prefix argument) in the kill ring"
@@ -371,10 +273,10 @@ buffer is not visiting a file."
            (alive
             ;; Possibly update `winner-point-alist'
             (loop for buf in (mapcar 'cdr (cdr conf))
-               for pos = (winner-get-point buf nil)
-               if (and pos (not (memq buf buffers)))
-               do (push buf buffers)
-               collect pos)))
+                  for pos = (winner-get-point buf nil)
+                  if (and pos (not (memq buf buffers)))
+                  do (push buf buffers)
+                  collect pos)))
       (winner-set-conf (car conf))
       (let (xwins) ; to be deleted
         ;; Restore points
@@ -391,10 +293,10 @@ buffer is not visiting a file."
         ;; Restore marks
         (letf (((current-buffer)))
           (loop for buf in buffers
-             for entry = (cadr (assq buf winner-point-alist))
-             do (progn (set-buffer buf)
-                       (set-mark (car entry))
-                       (setf (winner-active-region) (cdr entry)))))
+                for entry = (cadr (assq buf winner-point-alist))
+                do (progn (set-buffer buf)
+                          (set-mark (car entry))
+                          (setf (winner-active-region) (cdr entry)))))
         ;; Delete windows, whose buffers are dead or boring.
         ;; Return t if this is still a possible configuration.
         (or (null xwins)
@@ -435,95 +337,6 @@ makes)."
          )
     (flymake-log 3 "create-temp-intemp: file=%s temp=%s" file-name temp-name)
     temp-name))
-
-(defun spawn-eshell ()
-  (interactive)
-  (if (> (/ (window-width) 2) (window-height))
-      (progn
-        (split-window-horizontally)
-        (other-window 1)
-        (sh "TERM")
-        )
-    (progn
-      (split-window)
-      (other-window 1)
-      (sh "TERM"))
-    ))
-
-(defun eshell-broadcast(&optional yank-eshell-input)
-  (interactive)
-  (if eshell-mode
-      (let ((buff (get-buffer-window))
-            (col (current-column)))
-        (eshell-back-to-indentation)
-        (setq eshell-indentation-column (point))
-        (move-end-of-line 1)
-        (setq eshell-oel-column (point))
-        (kill-ring-save eshell-indentation-column eshell-oel-column)
-        (move-to-column col)
-        (unless yank-eshell-input (eshell-send-input))
-        (other-window 1)
-        (while (not (eq (get-buffer-window) buff))
-          (if eshell-mode
-              (progn
-                (end-of-buffer)
-                (yank)
-                (unless yank-eshell-input (eshell-send-input))))
-          (other-window 1)
-          ))))
-
-(defun eshell-broadcast-diff()
-  (interactive)
-  (let ((buff-win (get-buffer-window))
-        (buff (current-buffer)))
-    (other-window 1)
-    (while (not (eq (get-buffer-window) buff-win))
-      (if eshell-mode
-          (progn
-            (highlight-changes-mode -1)
-            (highlight-compare-buffers buff (current-buffer))))
-      (sleep-for 0.1)
-      (end-of-buffer)
-      (other-window 1)
-      )
-    (highlight-changes-mode -1)
-    ))
-
-(defadvice inferior-erlang (before inferior-erlang activate)
-    (setq-local deps (remove-if-not 'identity
-        (mapcar (lambda(x)
-            (unless (or (equal x ".") (equal x ".."))
-                (concat "../deps/" x "/ebin")))
-             (directory-files "../deps"))))
-    (setq-local core '("../ebin"))
-
-    (setq inferior-erlang-machine-options
-        (-flatten (mapcar (lambda(x)
-            (setq-local ll '())
-            (add-to-list 'll x)
-            (add-to-list 'll "-pa")
-            (add-to-list 'll "include")
-            (add-to-list 'll "-I")
-            ll) (append core deps)))))
-
-(defadvice erlang-compile (before erlang-compile activate)
-    (setq-local deps (remove-if-not 'identity
-        (mapcar (lambda(x)
-            (unless (or (equal x ".") (equal x ".."))
-                (concat "../deps/" x "/ebin")))
-             (directory-files "../deps"))))
-    (setq-local core '("../ebin"))
-
-    (setq inferior-erlang-machine-options
-        (-flatten (mapcar (lambda(x)
-            (setq-local ll '())
-            (add-to-list 'll x)
-            (add-to-list 'll "-pa")
-            (add-to-list 'll "include")
-            (add-to-list 'll "-I")
-            ll) (append core deps)))))
-    ;; (setq inferior-erlang-machine-options '("-pa" "../ebin/" "-pa" "../deps/ranch/ebin/"))
-
 
 (defun upward-find-file (filename &optional startdir)
   "Move up directories until we find a certain filename. If we
@@ -581,20 +394,6 @@ makes)."
 (defadvice backward-list (before backward-list activate)
     (set-mark-command nil)
     (deactivate-mark))
-
-(defadvice helm-register (before helm-register activate)
-    (setq helm-register-active t))
-
-(defadvice helm-register (after helm-register activate)
-    (makunbound 'helm-register-active))
-
-(defadvice helm-swoop (before helm-swoop activate)
-    (set-mark-command nil)
-    (deactivate-mark)
-    (setq helm-swoop-active t))
-
-(defadvice helm-swoop (after helm-swoop activate)
-    (makunbound 'helm-swoop-active))
 
 (defadvice gnus (after gnus activate)
     (gnus-demon-init))

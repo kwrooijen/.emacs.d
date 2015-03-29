@@ -139,36 +139,6 @@ Kevin W. van Rooijen
 ;; Default alignment should be 80
 (setq fill-column 80)
 
-;;; Helm configurations START
-;; Don't ask to create new file
-(setq helm-ff-newfile-prompt-p nil)
-(setq helm-grep-default-recurse-command
-    "grep --exclude-dir=\"dist\" -a -d recurse %e -n%cH -e %p %f")
-(setq helm-reuse-last-window-split-state t)
-(setq helm-ff-transformer-show-only-basename nil)
-;; Split window down
-(setq helm-split-window-in-side-p t)
-;; Split when multiple windows open
-(setq helm-swoop-split-with-multiple-windows t)
-;; Show relative path
-(setq helm-ls-git-show-abs-or-relative 'relative)
-;; Don't show colors in Tramp mode
-(setq helm-ff-tramp-not-fancy t)
-;; Smarter completion for Helm
-(setq helm-ff-smart-completion t)
-;; Helm-dash should use W3m for showing documentation
-(setq helm-dash-browser-func 'eww)
-;; Don't add delay when choosing
-(setq helm-exit-idle-delay 0)
-;; Don't display header
-(setq helm-display-header-line nil)
-;; Try to hide source header as much as possible
-(set-face-attribute 'helm-source-header nil :height 0.1 :background "#000"  :foreground "#000")
-;; Set a min / max height of 30% of current buffer
-(setq helm-autoresize-max-height 30)
-(setq helm-autoresize-min-height 30)
-;;; Helm configurations END ;;;
-
 ;;; Tramp Mode
 ;; Set Tramp backup file location
 (setq tramp-backup-directory-alist backup-directory-alist)
@@ -267,17 +237,6 @@ Kevin W. van Rooijen
 (escreen-create-screen)
 (escreen-create-screen)
 (escreen-goto-screen-1)
-
-;; Prompt for eshell, a bit buggy but it will do for now...
-(setq eshell-prompt-function
-  (lambda nil
-      (if (equal (car (s-split "/scp:" (eshell/pwd))) (eshell/pwd))
-        (setq tramp-prompt "")
-        (setq tramp-prompt "/scp:"))
-      (let ((split (s-split "/" (eshell/pwd))))
-          (let ((bot (car (last split)))
-                (top (car (last (butlast split)))))
-            (concat tramp-prompt top "/" bot " $ ")))))
 
 ;; Gnus
 ;; In Group buffer press "G p" and add this to the list (modeline-notify t)

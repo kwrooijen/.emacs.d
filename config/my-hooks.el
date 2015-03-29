@@ -24,73 +24,21 @@
 (add-hook 'message-mode-hook (lambda () (interactive) (company-mode 0)))
 
 (add-hook 'isearch-mode-hook (lambda()
-    (key-chord-mode 1)
-))
-
-(add-hook 'eshell-mode-hook (lambda()
-    (company-mode 0)
-))
-
-(add-hook 'erlang-mode-hook (lambda ()
-    (if (not (is-tramp-mode)) (progn
-        (flymake-erlang-init)
-        (flymake-mode 1)))
-    (rainbow-delimiters-mode)
-    (setq inferior-erlang-machine-options '("-sname" "emacs"))
-    (highlight-symbol-mode t)
-    (key-chord-force)
-    (fix-tabs 4)
-    (setq-local doom-indent-fallback t)
-    (setq-local doom-use-tab-cycle nil)
-    (rebar-mode 1)
-    (subword-mode t)
-    (setq-local helm-dash-docsets '("Erlang"))
-    (subword-mode t)
-    (erlang-keys-hook)))
-
-(add-hook 'elixir-mode-hook (lambda ()
-    (key-chord-force)
-    (elixir-keys-hook)
-    (fix-tabs 2)
-    (setq tab-stop-list tab-stop-list-2)
-    (setq-local doom-indent-fallback t)
-    (setq-local doom-use-tab-cycle nil)
-    (setq-local helm-dash-docsets '("Elixir"))
-))
+    (key-chord-mode 1)))
 
 (add-hook 'ruby-mode-hook (lambda ()
     (rainbow-delimiters-mode)
-    (setq-local helm-dash-docsets '("Ruby"))
-))
-
-(add-hook 'haskell-mode-hook (lambda ()
-    (fix-tabs 4)
-    (rainbow-delimiters-mode)
-    (turn-on-haskell-doc-mode)
-    (turn-on-haskell-indentation)
-    (setq-local doom-indent-fallback t)
-    (setq-local helm-dash-docsets '("Haskell"))
-))
+    (setq-local helm-dash-docsets '("Ruby"))))
 
 (add-hook 'emacs-lisp-mode-hook (lambda ()
     (rainbow-delimiters-mode)
-    (setq-local helm-dash-docsets '("Emacs Lisp"))
-))
-
-(add-hook 'rust-mode-hook (lambda ()
-    (rainbow-delimiters-mode)
-    (setq-local tab-width 4)
-    (rust-keys-hook)
-    (setq-local helm-dash-docsets '("Rust"))
-))
+    (setq-local helm-dash-docsets '("Emacs Lisp"))))
 
 (add-hook 'org-mode-hook (lambda ()
-    (org-keys-hook)
-))
+    (org-keys-hook)))
 
 (add-hook 'erc-mode-hook (lambda ()
-    (erc-keys-hook)
-))
+    (erc-keys-hook)))
 
 ;; Doom Indent Config
 (setq doom-use-tab-cycle t)
@@ -122,16 +70,6 @@
         ((prev 'ends-on ") ->") (prev 'indent 1))
     ))
 ))
-
-;; Flymake Hook
-(defun flymake-erlang-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-		     'flymake-create-temp-intemp))
-	 (local-file (file-relative-name temp-file
-		(file-name-directory buffer-file-name))))
-    (list "~/.emacs.d/scripts/erlang/erlang-flymake" (list local-file))))
-
-(add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
 
 ;; Load mode on certain file extensions
 (setq auto-mode-alist (append '(

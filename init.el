@@ -1,4 +1,5 @@
 (add-to-list 'load-path "~/.emacs.d/config")
+(add-to-list 'load-path "~/.emacs.d/config/modes")
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/tempo")
 (add-to-list 'load-path "~/.emacs.d/plugins/magit-gh-pulls")
@@ -12,6 +13,14 @@
 (require 'my-options)
 (require 'my-hooks)
 (require 'my-scripts)
+
+;; My modes
+(require 'my-erlang)
+(require 'my-haskell)
+(require 'my-elixir)
+(require 'my-rust)
+(require 'my-eshell)
+(require 'my-helm)
 
 ;; (setq my-extra-music t)
 ;; (setq my-extra-mail t)

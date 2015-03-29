@@ -104,7 +104,6 @@
 (require 'erc)
 (require 'erc-image)
 (require 'elixir-mode)
-
 (require 'gnus-notify)
 
 ;; Modes
