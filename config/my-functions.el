@@ -124,14 +124,12 @@ buffer is not visiting a file."
 
 (defun god-mode-enable ()
   (interactive)
-  (god-mode-all-set 1)
-  (god-local-mode 1)
-  (if window-system
-      (set-cursor-color "white")
-    (if (getenv "DISPLAY")
-        (if (getenv "TMUX")
-            (send-string-to-terminal "\033Ptmux;\033\033]12;White\007\033\\")
-          (send-string-to-terminal "\033]12;White\007")))))
+  (unless (member major-mode god-exempt-major-modes)
+    (god-mode-all-set 1)
+    (god-local-mode 1)
+    (if window-system
+        (set-cursor-color "white")
+      (send-string-to-terminal "\033]12;White\007"))))
 
 (defun god-mode-all-set (arg)
   "Set God mode in all buffers by argument."
@@ -548,5 +546,9 @@ makes)."
   (let ((ddg-base "www.duckduckgo.com/html/?q=")
         (input (replace-regexp-in-string "\s" "+" input)))
     (eww (format "%s%s" ddg-base input))))
+
+(defun ido-or-helm ()
+  (interactive)
+  (if (is-tramp-mode) (ido-switch-buffer) (helm-mini)))
 
 (provide 'my-functions)

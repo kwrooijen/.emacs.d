@@ -20,7 +20,7 @@
 ("C-l" helm-register)
 ("C-o" vim-o)
 ("C-q" backward-delete-char)
-("C-z" ido-switch-buffer)
+("C-z" ido-or-helm)
 
 ("C-M-q" backward-kill-sexp)
 ("M-y" (lambda() (interactive)
@@ -96,8 +96,8 @@
 ("M-s" (lambda() (interactive) (helm-swoop :$query "")))
 ("M-x" helm-M-x)
 ("M-\\" spawn-eshell)
-("M-," (lambda() (interactive (winner-undo) (deactivate-mark))))
-))
+("M-," (lambda() (interactive (winner-undo) (deactivate-mark))))))
+
 
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
 (define-key isearch-mode-map (kbd "M-g") 'isearch-abort)
@@ -248,6 +248,13 @@
 (require 'doc-view)
 (define-key doc-view-mode-map (kbd "j") 'doc-view-next-line-or-next-page)
 (define-key doc-view-mode-map (kbd "k") 'doc-view-previous-line-or-previous-page)
+
+;; Gnus
+(define-key gnus-summary-mode-map (kbd ";") 'semi-colon-map)
+(define-key gnus-summary-mode-map (kbd "z") 'ido-or-helm)
+
+(define-key gnus-group-mode-map (kbd ";") 'semi-colon-map)
+(define-key gnus-group-mode-map (kbd "z") 'ido-or-helm)
 
 ;; Modes
 (define-minor-mode attic-minor-mode

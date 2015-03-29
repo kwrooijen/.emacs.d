@@ -250,5 +250,9 @@ Kevin W. van Rooijen
 (setq ido-enable-flex-matching t)
 (setq ido-separator " | ")
 
+;; God modes
+(add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
+(add-to-list 'god-exempt-major-modes 'gnus-group-mode)
+
 (provide 'my-options)
 
