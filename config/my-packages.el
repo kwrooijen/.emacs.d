@@ -119,6 +119,7 @@
 (global-company-mode t)
 (display-battery-mode t)
 (ido-mode t)
+(electric-pair-mode t)
 
 (provide 'my-packages)
 

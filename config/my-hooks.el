@@ -40,6 +40,10 @@
 (add-hook 'erc-mode-hook (lambda ()
     (erc-keys-hook)))
 
+(add-hook 'racket-repl-mode-hook (lambda ()
+    (define-key company-active-map (kbd "<return>")
+      (lambda() (interactive) (company-abort) (racket-repl-eval-or-newline-and-indent)))))
+
 ;; Doom Indent Config
 (setq doom-use-tab-cycle t)
 (setq doom-region-cycle nil)
