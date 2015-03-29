@@ -36,6 +36,7 @@
     magit
     magit-gh-pulls
     multiple-cursors
+    racket-mode
     rainbow-delimiters
     redo+
     s
