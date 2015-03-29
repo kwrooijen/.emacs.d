@@ -121,23 +121,6 @@
 (defun erlang-keys-hook ()
     (local-set-key (kbd "M-/") 'erlang-get-error)
     (local-set-key (kbd "M-q") 'backward-kill-word)
-
-    ;; (local-set-key (kbd "M-/") 'dabbrev-expand)      ;- Complete a module or remote function name.
-    ;; (local-set-key (kbd "M-.") )      ;- Jump from a function call to its definition.
-    ;; (local-set-key (kbd "M-,") )      ;- Jump back from a function definition (multi-level).
-    (local-set-key (kbd "C-c C-d C-n") 'erl-choose-nodename) ;- set the erlang node name
-    (local-set-key (kbd "C-c C-d C-g") 'erl-ping) ;- upload the distel modules to the erlang node
-    (local-set-key (kbd "C-c C-d C-d") 'erl-eval-expression) ;- Evaluate an erlang expression from the minibuffer.
-    (local-set-key (kbd "C-c C-d C-f") 'erl-refactor-subfunction) ;- Refactor expressions in the region as a new function.
-    (local-set-key (kbd "C-c C-d C-F") 'erl-find-module) ;- Find a module.
-    (local-set-key (kbd "C-c C-d C-i") 'edb-toggle-interpret) ;- Toggle debug interpretping of the module.
-    (local-set-key (kbd "C-c C-d C-b") 'edb-toggle-breakpoint) ;- Toggle a debugger breakpoint at the current line.
-    (local-set-key (kbd "C-c C-d C-p") 'fprof) ;- Profile (with fprof) an expression from the minibuffer.
-    (local-set-key (kbd "C-c C-d C-l") 'erl-process-list) ;- Reload an Erlang module.
-    (local-set-key (kbd "C-c C-d C-r") 'erl-reload-modules) ;- Reload all Erlang modules that are out of date.
-    (local-set-key (kbd "C-c C-d C-w") 'erl-who-calls) ;- Who calls function under point.
-    (local-set-key (kbd "C-c C-d C-H") 'erl-find-doc) ;- Show the html documentation for a function.
-    (local-set-key (kbd "C-c C-d C-Z") 'erl-find-sig) ;- Show the signature for a function.
     (local-set-key (kbd "C-c C-k") (lambda() (interactive)
         (rebar-compile)
         (inferior-erlang)
@@ -148,12 +131,6 @@
     ))
     (local-set-key (kbd "M-n") 'highlight-symbol-next)
     (local-set-key (kbd "M-p") 'highlight-symbol-prev)
-
-    (define-key erl-process-list-mode-map (kbd "n") 'next-line)
-    (define-key erl-process-list-mode-map (kbd "p") 'previous-line)
-    (define-key erl-process-list-mode-map (kbd "s") 'isearch-forward)
-    (define-key erl-process-list-mode-map (kbd "r") 'isearch-backward)
-    (define-key erl-process-list-mode-map (kbd "v") 'scroll-up-command)
 )
 
     (define-key erlang-mode-map (kbd "M-n") 'highlight-symbol-next)
@@ -366,6 +343,9 @@
 (define-key magit-status-mode-map (kbd ";") 'semi-colon-map)
 (define-key magit-diff-mode-map   (kbd ";") 'semi-colon-map)
 (define-key magit-commit-mode-map (kbd ";") 'semi-colon-map)
+
+;; Package Menu mode
+(define-key package-menu-mode-map (kbd ";") 'semi-colon-map)
 
 (require 'doc-view)
 (define-key doc-view-mode-map (kbd "j") 'doc-view-next-line-or-next-page)

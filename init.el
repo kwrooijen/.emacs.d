@@ -12,8 +12,6 @@
 (require 'my-options)
 (require 'my-hooks)
 (require 'my-scripts)
-(require 'magit-gh-pull-comment)
-(require 'magit-gh-pulls)
 
 ;; (setq my-extra-music t)
 ;; (setq my-extra-mail t)
@@ -28,7 +26,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("0f6e58d1814b4138c5a88241f96547d35883cbb3df6cf9ec8ef44856ece04c13" default)))
+    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "0f6e58d1814b4138c5a88241f96547d35883cbb3df6cf9ec8ef44856ece04c13" default)))
  '(mode-line-format
    (quote
     (" "
@@ -56,3 +54,9 @@
      (vc-mode vc-mode)
      " " battery-mode-line-string))))
 
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

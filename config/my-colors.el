@@ -21,11 +21,11 @@
     (region                     "white" "deep sky blue")
     (font-lock-string-face      "cadet blue" unspecified)
     (mode-line                  "black" "grey" unspecified)
-    (magit-item-highlight       nil "dim grey" unspecified)
-    (default                    "grey" "black" unspecified)
-    ))
+    (magit-item-highlight       nil "dim grey" unspecified)))
+
 (set-face-attribute 'magit-diff-none nil :inherit nil)
 (set-face-attribute 'magit-item-highlight nil :inherit nil)
+(load-theme 'sanityinc-tomorrow-night t)
 
 (if window-system
     (progn)

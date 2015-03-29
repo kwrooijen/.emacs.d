@@ -45,8 +45,6 @@
     (rebar-mode 1)
     (subword-mode t)
     (setq-local helm-dash-docsets '("Erlang"))
-    (distel-setup)
-    (erlang-extended-mode)
     (subword-mode t)
     (erlang-keys-hook)))
 

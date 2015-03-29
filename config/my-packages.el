@@ -3,13 +3,12 @@
   (package-initialize)
   (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
   (add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/") t)
-  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
-  )
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t))
 
 (defvar my-packages '(
     ace-jump-mode
-    alchemist
     buffer-move
+    color-theme-sanityinc-tomorrow
     company
     dash
     elixir-mode
@@ -90,7 +89,6 @@
 (require 'multiple-cursors)
 (require 'redo+)
 (require 'magit)
-(require 'magit-gh-pulls)
 (require 'fbterm)
 (require 'rebar)
 (require 'flymake)
@@ -105,9 +103,7 @@
 (require 'sticky-windows)
 (require 'erc)
 (require 'erc-image)
-;(require 'setup-company)
 (require 'elixir-mode)
-(require 'alchemist)
 
 (require 'gnus-notify)
 
