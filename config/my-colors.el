@@ -18,7 +18,6 @@
     (company-scrollbar-bg   nil "gainsboro")
     (company-template-field     "black" "gainsboro")
     (company-tooltip            "black" "gainsboro")
-    (region                     "white" "deep sky blue")
     (font-lock-string-face      "cadet blue" unspecified)
     (mode-line                  "black" "grey" unspecified)
     (magit-item-highlight       nil "dim grey" unspecified)))

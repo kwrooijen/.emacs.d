@@ -48,7 +48,7 @@ buffer is not visiting a file."
 (defun send-to-pastie (answer)
   "Start a terminal and rename buffer."
   (interactive "cSend region to Pastie?: (y/n) ")
-  (if (equal answer "y") (pastie-region (region-beginning) (region-end))))
+  (if (equal answer ?\y) (pastie-region (region-beginning) (region-end))))
 
 (defun sht (buffer-name)
   "Start a terminal and rename buffer."
@@ -128,7 +128,7 @@ buffer is not visiting a file."
     (god-mode-all-set 1)
     (god-local-mode 1)
     (if window-system
-        (set-cursor-color "white")
+        (set-cursor-color "#cc6666")
       (send-string-to-terminal "\033]12;White\007"))))
 
 (defun god-mode-all-set (arg)
@@ -312,7 +312,7 @@ buffer is not visiting a file."
   (defalias 'winner-set 'winner-set1))
 
 (defun is-tramp-mode ()
-  (tramp-tramp-file-p (buffer-file-name (current-buffer))))
+  (file-remote-p default-directory))
 
 (defun flymake-create-temp-intemp (file-name prefix)
   "Return file name in temporary directory for checking FILE-NAME.
@@ -519,12 +519,15 @@ makes)."
 
 (defun flowdock ()
   (interactive)
-  (setq-default erc-ignore-list '("*Flowdock*" "Flowdock" "-Flowdock-"))
-  (setq-default erc-hide-list '("JOIN" "PART" "QUIT"))
-  (erc-ssl :server "irc.flowdock.com"
-           :nick "KevinR"
-           :port 6697
-           :password (concat "kevin.vanrooijen@spilgames.com" " " (read-passwd "Flowdock Password: "))))
+  (let* ((email "kevin.vanrooijen@spilgames.com")
+         (password (read-passwd "Flowdock Password: "))
+         (full-password (concat email " " password)))
+    (setq-default erc-ignore-list '("*Flowdock*" "Flowdock" "-Flowdock-"))
+    (setq-default erc-hide-list '("JOIN" "PART" "QUIT"))
+    (erc-ssl :server "irc.flowdock.com"
+             :nick "KevinR"
+             :port 6697
+             :password full-password)))
 
 (defvar bzg-big-fringe-mode nil)
 (define-minor-mode bzg-big-fringe-mode
