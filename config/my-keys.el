@@ -33,7 +33,7 @@
 ("C-c C-f" helm-ls-git-ls)
 ("C-c C-m" magit-status)
 ("C-c C-q" kmacro-start-macro)
-("C-c C-t" transpose-lines-at-point)
+("C-c C-t" transpose-mark)
 ("C-c M-t" transpose-paragraphs)
 ("C-c C-w" kill-rectangle)
 ("C-c C-v" inc-register)

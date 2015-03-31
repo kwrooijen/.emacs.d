@@ -373,25 +373,64 @@ makes)."
 (defadvice gnus (after gnus activate)
   (gnus-demon-init))
 
-(defun swap-lines-at-points (point1 point2)
-  (goto-line point1)
-  (beginning-of-line)
-  (kill-line)
-  (goto-line point2)
-  (beginning-of-line)
-  (yank)
-  (kill-line)
-  (goto-line point1)
-  (beginning-of-line)
-  (yank)
-  (pop-mark))
+(defvar transpose-mark-region-set 'nil "Is Transpose Mark Region set?")
 
-(defun transpose-lines-at-point ()
+(defun transpose-mark ()
   (interactive)
-  (beginning-of-line)
-  (let ((current (what-line-int)))
-    (pop-to-mark-command)
-    (swap-lines-at-points current (what-line-int))))
+  (if (region-active-p) (transpose-mark-region) (transpose-mark-line)))
+
+(defun transpose-mark-region ()
+  "Transpose the current region with the previously marked region.
+Once you've transposed one the region is reset."
+  (interactive)
+  (if transpose-mark-region-set
+      (let* ((current-region (buffer-substring-no-properties (mark) (point)))
+             (target-start (nth 0 transpose-mark-region-set))
+             (target-end (nth 1 transpose-mark-region-set))
+             (target-region (buffer-substring-no-properties target-start target-end)))
+        (if (> (mark) target-start)
+            (progn
+              (transpose-mark-region-set-current target-region)
+              (transpose-mark-region-set-target target-start target-end current-region))
+          (progn
+            (transpose-mark-region-set-target target-start target-end current-region)
+            (transpose-mark-region-set-current target-region)))
+        (setq transpose-mark-region-set 'nil))
+    (transpose-mark-save-point)))
+
+(defun transpose-mark-line ()
+  "Transpose the current line with the line which the current mark
+is pointing to."
+  (let ((col (current-column)))
+    (save-excursion
+      (beginning-of-line)
+      (kill-line)
+      (pop-to-mark-command)
+      (beginning-of-line)
+      (yank)
+      (kill-line))
+    (yank)
+    (pop-mark)
+    (move-to-column col)))
+
+(defun transpose-mark-region-set-target (target-start target-end current-region)
+  (kill-region target-start target-end)
+  (insert-at-point current-region (min target-start target-end)))
+
+(defun transpose-mark-region-set-current (target-region)
+  (kill-region (mark) (point))
+  (insert target-region))
+
+(defun transpose-mark-save-point ()
+  (setq transpose-mark-region-set (list (mark) (point)))
+  (deactivate-mark nil)
+  (message "Transpose Mark Region set!"))
+
+(defun insert-at-point (string point)
+  "Inserts a string at a given point."
+  (save-excursion
+    (goto-char point)
+    (insert string)))
 
 (defun what-line-int (&optional p)
   "Get the current line number as an int"
