@@ -15,13 +15,14 @@
   (indent-of-doom-mode t)
   (setq-local tab-width x))
 
+(add-hook 'sauron-mode-hook 'no-split)
 (add-hook 'c-initialization-hook 'c-keys-hook)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
 (add-hook 'magit-mode-hook 'clean-hook)
 (add-hook 'shell-mode-hook 'god-local-mode)
 (add-hook 'doc-view-mode-hook 'clean-hook)
 (add-hook 'w3m-mode-hook 'clean-hook)
-(add-hook 'message-mode-hook (lambda () (interactive) (company-mode 0)))
+(add-hook 'message-mode-hook (lambda () (interactive) (company-mode 0) (electric-pair-mode 0)))
 
 (add-hook 'isearch-mode-hook (lambda()
     (key-chord-mode 1)))

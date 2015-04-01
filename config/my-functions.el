@@ -191,18 +191,6 @@ buffer is not visiting a file."
       (makunbound 'repeated-char)
       (call-interactively (key-binding (kbd char))))))
 
-(defun god-g ()
-  (interactive)
-  (setq char (string (read-event)))
-  (if (or (not (boundp 'repeated-char)) (equal char repeated-char))
-      (progn
-        (call-interactively (key-binding (kbd (format "M-%s" char))))
-        (setq repeated-char char)
-        (god-g))
-    (progn
-      (makunbound 'repeated-char)
-      (call-interactively (key-binding (kbd char))))))
-
 (defun default-directory-full ()
   (if (equal (substring default-directory 0 1) "~")
       (format "/home/%s%s" (user-login-name) (substring default-directory 1))
@@ -591,5 +579,16 @@ is pointing to."
 (defun ido-or-helm ()
   (interactive)
   (if (is-tramp-mode) (ido-switch-buffer) (helm-mini)))
+
+(defun toggle-modeline ()
+  (interactive)
+  (if mode-line-format
+      (setq mode-line-format nil)
+    (setq mode-line-format mode-line-format-backup)))
+
+(defun no-split ()
+  (interactive)
+  (setq-local split-width-threshold 2000)
+  (setq-local split-height-threshold 2000))
 
 (provide 'my-functions)

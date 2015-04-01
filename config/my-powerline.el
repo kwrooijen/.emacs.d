@@ -13,7 +13,7 @@
         (format "[NORMAL]")
       (format "[INSERT]"))))
 
-(setq mode-line-format
+(setq mode-line-format-backup
       '(" " (:eval (concat "[" (number-to-string (escreen-get-current-screen-number)) "]")) " "
         (:eval (butlast (cdr (gnus-mst-notify-modeline-form)))) " "
         (:eval erc-modified-channels-object)

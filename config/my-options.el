@@ -8,8 +8,7 @@
 (setq default-frame-alist '(
     (font . "Fira Mono OT-12:weight=bold")
     (vertical-scroll-bars . nil)
-    (line-spacing . 0)
-))
+    (line-spacing . 0)))
 
 ;; Disable Tool bar
 (tool-bar-mode 0)
@@ -253,6 +252,7 @@ Kevin W. van Rooijen
 ;; God modes
 (add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
 (add-to-list 'god-exempt-major-modes 'gnus-group-mode)
+(add-to-list 'god-exempt-major-modes 'term-mode)
 
 ;; Electric pair
 (setq electric-pair-pairs
