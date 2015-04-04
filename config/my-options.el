@@ -178,10 +178,6 @@ Kevin W. van Rooijen
          (file+headline "~/Documents/notes/Org/Todo.org" "Todo")
          (file "~/.emacs.d/Templates/Todo.orgtpl"))))
 
-;; Company Mode
-(setq company-idle-delay 0)
-(setq company-minimum-prefix-length 2)
-
 ;; Projectile
 ; Enable Caching
 (setq projectile-enable-caching t)
@@ -201,7 +197,8 @@ Kevin W. van Rooijen
 
 ;; Sauron
 (setq sauron-hide-mode-line t)
-
+(setq sauron-separate-frame nil)
+(setq sauron-max-line-length (- (window-total-width) 10))
 ;; Buffers to be ignored by Winner
 (setq winner-boring-buffers '(
     "*Completions*"
@@ -241,6 +238,12 @@ Kevin W. van Rooijen
 ;; Ido
 (setq ido-enable-flex-matching t)
 (setq ido-separator " | ")
+
+;; Auto Complete
+(setq ac-auto-show-menu 0)
+
+;; Magit
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 ;; God modes
 (add-to-list 'god-exempt-major-modes 'gnus-summary-mode)

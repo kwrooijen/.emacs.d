@@ -22,12 +22,12 @@
 (add-hook 'shell-mode-hook
           (lambda()
             (god-local-mode)
-            (company-mode 0)
+            (auto-complete-mode 0)
             (key-chord-mode 1)))
 
 (add-hook 'doc-view-mode-hook 'clean-hook)
 (add-hook 'w3m-mode-hook 'clean-hook)
-(add-hook 'message-mode-hook (lambda () (interactive) (company-mode 0) (electric-pair-mode 0)))
+(add-hook 'message-mode-hook (lambda () (interactive) (auto-complete-mode 0) (electric-pair-mode 0)))
 
 (add-hook 'isearch-mode-hook (lambda()
     (key-chord-mode 1)))
@@ -44,8 +44,8 @@
     (org-keys-hook)))
 
 (add-hook 'racket-repl-mode-hook (lambda ()
-    (define-key company-active-map (kbd "<return>")
-      (lambda() (interactive) (company-abort) (racket-repl-eval-or-newline-and-indent)))))
+    (define-key ac-complete-mode-map (kbd "<return>")
+      (lambda() (interactive) (ac-stop) (racket-repl-eval-or-newline-and-indent)))))
 
 ;; Doom Indent Config
 (setq doom-use-tab-cycle t)

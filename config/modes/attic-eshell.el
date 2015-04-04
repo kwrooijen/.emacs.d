@@ -1,10 +1,11 @@
 ;;==============================================================================
 ;;== Keys
 ;;==============================================================================
-
-(define-key eshell-mode-map (kbd "C-i") 'helm-esh-pcomplete)
-(define-key eshell-mode-map (kbd "M-m") 'eshell-back-to-indentation)
-(define-key eshell-mode-map (kbd "C-M-m") 'eshell-broadcast)
+(add-hook 'eshell-mode-hook
+          '(lambda ()
+             (define-key eshell-mode-map (kbd "C-i") 'helm-esh-pcomplete)
+             (define-key eshell-mode-map (kbd "M-m") 'eshell-back-to-indentation)
+             (define-key eshell-mode-map (kbd "C-M-m") 'eshell-broadcast)))
 
 ;;==============================================================================
 ;;== Options
@@ -26,7 +27,7 @@
 ;;==============================================================================
 
 (add-hook 'eshell-mode-hook (lambda()
-    (company-mode 0)))
+    (auto-complete-mode 0)))
 
 ;;==============================================================================
 ;;== Functions

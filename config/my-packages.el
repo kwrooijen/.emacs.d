@@ -7,9 +7,9 @@
 
 (defvar my-packages '(
     ace-jump-mode
+    auto-complete
     buffer-move
     color-theme-sanityinc-tomorrow
-    company
     dash
     elixir-mode
     elixir-yasnippets
@@ -23,7 +23,6 @@
     hackernews
     haskell-mode
     helm
-    helm-company
     helm-dash
     helm-descbinds
     helm-ls-git
@@ -110,8 +109,8 @@
 
 ;; Modes
 (display-battery-mode t)
-(global-company-mode t)
 (global-git-gutter+-mode t)
+(global-auto-complete-mode)
 (god-mode)
 (ido-mode t)
 (key-chord-mode t)
