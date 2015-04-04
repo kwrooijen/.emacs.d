@@ -341,11 +341,6 @@ makes)."
 (defadvice kmacro-end-or-call-macro-repeat (after kmacro-end-or-call-macro-repeat activate)
   (setq macro-active nil))
 
-(defadvice erc (before erc activate)
-  (setq erc-prompt-for-password nil)
-  (load "~/.erc.gpg")
-  (setq erc-password ercpass))
-
 (defadvice digit-argument (before digit-argument activate)
   (set-mark-command nil)
   (deactivate-mark))
@@ -360,65 +355,6 @@ makes)."
 
 (defadvice gnus (after gnus activate)
   (gnus-demon-init))
-
-(defvar transpose-mark-region-set 'nil "Is Transpose Mark Region set?")
-
-(defun transpose-mark ()
-  (interactive)
-  (if (region-active-p) (transpose-mark-region) (transpose-mark-line)))
-
-(defun transpose-mark-region ()
-  "Transpose the current region with the previously marked region.
-Once you've transposed one the region is reset."
-  (interactive)
-  (if transpose-mark-region-set
-      (let* ((current-region (buffer-substring-no-properties (mark) (point)))
-             (target-start (nth 0 transpose-mark-region-set))
-             (target-end (nth 1 transpose-mark-region-set))
-             (target-region (buffer-substring-no-properties target-start target-end)))
-        (if (> (mark) target-start)
-            (progn
-              (transpose-mark-region-set-current target-region)
-              (transpose-mark-region-set-target target-start target-end current-region))
-          (progn
-            (transpose-mark-region-set-target target-start target-end current-region)
-            (transpose-mark-region-set-current target-region)))
-        (setq transpose-mark-region-set 'nil))
-    (transpose-mark-save-point)))
-
-(defun transpose-mark-line ()
-  "Transpose the current line with the line which the current mark
-is pointing to."
-  (let ((col (current-column)))
-    (save-excursion
-      (beginning-of-line)
-      (kill-line)
-      (pop-to-mark-command)
-      (beginning-of-line)
-      (yank)
-      (kill-line))
-    (yank)
-    (pop-mark)
-    (move-to-column col)))
-
-(defun transpose-mark-region-set-target (target-start target-end current-region)
-  (kill-region target-start target-end)
-  (insert-at-point current-region (min target-start target-end)))
-
-(defun transpose-mark-region-set-current (target-region)
-  (kill-region (mark) (point))
-  (insert target-region))
-
-(defun transpose-mark-save-point ()
-  (setq transpose-mark-region-set (list (mark) (point)))
-  (deactivate-mark nil)
-  (message "Transpose Mark Region set!"))
-
-(defun insert-at-point (string point)
-  "Inserts a string at a given point."
-  (save-excursion
-    (goto-char point)
-    (insert string)))
 
 (defun what-line-int (&optional p)
   "Get the current line number as an int"
@@ -543,18 +479,6 @@ is pointing to."
   (interactive)
   (forward-line 3)
   (recenter))
-
-(defun flowdock ()
-  (interactive)
-  (let* ((email "kevin.vanrooijen@spilgames.com")
-         (password (read-passwd "Flowdock Password: "))
-         (full-password (concat email " " password)))
-    (setq-default erc-ignore-list '("*Flowdock*" "Flowdock" "-Flowdock-"))
-    (setq-default erc-hide-list '("JOIN" "PART" "QUIT"))
-    (erc-ssl :server "irc.flowdock.com"
-             :nick "KevinR"
-             :port 6697
-             :password full-password)))
 
 (defvar bzg-big-fringe-mode nil)
 (define-minor-mode bzg-big-fringe-mode

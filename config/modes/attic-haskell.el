@@ -34,4 +34,4 @@
     (linum-mode 0)
     (previous-buffer))
 
-(provide 'my-haskell)
+(provide 'attic-haskell)

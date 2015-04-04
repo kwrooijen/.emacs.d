@@ -15,12 +15,13 @@
 (require 'my-scripts)
 
 ;; My modes
-(require 'my-erlang)
-(require 'my-haskell)
-(require 'my-elixir)
-(require 'my-rust)
-(require 'my-eshell)
-(require 'my-helm)
+(require 'attic-erlang)
+(require 'attic-haskell)
+(require 'attic-elixir)
+(require 'attic-rust)
+(require 'attic-eshell)
+(require 'attic-helm)
+(require 'attic-erc)
 
 ;; (setq my-extra-music t)
 ;; (setq my-extra-mail t)

@@ -138,10 +138,6 @@
 (global-set-key [f7] 'get-current-buffer-major-mode)
 (global-set-key [f11] 'screenshot-frame)
 
-(defun erc-keys-hook ()
-    (define-key erc-mode-map (kbd "C-M-m") 'erc-send-current-line)
-    (define-key erc-mode-map (kbd "RET") (lambda() (interactive)(message "Use C-M-m to send"))))
-
 (define-key company-active-map (kbd "M-g")
     (lambda() (interactive) (company-abort) (escape-key)))
 (define-key company-active-map (kbd "M-f") 'company-complete-selection)

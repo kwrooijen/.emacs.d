@@ -47,6 +47,7 @@
 ;;==============================================================================
 ;;== Functions
 ;;==============================================================================
+
 (defun execute-rust ()
   (interactive)
   (if (buffer-file-name)
@@ -73,4 +74,4 @@
             (insert result)
             (switch-to-buffer origin))))))
 
-(provide 'my-rust)
+(provide 'attic-rust)

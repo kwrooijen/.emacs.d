@@ -161,12 +161,6 @@ Kevin W. van Rooijen
 
 (setq auto-window-vscroll nil)
 
-;; ERC Mode
-(setq erc-nick "attic")
-(setq erc-prompt-for-password nil)
-(setq erc-ignore-list '("*Flowdock*" "Flowdock" "-Flowdock-"))
-(setq erc-hide-list '("JOIN" "PART" "QUIT"))
-
 ;; Org Mode
 
 ;; Log time
@@ -219,8 +213,7 @@ Kevin W. van Rooijen
     "*Help*"
     "*cvs*"
     "*Buffer List*"
-    "*Ibuffer*"
-))
+    "*Ibuffer*"))
 
 ;; Git gutter
 (setq git-gutter+-unchanged-sign " ")

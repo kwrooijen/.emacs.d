@@ -50,4 +50,4 @@
         (insert (format "c(\"%s\")" current))
         (comint-send-input)))
 
-(provide 'my-elixir)
+(provide 'attic-elixir)

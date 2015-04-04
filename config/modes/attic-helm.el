@@ -165,4 +165,4 @@
         (makunbound 'final-location)
         (makunbound 'current)))
 
-(provide 'my-helm)
+(provide 'attic-helm)

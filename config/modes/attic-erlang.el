@@ -94,4 +94,4 @@
             ll) (append core deps)))))
     ;; (setq inferior-erlang-machine-options '("-pa" "../ebin/" "-pa" "../deps/ranch/ebin/"))
 
-(provide 'my-erlang)
+(provide 'attic-erlang)

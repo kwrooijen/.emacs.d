@@ -96,4 +96,4 @@
       (other-window 1))
     (highlight-changes-mode -1)))
 
-(provide 'my-eshell)
+(provide 'attic-eshell)
