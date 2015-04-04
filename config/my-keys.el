@@ -20,7 +20,7 @@
 ("C-l" helm-register)
 ("C-o" vim-o)
 ("C-q" backward-delete-char)
-("C-z" ido-or-helm)
+("C-z" helm-mini)
 
 ("C-M-q" backward-kill-sexp)
 ("M-y" (lambda() (interactive)
@@ -96,7 +96,8 @@
 ("M-s" (lambda() (interactive) (helm-swoop :$query "")))
 ("M-x" helm-M-x)
 ("M-\\" spawn-eshell)
-("M-," (lambda() (interactive (winner-undo) (deactivate-mark))))))
+("M-," (lambda() (interactive (winner-undo) (deactivate-mark))))
+("s-w" other-frame)))
 
 (defun semi-colon-map-set (a)
   (interactive)
@@ -170,7 +171,7 @@
 
 ;; Dired keys
 (define-key dired-mode-map (kbd "c f")   'helm-ls-git-ls)
-(define-key dired-mode-map (kbd "z")     'ido-switch-buffer)
+(define-key dired-mode-map (kbd "z")     'helm-mini)
 (define-key dired-mode-map (kbd "c s a") 'helm-bookmarks)
 (define-key dired-mode-map (kbd "c s r") 'my/grep)
 (define-key dired-mode-map (kbd "c m")   'magit-status)
@@ -230,10 +231,16 @@
 
 ;; Gnus
 (define-key gnus-summary-mode-map (kbd ";") 'semi-colon-map)
-(define-key gnus-summary-mode-map (kbd "z") 'ido-or-helm)
+(define-key gnus-summary-mode-map (kbd "z") 'helm-mini)
 
 (define-key gnus-group-mode-map (kbd ";") 'semi-colon-map)
-(define-key gnus-group-mode-map (kbd "z") 'ido-or-helm)
+(define-key gnus-group-mode-map (kbd "z") 'helm-mini)
+
+(define-key help-mode-map (kbd ";") 'semi-colon-map)
+(define-key help-mode-map (kbd "z") 'helm-mini)
+
+(define-key grep-mode-map (kbd ";") 'semi-colon-map)
+(define-key grep-mode-map (kbd "z") 'helm-mini)
 
 ;; Modes
 (define-minor-mode attic-minor-mode

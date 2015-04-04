@@ -19,7 +19,12 @@
 (add-hook 'c-initialization-hook 'c-keys-hook)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
 (add-hook 'magit-mode-hook 'clean-hook)
-(add-hook 'shell-mode-hook 'god-local-mode)
+(add-hook 'shell-mode-hook
+          (lambda()
+            (god-local-mode)
+            (company-mode 0)
+            (key-chord-mode 1)))
+
 (add-hook 'doc-view-mode-hook 'clean-hook)
 (add-hook 'w3m-mode-hook 'clean-hook)
 (add-hook 'message-mode-hook (lambda () (interactive) (company-mode 0) (electric-pair-mode 0)))

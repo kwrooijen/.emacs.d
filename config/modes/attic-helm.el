@@ -73,8 +73,7 @@
 (setq helm-autoresize-min-height 30)
 
 
-(setq helm-exit-idle-delay 0.1
-      ;; truncate long lines in helm completion
+(setq ;; truncate long lines in helm completion
       helm-truncate-lines t
       ;; may be overridden if 'ggrep' is in path (see below)
       helm-grep-default-command
