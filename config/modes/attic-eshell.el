@@ -3,8 +3,10 @@
 ;;==============================================================================
 (add-hook 'eshell-mode-hook
           '(lambda ()
+             (define-key eshell-mode-map (kbd "M-p") 'eshell-previous-input)
+             (define-key eshell-mode-map (kbd "M-n") 'eshell-previous-input)
              (define-key eshell-mode-map (kbd "C-i") 'helm-esh-pcomplete)
-             (define-key eshell-mode-map (kbd "M-m") 'eshell-back-to-indentation)
+             (define-key eshell-mode-map (kbd "M-m") 'eshell-bol)
              (define-key eshell-mode-map (kbd "C-M-m") 'eshell-broadcast)))
 
 ;;==============================================================================
@@ -30,6 +32,20 @@
     (auto-complete-mode 0)))
 
 ;;==============================================================================
+;;== Advice
+;;==============================================================================
+
+;; Not sure how eshell-bol is defined, but I think my custom prompt breaks it.
+(defadvice eshell-bol (after eshell-bol activate)
+  ;; Use a counter with a limit so we don't
+  ;; continue infinitely in case of an error.
+  (let ((count 0))
+    (while (and (< count 50) (not (equal (string(char-after (point))) "λ")))
+      (setq count (+ count 1))
+      (forward-char))
+    (forward-char 2)))
+
+;;==============================================================================
 ;;== Functions
 ;;==============================================================================
 
@@ -38,14 +54,6 @@
     (interactive "sbuffer name: ")
     (eshell)
     (rename-buffer (format "%s%s" "$" buffer-name) t))
-
-(defun eshell-back-to-indentation ()
- (interactive)
- (eshell-bol)
- (while (and
-    (char-after (point))
-    (equal (string (char-after (point))) " "))
-    (forward-char 1)))
 
 (defun spawn-eshell ()
   (interactive)

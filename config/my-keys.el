@@ -16,7 +16,6 @@
 ("C-/" my-comment)
 ("C-=" repeat)
 ("C-j" iy-go-to-char)
-("C-h" ace-jump-mode)
 ("C-l" helm-register)
 ("C-o" vim-o)
 ("C-q" backward-delete-char)
@@ -204,6 +203,7 @@
 
 ;; God mode
 (define-key god-local-mode-map (kbd "g") 'goto-line)
+(define-key god-local-mode-map (kbd "h") 'ace-jump-mode)
 (define-key god-local-mode-map (kbd "i") 'god-mode-disable)
 (define-key god-local-mode-map (kbd "[") 'scroll-down-line)
 (define-key god-local-mode-map (kbd "]") 'scroll-up-line)
@@ -240,6 +240,9 @@
 
 (define-key grep-mode-map (kbd ";") 'semi-colon-map)
 (define-key grep-mode-map (kbd "z") 'helm-mini)
+
+(define-key doc-view-mode-map (kbd ";") 'semi-colon-map)
+(define-key doc-view-mode-map (kbd "z") 'helm-mini)
 
 ;; Modes
 (define-minor-mode attic-minor-mode
