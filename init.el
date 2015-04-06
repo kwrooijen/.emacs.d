@@ -8,6 +8,7 @@
 (require 'my-powerline)
 (require 'my-colors)
 (require 'my-functions)
+(require 'my-advice)
 (require 'my-keys)
 (require 'my-hydra)
 (require 'my-options)

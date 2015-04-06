@@ -29,6 +29,8 @@
                   (flymake-erlang-init)
                   (flymake-mode 1)))
             (rainbow-delimiters-mode)
+            (if window-system (nlinum-mode))
+            (if window-system (hl-line-mode 1))
             (setq inferior-erlang-machine-options '("-sname" "emacs"))
             (highlight-symbol-mode t)
             (key-chord-force)

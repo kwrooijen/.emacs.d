@@ -46,8 +46,9 @@
 ("C-x C-/" comment-or-uncomment-region)
 ("C-x C-0" sticky-window-delete-window)
 ("C-x   0" sticky-window-delete-window)
-("C-x C-1" sticky-window-delete-other-windows-focus)
-("C-x   1" sticky-window-delete-other-windows-focus)
+("C-x C-1" delete-other-windows)
+;; ("C-x C-1" sticky-window-delete-other-windows-focus)
+;; ("C-x   1" sticky-window-delete-other-windows-focus)
 ("C-x C-2" split-window-below)
 ("C-x C-3" split-window-right)
 ("C-x C-f" helm-find-files)
@@ -96,6 +97,15 @@
 ("M-x" helm-M-x)
 ("M-\\" spawn-eshell)
 ("M-," (lambda() (interactive (winner-undo) (deactivate-mark))))
+("M-0" (lambda()
+         (interactive)
+         (setq sauron-active (not (get-buffer-window "*Sauron*")))
+         (sauron-toggle-hide-show)))
+
+("M-9" (lambda()
+         (interactive)
+         (setq neotree-active (not (get-buffer-window " *NeoTree*")))
+         (neotree-toggle)))
 ("s-w" other-frame)))
 
 (defun semi-colon-map-set (a)
@@ -115,6 +125,7 @@
 ("w" clipboard-kill-region)
 ("e" eww)
 ("b" eww-list-bookmarks)
+("h" select-line-from-indentation)
 ("1" escreen-goto-screen-1)
 ("2" escreen-goto-screen-2)
 ("3" escreen-goto-screen-3)
@@ -243,6 +254,11 @@
 
 (define-key doc-view-mode-map (kbd ";") 'semi-colon-map)
 (define-key doc-view-mode-map (kbd "z") 'helm-mini)
+
+(define-key emacs-lisp-mode-map (kbd "M-p") 'highlight-symbol-prev)
+(define-key emacs-lisp-mode-map (kbd "M-n") 'highlight-symbol-next)
+
+(define-key neotree-mode-map (kbd "RET") 'neotree-enter)
 
 ;; Modes
 (define-minor-mode attic-minor-mode

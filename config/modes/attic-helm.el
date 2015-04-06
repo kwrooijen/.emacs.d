@@ -49,7 +49,7 @@
 (setq helm-swoop-split-with-multiple-windows t)
 
 ;; Show relative path
-(setq helm-ls-git-show-abs-or-relative 'relative)
+(setq helm-ls-git-ls-show-abs-or-relative 'relative)
 
 ;; Don't show colors in Tramp mode
 (setq helm-ff-tramp-not-fancy t)
@@ -116,23 +116,46 @@
 ;;==============================================================================
 
 (defadvice helm-register (before helm-register activate)
-    (setq helm-register-active t))
+  (setq helm-register-active t))
 
 (defadvice helm-register (after helm-register activate)
-    (makunbound 'helm-register-active))
+  (makunbound 'helm-register-active))
 
 (defadvice helm-swoop (before helm-swoop activate)
-    (set-mark-command nil)
-    (deactivate-mark)
-    (setq helm-swoop-active t))
+  (set-mark-command nil)
+  (deactivate-mark)
+  (setq helm-swoop-active t))
 
 (defadvice helm-swoop (after helm-swoop activate)
-    (makunbound 'helm-swoop-active))
+  (makunbound 'helm-swoop-active))
+
+(defadvice helm-ls-git-ls (before helm-ls-git-ls activate)
+  (if neotree-active
+      (set-neo-root-project)))
+
+(defadvice helm-find-files (before helm-find-files activate)
+  (if neotree-active
+      (set-neo-root-project)))
+
+(defadvice helm-find-files (after helm-find-files activate)
+  (if neotree-active
+      (set-neo-root-project)))
+
+(defadvice helm-ls-git-ls (before helm-ls-git-ls activate)
+  (if neotree-active
+      (set-neo-root-project)))
+
+(defadvice helm-ls-git-ls (after helm-ls-git-ls activate)
+  (if neotree-active
+      (set-neo-root-project)))
+
+(defadvice helm-mini (after helm-mini activate)
+  (if neotree-active
+      (set-neo-root-project)))
 
 ;;==============================================================================
 ;;== Functions
 ;;==============================================================================
-
 
 (defun helm-swoop-emms ()
     (interactive)

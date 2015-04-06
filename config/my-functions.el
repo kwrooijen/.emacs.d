@@ -335,27 +335,6 @@ makes)."
     (capitalize-word 1)
     (goto-char old-point)))
 
-(defadvice kmacro-start-macro (before kmacro-start-macro activate)
-  (setq macro-active t))
-
-(defadvice kmacro-end-or-call-macro-repeat (after kmacro-end-or-call-macro-repeat activate)
-  (setq macro-active nil))
-
-(defadvice digit-argument (before digit-argument activate)
-  (set-mark-command nil)
-  (deactivate-mark))
-
-(defadvice forward-list (before forward-list activate)
-  (set-mark-command nil)
-  (deactivate-mark))
-
-(defadvice backward-list (before backward-list activate)
-  (set-mark-command nil)
-  (deactivate-mark))
-
-(defadvice gnus (after gnus activate)
-  (gnus-demon-init))
-
 (defun what-line-int (&optional p)
   "Get the current line number as an int"
   (interactive)
@@ -514,5 +493,35 @@ makes)."
   (interactive)
   (setq-local split-width-threshold 2000)
   (setq-local split-height-threshold 2000))
+
+(defun select-line-from-indentation ()
+  (interactive)
+  (back-to-indentation)
+  (set-mark (point))
+  (activate-mark)
+  (move-end-of-line 1))
+
+(defun previous-window ()
+  (interactive)
+  (let ((previous-buffer (other-buffer (current-buffer) t)))
+    (select-window (get-buffer-window previous-buffer))))
+
+(defface neotree-overlay-face
+  '((t :background "#696969"))
+  "" :group 'neotree)
+
+(setq neotree-overlay nil)
+
+(defun set-neo-root-project ()
+  (interactive)
+  (let ((previous-window (window-numbering-get-number)))
+    (unless (equal (buffer-name) " *NeoTree*")
+      (neotree-dir (or (magit-get-top-dir) default-directory))
+      (select-window-by-number previous-window)
+      (neotree-find)
+      (if neotree-overlay (delete-overlay neotree-overlay))
+      (setq neotree-overlay (make-overlay (point) (progn (end-of-line) (point))))
+      (overlay-put neotree-overlay 'face 'neotree-overlay-face)
+      (select-window-by-number previous-window))))
 
 (provide 'my-functions)

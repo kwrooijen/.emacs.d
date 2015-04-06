@@ -2,7 +2,7 @@
 (defun clean-hook ()
   (interactive)
   (key-chord-mode 0)
-  (linum-mode 0))
+  (nlinum-mode 0))
 
 (defun key-chord-force ()
   (key-chord-mode 1)
@@ -16,6 +16,8 @@
   (setq-local tab-width x))
 
 (add-hook 'sauron-mode-hook 'no-split)
+(sauron-start-hidden)
+
 (add-hook 'c-initialization-hook 'c-keys-hook)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
 (add-hook 'magit-mode-hook 'clean-hook)
@@ -34,10 +36,17 @@
 
 (add-hook 'ruby-mode-hook (lambda ()
     (rainbow-delimiters-mode)
+    (if window-system (nlinum-mode))
+    (if window-system (hl-line-mode 1))
+    (highlight-symbol-mode 1)
     (setq-local helm-dash-docsets '("Ruby"))))
 
 (add-hook 'emacs-lisp-mode-hook (lambda ()
     (rainbow-delimiters-mode)
+    (if window-system (nlinum-mode))
+    (if window-system (hl-line-mode 1))
+    (highlight-symbol-mode 1)
+    (electric-pair-mode 1)
     (setq-local helm-dash-docsets '("Emacs Lisp"))))
 
 (add-hook 'org-mode-hook (lambda ()

@@ -77,9 +77,12 @@
     (key-chord-force)
     (elixir-keys-hook)
     (fix-tabs 2)
+    (if window-system (nlinum-mode))
+    (if window-system (hl-line-mode 1))
     (setq tab-stop-list tab-stop-list-2)
     (setq-local doom-indent-fallback t)
     (setq-local doom-use-tab-cycle nil)
+    (highlight-symbol-mode 1)
     (setq-local helm-dash-docsets '("Elixir"))))
 
 ;;==============================================================================

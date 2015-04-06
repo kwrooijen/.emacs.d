@@ -40,6 +40,8 @@
 
 (add-hook 'rust-mode-hook (lambda ()
     (rainbow-delimiters-mode)
+    (if window-system (nlinum-mode))
+    (if window-system (hl-line-mode 1))
     (setq-local tab-width 4)
     (rust-keys-hook)
     (setq-local helm-dash-docsets '("Rust"))))

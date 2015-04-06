@@ -19,6 +19,7 @@
     expand-region
     gh
     git-gutter+
+    git-gutter-fringe+
     god-mode
     hackernews
     haskell-mode
@@ -35,13 +36,14 @@
     magit
     magit-gh-pulls
     multiple-cursors
+    neotree
+    nlinum
     racket-mode
     rainbow-delimiters
     redo+
     s
     sauron
     twittering-mode
-    underwater-theme
     w3m
     web-mode
     window-numbering
@@ -89,7 +91,6 @@
 (require 'escreen)
 (require 'fbterm)
 (require 'flymake)
-(require 'git-gutter+)
 (require 'gnus-notify)
 (require 'god-mode)
 (require 'helm)
@@ -106,6 +107,13 @@
 (require 'sticky-windows)
 (require 'tempo)
 (require 'web-mode)
+(require 'linum)
+(require 'highlight-symbol)
+(require 'neotree)
+
+(if window-system
+    (require 'git-gutter-fringe+)
+    (require 'git-gutter+))
 
 ;; Modes
 (display-battery-mode t)
@@ -121,6 +129,9 @@
 (wrap-region-global-mode t)
 (yas-global-mode t)
 (electric-pair-mode t)
+(hl-line-mode t)
 
+(setq sauron-active nil)
+(setq neotree-active nil)
 (provide 'my-packages)
 

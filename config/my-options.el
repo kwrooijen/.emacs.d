@@ -6,7 +6,7 @@
 
 ;; Font for X
 (setq default-frame-alist '(
-    (font . "Fira Mono OT-12:weight=bold")
+    (font . "Fira Mono OT-11:weight=bold")
     (vertical-scroll-bars . nil)
     (line-spacing . 0)))
 
@@ -69,10 +69,8 @@ Kevin W. van Rooijen
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
 
 ;; Always display 2 columns in linum mode (no stuttering)
-(setq linum-format (quote "%3d "))
-
-;; Disable Fringe
-(set-fringe-mode 0)
+(setq linum-format (quote "%3d"))
+(setq nlinum-format (quote "%3d"))
 
 ;; Allow upcase-region and downcase-region functions
 (put 'upcase-region 'disabled nil)
@@ -244,6 +242,10 @@ Kevin W. van Rooijen
 
 ;; Magit
 (setq magit-last-seen-setup-instructions "1.4.0")
+
+;; Neotree
+(setq neo-theme 'ascii)
+(setq neo-window-width 30)
 
 ;; God modes
 (add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
