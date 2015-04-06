@@ -44,6 +44,7 @@
     redo+
     s
     sauron
+    top-mode
     twittering-mode
     w3m
     web-mode

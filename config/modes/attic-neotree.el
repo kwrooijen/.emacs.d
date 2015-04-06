@@ -29,6 +29,8 @@
         sauron-mode
         help-mode
         eww-mode
+        doc-view-mode
+        top-mode-mode
         shell-mode))
 
 ;;==============================================================================

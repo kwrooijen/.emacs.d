@@ -253,6 +253,9 @@
 (define-key doc-view-mode-map (kbd ";") 'semi-colon-map)
 (define-key doc-view-mode-map (kbd "z") 'helm-mini)
 
+(define-key top-mode-map (kbd ";") 'semi-colon-map)
+(define-key top-mode-map (kbd "z") 'helm-mini)
+
 (define-key emacs-lisp-mode-map (kbd "M-p") 'highlight-symbol-prev)
 (define-key emacs-lisp-mode-map (kbd "M-n") 'highlight-symbol-next)
 
