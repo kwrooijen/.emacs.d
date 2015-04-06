@@ -259,6 +259,9 @@
 (define-key emacs-lisp-mode-map (kbd "M-n") 'highlight-symbol-next)
 
 (define-key neotree-mode-map (kbd "RET") 'neotree-enter)
+(define-key neotree-mode-map (kbd "c s a") 'helm-bookmarks)
+(define-key neotree-mode-map (kbd "z") 'helm-mini)
+(define-key neotree-mode-map (kbd ";") 'semi-colon-map)
 
 ;; Modes
 (define-minor-mode attic-minor-mode
