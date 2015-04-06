@@ -39,7 +39,12 @@
         help-mode
         eww-mode
         doc-view-mode
-        top-mode-mode
+        top-mode
+        Custom-mode
+        message-mode
+        gnus-group-mode
+        gnus-summary-mode
+        twittering-mode
         shell-mode))
 
 ;;==============================================================================
