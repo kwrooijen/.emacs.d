@@ -1,0 +1,3 @@
+#name : call
+# --
+GenServer.call(__MODULE__, $0)

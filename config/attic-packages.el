@@ -46,6 +46,7 @@
     s
     sauron
     top-mode
+    transpose-mark
     twittering-mode
     w3m
     web-mode

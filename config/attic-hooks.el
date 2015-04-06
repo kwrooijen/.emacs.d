@@ -37,7 +37,7 @@
 
 (add-hook 'doc-view-mode-hook 'clean-hook)
 (add-hook 'w3m-mode-hook 'clean-hook)
-(add-hook 'message-mode-hook (lambda () (electric-pair-mode 0)))
+(add-hook 'message-mode-hook (lambda () (key-chord-force) (electric-pair-mode 0)))
 
 (add-hook 'isearch-mode-hook (lambda()
     (key-chord-mode 1)))

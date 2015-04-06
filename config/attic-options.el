@@ -249,6 +249,7 @@ Kevin W. van Rooijen
 (add-to-list 'god-exempt-major-modes 'grep-mode)
 (add-to-list 'god-exempt-major-modes 'doc-view-mode)
 (add-to-list 'god-exempt-major-modes 'top-mode)
+(add-to-list 'god-exempt-major-modes 'dired-mode)
 
 ;; Electric pair
 (setq electric-pair-pairs
