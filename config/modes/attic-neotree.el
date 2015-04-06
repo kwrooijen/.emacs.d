@@ -1,4 +1,13 @@
 ;;==============================================================================
+;;== Notes
+;;==============================================================================
+
+;; For this module to work properly you need to have the package window-numbering
+;; installed and activated. neotree tries to take focus when toggling / changing
+;; directory and I use the window-numbering package to return to the previous
+;; window.
+
+;;==============================================================================
 ;;== Keys
 ;;==============================================================================
 
@@ -108,7 +117,9 @@
 (defun attic-neotree-toggle ()
   (interactive)
   (setq neotree-active (not (get-buffer-window " *NeoTree*")))
-  (neotree-toggle))
+  (let ((previous-window (window-numbering-get-number)))
+    (neotree-toggle)
+    (if neotree-active (select-window-by-number (+ 1 previous-window)))))
 
 (provide 'attic-neotree)
 
