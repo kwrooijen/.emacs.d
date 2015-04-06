@@ -84,9 +84,10 @@
 (defun attic-neotree-toggle ()
   (interactive)
   (setq neotree-active (not (get-buffer-window " *NeoTree*")))
-  (let ((previous-window (window-numbering-get-number)))
-    (neotree-toggle)
-    (if neotree-active (select-window-by-number (+ 1 previous-window)))))
+  (neotree-toggle)
+  (if neotree-active
+      (let ((previous-window (window-numbering-get-number)))
+        (select-window-by-number (+ 1 previous-window))
+        (set-neo-root-project))))
 
 (provide 'attic-neotree)
-

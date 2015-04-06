@@ -197,6 +197,10 @@ Kevin W. van Rooijen
 (setq sauron-hide-mode-line t)
 (setq sauron-separate-frame nil)
 (setq sauron-max-line-length (- (window-total-width) 10))
+
+;; Made up variable
+(setq sauron-max-line-height 4)
+
 ;; Buffers to be ignored by Winner
 (setq winner-boring-buffers '(
     "*Completions*"

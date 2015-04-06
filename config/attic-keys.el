@@ -97,11 +97,7 @@
 ("M-x" helm-M-x)
 ("M-\\" spawn-eshell)
 ("M-," (lambda() (interactive (winner-undo) (deactivate-mark))))
-("M-0" (lambda()
-         (interactive)
-         (setq sauron-active (not (get-buffer-window "*Sauron*")))
-         (sauron-toggle-hide-show)))
-
+("M-0" attic-sauron-toggle)
 ("M-9" attic-neotree-toggle)
 ("s-w" other-frame)))
 

@@ -501,9 +501,14 @@ makes)."
   (activate-mark)
   (move-end-of-line 1))
 
-(defun previous-window ()
+(defun attic-sauron-toggle ()
   (interactive)
-  (let ((previous-buffer (other-buffer (current-buffer) t)))
-    (select-window (get-buffer-window previous-buffer))))
+  (setq sauron-active (not (get-buffer-window "*Sauron*")))
+  (sauron-toggle-hide-show)
+  (if sauron-active
+      (let ((previous-window (window-numbering-get-number)))
+        (switch-to-buffer-other-window "*Sauron*")
+        (set-window-height sauron-max-line-height)
+        (select-window-by-number previous-window))))
 
 (provide 'attic-functions)
