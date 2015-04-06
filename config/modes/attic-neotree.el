@@ -45,6 +45,7 @@
         gnus-group-mode
         gnus-summary-mode
         twittering-mode
+        alchemist-iex-mode
         shell-mode))
 
 ;;==============================================================================
@@ -57,11 +58,18 @@
 (neotree-root-hook select-window-3)
 (neotree-root-hook select-window-4)
 (neotree-root-hook select-window-5)
+(neotree-root-hook select-window-6)
+(neotree-root-hook select-window-7)
+(neotree-root-hook select-window-8)
+(neotree-root-hook select-window-9)
+(neotree-root-hook select-window-0)
 (neotree-root-hook magit-visit-item)
 (neotree-root-hook neotree-enter)
 (neotree-root-hook helm-find-files)
 (neotree-root-hook helm-ls-git-ls)
 (neotree-root-hook helm-mini)
+(neotree-root-hook kill-this-buffer)
+(neotree-root-hook ido-kill-buffer)
 
 ;;==============================================================================
 ;;== Functions

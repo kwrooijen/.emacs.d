@@ -27,6 +27,8 @@
   ;; Alchemist uses non Control keys in its key combinations, e.g. C-c a h h.
   ;; This is fine but when using God mode, it's a pain. So let's
   ;; redefine them with Control keys.
+  (define-key elixir-mode-map (kbd "C-c C-a C-a")         'alchemist-mix-compile)
+
   (define-key elixir-mode-map (kbd "C-c C-a C-c C-b")     'alchemist-compile-this-buffer) 
   (define-key elixir-mode-map (kbd "C-c C-a C-c C-c")     'alchemist-compile) 
   (define-key elixir-mode-map (kbd "C-c C-a C-c C-f")     'alchemist-compile-file) 
