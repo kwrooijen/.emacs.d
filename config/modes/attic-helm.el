@@ -129,29 +129,6 @@
 (defadvice helm-swoop (after helm-swoop activate)
   (makunbound 'helm-swoop-active))
 
-(defadvice helm-ls-git-ls (before helm-ls-git-ls activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice helm-find-files (before helm-find-files activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice helm-find-files (after helm-find-files activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice helm-ls-git-ls (before helm-ls-git-ls activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice helm-ls-git-ls (after helm-ls-git-ls activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice helm-mini (after helm-mini activate)
-  (if neotree-active
-      (set-neo-root-project)))
 
 ;;==============================================================================
 ;;== Functions

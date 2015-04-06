@@ -243,10 +243,6 @@ Kevin W. van Rooijen
 ;; Magit
 (setq magit-last-seen-setup-instructions "1.4.0")
 
-;; Neotree
-(setq neo-theme 'ascii)
-(setq neo-window-width 30)
-
 ;; God modes
 (add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
 (add-to-list 'god-exempt-major-modes 'gnus-group-mode)
@@ -258,13 +254,6 @@ Kevin W. van Rooijen
 (setq electric-pair-pairs
       '((?\" . ?\")
         (?\{ . ?\})))
-
-(setq neotree-ignore-list
-      '(erc-mode
-        sauron-mode
-        help-mode
-        eww-mode
-        shell-mode))
 
 (provide 'my-options)
 

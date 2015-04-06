@@ -506,23 +506,4 @@ makes)."
   (let ((previous-buffer (other-buffer (current-buffer) t)))
     (select-window (get-buffer-window previous-buffer))))
 
-(defface neotree-overlay-face
-  '((t :background "#696969"))
-  "" :group 'neotree)
-
-(setq neotree-overlay nil)
-
-(defun set-neo-root-project ()
-  (interactive)
-  (unless (member major-mode neotree-ignore-list)
-    (let ((previous-window (window-numbering-get-number)))
-      (unless (equal (buffer-name) " *NeoTree*")
-        (neotree-dir (or (magit-get-top-dir) default-directory))
-        (select-window-by-number previous-window)
-        (neotree-find)
-        (if neotree-overlay (delete-overlay neotree-overlay))
-        (setq neotree-overlay (make-overlay (point) (progn (end-of-line) (point))))
-        (overlay-put neotree-overlay 'face 'neotree-overlay-face)
-        (select-window-by-number previous-window)))))
-
 (provide 'my-functions)

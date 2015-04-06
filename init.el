@@ -23,6 +23,7 @@
 (require 'attic-eshell)
 (require 'attic-helm)
 (require 'attic-erc)
+(require 'attic-neotree)
 
 ;; (setq my-extra-music t)
 ;; (setq my-extra-mail t)

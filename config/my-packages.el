@@ -133,6 +133,5 @@
 (hl-line-mode t)
 
 (setq sauron-active nil)
-(setq neotree-active nil)
 (provide 'my-packages)
 

@@ -102,10 +102,7 @@
          (setq sauron-active (not (get-buffer-window "*Sauron*")))
          (sauron-toggle-hide-show)))
 
-("M-9" (lambda()
-         (interactive)
-         (setq neotree-active (not (get-buffer-window " *NeoTree*")))
-         (neotree-toggle)))
+("M-9" attic-neotree-toggle)
 ("s-w" other-frame)))
 
 (defun semi-colon-map-set (a)
@@ -147,6 +144,7 @@
 (global-set-key [f4] 'send-to-pastie)
 (global-set-key [f6] 'describe-mode)
 (global-set-key [f7] 'get-current-buffer-major-mode)
+(global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
 (global-set-key [f11] 'screenshot-frame)
 
 (define-key ac-complete-mode-map (kbd "M-g")
@@ -257,11 +255,6 @@
 
 (define-key emacs-lisp-mode-map (kbd "M-p") 'highlight-symbol-prev)
 (define-key emacs-lisp-mode-map (kbd "M-n") 'highlight-symbol-next)
-
-(define-key neotree-mode-map (kbd "RET") 'neotree-enter)
-(define-key neotree-mode-map (kbd "c s a") 'helm-bookmarks)
-(define-key neotree-mode-map (kbd "z") 'helm-mini)
-(define-key neotree-mode-map (kbd ";") 'semi-colon-map)
 
 ;; Modes
 (define-minor-mode attic-minor-mode
