@@ -7,6 +7,7 @@
 
 (defvar my-packages '(
     ace-jump-mode
+    alchemist
     auto-complete
     buffer-move
     color-theme-sanityinc-tomorrow

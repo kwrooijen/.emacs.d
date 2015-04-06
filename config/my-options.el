@@ -259,5 +259,12 @@ Kevin W. van Rooijen
       '((?\" . ?\")
         (?\{ . ?\})))
 
+(setq neotree-ignore-list
+      '(erc-mode
+        sauron-mode
+        help-mode
+        eww-mode
+        shell-mode))
+
 (provide 'my-options)
 
