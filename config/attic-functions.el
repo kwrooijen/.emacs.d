@@ -161,7 +161,6 @@ buffer is not visiting a file."
         ad-do-it
       (fset 'one-window-p (symbol-function 'orig-one-window-p)))))
 
-;; Vim's o key
 (defun vim-o (&optional up)
   (interactive)
   (if up
@@ -175,21 +174,6 @@ buffer is not visiting a file."
       (indent-of-doom)
     (indent-for-tab-command))
   (god-mode-disable))
-
-(defun command-repeater (list)
-  (interactive)
-  (setq char (string (read-event)))
-  (setq repeater-command (cdr (assoc char list)))
-  (if (or (not (boundp 'repeated-char)) (equal char repeated-char))
-      (progn
-        (if repeater-command
-            (funcall repeater-command)
-          (keyboard-quit))
-        (setq repeated-char char)
-        (command-repeater list))
-    (progn
-      (makunbound 'repeated-char)
-      (call-interactively (key-binding (kbd char))))))
 
 (defun default-directory-full ()
   (if (equal (substring default-directory 0 1) "~")
@@ -353,13 +337,6 @@ makes)."
   (point-to-register reg-num)
   (message nil))
 
-(defun screenshot-frame ()
-  (interactive)
-  (shell-command-to-string
-   (concat "sleep 1; "
-           "import -window 0x2a00003 "
-           "-crop 958x523+0+0 +repage /tmp/frames/`date +%s`.png")))
-
 (defun camelcase-region (start end)
   "Changes region from snake_case to camelCase"
   (interactive "r")
@@ -432,21 +409,6 @@ makes)."
   (select-window-by-number 2)
   (doc-view-fit-width-to-window))
 
-(defun window-setup ()
-  (interactive)
-  (delete-other-windows)
-  (sticky-window-keep-window-visible-frame)
-  (split-window-horizontally)
-  (other-window 1)
-  (split-window-vertically)
-  (sticky-window-keep-window-visible-frame)
-  (other-window 1)
-  (set-window-height 8)
-  (set-window-width 80)
-  (select-window-3)
-  (twit)
-  (sticky-window-keep-window-visible))
-
 (defun cm-fast-step-upward ()
   "Step 3 lines up, recenteres the screen."
   (interactive)
@@ -458,30 +420,6 @@ makes)."
   (interactive)
   (forward-line 3)
   (recenter))
-
-(defvar bzg-big-fringe-mode nil)
-(define-minor-mode bzg-big-fringe-mode
-  "Minor mode to use big fringe in the current buffer."
-  :init-value nil
-  :global nil
-  :variable bzg-big-fringe-mode
-  :group 'editing-basics
-  (if (not bzg-big-fringe-mode)
-      (set-fringe-style nil)
-    (set-fringe-mode
-     (/ (- (frame-pixel-width)
-           (* 100 (frame-char-width)))
-        2))))
-
-(defun ddg (input)
-  (interactive "sDuckDuckGo Seach: ")
-  (let ((ddg-base "www.duckduckgo.com/html/?q=")
-        (input (replace-regexp-in-string "\s" "+" input)))
-    (eww (format "%s%s" ddg-base input))))
-
-(defun ido-or-helm ()
-  (interactive)
-  (if (is-tramp-mode) (ido-switch-buffer) (helm-mini)))
 
 (defun toggle-modeline ()
   (interactive)
