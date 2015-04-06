@@ -20,6 +20,6 @@
   (gnus-demon-init))
 
 (defadvice delete-other-windows (after delete-other-windows activate)
-  (if sauron-active (sauron-toggle-hide-show)))
+  (if sauron-active (attic-sauron-toggle)))
 
 (provide 'attic-advice)
