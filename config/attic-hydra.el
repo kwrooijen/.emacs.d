@@ -21,8 +21,8 @@
                                "`" "~")))
 
 ;; Special cases
-(defhydra godly-g (god-local-mode-map "g") ("g" goto-line))
-(defhydra godly-G (god-local-mode-map "g") ("G" goto-line))
+(defhydra hydra-god-repeater-g (god-local-mode-map "g") ("g" goto-line))
+(defhydra hydra-god-repeater-G (god-local-mode-map "g") ("G" goto-line))
 
 (defhydra buffer-move (semi-colon-map "m")
   "buffer-move"
