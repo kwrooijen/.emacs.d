@@ -8,6 +8,15 @@
 ;; window.
 
 ;;==============================================================================
+;;== Macros
+;;==============================================================================
+
+(defmacro neotree-root-hook (function-name)
+  `(defadvice ,function-name (after ,function-name activate)
+    (if neotree-active
+        (set-neo-root-project))))
+
+;;==============================================================================
 ;;== Keys
 ;;==============================================================================
 
@@ -37,61 +46,17 @@
 ;;== Advice
 ;;==============================================================================
 
-(defadvice dired-find-file (after dired-find-file activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice select-window-1 (after select-window-1 activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice select-window-2 (after select-window-2 activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice select-window-3 (after select-window-3 activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice select-window-4 (after select-window-4 activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice select-window-5 (after select-window-5 activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice magit-visit-item (after magit-visit-item activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice neotree-enter (after neotree-enter activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice helm-ls-git-ls (before helm-ls-git-ls activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice helm-find-files (before helm-find-files activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice helm-find-files (after helm-find-files activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice helm-ls-git-ls (before helm-ls-git-ls activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice helm-ls-git-ls (after helm-ls-git-ls activate)
-  (if neotree-active
-      (set-neo-root-project)))
-
-(defadvice helm-mini (after helm-mini activate)
-  (if neotree-active
-      (set-neo-root-project)))
+(neotree-root-hook dired-find-file)
+(neotree-root-hook select-window-1)
+(neotree-root-hook select-window-2)
+(neotree-root-hook select-window-3)
+(neotree-root-hook select-window-4)
+(neotree-root-hook select-window-5)
+(neotree-root-hook magit-visit-item)
+(neotree-root-hook neotree-enter)
+(neotree-root-hook helm-find-files)
+(neotree-root-hook helm-ls-git-ls)
+(neotree-root-hook helm-mini)
 
 ;;==============================================================================
 ;;== Functions

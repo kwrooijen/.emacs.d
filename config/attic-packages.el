@@ -113,6 +113,7 @@
 (require 'highlight-symbol)
 (require 'neotree)
 (require 'twittering-mode)
+(require 'top-mode)
 
 (if window-system
     (require 'git-gutter-fringe+)
