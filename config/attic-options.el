@@ -118,9 +118,6 @@ Kevin W. van Rooijen
 ;; Let C-v M-v brings back where you were.
 (setq scroll-preserve-screen-position t)
 
-;; Don't use deep indent in Ruby
-(setq ruby-deep-indent-paren nil)
-
 ;; Highlight delay for multiple occurences
 (setq highlight-symbol-idle-delay 0)
 
@@ -240,12 +237,6 @@ Kevin W. van Rooijen
 ;; Ido
 (setq ido-enable-flex-matching t)
 (setq ido-separator " | ")
-
-;; Auto Complete
-(setq ac-auto-show-menu 0)
-
-;; Company Mode
-(setq company-idle-delay 0)
 
 ;; Magit
 (setq magit-last-seen-setup-instructions "1.4.0")

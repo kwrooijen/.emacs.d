@@ -38,14 +38,12 @@
 ;;== Hook
 ;;==============================================================================
 
-(add-hook 'rust-mode-hook (lambda ()
-    (rainbow-delimiters-mode)
-    (if window-system (nlinum-mode))
-    (if window-system (hl-line-mode 1))
-    (setq-local tab-width 4)
-    (rust-keys-hook)
-    (auto-complete-mode)
-    (setq-local helm-dash-docsets '("Rust"))))
+(add-hook 'rust-mode-hook
+          (lambda ()
+            (default-language-settings)
+            (setq-local tab-width 4)
+            (rust-keys-hook)
+            (setq-local helm-dash-docsets '("Rust"))))
 
 ;;==============================================================================
 ;;== Functions

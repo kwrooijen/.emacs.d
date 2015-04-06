@@ -15,6 +15,15 @@
   (indent-of-doom-mode t)
   (setq-local tab-width x))
 
+(defun default-language-settings ()
+  (key-chord-mode 1)
+  (rainbow-delimiters-mode)
+  (if window-system (nlinum-mode))
+  (if window-system (hl-line-mode 1))
+  (highlight-symbol-mode 1)
+  (electric-pair-mode 1)
+  (auto-complete-mode))
+
 (add-hook 'sauron-mode-hook 'no-split)
 (sauron-start-hidden)
 
@@ -24,32 +33,14 @@
 (add-hook 'shell-mode-hook
           (lambda()
             (god-local-mode)
-            (auto-complete-mode 0)
             (key-chord-mode 1)))
 
 (add-hook 'doc-view-mode-hook 'clean-hook)
 (add-hook 'w3m-mode-hook 'clean-hook)
-(add-hook 'message-mode-hook (lambda () (interactive) (auto-complete-mode 0) (electric-pair-mode 0)))
+(add-hook 'message-mode-hook (lambda () (electric-pair-mode 0)))
 
 (add-hook 'isearch-mode-hook (lambda()
     (key-chord-mode 1)))
-
-(add-hook 'ruby-mode-hook (lambda ()
-    (rainbow-delimiters-mode)
-    (if window-system (nlinum-mode))
-    (if window-system (hl-line-mode 1))
-    (highlight-symbol-mode 1)
-    (auto-complete-mode)
-    (setq-local helm-dash-docsets '("Ruby"))))
-
-(add-hook 'emacs-lisp-mode-hook (lambda ()
-    (rainbow-delimiters-mode)
-    (if window-system (nlinum-mode))
-    (if window-system (hl-line-mode 1))
-    (highlight-symbol-mode 1)
-    (electric-pair-mode 1)
-    (auto-complete-mode)
-    (setq-local helm-dash-docsets '("Emacs Lisp"))))
 
 (add-hook 'org-mode-hook (lambda ()
     (org-keys-hook)))

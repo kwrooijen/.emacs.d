@@ -28,20 +28,14 @@
                 (progn
                   (flymake-erlang-init)
                   (flymake-mode 1)))
-            (rainbow-delimiters-mode)
-            (if window-system (nlinum-mode))
-            (if window-system (hl-line-mode 1))
+            (default-language-settings)
             (setq inferior-erlang-machine-options '("-sname" "emacs"))
-            (highlight-symbol-mode t)
-            (key-chord-force)
             (fix-tabs 4)
             (setq-local doom-indent-fallback t)
             (setq-local doom-use-tab-cycle nil)
             (rebar-mode 1)
             (setq-local helm-dash-docsets '("Erlang"))
-            (auto-complete-mode)
             (subword-mode t)))
-
 
 ;;==============================================================================
 ;;== Functions

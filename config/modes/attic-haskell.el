@@ -4,13 +4,10 @@
 
 (add-hook 'haskell-mode-hook (lambda ()
     (fix-tabs 4)
-    (if window-system (nlinum-mode))
-    (if window-system (hl-line-mode 1))
-    (rainbow-delimiters-mode)
+    (default-language-settings)
     (turn-on-haskell-doc-mode)
     (turn-on-haskell-indentation)
     (setq-local doom-indent-fallback t)
-    (auto-complete-mode)
     (setq-local helm-dash-docsets '("Haskell"))))
 
 ;;==============================================================================

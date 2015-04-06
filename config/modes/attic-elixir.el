@@ -3,9 +3,6 @@
 ;;==============================================================================
 
 (defun elixir-keys-hook ()
-  (setq-local doom-indent-key "") ;;; HACK FOR ELIXIR MODE
-  (define-key elixir-mode-map (kbd "TAB") (lambda() (interactive)
-                                            (indent-of-doom))) ;;; HACK FOR ELIXIR MODE
   (define-key elixir-mode-map (kbd "C-c C-l") 'iex-compile)
   (define-key elixir-mode-map (kbd "C-c C-c C-e")
     (lambda(x) (interactive "sRun Mix > ") (run-mix x)))
@@ -76,15 +73,10 @@
 ;;==============================================================================
 
 (add-hook 'elixir-mode-hook (lambda ()
-    (key-chord-force)
     (elixir-keys-hook)
-    (fix-tabs 2)
-    (if window-system (nlinum-mode))
-    (if window-system (hl-line-mode 1))
+    (default-language-settings)
+    (auto-complete-mode 0)
     (setq tab-stop-list tab-stop-list-2)
-    (setq-local doom-indent-fallback t)
-    (setq-local doom-use-tab-cycle nil)
-    (highlight-symbol-mode 1)
     (company-mode)
     (alchemist-mode)
     (setq-local helm-dash-docsets '("Elixir"))))

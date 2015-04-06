@@ -144,41 +144,9 @@
 (global-set-key [f11] 'screenshot-frame)
 
 ;; Auto Complete Mode
-(define-key ac-complete-mode-map (kbd "M-g")
-    (lambda() (interactive) (ac-stop) (escape-key)))
-(define-key ac-complete-mode-map (kbd "M-f") 'ac-complete)
-(define-key ac-complete-mode-map (kbd "<return>")
-    (lambda() (interactive) (ac-stop) (call-interactively (key-binding (kbd "C-m")))))
-(define-key ac-complete-mode-map (kbd "SPC")
-    (lambda() (interactive) (ac-stop) (insert " ")))
-(define-key ac-complete-mode-map (kbd "C-m")
-    (lambda() (interactive) (ac-stop) (newline)))
-(define-key ac-complete-mode-map (kbd ":")
-    (lambda() (interactive) (ac-stop) (insert ":")))
-(define-key ac-complete-mode-map (kbd ".")
-  (lambda() (interactive) (ac-stop) (insert ".")))
-(define-key ac-complete-mode-map (kbd "M-j") 'yas/expand)
-(define-key ac-complete-mode-map (kbd "C-n") 'ac-next)
-(define-key ac-complete-mode-map (kbd "C-p") 'ac-previous)
 
-;; Company Mode
-(define-key company-active-map (kbd "M-g")
-    (lambda() (interactive) (company-abort) (escape-key)))
-(define-key company-active-map (kbd "M-f") 'company-complete-selection)
-(define-key company-active-map (kbd "<return>")
-    (lambda() (interactive) (company-abort) (newline)))
-(define-key company-active-map (kbd "SPC")
-    (lambda() (interactive) (company-abort) (insert " ")))
-(define-key company-active-map (kbd "C-m")
-    (lambda() (interactive) (company-abort) (newline)))
-(define-key company-active-map (kbd ":")
-    (lambda() (interactive) (company-abort) (insert ":")))
-(define-key company-active-map (kbd ".")
-  (lambda() (interactive) (company-abort) (insert ".")))
-(define-key company-active-map (kbd "M-h") 'helm-company)
-(define-key company-active-map (kbd "M-j") 'yas/expand)
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
+
+
 
 ;; C Keys
 (defun c-keys-hook ()
@@ -271,9 +239,6 @@
 
 (define-key top-mode-map (kbd ";") 'semi-colon-map)
 (define-key top-mode-map (kbd "z") 'helm-mini)
-
-(define-key emacs-lisp-mode-map (kbd "M-p") 'highlight-symbol-prev)
-(define-key emacs-lisp-mode-map (kbd "M-n") 'highlight-symbol-next)
 
 ;; Modes
 (define-minor-mode attic-minor-mode
