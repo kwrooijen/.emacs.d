@@ -487,7 +487,7 @@ makes)."
   (interactive)
   (if mode-line-format
       (setq mode-line-format nil)
-    (setq mode-line-format mode-line-format-backup)))
+    (setq mode-line-format attic-mode-line-format)))
 
 (defun no-split ()
   (interactive)

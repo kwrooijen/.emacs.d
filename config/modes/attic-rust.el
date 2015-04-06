@@ -44,6 +44,7 @@
     (if window-system (hl-line-mode 1))
     (setq-local tab-width 4)
     (rust-keys-hook)
+    (auto-complete-mode)
     (setq-local helm-dash-docsets '("Rust"))))
 
 ;;==============================================================================

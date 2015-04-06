@@ -79,7 +79,7 @@
 ("M-+" align-regexp)
 ("M--" redo)
 ("M-C" capitalize-previous-word)
-("M-;" (lambda() (interactive) (ac-stop) (yas/expand)))
+("M-;" (lambda() (interactive) (ac-stop) (company-abort) (yas/expand)))
 ("M-@" er/expand-region)
 ("M-#" align-regexp)
 ("M-N" mc/mark-next-like-this)
@@ -143,6 +143,7 @@
 (global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
 (global-set-key [f11] 'screenshot-frame)
 
+;; Auto Complete Mode
 (define-key ac-complete-mode-map (kbd "M-g")
     (lambda() (interactive) (ac-stop) (escape-key)))
 (define-key ac-complete-mode-map (kbd "M-f") 'ac-complete)
@@ -159,6 +160,25 @@
 (define-key ac-complete-mode-map (kbd "M-j") 'yas/expand)
 (define-key ac-complete-mode-map (kbd "C-n") 'ac-next)
 (define-key ac-complete-mode-map (kbd "C-p") 'ac-previous)
+
+;; Company Mode
+(define-key company-active-map (kbd "M-g")
+    (lambda() (interactive) (company-abort) (escape-key)))
+(define-key company-active-map (kbd "M-f") 'company-complete-selection)
+(define-key company-active-map (kbd "<return>")
+    (lambda() (interactive) (company-abort) (newline)))
+(define-key company-active-map (kbd "SPC")
+    (lambda() (interactive) (company-abort) (insert " ")))
+(define-key company-active-map (kbd "C-m")
+    (lambda() (interactive) (company-abort) (newline)))
+(define-key company-active-map (kbd ":")
+    (lambda() (interactive) (company-abort) (insert ":")))
+(define-key company-active-map (kbd ".")
+  (lambda() (interactive) (company-abort) (insert ".")))
+(define-key company-active-map (kbd "M-h") 'helm-company)
+(define-key company-active-map (kbd "M-j") 'yas/expand)
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
 
 ;; C Keys
 (defun c-keys-hook ()

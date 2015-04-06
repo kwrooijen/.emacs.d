@@ -11,6 +11,7 @@
     auto-complete
     buffer-move
     color-theme-sanityinc-tomorrow
+    company
     dash
     elixir-mode
     elixir-yasnippets
@@ -114,6 +115,8 @@
 (require 'neotree)
 (require 'twittering-mode)
 (require 'top-mode)
+(require 'auto-complete)
+(require 'company)
 
 (if window-system
     (require 'git-gutter-fringe+)
@@ -122,7 +125,6 @@
 ;; Modes
 (display-battery-mode t)
 (global-git-gutter+-mode t)
-(global-auto-complete-mode)
 (god-mode)
 (ido-mode t)
 (key-chord-mode t)

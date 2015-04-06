@@ -39,6 +39,7 @@
             (setq-local doom-use-tab-cycle nil)
             (rebar-mode 1)
             (setq-local helm-dash-docsets '("Erlang"))
+            (auto-complete-mode)
             (subword-mode t)))
 
 

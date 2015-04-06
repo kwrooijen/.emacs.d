@@ -39,6 +39,7 @@
     (if window-system (nlinum-mode))
     (if window-system (hl-line-mode 1))
     (highlight-symbol-mode 1)
+    (auto-complete-mode)
     (setq-local helm-dash-docsets '("Ruby"))))
 
 (add-hook 'emacs-lisp-mode-hook (lambda ()
@@ -47,6 +48,7 @@
     (if window-system (hl-line-mode 1))
     (highlight-symbol-mode 1)
     (electric-pair-mode 1)
+    (auto-complete-mode)
     (setq-local helm-dash-docsets '("Emacs Lisp"))))
 
 (add-hook 'org-mode-hook (lambda ()

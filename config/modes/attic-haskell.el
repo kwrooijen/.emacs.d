@@ -10,6 +10,7 @@
     (turn-on-haskell-doc-mode)
     (turn-on-haskell-indentation)
     (setq-local doom-indent-fallback t)
+    (auto-complete-mode)
     (setq-local helm-dash-docsets '("Haskell"))))
 
 ;;==============================================================================

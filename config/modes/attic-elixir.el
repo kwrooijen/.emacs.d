@@ -83,6 +83,8 @@
     (setq-local doom-indent-fallback t)
     (setq-local doom-use-tab-cycle nil)
     (highlight-symbol-mode 1)
+    (company-mode)
+    (alchemist-mode)
     (setq-local helm-dash-docsets '("Elixir"))))
 
 ;;==============================================================================

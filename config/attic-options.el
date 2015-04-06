@@ -244,6 +244,9 @@ Kevin W. van Rooijen
 ;; Auto Complete
 (setq ac-auto-show-menu 0)
 
+;; Company Mode
+(setq company-idle-delay 0)
+
 ;; Magit
 (setq magit-last-seen-setup-instructions "1.4.0")
 

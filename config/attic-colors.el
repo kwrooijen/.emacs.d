@@ -19,6 +19,10 @@
 (set-face-attribute 'linum nil :inherit 'default)
 (set-face-background 'linum nil)
 
+(set-face-attribute 'ac-candidate-face nil :inherit 'company-tooltip-common)
+(set-face-attribute 'ac-completion-face nil :inherit 'company-preview-common)
+(set-face-attribute 'ac-selection-face nil :inherit 'company-tooltip-common-selection)
+
 (set-face-background 'fringe 'unspecified)
 (require 'whitespace)
 (sfb '(
@@ -42,13 +46,47 @@
     (whitespace-space-before-tab "gray16" "#1d1f21")
     (whitespace-tab              "gray16" "#1d1f21")
     (whitespace-trailing         "gray16" "#1d1f21")
-    (hl-line         unspecified "gray14")
-    (fringe         unspecified "gray14")
+    (ac-completion-face           unspecified unspecified)
+    (hl-line                     unspecified "gray14")
+    (fringe                      unspecified "gray14")
     (magit-item-highlight       nil "dim grey" unspecified)))
 
 (setq whitespace-style
       '(face tabs spaces trailing
              space-before-tab indentation
              space-after-tab space-mark tab-mark))
+
+;; Modeline
+
+(defun modeline-region-counter ()
+  (unless (region-active-p)
+    ""
+    (format "%sC|%sW|%sL "
+            (- (region-end) (region-beginning))
+            (count-words (region-beginning) (region-end))
+            (count-lines (region-beginning) (region-end)))))
+
+(defun god-mode-bar ()
+  (if mark-active
+      (format "[VISUAL]")
+    (if (and (boundp 'god-local-mode) god-local-mode)
+        (format "[NORMAL]")
+      (format "[INSERT]"))))
+
+(setq attic-mode-line-format
+      '(" " (:eval (concat "[" (number-to-string (escreen-get-current-screen-number)) "]")) " "
+        (:eval (butlast (cdr (gnus-mst-notify-modeline-form)))) " "
+        (:eval erc-modified-channels-object)
+        "%*" "_"
+        mode-line-remote " "
+        (:eval (modeline-region-counter))
+        "%3lL:%2cC "
+        (:eval (format-time-string "%-I:%M%p")) " | "
+        mode-line-buffer-identification " | "
+        ;; (:eval (god-mode-bar)) " "
+        mode-name " |"
+        (vc-mode vc-mode) " "
+        battery-mode-line-string))
+
 (provide 'attic-colors)
 
