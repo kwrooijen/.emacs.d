@@ -28,4 +28,4 @@
         (vc-mode vc-mode) " "
         battery-mode-line-string))
 
-(provide 'my-powerline)
+(provide 'attic-powerline)

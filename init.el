@@ -4,16 +4,16 @@
 (add-to-list 'load-path "~/.emacs.d/tempo")
 (add-to-list 'load-path "~/.emacs.d/plugins/magit-gh-pulls")
 
-(require 'my-packages)
-(require 'my-powerline)
-(require 'my-colors)
-(require 'my-functions)
-(require 'my-advice)
-(require 'my-keys)
-(require 'my-hydra)
-(require 'my-options)
-(require 'my-hooks)
-(require 'my-scripts)
+(require 'attic-packages)
+(require 'attic-powerline)
+(require 'attic-colors)
+(require 'attic-functions)
+(require 'attic-advice)
+(require 'attic-keys)
+(require 'attic-hydra)
+(require 'attic-options)
+(require 'attic-hooks)
+(require 'attic-scripts)
 
 ;; My modes
 (require 'attic-erlang)
@@ -24,12 +24,7 @@
 (require 'attic-helm)
 (require 'attic-erc)
 (require 'attic-neotree)
-
-;; (setq my-extra-music t)
-;; (setq my-extra-mail t)
-;; (setq my-extra-chat t)
-;; (setq my-extra-web t)
-;; (setq my-extra-doc t)
+(require 'attic-twittering)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

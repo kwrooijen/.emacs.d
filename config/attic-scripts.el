@@ -31,4 +31,4 @@ guard :elixir do
 end' > Guardfile
 ")
 
-(provide 'my-scripts)
+(provide 'attic-scripts)

@@ -107,5 +107,5 @@
     ("\\.tpl\\'"     . web-mode)
     ) auto-mode-alist))
 
-(provide 'my-hooks)
+(provide 'attic-hooks)
 

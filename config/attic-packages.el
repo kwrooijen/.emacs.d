@@ -111,6 +111,7 @@
 (require 'linum)
 (require 'highlight-symbol)
 (require 'neotree)
+(require 'twittering-mode)
 
 (if window-system
     (require 'git-gutter-fringe+)
@@ -133,5 +134,5 @@
 (hl-line-mode t)
 
 (setq sauron-active nil)
-(provide 'my-packages)
+(provide 'attic-packages)
 

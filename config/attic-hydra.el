@@ -124,4 +124,4 @@
   ("M-b" tmr-start--backward-word "backward-word")
   ("q" hydra-keyboard-quit "quit" :color blue))
 
-(provide 'my-hydra)
+(provide 'attic-hydra)

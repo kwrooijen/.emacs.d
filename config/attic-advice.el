@@ -22,4 +22,4 @@
 (defadvice delete-other-windows (after delete-other-windows activate)
   (if sauron-active (sauron-toggle-hide-show)))
 
-(provide 'my-advice)
+(provide 'attic-advice)

@@ -266,4 +266,4 @@
 
 ;; Other unset keys
 (global-unset-key "\C-x\C-z")
-(provide 'my-keys)
+(provide 'attic-keys)

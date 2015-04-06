@@ -50,5 +50,5 @@
       '(face tabs spaces trailing
              space-before-tab indentation
              space-after-tab space-mark tab-mark))
-(provide 'my-colors)
+(provide 'attic-colors)
 

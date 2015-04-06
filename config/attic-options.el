@@ -255,5 +255,5 @@ Kevin W. van Rooijen
       '((?\" . ?\")
         (?\{ . ?\})))
 
-(provide 'my-options)
+(provide 'attic-options)
 

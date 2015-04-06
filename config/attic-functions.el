@@ -506,4 +506,4 @@ makes)."
   (let ((previous-buffer (other-buffer (current-buffer) t)))
     (select-window (get-buffer-window previous-buffer))))
 
-(provide 'my-functions)
+(provide 'attic-functions)
