@@ -170,8 +170,7 @@ Kevin W. van Rooijen
 (setq linum-disabled-modes-list '(
     mu4e-compose-mode
     mu4e-headers-mode
-    mu4e-main-mode
-))
+    mu4e-main-mode))
 
 ;; Sauron
 (setq sauron-hide-mode-line t)

@@ -1,4 +1,20 @@
 ;;==============================================================================
+;;== Functions
+;;==============================================================================
+
+(defun add-my-todos-to-org (list)
+  "Adds All the files in Todo directory to my list of todo subjects."
+  (let ((c 0)
+        (r '()))
+    (while (nth c list)
+      (let ((key (char-to-string (+ c 97)))
+            (val (nth c list)))
+        (add-to-list 'org-capture-templates `(,key ,val entry
+         (file+headline ,(concat "~/Documents/notes/Org/Todo/" val) ,val)
+         (file "~/.emacs.d/Templates/GenericTodo.orgtpl")))
+        (setq c (+ c 1))))))
+
+;;==============================================================================
 ;;== Org
 ;;==============================================================================
 
@@ -38,21 +54,5 @@
 ;;==============================================================================
 
 (add-hook 'org-mode-hook 'org-keys-hook)
-
-;;==============================================================================
-;;== Functions
-;;==============================================================================
-
-(defun add-my-todos-to-org (list)
-  "Adds All the files in Todo directory to my list of todo subjects."
-  (let ((c 0)
-        (r '()))
-    (while (nth c list)
-      (let ((key (char-to-string (+ c 97)))
-            (val (nth c list)))
-        (add-to-list 'org-capture-templates `(,key ,val entry
-         (file+headline ,(concat "~/Documents/notes/Org/Todo/" val) ,val)
-         (file "~/.emacs.d/Templates/GenericTodo.orgtpl")))
-        (setq c (+ c 1))))))
 
 (provide 'attic-org)
