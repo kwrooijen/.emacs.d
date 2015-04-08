@@ -2,16 +2,16 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("Elisp"
+(("Org"
+ (filename . "~/Documents/notes/Org/")
+ (front-context-string . "Done.org\n  -rw-r")
+ (rear-context-string . " 0 Apr  6 23:16 ")
+ (position . 227))
+("Elisp"
  (filename . "~/Programming/Elisp/")
  (front-context-string . "melpa\n  drwxrwxr")
  (rear-context-string . "96 Apr  3 20:51 ")
  (position . 228))
-("org-capture-last-stored"
- (filename . "~/Documents/Done.org")
- (front-context-string . "** [2015-03-17 T")
- (rear-context-string . "a\n   \n   k done\n")
- (position . 280))
 ("Cloud"
  (filename . "/scp:cloud:/home/ec2-user/platform/")
  (front-context-string . "erlanglibs\n  drw")
