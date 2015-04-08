@@ -215,13 +215,6 @@
 (define-key doc-view-mode-map (kbd "j") 'doc-view-next-line-or-next-page)
 (define-key doc-view-mode-map (kbd "k") 'doc-view-previous-line-or-previous-page)
 
-;; Gnus
-(define-key gnus-summary-mode-map (kbd ";") 'semi-colon-map)
-(define-key gnus-summary-mode-map (kbd "z") 'helm-mini)
-
-(define-key gnus-group-mode-map (kbd ";") 'semi-colon-map)
-(define-key gnus-group-mode-map (kbd "z") 'helm-mini)
-
 (define-key help-mode-map (kbd ";") 'semi-colon-map)
 (define-key help-mode-map (kbd "z") 'helm-mini)
 

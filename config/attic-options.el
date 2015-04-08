@@ -209,14 +209,6 @@ Kevin W. van Rooijen
 (escreen-create-screen)
 (escreen-goto-screen-1)
 
-;; Gnus
-;; In Group buffer press "G p" and add this to the list (modeline-notify t)
-(add-hook 'gnus-after-getting-new-news-hook 'gnus-notifications)
-(setq gnus-demon-timestep 1)
-(gnus-demon-add-handler 'gnus-group-get-new-news 30 3)
-(setq gnus-always-read-dribble-file t)
-(fmakunbound 'gnus-group-delete-articles) ;; Because no.
-
 ;; Ido
 (setq ido-enable-flex-matching t)
 (setq ido-separator " | ")

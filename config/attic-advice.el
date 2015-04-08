@@ -16,9 +16,6 @@
   (set-mark-command nil)
   (deactivate-mark))
 
-(defadvice gnus (after gnus activate)
-  (gnus-demon-init))
-
 (defadvice delete-other-windows (after delete-other-windows activate)
   (if sauron-active (attic-sauron-toggle)))
 
