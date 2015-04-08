@@ -3,6 +3,11 @@
 ;;==============================================================================
 
 (defun elixir-keys-hook ()
+  (define-key elixir-mode-map (kbd "C-c C-k")
+    (lambda() (interactive)
+      (unless (get-buffer "*Alchemist-IEx*") (alchemist-iex-project-run))
+      (if (equal major-mode 'elixir-mode) (alchemist-iex-compile-this-buffer))))
+
   (define-key elixir-mode-map (kbd "C-c C-l") 'iex-compile)
   (define-key elixir-mode-map (kbd "C-c C-c C-e")
     (lambda(x) (interactive "sRun Mix > ") (run-mix x)))
