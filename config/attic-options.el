@@ -156,23 +156,6 @@ Kevin W. van Rooijen
 
 (setq auto-window-vscroll nil)
 
-;; Org Mode
-
-;; Log time
-(setq org-log-done 'time)
-(setq org-capture-templates '())
-;; Add Capture Templates
-(setq org-capture-templates
-      '(("d" "Done" entry
-         (file+headline "~/Documents/notes/Org/Done.org" "Done")
-         (file "~/.emacs.d/Templates/Done.orgtpl"))
-        ("r" "Retro" entry
-         (file+headline "~/Documents/notes/Org/Retro.org" "Done")
-         (file "~/.emacs.d/Templates/Retro.orgtpl"))
-        ("t" "Todo" entry
-         (file+headline "~/Documents/notes/Org/Todo.org" "Todo")
-         (file "~/.emacs.d/Templates/Todo.orgtpl"))))
-
 ;; Projectile
 ; Enable Caching
 (setq projectile-enable-caching t)

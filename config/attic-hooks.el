@@ -42,9 +42,6 @@
 (add-hook 'isearch-mode-hook (lambda()
     (key-chord-mode 1)))
 
-(add-hook 'org-mode-hook (lambda ()
-    (org-keys-hook)))
-
 (add-hook 'racket-repl-mode-hook (lambda ()
     (define-key ac-complete-mode-map (kbd "<return>")
       (lambda() (interactive) (ac-stop) (racket-repl-eval-or-newline-and-indent)))))

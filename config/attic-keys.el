@@ -129,7 +129,7 @@
 ("8" escreen-goto-screen-8)
 ("9" escreen-goto-screen-9)
 ("0" xsescreen-goto-screen-0)
-("'" org-capture)))
+("'" helm-org-capture-templates)))
 
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
 (define-key isearch-mode-map (kbd "M-g") 'isearch-abort)
@@ -153,12 +153,6 @@
 (define-key c-mode-base-map (kbd "C-c C-l") 'execute-c)
 (define-key c-mode-base-map (kbd "C-/") 'my-comment)
 (define-key god-local-mode-map (kbd "/") 'my-comment))
-
-(defun org-keys-hook ()
-    (define-prefix-command 'org-mode-custom-map)
-    (define-key org-mode-map (kbd "C-c C-o") 'org-mode-custom-map)
-    (define-key org-mode-custom-map (kbd "C-l") 'browse-url-at-point)
-    (define-key org-mode-custom-map (kbd "C-t") 'org-todo))
 
 ;; Dired keys
 (define-key dired-mode-map (kbd "c f")   'helm-ls-git-ls)
