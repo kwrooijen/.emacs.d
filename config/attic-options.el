@@ -6,7 +6,7 @@
 
 ;; Font for X
 (setq default-frame-alist '(
-    (font . "Fira Mono OT-11:weight=bold")
+    (font . "-unknown-Fira Mono-bold-normal-normal-*-14-*-*-*-m-0-iso10646-1")
     (vertical-scroll-bars . nil)
     (line-spacing . 0)))
 

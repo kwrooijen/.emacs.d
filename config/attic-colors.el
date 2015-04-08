@@ -59,21 +59,21 @@
 ;; Modeline
 
 (defun modeline-region-counter ()
-  (unless (region-active-p)
-    ""
+  (if (region-active-p)
     (format "%sC|%sW|%sL "
             (- (region-end) (region-beginning))
             (count-words (region-beginning) (region-end))
-            (count-lines (region-beginning) (region-end)))))
+            (count-lines (region-beginning) (region-end)))
+    ""))
 
 (defun god-mode-bar ()
   (if mark-active
-      (format "[VISUAL]")
+      "[VISUAL]"
     (if (and (boundp 'god-local-mode) god-local-mode)
-        (format "[NORMAL]")
-      (format "[INSERT]"))))
+        "[NORMAL]"
+      "[INSERT]")))
 
-(setq attic-mode-line-format
+(setq mode-line-format
       '(" " (:eval (concat "[" (number-to-string (escreen-get-current-screen-number)) "]")) " "
         (:eval (butlast (cdr (gnus-mst-notify-modeline-form)))) " "
         (:eval erc-modified-channels-object)
@@ -83,10 +83,11 @@
         "%3lL:%2cC "
         (:eval (format-time-string "%-I:%M%p")) " | "
         mode-line-buffer-identification " | "
-        ;; (:eval (god-mode-bar)) " "
         mode-name " |"
-        (vc-mode vc-mode) " "
-        battery-mode-line-string))
+        (vc-mode vc-mode) " | "
+        battery-mode-line-string " | "
+        (:eval (god-mode-bar))))
 
 (provide 'attic-colors)
+
 
