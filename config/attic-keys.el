@@ -107,7 +107,7 @@
                 (define-key map (kbd (format "C-%s" key)) func))) list)))
 
 (mapcar 'set-map-list
-        '((semi-colon-map (("n" escreen-goto-next-screen)
+        '((semi-colon-map (("n" sauron-select-last-event)
                            ("p" escreen-goto-prev-screen)
                            (";" escreen-goto-last-screen)
                            ("c" escreen-create-screen)
