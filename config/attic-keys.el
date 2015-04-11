@@ -1,5 +1,6 @@
 (defvar attic-minor-mode-map (make-keymap) "attic-minor-mode keymap.")
 (define-prefix-command 'semi-colon-map)
+(define-prefix-command 'attic-make-map)
 
 (defun attic-key(key function)
   (define-key attic-minor-mode-map (kbd key) function))
@@ -65,14 +66,7 @@
 ("C-c C-s C-r" my/grep)
 ("C-c C-s C-s" helm-multi-swoop)
 
-;; Make keys
-("C-c C-z C-p" (lambda() (interactive) (run-make "stop"    "[Make Stop]")))
-("C-c C-z C-r" (lambda() (interactive) (run-make "restart" "[Make Restart]")))
-("C-c C-z C-s" (lambda() (interactive) (run-make "start"   "[Make Start]")))
-("C-c C-z C-t" (lambda() (interactive) (run-make "test"    "[Make Test]")))
-("C-c C-z C-o" (lambda() (interactive) (run-make "go"      "[Make Go]")))
-("C-c C-z C-z" (lambda() (interactive) (run-make ""        "[Make]")))
-("C-c C-z C-c" run-make-input)
+("C-c C-z" attic-make-map)
 
 ;; Meta keys
 ("M-*" mc/mark-all-like-this)
@@ -101,35 +95,49 @@
 ("M-9" attic-neotree-toggle)
 ("s-w" other-frame)))
 
-(defun semi-colon-map-set (a)
+(defun set-map-list (a)
   (interactive)
-  (define-key semi-colon-map (kbd (car a)) (nth 1 a))
-  (define-key semi-colon-map (kbd (format "C-%s" (car a))) (nth 1 a)))
+  (let ((map (nth 0 a))
+        (list (nth 1 a)))
+    (mapcar (lambda(key-val)
+              (interactive)
+              (let ((key (nth 0 key-val))
+                    (func (nth 1 key-val)))
+                (define-key map (kbd key) func)
+                (define-key map (kbd (format "C-%s" key)) func))) list)))
 
-(mapcar 'semi-colon-map-set '(
-("n" escreen-goto-next-screen)
-("n" escreen-goto-next-screen)
-("p" escreen-goto-prev-screen)
-(";" escreen-goto-last-screen)
-("c" escreen-create-screen)
-("a" async-shell-command)
-("s" shell-command)
-("y" x-clipboard-yank)
-("w" clipboard-kill-region)
-("e" eww)
-("b" eww-list-bookmarks)
-("h" select-line-from-indentation)
-("1" escreen-goto-screen-1)
-("2" escreen-goto-screen-2)
-("3" escreen-goto-screen-3)
-("4" escreen-goto-screen-4)
-("5" escreen-goto-screen-5)
-("6" escreen-goto-screen-6)
-("7" escreen-goto-screen-7)
-("8" escreen-goto-screen-8)
-("9" escreen-goto-screen-9)
-("0" xsescreen-goto-screen-0)
-("'" helm-org-capture-templates)))
+(mapcar 'set-map-list
+        '((semi-colon-map (("n" escreen-goto-next-screen)
+                           ("p" escreen-goto-prev-screen)
+                           (";" escreen-goto-last-screen)
+                           ("c" escreen-create-screen)
+                           ("a" async-shell-command)
+                           ("s" shell-command)
+                           ("y" x-clipboard-yank)
+                           ("w" clipboard-kill-region)
+                           ("e" eww)
+                           ("b" eww-list-bookmarks)
+                           ("h" select-line-from-indentation)
+                           ("1" escreen-goto-screen-1)
+                           ("2" escreen-goto-screen-2)
+                           ("3" escreen-goto-screen-3)
+                           ("4" escreen-goto-screen-4)
+                           ("5" escreen-goto-screen-5)
+                           ("6" escreen-goto-screen-6)
+                           ("7" escreen-goto-screen-7)
+                           ("8" escreen-goto-screen-8)
+                           ("9" escreen-goto-screen-9)
+                           ("0" xsescreen-goto-screen-0)
+                           ("'" helm-org-capture-templates)))
+          (attic-make-map (("p" (lambda() (interactive) (run-make "stop"    "[Make Stop]")))
+                           ("r" (lambda() (interactive) (run-make "restart" "[Make Restart]")))
+                           ("s" (lambda() (interactive) (run-make "start"   "[Make Start]")))
+                           ("t" (lambda() (interactive) (run-make "test"    "[Make Test]")))
+                           ("o" (lambda() (interactive) (run-make "go"      "[Make Go]")))
+                           ("z" (lambda() (interactive) (run-make ""        "[Make]")))
+                           ("c" run-make-input)))))
+
+;; Make keys
 
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
 (define-key isearch-mode-map (kbd "M-g") 'isearch-abort)
@@ -142,11 +150,6 @@
 (global-set-key [f7] 'get-current-buffer-major-mode)
 (global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
 (global-set-key [f11] 'screenshot-frame)
-
-;; Auto Complete Mode
-
-
-
 
 ;; C Keys
 (defun c-keys-hook ()
@@ -161,13 +164,7 @@
 (define-key dired-mode-map (kbd "c s r") 'my/grep)
 (define-key dired-mode-map (kbd "c m")   'magit-status)
 (define-key dired-mode-map (kbd ";")     'semi-colon-map)
-(define-key dired-mode-map (kbd "c z p") (lambda() (interactive) (run-make "stop"    "[Make Stop]")))
-(define-key dired-mode-map (kbd "c z r") (lambda() (interactive) (run-make "restart" "[Make Restart]")))
-(define-key dired-mode-map (kbd "c z s") (lambda() (interactive) (run-make "start"   "[Make Start]")))
-(define-key dired-mode-map (kbd "c z t") (lambda() (interactive) (run-make "test"    "[Make Test]")))
-(define-key dired-mode-map (kbd "c z o") (lambda() (interactive) (run-make "go"      "[Make Go]")))
-(define-key dired-mode-map (kbd "c z z") (lambda() (interactive) (run-make ""        "[Make]")))
-(define-key dired-mode-map (kbd "c z c") 'run-make-input)
+(define-key dired-mode-map (kbd "c z")   'attic-make-map)
 
 ;; Key Chord
 (key-chord-define-global "xs"
@@ -226,6 +223,9 @@
 
 (define-key top-mode-map (kbd ";") 'semi-colon-map)
 (define-key top-mode-map (kbd "z") 'helm-mini)
+
+(define-key messages-buffer-mode-map (kbd ";") 'semi-colon-map)
+(define-key messages-buffer-mode-map (kbd "z") 'helm-mini)
 
 ;; Modes
 (define-minor-mode attic-minor-mode

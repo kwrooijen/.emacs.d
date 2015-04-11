@@ -44,6 +44,7 @@
         message-mode
         gnus-group-mode
         gnus-summary-mode
+        gnus-article-mode
         twittering-mode
         alchemist-iex-mode
         shell-mode))

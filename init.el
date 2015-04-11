@@ -27,6 +27,8 @@
 (require 'attic-erc)
 (require 'attic-neotree)
 (require 'attic-twittering)
+(require 'attic-gnus)
+(require 'attic-org)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

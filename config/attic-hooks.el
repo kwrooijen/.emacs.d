@@ -27,6 +27,7 @@
 (add-hook 'sauron-mode-hook 'no-split)
 (sauron-start-hidden)
 
+(add-hook 'before-save-hook 'whitespace-cleanup)
 (add-hook 'c-initialization-hook 'c-keys-hook)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
 (add-hook 'magit-mode-hook 'clean-hook)
