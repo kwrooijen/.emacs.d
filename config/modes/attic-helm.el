@@ -107,9 +107,20 @@
       ;;                             helm-source-bookmarks)
       )
 
+(setq helm-ls-git-project-source
+      '((name . "Helm git ls project")
+        (candidates . helm-ls-git-project-list)
+        (action . helm-ls-git-project-action)
+        (default . "")))
+
+(setq helm-ls-git-project-list-file "~/.emacs.d/.helm-ls-git-project-list")
 ;;==============================================================================
 ;;== Hook
 ;;==============================================================================
+
+(setq helm-ls-git-project-list nil)
+(if (file-exists-p helm-ls-git-project-list-file)
+    (load-file helm-ls-git-project-list-file))
 
 ;;==============================================================================
 ;;== Advice
@@ -129,6 +140,13 @@
 (defadvice helm-swoop (after helm-swoop activate)
   (makunbound 'helm-swoop-active))
 
+(defadvice helm-ls-git-ls (before helm-ls-git-ls activate)
+  (let ((dir (magit-get-top-dir)))
+    (if dir
+        (progn
+          (add-to-list 'helm-ls-git-project-list dir)
+          (save-project-list-to-file))
+      (helm-ls-git-project))))
 
 ;;==============================================================================
 ;;== Functions
@@ -163,5 +181,18 @@
             (find-file final-location))
         (makunbound 'final-location)
         (makunbound 'current)))
+
+(defun helm-ls-git-project ()
+  (interactive)
+  (helm :sources '(helm-ls-git-project-source)))
+
+(defun helm-ls-git-project-action (candidate)
+  (find-file candidate))
+
+(defun save-project-list-to-file ()
+  (with-current-buffer (find-file-noselect helm-ls-git-project-list-file)
+    (erase-buffer)
+    (insert (format "(setq helm-ls-git-project-list '%S)" helm-ls-git-project-list))
+    (save-buffer)))
 
 (provide 'attic-helm)

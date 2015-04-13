@@ -113,6 +113,7 @@
                            ("c" escreen-create-screen)
                            ("a" async-shell-command)
                            ("s" shell-command)
+                           ("f" helm-ls-git-project)
                            ("y" x-clipboard-yank)
                            ("w" clipboard-kill-region)
                            ("e" eww)
