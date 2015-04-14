@@ -449,4 +449,10 @@ makes)."
         (set-window-height sauron-max-line-height)
         (select-window-by-number previous-window))))
 
+(defun sauron-select-last-event ()
+  (interactive)
+  (sauron-pop-to-buffer)
+  (end-of-buffer)
+  (sauron-activate-event-prev))
+
 (provide 'attic-functions)

@@ -67,11 +67,13 @@
     ""))
 
 (defun god-mode-bar ()
-  (if mark-active
-      "[VISUAL]"
-    (if (and (boundp 'god-local-mode) god-local-mode)
-        "[NORMAL]"
-      "[INSERT]")))
+  (if (member major-mode god-exempt-major-modes)
+      ""
+    (if mark-active
+        (propertize "[VISUAL]" 'face 'bg:erc-color-face8)
+      (if (and (boundp 'god-local-mode) god-local-mode)
+          (propertize "[NORMAL]" 'face 'font-lock-constant-face)
+        (propertize "[INSERT]" 'face 'bg:erc-color-face3)))))
 
 (setq attic-mode-line-format
       '(" " (:eval (concat "[" (number-to-string (escreen-get-current-screen-number)) "]")) " "

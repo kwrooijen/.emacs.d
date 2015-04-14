@@ -29,6 +29,8 @@
 (require 'attic-ruby)
 (require 'attic-rust)
 (require 'attic-twittering)
+(require 'attic-gnus)
+(require 'attic-org)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

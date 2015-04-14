@@ -44,6 +44,7 @@
         message-mode
         gnus-group-mode
         gnus-summary-mode
+        gnus-article-mode
         twittering-mode
         alchemist-iex-mode
         shell-mode))
@@ -92,6 +93,7 @@
       (neotree-find)
       (if neotree-overlay (delete-overlay neotree-overlay))
       (setq neotree-overlay (make-overlay (point) (progn (end-of-line) (point))))
+      (beginning-of-line)
       (overlay-put neotree-overlay 'face 'neotree-overlay-face)
       (select-window-by-number previous-window))))
 

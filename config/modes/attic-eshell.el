@@ -4,7 +4,7 @@
 (add-hook 'eshell-mode-hook
           '(lambda ()
              (define-key eshell-mode-map (kbd "M-p") 'eshell-previous-input)
-             (define-key eshell-mode-map (kbd "M-n") 'eshell-previous-input)
+             (define-key eshell-mode-map (kbd "M-n") 'eshell-next-input)
              (define-key eshell-mode-map (kbd "C-i") 'helm-esh-pcomplete)
              (define-key eshell-mode-map (kbd "M-m") 'eshell-bol)
              (define-key eshell-mode-map (kbd "C-M-m") 'eshell-broadcast)))
