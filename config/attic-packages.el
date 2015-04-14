@@ -39,7 +39,6 @@
     magit-gh-pulls
     multiple-cursors
     neotree
-    nlinum
     racket-mode
     rainbow-delimiters
     redo+

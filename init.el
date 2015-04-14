@@ -15,17 +15,19 @@
 (require 'attic-colors)
 
 ;; My modes
-(require 'attic-erlang)
-(require 'attic-haskell)
-(require 'attic-elixir)
-(require 'attic-rust)
-(require 'attic-emacs-lisp)
-(require 'attic-ruby)
 (require 'attic-autocomplete)
-(require 'attic-eshell)
-(require 'attic-helm)
+(require 'attic-elixir)
+(require 'attic-emacs-lisp)
 (require 'attic-erc)
+(require 'attic-erlang)
+(require 'attic-eshell)
+(require 'attic-gnus)
+(require 'attic-haskell)
+(require 'attic-helm)
 (require 'attic-neotree)
+(require 'attic-org)
+(require 'attic-ruby)
+(require 'attic-rust)
 (require 'attic-twittering)
 
 (custom-set-variables

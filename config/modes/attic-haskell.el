@@ -31,7 +31,7 @@
     (switch-to-buffer "*Shell Command Output*")
     (rename-buffer "*Hoogle*")
     (haskell-mode)
-    (nlinum-mode 0)
+    (linum-mode 0)
     (previous-buffer))
 
 (provide 'attic-haskell)

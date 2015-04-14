@@ -114,6 +114,7 @@
 ("c" escreen-create-screen)
 ("a" async-shell-command)
 ("s" shell-command)
+("f" fill-region)
 ("y" x-clipboard-yank)
 ("w" clipboard-kill-region)
 ("e" eww)

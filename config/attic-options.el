@@ -70,7 +70,6 @@ Kevin W. van Rooijen
 
 ;; Always display 2 columns in linum mode (no stuttering)
 (setq linum-format (quote "%3d"))
-(setq nlinum-format (quote "%3d"))
 
 ;; Allow upcase-region and downcase-region functions
 (put 'upcase-region 'disabled nil)

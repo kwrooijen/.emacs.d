@@ -2,7 +2,7 @@
 (defun clean-hook ()
   (interactive)
   (key-chord-mode 0)
-  (nlinum-mode 0))
+  (linum-mode 0))
 
 (defun key-chord-force ()
   (key-chord-mode 1)
@@ -18,7 +18,7 @@
 (defun default-language-settings ()
   (key-chord-mode 1)
   (rainbow-delimiters-mode)
-  (if window-system (nlinum-mode))
+  (if window-system (linum-mode))
   (if window-system (hl-line-mode 1))
   (highlight-symbol-mode 1)
   (electric-pair-mode 1)
