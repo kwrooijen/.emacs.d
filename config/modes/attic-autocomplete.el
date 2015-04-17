@@ -44,15 +44,15 @@
 ;;==============================================================================
 
 ;; Auto Complete Mode
-(setq ac-auto-show-menu 0)
+(setq ac-auto-show-menu 0.3)
+(setq ac-candidate-limit 15)
+(setq ac-delay 0.3)
 
 ;; Company Mode
-(setq company-idle-delay 0)
+(setq company-idle-delay 0.3)
 
 ;;==============================================================================
 ;;== Hooks
 ;;==============================================================================
-
-
 
 (provide 'attic-autocomplete)
