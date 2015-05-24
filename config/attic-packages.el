@@ -15,6 +15,7 @@
     dash
     elixir-mode
     elixir-yasnippets
+    elm-mode
     erc-image
     erlang
     escreen

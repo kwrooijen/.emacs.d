@@ -51,6 +51,11 @@
     (fringe                      unspecified "gray14")
     (magit-item-highlight       nil "dim grey" unspecified)))
 
+(defun daytime ()
+  (interactive)
+  (load-theme 'sanityinc-tomorrow-day)
+  (set-face-background 'hl-line nil))
+
 (setq whitespace-style
       '(face tabs spaces trailing
              space-before-tab indentation
@@ -91,5 +96,3 @@
         (:eval (god-mode-bar))))
 
 (provide 'attic-colors)
-
-
