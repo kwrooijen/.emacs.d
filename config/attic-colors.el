@@ -53,7 +53,7 @@
 
 (defun daytime ()
   (interactive)
-  (load-theme 'sanityinc-tomorrow-day)
+  (load-theme 'sanityinc-tomorrow-day t)
   (set-face-background 'hl-line nil)
   (set-face-attribute 'highlight-symbol-face nil :inherit 'highlight))
 
