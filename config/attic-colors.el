@@ -54,7 +54,8 @@
 (defun daytime ()
   (interactive)
   (load-theme 'sanityinc-tomorrow-day)
-  (set-face-background 'hl-line nil))
+  (set-face-background 'hl-line nil)
+  (set-face-attribute 'highlight-symbol-face nil :inherit 'highlight))
 
 (setq whitespace-style
       '(face tabs spaces trailing

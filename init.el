@@ -23,6 +23,7 @@
 (require 'attic-eshell)
 (require 'attic-gnus)
 (require 'attic-haskell)
+(require 'attic-elm)
 (require 'attic-helm)
 (require 'attic-neotree)
 (require 'attic-org)
