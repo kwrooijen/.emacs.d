@@ -7,9 +7,7 @@
     (default-language-settings)
     (god-local-mode t)
     (elm-indentation-mode 0)
-    (setq doom-indent-fallback 0)
-    (setq doom-region-cycle t)
-    (setq-local doom-indent-fallback t)))
+    (setq iod--use-tab-cycle t)))
 
 ;;==============================================================================
 ;;== Functions

@@ -40,6 +40,7 @@
     magit-gh-pulls
     multiple-cursors
     neotree
+    paredit
     racket-mode
     rainbow-delimiters
     redo+
