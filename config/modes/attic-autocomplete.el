@@ -44,10 +44,10 @@
 ;;==============================================================================
 
 ;; Auto Complete Mode
-(setq ac-auto-show-menu 0)
+(setq ac-auto-show-menu 0.3)
 
 ;; Company Mode
-(setq company-idle-delay 0)
+(setq company-idle-delay 0.3)
 
 ;;==============================================================================
 ;;== Hooks

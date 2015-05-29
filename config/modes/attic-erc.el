@@ -12,7 +12,7 @@
 (erc-truncate-mode 1)
 (erc-scrolltobottom-mode 1)
 
-(setq erc-nick "attic")
+(setq erc-nick "attichacker")
 (setq erc-prompt-for-password nil)
 (setq erc-ignore-list '("*Flowdock*" "Flowdock" "-Flowdock-"))
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))

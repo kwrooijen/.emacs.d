@@ -143,10 +143,11 @@
 (defadvice helm-ls-git-ls (before helm-ls-git-ls activate)
   (let ((dir (magit-get-top-dir)))
     (if dir
-        (progn
-          (add-to-list 'helm-ls-git-project-list dir)
-          (save-project-list-to-file))
-      (helm-ls-git-project))))
+        (unless (member dir helm-ls-git-project-list)
+          (progn
+            (add-to-list 'helm-ls-git-project-list dir)
+            (save-project-list-to-file))
+          (helm-ls-git-project)))))
 
 ;;==============================================================================
 ;;== Functions
