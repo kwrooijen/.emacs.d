@@ -15,6 +15,8 @@
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
+            (paredit-mode)
+            (electric-pair-mode 0)
             (default-language-settings)
             (setq-local helm-dash-docsets '("Emacs Lisp"))))
 

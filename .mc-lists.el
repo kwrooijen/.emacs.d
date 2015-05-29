@@ -61,6 +61,7 @@
         kill-region
         kill-sexp
         magit-stage-item
+        markdown-exdent-or-delete
         my-comment
         org-beginning-of-line
         org-delete-char
@@ -88,6 +89,7 @@
         undefined
         upcase-region
         vim-o
+        x-clipboard-yank
         yas-expand
         ))
 
@@ -107,4 +109,6 @@
         helm-M-x
         helm-maybe-exit-minibuffer
         markdown-next-link
+        mouse-appearance-menu
+        my/grep
         ))

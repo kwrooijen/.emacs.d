@@ -11,14 +11,14 @@
 ("<escape>" escape-key)
 
 ;; Control Keys
-("C--" undo)
-("C-," helm-resume)
-("C-." repeat)
+;; ("C--" undo)
+;; ("C-," helm-resume)
+;; ("C-." repeat)
 ("C-/" my-comment)
-("C-=" repeat)
-("C-j" iy-go-to-char)
-("C-l" helm-register)
-("C-o" vim-o)
+;; ("C-=" repeat)
+;; ("C-j" iy-go-to-char)
+;; ("C-l" helm-register)
+;; ("C-o" vim-o)
 ("C-q" backward-delete-char)
 ("C-z" helm-mini)
 
@@ -44,12 +44,9 @@
 ("C-c C-+" camelcase-word-or-region)
 ("C-c C-=" camelcase-word-or-region+)
 ("C-c C--" snakecase-word-or-region)
-("C-x C-/" comment-or-uncomment-region)
 ("C-x C-0" sticky-window-delete-window)
 ("C-x   0" sticky-window-delete-window)
 ("C-x C-1" delete-other-windows)
-;; ("C-x C-1" sticky-window-delete-other-windows-focus)
-;; ("C-x   1" sticky-window-delete-other-windows-focus)
 ("C-x C-2" split-window-below)
 ("C-x C-3" split-window-right)
 ("C-x C-f" helm-find-files)
@@ -57,7 +54,7 @@
 
 ("C-;" semi-colon-map)
 
-;; Control Prefix 3
+;; ;; Control Prefix 3
 ("C-c C-s C-a" helm-bookmarks)
 ("C-c C-s C-d" helm-dash)
 ("C-c C-s C-f" helm-swoop-find-files-recursively)
@@ -68,32 +65,33 @@
 
 ("C-c C-z" attic-make-map)
 
-;; Meta keys
-("M-*" mc/mark-all-like-this)
-("M-+" align-regexp)
-("M--" redo)
+;; ;; Meta keys
+;; ("M-*" mc/mark-all-like-this)
+;; ("M-+" align-regexp)
+;; ("M--" redo)
 ("M-C" capitalize-previous-word)
-("M-;" (lambda() (interactive) (ac-stop) (company-abort) (yas/expand)))
-("M-@" er/expand-region)
-("M-#" align-regexp)
+;; ("M-;" (lambda() (interactive) (ac-stop) (company-abort) (yas/expand)))
+;; ("M-@" er/expand-region)
+;; ("M-#" align-regexp)
 ("M-N" mc/mark-next-like-this)
 ("M-P" mc/mark-previous-like-this)
-("M-S" helm-swoop)
-("M-_" negative-argument)
-("M-g" escape-key)
+;; ("M-S" helm-swoop)
+("M-_" redo)
+;; ("M-g" escape-key)
 ("M-i" tab-to-tab-stop-line-or-region)
 ("M-I" (lambda() (interactive) (tab-to-tab-stop-line-or-region t)))
-("M-j" iy-go-to-char-backward)
-("M-h" (lambda() (interactive) (join-line -1)))
-("M-o" (lambda() (interactive) (vim-o 1)))
+;; ("M-j" iy-go-to-char-backward)
+;; ("M-h" (lambda() (interactive) (join-line -1)))
+;; ("M-o" (lambda() (interactive) (vim-o 1)))
 ("M-q" backward-kill-word)
-("M-s" (lambda() (interactive) (helm-swoop :$query "")))
+;; ("M-s" (lambda() (interactive) (helm-swoop :$query "")))
 ("M-x" helm-M-x)
-("M-\\" spawn-eshell)
-("M-," (lambda() (interactive (winner-undo) (deactivate-mark))))
+;; ("M-\\" spawn-eshell)
+;; ("M-," (lambda() (interactive (winner-undo) (deactivate-mark))))
 ("M-0" attic-sauron-toggle)
 ("M-9" attic-neotree-toggle)
-("s-w" other-frame)))
+;; ("s-w" other-frame)
+))
 
 (defun set-map-list (a)
   (interactive)
@@ -111,6 +109,7 @@
                            ("p" escreen-goto-prev-screen)
                            (";" escreen-goto-last-screen)
                            ("c" escreen-create-screen)
+                           ("d" (lambda() (interactive) (helm-swoop :$query "")))
                            ("a" async-shell-command)
                            ("s" shell-command)
                            ("f" helm-ls-git-project)
@@ -188,10 +187,10 @@
 
 ;; God mode
 (define-key god-local-mode-map (kbd "g") 'goto-line)
-(define-key god-local-mode-map (kbd "h") 'ace-jump-mode)
+;; (define-key god-local-mode-map (kbd "h") 'ace-jump-mode)
 (define-key god-local-mode-map (kbd "i") 'god-mode-disable)
-(define-key god-local-mode-map (kbd "[") 'scroll-down-line)
-(define-key god-local-mode-map (kbd "]") 'scroll-up-line)
+;; (define-key god-local-mode-map (kbd "[") 'scroll-down-line)
+;; (define-key god-local-mode-map (kbd "]") 'scroll-up-line)
 (define-key god-local-mode-map (kbd ";") 'semi-colon-map)
 
 (require 'eww)
@@ -227,6 +226,15 @@
 
 (define-key messages-buffer-mode-map (kbd ";") 'semi-colon-map)
 (define-key messages-buffer-mode-map (kbd "z") 'helm-mini)
+
+;; Disable mouse completely :)
+(dolist
+    (k '([mouse-1] [down-mouse-1] [drag-mouse-1] [double-mouse-1] [triple-mouse-1]
+         [mouse-2] [down-mouse-2] [drag-mouse-2] [double-mouse-2] [triple-mouse-2]
+         [mouse-3] [down-mouse-3] [drag-mouse-3] [double-mouse-3] [triple-mouse-3]
+         [mouse-4] [down-mouse-4] [drag-mouse-4] [double-mouse-4] [triple-mouse-4]
+         [mouse-5] [down-mouse-5] [drag-mouse-5] [double-mouse-5] [triple-mouse-5]))
+  (global-unset-key k))
 
 ;; Modes
 (define-minor-mode attic-minor-mode

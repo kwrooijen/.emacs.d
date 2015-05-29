@@ -15,6 +15,7 @@
     dash
     elixir-mode
     elixir-yasnippets
+    elm-mode
     erc-image
     erlang
     escreen
@@ -39,6 +40,7 @@
     magit-gh-pulls
     multiple-cursors
     neotree
+    paredit
     racket-mode
     rainbow-delimiters
     redo+
