@@ -1,5 +1,5 @@
 (defun set-hydra-function (var)
-  `(defhydra ,(make-symbol (concat "hydra-god-repeater-" var)) 
+  `(defhydra ,(make-symbol (concat "hydra-god-repeater-" var))
      (god-local-mode-map "g")
      (,var (lambda() (interactive) (call-interactively (key-binding (kbd ,(concat "M-" var))))))))
 

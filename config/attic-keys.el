@@ -19,14 +19,15 @@
 ;; ("C-j" iy-go-to-char)
 ;; ("C-l" helm-register)
 ;; ("C-o" vim-o)
-("C-q" backward-delete-char)
+;; ("C-q" backward-delete-char)
+("C-s" isearch-forward)
 ("C-z" helm-mini)
 
-("C-M-q" backward-kill-sexp)
+;; ("C-M-q" backward-kill-sexp)
 ("M-y" (lambda() (interactive)
-    (if (or (equal last-command 'yank) (equal last-command 'yank-pop))
-        (yank-pop)
-        (helm-show-kill-ring))))
+         (if (or (equal last-command 'yank) (equal last-command 'yank-pop))
+             (yank-pop)
+           (helm-show-kill-ring))))
 
 ;; Control Prefix
 ("C-c C-e" kmacro-end-or-call-macro-repeat)
@@ -168,12 +169,23 @@
 
 ;; Key Chord
 (key-chord-define-global "xs"
-    (lambda() (interactive) (god-mode-enable) (save-buffer)))
+                         (lambda()
+                           (interactive)
+                           (unless (boundp 'emacs-lisp-mode) (god-mode-enable))
+                           (save-buffer)))
 
 (key-chord-define-global ";j"
-    (lambda() (interactive) (escape-key) (god-mode-enable)))
+                         (lambda()
+                           (interactive)
+                           (escape-key)
+                           (unless (boundp 'emacs-lisp-mode) (god-mode-enable))))
 
-(key-chord-define attic-minor-mode-map ";j" (lambda() (interactive) (escape-key) (god-mode-enable)))
+(key-chord-define attic-minor-mode-map ";j"
+                  (lambda()
+                    (interactive)
+                    (escape-key)
+                    (unless (boundp 'emacs-lisp-mode) (god-mode-enable))))
+
 (key-chord-define isearch-mode-map ";j" 'isearch-abort)
 
 (define-key mc/keymap (kbd "<return>")  'newline)

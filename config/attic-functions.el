@@ -280,7 +280,6 @@ buffer is not visiting a file."
               (unless (one-window-p t)
                 (delete-window (car xwins))
                 t))))))
-
   (defalias 'winner-set 'winner-set1))
 
 (defun is-tramp-mode ()
@@ -314,10 +313,9 @@ makes)."
 
 (defun capitalize-previous-word ()
   (interactive)
-  (let ((old-point (point)))
+  (save-excursion
     (backward-word)
-    (capitalize-word 1)
-    (goto-char old-point)))
+    (capitalize-word 1)))
 
 (defun what-line-int (&optional p)
   "Get the current line number as an int"
