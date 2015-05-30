@@ -17,6 +17,13 @@
   (deactivate-mark))
 
 (defadvice delete-other-windows (after delete-other-windows activate)
-  (if sauron-active (attic-sauron-toggle)))
+  (if sauron-active
+      (progn
+        (attic-sauron-toggle)
+        (switch-to-buffer-other-window "*Sauron*")
+        (split-window-right)
+        (other-window 1)
+        (switch-to-buffer ":home")
+        (other-window 1))))
 
 (provide 'attic-advice)

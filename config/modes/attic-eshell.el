@@ -69,7 +69,7 @@
   (if eshell-mode
       (let ((buff (get-buffer-window))
             (col (current-column)))
-        (eshell-back-to-indentation)
+        (eshell-bol)
         (setq eshell-indentation-column (point))
         (move-end-of-line 1)
         (setq eshell-oel-column (point))
