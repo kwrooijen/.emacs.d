@@ -1,20 +1,13 @@
 (require 'paredit)
+(require 'lispy)
 
-;; (defun set-paredit (var)
-;;   `(define-key paredit-mode-map (kbd (car ,var))
-;;      (lambda () (interactive)
-;;        (if god-global-mode
-;;            (call-interactively
-;;             (key-binding (kbd (concat "C-" (car ,var))))
-;;          (last ,var))))))
-
-;; (defmacro paredit-macro (&rest vars)
-;;   (let ((forms (mapcar 'set-paredit vars)))
-;;     `(progn ,@forms)))
-
-;; (eval (macroexpand
-;;        '(paredit-macro
-;;          '(")" 'paredit-close-round) '("(" 'paredit-open-round))))
+(define-key paredit-mode-map (kbd "M-R") 'paredit-splice-sexp-killing-backward)
+(define-key paredit-mode-map (kbd "C-j") (lambda() (interactive) (join-line -1)))
+(define-key paredit-mode-map (kbd "C-q") 'iy-go-up-to-char)
+(define-key paredit-mode-map (kbd "C-c C-n") 'lispy-clone)
+(define-key paredit-mode-map (kbd "M-q") 'lispy-ace-paren)
+(define-key paredit-mode-map (kbd "M-n") 'lispy-move-down)
+(define-key paredit-mode-map (kbd "M-p") 'lispy-move-up)
 
 
 (define-key paredit-mode-map (kbd ";")

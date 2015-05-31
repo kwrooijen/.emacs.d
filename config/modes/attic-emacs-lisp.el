@@ -47,10 +47,9 @@
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (setq-local emacs-lisp-mode t)
-            (lispy-mode 1)
+            (paredit-mode 1)
             (electric-pair-mode 0)
             (default-language-settings)
-            (setq-local helm-dash-docsets '("Emacs Lisp"))
-            (god-mode-disable)))
+            (setq-local helm-dash-docsets '("Emacs Lisp"))))
 
 (provide 'attic-emacs-lisp)

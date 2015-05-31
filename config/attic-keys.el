@@ -22,6 +22,7 @@
 ;; ("C-q" backward-delete-char)
 ("C-s" isearch-forward)
 ("C-z" helm-mini)
+("C-j" (lambda() (interactive) (join-line -1)))
 
 ;; ("C-M-q" backward-kill-sexp)
 ("M-y" (lambda() (interactive)
@@ -72,7 +73,7 @@
 ;; ("M--" redo)
 ("M-C" capitalize-previous-word)
 ;; ("M-;" (lambda() (interactive) (ac-stop) (company-abort) (yas/expand)))
-;; ("M-@" er/expand-region)
+("M-@" er/expand-region)
 ;; ("M-#" align-regexp)
 ("M-N" mc/mark-next-like-this)
 ("M-P" mc/mark-previous-like-this)
@@ -82,9 +83,8 @@
 ("M-i" tab-to-tab-stop-line-or-region)
 ("M-I" (lambda() (interactive) (tab-to-tab-stop-line-or-region t)))
 ;; ("M-j" iy-go-to-char-backward)
-;; ("M-h" (lambda() (interactive) (join-line -1)))
 ;; ("M-o" (lambda() (interactive) (vim-o 1)))
-("M-q" backward-kill-word)
+;; ("M-q" backward-kill-word)
 ;; ("M-s" (lambda() (interactive) (helm-swoop :$query "")))
 ("M-x" helm-M-x)
 ;; ("M-\\" spawn-eshell)
@@ -171,20 +171,20 @@
 (key-chord-define-global "xs"
                          (lambda()
                            (interactive)
-                           (unless (boundp 'emacs-lisp-mode) (god-mode-enable))
+                           (god-mode-enable)
                            (save-buffer)))
 
 (key-chord-define-global ";j"
                          (lambda()
                            (interactive)
                            (escape-key)
-                           (unless (boundp 'emacs-lisp-mode) (god-mode-enable))))
+                           (god-mode-enable)))
 
 (key-chord-define attic-minor-mode-map ";j"
                   (lambda()
                     (interactive)
                     (escape-key)
-                    (unless (boundp 'emacs-lisp-mode) (god-mode-enable))))
+                    (god-mode-enable)))
 
 (key-chord-define isearch-mode-map ";j" 'isearch-abort)
 
