@@ -21,7 +21,7 @@
 ;; ("C-o" vim-o)
 ;; ("C-q" backward-delete-char)
 ("C-s" isearch-forward)
-("C-z" helm-mini)
+("C-z" ido-switch-buffer)
 ("C-j" (lambda() (interactive) (join-line -1)))
 
 ;; ("C-M-q" backward-kill-sexp)
@@ -32,7 +32,7 @@
 
 ;; Control Prefix
 ("C-c C-e" kmacro-end-or-call-macro-repeat)
-("C-c C-f" helm-ls-git-ls)
+("C-c C-f" projectile-find-file)
 ("C-c C-m" magit-status)
 ("C-c C-q" kmacro-start-macro)
 ("C-c C-t" transpose-mark)
@@ -43,6 +43,8 @@
 ("C-c C-o" switch-to-minibuffer)
 ("C-c C-p" copy-line-up)
 ("C-c C-n" copy-line-down)
+("C-c M-p" (lambda () (interactive) (move-line-up) (hydra-move-line/body)))
+("C-c M-n" (lambda () (interactive) (move-line-down) (hydra-move-line/body)))
 ("C-c C-+" camelcase-word-or-region)
 ("C-c C-=" camelcase-word-or-region+)
 ("C-c C--" snakecase-word-or-region)
@@ -51,7 +53,7 @@
 ("C-x C-1" delete-other-windows)
 ("C-x C-2" split-window-below)
 ("C-x C-3" split-window-right)
-("C-x C-f" helm-find-files)
+("C-x C-f" ido-find-file)
 ("C-x C-k" kill-this-buffer)
 
 ("C-;" semi-colon-map)
@@ -86,7 +88,7 @@
 ;; ("M-o" (lambda() (interactive) (vim-o 1)))
 ;; ("M-q" backward-kill-word)
 ;; ("M-s" (lambda() (interactive) (helm-swoop :$query "")))
-("M-x" helm-M-x)
+("M-x" smex)
 ;; ("M-\\" spawn-eshell)
 ;; ("M-," (lambda() (interactive (winner-undo) (deactivate-mark))))
 ("M-0" attic-sauron-toggle)
@@ -159,8 +161,8 @@
 (define-key god-local-mode-map (kbd "/") 'my-comment))
 
 ;; Dired keys
-(define-key dired-mode-map (kbd "c f")   'helm-ls-git-ls)
-(define-key dired-mode-map (kbd "z")     'helm-mini)
+(define-key dired-mode-map (kbd "c f")   'projectile-find-file)
+(define-key dired-mode-map (kbd "z")     'ido-switch-buffer)
 (define-key dired-mode-map (kbd "c s a") 'helm-bookmarks)
 (define-key dired-mode-map (kbd "c s r") 'my/grep)
 (define-key dired-mode-map (kbd "c m")   'magit-status)
@@ -225,19 +227,19 @@
 (define-key doc-view-mode-map (kbd "k") 'doc-view-previous-line-or-previous-page)
 
 (define-key help-mode-map (kbd ";") 'semi-colon-map)
-(define-key help-mode-map (kbd "z") 'helm-mini)
+(define-key help-mode-map (kbd "z") 'ido-switch-buffer)
 
 (define-key grep-mode-map (kbd ";") 'semi-colon-map)
-(define-key grep-mode-map (kbd "z") 'helm-mini)
+(define-key grep-mode-map (kbd "z") 'ido-switch-buffer)
 
 (define-key doc-view-mode-map (kbd ";") 'semi-colon-map)
-(define-key doc-view-mode-map (kbd "z") 'helm-mini)
+(define-key doc-view-mode-map (kbd "z") 'ido-switch-buffer)
 
 (define-key top-mode-map (kbd ";") 'semi-colon-map)
-(define-key top-mode-map (kbd "z") 'helm-mini)
+(define-key top-mode-map (kbd "z") 'ido-switch-buffer)
 
 (define-key messages-buffer-mode-map (kbd ";") 'semi-colon-map)
-(define-key messages-buffer-mode-map (kbd "z") 'helm-mini)
+(define-key messages-buffer-mode-map (kbd "z") 'ido-switch-buffer)
 
 ;; Disable mouse completely :)
 (dolist

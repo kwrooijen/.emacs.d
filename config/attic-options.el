@@ -88,7 +88,7 @@ Kevin W. van Rooijen
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
 ;; Don't resize minibuffer
-(setq resize-mini-windows nil)
+;; (setq resize-mini-windows nil)
 
 ;; Don't ask when creating new buffer
 (setq confirm-nonexistent-file-or-buffer nil)
@@ -208,8 +208,13 @@ Kevin W. van Rooijen
 (escreen-goto-screen-1)
 
 ;; Ido
+(ido-vertical-mode 1)
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
 (setq ido-enable-flex-matching t)
-(setq ido-separator " | ")
+(setq ido-use-faces nil)
 
 ;; Magit
 (setq magit-last-seen-setup-instructions "1.4.0")

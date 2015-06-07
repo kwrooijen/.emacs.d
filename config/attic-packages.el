@@ -12,6 +12,8 @@
     buffer-move
     color-theme-sanityinc-tomorrow
     company
+    smex
+    flx-ido
     dash
     elixir-mode
     elixir-yasnippets
@@ -128,7 +130,6 @@
 (display-battery-mode t)
 (global-git-gutter+-mode t)
 (god-mode)
-(ido-mode t)
 (key-chord-mode t)
 (multiple-cursors-mode t)
 (show-paren-mode t)
@@ -137,7 +138,7 @@
 (wrap-region-global-mode t)
 (yas-global-mode t)
 (electric-pair-mode t)
-(hl-line-mode t)
+;; (hl-line-mode t)
 
 (setq sauron-active nil)
 (provide 'attic-packages)
