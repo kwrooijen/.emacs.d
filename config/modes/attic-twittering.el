@@ -16,4 +16,10 @@
 (setq twittering-cert-file "/etc/ssl/certs/ca-bundle.crt")
 (setq twittering-use-master-password t)
 
+;;==============================================================================
+;;== Hooks
+;;==============================================================================
+
+(add-hook 'twittering-mode-hook 'toggle-modeline)
+
 (provide 'attic-twittering)

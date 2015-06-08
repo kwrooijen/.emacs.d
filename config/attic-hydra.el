@@ -52,4 +52,10 @@
   ("M-b" tmr-start--backward-word "backward-word")
   ("q" hydra-keyboard-quit "quit" :color blue))
 
+
+(defhydra hydra-move-line ()
+  "Move lines up or down"
+  ("M-n" move-line-down)
+  ("M-p" move-line-up))
+
 (provide 'attic-hydra)

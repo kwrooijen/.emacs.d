@@ -24,6 +24,8 @@
         (split-window-right)
         (other-window 1)
         (switch-to-buffer ":home")
+        (beginning-of-buffer)
+        (sticky-window-keep-window-visible)
         (other-window 1))))
 
 (provide 'attic-advice)

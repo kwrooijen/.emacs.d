@@ -18,7 +18,6 @@
 (defun default-language-settings ()
   (key-chord-mode 1)
   (rainbow-delimiters-mode)
-  ;; (if window-system (linum-mode))
   (highlight-symbol-mode 1)
   (electric-pair-mode 1)
   (auto-complete-mode))

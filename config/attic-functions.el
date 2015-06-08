@@ -453,4 +453,15 @@ makes)."
   (end-of-buffer)
   (sauron-activate-event-prev))
 
+(defun move-line-up ()
+  (interactive)
+  (transpose-lines 1)
+  (previous-line 2))
+
+(defun move-line-down ()
+  (interactive)
+  (next-line 1)
+  (transpose-lines 1)
+  (previous-line 1))
+
 (provide 'attic-functions)

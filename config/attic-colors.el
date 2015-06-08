@@ -5,7 +5,7 @@
 (defun sfb(l)
   (mapcar (lambda(list) (set-foreground-background (nth 0 list)(nth 1 list)(nth 2 list) )) l))
 
-(load-theme 'sanityinc-tomorrow-night t)
+;; (load-theme 'sanityinc-tomorrow-night t)
 
 (set-face-attribute 'magit-diff-none nil :inherit nil)
 (set-face-attribute 'magit-item-highlight nil :inherit nil)
@@ -47,7 +47,7 @@
     (whitespace-tab              "gray16" "#1d1f21")
     (whitespace-trailing         "gray16" "#1d1f21")
     (ac-completion-face           unspecified unspecified)
-    (hl-line                     unspecified "gray14")
+    ;; (hl-line                     unspecified "gray14")
     (fringe                      unspecified "gray14")
     (magit-item-highlight       nil "dim grey" unspecified)))
 

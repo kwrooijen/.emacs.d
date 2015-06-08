@@ -23,10 +23,9 @@
 ("C-q" iy-go-up-to-char)
 ("M-q" ace-jump-mode)
 ("C-s" isearch-forward)
-("C-z" helm-mini)
 ("C-j" special-lispy-different)
 ("M-j" (lambda() (interactive) (join-line -1)))
-
+("C-z" ido-switch-buffer)
 ;; ("C-M-q" backward-kill-sexp)
 ("M-y" (lambda() (interactive)
          (if (or (equal last-command 'yank) (equal last-command 'yank-pop))
@@ -46,6 +45,8 @@
 ("C-c C-o" switch-to-minibuffer)
 ("C-c C-p" copy-line-up)
 ("C-c C-n" copy-line-down)
+("C-c M-p" (lambda () (interactive) (move-line-up) (hydra-move-line/body)))
+("C-c M-n" (lambda () (interactive) (move-line-down) (hydra-move-line/body)))
 ("C-c C-+" camelcase-word-or-region)
 ("C-c C-=" camelcase-word-or-region+)
 ("C-c C--" snakecase-word-or-region)
@@ -56,6 +57,7 @@
 ("C-x C-3" split-window-right)
 ("C-x C-f" helm-find-files)
 ("C-x C-k" kill-this-buffer)
+("C-h f" counsel-describe-function)
 
 ("C-;" semi-colon-map)
 
@@ -110,18 +112,21 @@
 (mapcar 'set-map-list
         '((semi-colon-map (("n" sauron-select-last-event)
                            ("p" escreen-goto-prev-screen)
+                           ("x" helm-M-x)
                            (";" escreen-goto-last-screen)
                            ("c" escreen-create-screen)
                            ("d" (lambda() (interactive) (helm-swoop :$query "")))
                            ("M-d" helm-swoop)
                            ("a" async-shell-command)
                            ("s" shell-command)
-                           ("f" helm-ls-git-project)
+                           ("f" helm-ls-git-ls)
                            ("y" x-clipboard-yank)
                            ("w" clipboard-kill-region)
                            ("e" eww)
                            ("b" eww-list-bookmarks)
                            ("h" select-line-from-indentation)
+                           ("[" winner-undo)
+                           ("]" winner-redo)
                            ("1" escreen-goto-screen-1)
                            ("2" escreen-goto-screen-2)
                            ("3" escreen-goto-screen-3)
@@ -163,7 +168,7 @@
 
 ;; Dired keys
 (define-key dired-mode-map (kbd "c f")   'helm-ls-git-ls)
-(define-key dired-mode-map (kbd "z")     'helm-mini)
+(define-key dired-mode-map (kbd "z")     'ido-switch-buffer)
 (define-key dired-mode-map (kbd "c s a") 'helm-bookmarks)
 (define-key dired-mode-map (kbd "c s r") 'my/grep)
 (define-key dired-mode-map (kbd "c m")   'magit-status)
@@ -228,19 +233,19 @@
 (define-key doc-view-mode-map (kbd "k") 'doc-view-previous-line-or-previous-page)
 
 (define-key help-mode-map (kbd ";") 'semi-colon-map)
-(define-key help-mode-map (kbd "z") 'helm-mini)
+(define-key help-mode-map (kbd "z") 'ido-switch-buffer)
 
 (define-key grep-mode-map (kbd ";") 'semi-colon-map)
-(define-key grep-mode-map (kbd "z") 'helm-mini)
+(define-key grep-mode-map (kbd "z") 'ido-switch-buffer)
 
 (define-key doc-view-mode-map (kbd ";") 'semi-colon-map)
-(define-key doc-view-mode-map (kbd "z") 'helm-mini)
+(define-key doc-view-mode-map (kbd "z") 'ido-switch-buffer)
 
 (define-key top-mode-map (kbd ";") 'semi-colon-map)
-(define-key top-mode-map (kbd "z") 'helm-mini)
+(define-key top-mode-map (kbd "z") 'ido-switch-buffer)
 
 (define-key messages-buffer-mode-map (kbd ";") 'semi-colon-map)
-(define-key messages-buffer-mode-map (kbd "z") 'helm-mini)
+(define-key messages-buffer-mode-map (kbd "z") 'ido-switch-buffer)
 
 ;; Disable mouse completely :)
 (dolist
