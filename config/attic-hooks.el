@@ -18,7 +18,7 @@
 (defun default-language-settings ()
   (key-chord-mode 1)
   (rainbow-delimiters-mode)
-  (if window-system (hl-line-mode 1))
+  ;; (if window-system (linum-mode))
   (highlight-symbol-mode 1)
   (electric-pair-mode 1)
   (auto-complete-mode))
@@ -34,6 +34,15 @@
           (lambda()
             (god-local-mode)
             (key-chord-mode 1)))
+
+(require 'elpy)
+
+(add-hook 'python-mode-hook
+          (lambda()
+            (define-key python-mode-map (kbd "C-c C-z")  'attic-make-map)
+            (define-key python-mode-map (kbd "C-c C-k")  'elpy-shell-switch-to-shell)
+            (define-key python-mode-map (kbd "C-q")  'iy-go-up-to-char)
+            (define-key python-mode-map (kbd "M-q")  'ace-jump-mode)))
 
 (add-hook 'doc-view-mode-hook 'clean-hook)
 (add-hook 'w3m-mode-hook 'clean-hook)
