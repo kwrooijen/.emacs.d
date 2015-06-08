@@ -235,5 +235,18 @@ Kevin W. van Rooijen
       '((?\" . ?\")
         (?\{ . ?\})))
 
+;; Disable Mouse when Emacs has focus
+(defun turn-off-mouse (&optional frame)
+  (interactive)
+  (shell-command "xinput --disable \"ETPS/2 Elantech Touchpad\""))
+
+(defun turn-on-mouse (&optional frame)
+  (interactive)
+  (shell-command "xinput --enable \"ETPS/2 Elantech Touchpad\""))
+
+(add-hook 'focus-in-hook #'turn-off-mouse)
+(add-hook 'focus-out-hook #'turn-on-mouse)
+(add-hook 'delete-frame-functions #'turn-on-mouse)
+
 (provide 'attic-options)
 
