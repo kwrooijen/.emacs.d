@@ -12,9 +12,6 @@
     buffer-move
     color-theme-sanityinc-tomorrow
     company
-    smex
-    flx-ido
-    ido-vertical-mode
     dash
     elixir-mode
     elixir-yasnippets
@@ -23,7 +20,7 @@
     erlang
     escreen
     expand-region
-    gh
+    flx-ido
     git-gutter+
     git-gutter-fringe+
     god-mode
@@ -36,6 +33,8 @@
     helm-swoop
     highlight-symbol
     hydra
+    ido-vertical-mode
+    indy
     iy-go-to-char
     js2-mode
     key-chord
@@ -52,7 +51,6 @@
     top-mode
     transpose-mark
     twittering-mode
-    w3m
     web-mode
     window-numbering
     wrap-region
@@ -105,7 +103,6 @@
 (require 'helm-dash)
 (require 'helm-ls-git)
 (require 'helm-swoop)
-(require 'indent-of-doom)
 (require 'magit)
 (require 'multiple-cursors)
 (require 'pastie)
