@@ -12,7 +12,7 @@
   (clean-hook))
 
 (defun fix-tabs (x)
-  (indent-of-doom-mode t)
+  (indy-mode t)
   (setq-local tab-width x))
 
 (defun default-language-settings ()
@@ -54,44 +54,40 @@
     (define-key ac-complete-mode-map (kbd "<return>")
       (lambda() (interactive) (ac-stop) (racket-repl-eval-or-newline-and-indent)))))
 
-;; Doom Indent Config
-(setq doom-use-tab-cycle t)
-(setq doom-region-cycle nil)
-
-(setq my-doom '(
+(setq indy-rules '(
     (all . (
-        ((and (prev 'ends-on "[") (current 'starts-with "]")) (prev 'indent))
-        ((and (prev 'ends-on "{") (current 'starts-with "}")) (prev 'indent))
-        ((and (prev 'ends-on "(") (current 'starts-with ")")) (prev 'indent))
+        ((and (indy--prev 'indy--ends-on "[") (indy--current 'indy--starts-with "]")) (indy--prev-tab))
+        ((and (indy--prev 'indy--ends-on "{") (indy--current 'indy--starts-with "}")) (indy--prev-tab))
+        ((and (indy--prev 'indy--ends-on "(") (indy--current 'indy--starts-with ")")) (indy--prev-tab))
 
-        ((current 'starts-with "]" "}" ")") (prev 'indent -1))
-        ((prev 'ends-on "[" "{" "(")        (prev 'indent 1))
-        ((prev 'ends-on ",")                (prev 'indent))
+        ((indy--current 'indy--starts-with "]" "}" ")") (indy--prev-tab -1))
+        ((indy--prev 'indy--ends-on "[" "{" "(")  (indy--prev-tab 1))
+        ((indy--prev 'indy--ends-on ",")          (indy--prev-tab))
     ))
     (erlang-mode . (
-        ((prev 'ends-on "->" "fun" "of" "begin") (prev 'indent 1))
-        ((prev 'ends-on ";") (prev 'indent -1))
-        ((and (prev 'ends-on "end") (current 'starts-with "end")) (prev 'indent -1))
-        ((current 'ends-on "end") (prev 'indent -1))
+        ((indy--prev 'indy--ends-on "->" "fun" "of" "begin") (indy--prev-tab 1))
+        ((indy--prev 'indy--ends-on ";") (indy--prev-tab -1))
+        ((and (indy--prev 'indy--ends-on "end") (indy--current 'indy--starts-with "end")) (indy--prev-tab -1))
+        ((indy--current 'indy--ends-on "end") (indy--prev-tab -1))
     ))
     (haskell-mode . (
-        ((prev 'indent-char-is ",") (prev 'indent))
-        ((prev 'indent-char-is "[") (prev 'indent))
-        ((prev 'ends-on "=" "= do" "=do") (prev 'indent 1))
+        ((indy--prev 'indy--starts-with ",") (indy--prev-tab))
+        ((indy--prev 'indy--starts-with "[") (indy--prev-tab))
+        ((indy--prev 'indy--ends-on "=" "= do" "=do") (indy--prev-tab 1))
     ))
     (elm-mode . (
-        ((prev 'indent-char-is ",") (prev 'indent))
-        ((and (current 'starts-with ", ") (prev 'indent-char-is "[")) (prev 'indent))
-        ((prev 'ends-on "=") (prev 'indent 1))
-        ((and (current 'starts-with ", ") (or (prev 'starts-with ", ") (prev 'starts-with "[ ") )) (prev 'indent))
-        ((current 'starts-with "|> ") (prev 'indent))
-        ((prev 'ends-on "if") (prev 'indent 1))
-        ((and (prev 'starts-with "{") (current 'starts-with "," "}")) (prev 'indent))
-        ((and (prev 'starts-with "[") (current 'starts-with "," "]")) (prev 'indent))
+        ((indy--prev 'indy--starts-with ",") (indy--prev-tab))
+        ((and (indy--current 'indy--starts-with ", ") (indy--prev 'indy--starts-with "[")) (indy--prev-tab))
+        ((indy--prev 'indy--ends-on "=") (indy--prev-tab 1))
+        ((and (indy--current 'indy--starts-with ", ") (or (indy--prev 'indy--starts-with ", ") (indy--prev 'indy--starts-with "[ ") )) (indy--prev-tab))
+        ((indy--current 'indy--starts-with "|> ") (indy--prev-tab))
+        ((indy--prev 'indy--ends-on "if") (indy--prev-tab 1))
+        ((and (indy--prev 'indy--starts-with "{") (indy--current 'indy--starts-with "," "}")) (indy--prev-tab))
+        ((and (indy--prev 'indy--starts-with "[") (indy--current 'indy--starts-with "," "]")) (indy--prev-tab))
     ))
     (elixir-mode . (
-        ((and (prev 'ends-on ") ->") (current 'starts-with "end")) (prev 'indent))
-        ((prev 'ends-on ") ->") (prev 'indent 1))
+        ((and (indy--prev 'indy--ends-on ") ->") (indy--current 'indy--starts-with "end")) (indy--prev-tab))
+        ((indy--prev 'indy--ends-on ") ->") (indy--prev-tab 1))
     ))
 ))
 

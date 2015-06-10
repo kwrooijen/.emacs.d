@@ -31,8 +31,6 @@
             (default-language-settings)
             (setq inferior-erlang-machine-options '("-sname" "emacs"))
             (fix-tabs 4)
-            (setq-local doom-indent-fallback t)
-            (setq-local doom-use-tab-cycle nil)
             (rebar-mode 1)
             (setq-local helm-dash-docsets '("Erlang"))
             (subword-mode t)))
@@ -42,15 +40,14 @@
 ;;==============================================================================
 
 (defun flymake-erlang-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-		     'flymake-create-temp-intemp))
-	 (local-file (file-relative-name temp-file
-		(file-name-directory buffer-file-name))))
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy 'flymake-create-temp-intemp))
+         (local-file (file-relative-name temp-file (file-name-directory buffer-file-name))))
     (list "~/.emacs.d/scripts/erlang/erlang-flymake" (list local-file))))
 
 (defun erlang-get-error ()
     (interactive)
-    (async-shell-command (format "~/.emacs.d/scripts/erlang/erlang-flymake %s" buffer-file-name) "[Erlang Errors]"))
+    (async-shell-command
+     (format "~/.emacs.d/scripts/erlang/erlang-flymake %s" buffer-file-name) "[Erlang Errors]"))
 
 
 ;;==============================================================================

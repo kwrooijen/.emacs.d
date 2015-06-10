@@ -119,6 +119,7 @@
 (require 'top-mode)
 (require 'auto-complete)
 (require 'company)
+(require 'indy)
 
 (if window-system
     (require 'git-gutter-fringe+)

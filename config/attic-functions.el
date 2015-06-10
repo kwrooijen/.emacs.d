@@ -170,8 +170,8 @@ buffer is not visiting a file."
     (progn
       (end-of-line)
       (newline)))
-  (if indent-of-doom-mode
-      (indent-of-doom)
+  (if indy-mode
+      (indy)
     (indent-for-tab-command))
   (god-mode-disable))
 

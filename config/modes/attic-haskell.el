@@ -7,7 +7,6 @@
     (default-language-settings)
     (turn-on-haskell-doc-mode)
     (turn-on-haskell-indentation)
-    (setq-local doom-indent-fallback t)
     (setq-local helm-dash-docsets '("Haskell"))))
 
 ;;==============================================================================
@@ -16,7 +15,7 @@
 
 (defun run-haskell-test ()
     (interactive)
-    (my-up-to-script "*.cabal" "cabal build ; cabal test --log=/dev/stdout" "[Haskell Tests]")) 
+    (my-up-to-script "*.cabal" "cabal build ; cabal test --log=/dev/stdout" "[Haskell Tests]"))
 
 (defun hoogle-search (query)
     "Search with hoogle commandline"
