@@ -5,7 +5,7 @@
 (defun sfb(l)
   (mapcar (lambda(list) (set-foreground-background (nth 0 list)(nth 1 list)(nth 2 list) )) l))
 
-;; (load-theme 'sanityinc-tomorrow-night t)
+(load-theme 'sanityinc-tomorrow-night t)
 
 (set-face-attribute 'magit-diff-none nil :inherit nil)
 (set-face-attribute 'magit-item-highlight nil :inherit nil)
