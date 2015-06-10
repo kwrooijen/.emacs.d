@@ -21,6 +21,7 @@
 ;; ("C-o" vim-o)
 ;; ("C-q" backward-delete-char)
 ("C-q" iy-go-up-to-char)
+("M-[" helm-resume)
 ("M-q" ace-jump-mode)
 ("C-s" isearch-forward)
 ("C-j" special-lispy-different)

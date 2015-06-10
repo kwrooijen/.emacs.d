@@ -60,6 +60,13 @@
         keyboard-escape-quit-mc
         kill-region
         kill-sexp
+        lispy-braces
+        lispy-brackets
+        lispy-delete
+        lispy-kill
+        lispy-move-down
+        lispy-parens
+        lispy-quotes
         magit-stage-item
         markdown-exdent-or-delete
         my-comment
@@ -71,6 +78,15 @@
         org-self-insert-command
         org-yank
         orgtbl-self-insert-command
+        paredit-backward-kill-word
+        paredit-close-round-and-newline
+        paredit-forward-delete
+        paredit-forward-kill-word
+        paredit-forward-slurp-sexp
+        paredit-join-sexps
+        paredit-kill
+        paredit-raise-sexp
+        paredit-wrap-round
         paste-from-clipboard
         pop-to-mark-command
         repeat
@@ -83,8 +99,83 @@
         shrink-window-if-larger-than-buffer
         simpleclip-paste
         sp--self-insert-command
+        special-digit-argument
+        special-lh-knight/body
+        special-lispy-ace-char
+        special-lispy-ace-paren
+        special-lispy-ace-subword
+        special-lispy-ace-symbol
+        special-lispy-ace-symbol-replace
+        special-lispy-alt-multiline
+        special-lispy-back
+        special-lispy-barf
+        special-lispy-beginning-of-defun
+        special-lispy-clone
+        special-lispy-convolute
+        special-lispy-different
+        special-lispy-down
+        special-lispy-down-slurp
+        special-lispy-edebug-stop
+        special-lispy-ediff-regions
+        special-lispy-eval
+        special-lispy-eval-and-insert
+        special-lispy-eval-other-window
+        special-lispy-flatten
+        special-lispy-flow
+        special-lispy-follow
+        special-lispy-goto
+        special-lispy-goto-def-ace
+        special-lispy-goto-def-down
+        special-lispy-goto-local
+        special-lispy-goto-mode
+        special-lispy-goto-projectile
+        special-lispy-goto-recursive
+        special-lispy-join
+        special-lispy-left
+        special-lispy-mark-list
+        special-lispy-move-down
+        special-lispy-move-left
+        special-lispy-move-right
+        special-lispy-move-up
+        special-lispy-multiline
+        special-lispy-narrow
+        special-lispy-new-copy
+        special-lispy-occur
+        special-lispy-oneline
+        special-lispy-other-space
+        special-lispy-outline-goto-child
+        special-lispy-outline-next
+        special-lispy-outline-prev
+        special-lispy-paste
+        special-lispy-quit
+        special-lispy-raise
+        special-lispy-raise-some
+        special-lispy-repeat
+        special-lispy-right
+        special-lispy-shifttab
+        special-lispy-slurp
+        special-lispy-space
+        special-lispy-splice
+        special-lispy-stringify
+        special-lispy-tab
+        special-lispy-teleport
+        special-lispy-tilde
+        special-lispy-to-cond
+        special-lispy-to-defun
+        special-lispy-to-ifs
+        special-lispy-to-lambda
+        special-lispy-undo
+        special-lispy-up
+        special-lispy-up-slurp
+        special-lispy-view
+        special-lispy-visit
+        special-lispy-widen
+        special-lispy-x
+        special-pop-tag-mark
+        special-swiper
         tab-to-tab-stop
         tab-to-tab-stop-line-or-region
+        transpose-mark
         transpose-words
         undefined
         upcase-region
@@ -108,7 +199,9 @@
         goto-line
         helm-M-x
         helm-maybe-exit-minibuffer
+        lispy-cursor-down
         markdown-next-link
         mouse-appearance-menu
         my/grep
+        special-lispy-other-mode
         ))
