@@ -6,6 +6,8 @@
 ;; (define-key emacs-lisp-mode-map (kbd "M-p") 'highlight-symbol-prev)
 ;; (define-key emacs-lisp-mode-map (kbd "M-n") 'highlight-symbol-next)
 (define-key emacs-lisp-mode-map (kbd "C-q") 'special-lispy-ace-paren)
+(define-key emacs-lisp-mode-map (kbd "C-c C-c") 'litable-accept-as-pure)
+
 ;; (define-key lispy-mode-map (kbd "M-m") 'back-to-indentation)
 
 ;; (define-key lispy-mode-map (kbd "a") 'special-lispy-left)
@@ -50,6 +52,7 @@
             (paredit-mode 1)
             (electric-pair-mode 0)
             (default-language-settings)
+            (litable-mode)
             (setq-local helm-dash-docsets '("Emacs Lisp"))))
 
 (provide 'attic-emacs-lisp)

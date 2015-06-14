@@ -38,6 +38,7 @@
     iy-go-to-char
     js2-mode
     key-chord
+    litable
     magit
     magit-gh-pulls
     multiple-cursors
