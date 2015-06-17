@@ -1,145 +1,332 @@
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (package-initialize)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-  (add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/") t)
-  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t))
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/") t)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(package-initialize)
 
-(defvar my-packages '(
-    ace-jump-mode
-    alchemist
-    auto-complete
-    buffer-move
-    color-theme-sanityinc-tomorrow
-    company
-    dash
-    elixir-mode
-    elixir-yasnippets
-    elm-mode
-    erc-image
-    erlang
-    escreen
-    expand-region
-    flx-ido
-    git-gutter+
-    git-gutter-fringe+
-    god-mode
-    hackernews
-    haskell-mode
-    helm
-    helm-dash
-    helm-descbinds
-    helm-ls-git
-    helm-swoop
-    highlight-symbol
-    hydra
-    ido-vertical-mode
-    indy
-    iy-go-to-char
-    js2-mode
-    key-chord
-    litable
-    magit
-    magit-gh-pulls
-    multiple-cursors
-    neotree
-    paredit
-    racket-mode
-    rainbow-delimiters
-    redo+
-    s
-    sauron
-    top-mode
-    transpose-mark
-    twittering-mode
-    web-mode
-    window-numbering
-    wrap-region
-    yasnippet
-    ))
-
-(defvar my-docs
-  '("Elixir"
-    "Erlang"
-    "Haskell"
-    "Emacs_Lisp"
-    "Ruby"
-    "Javascript"))
-
-(defun my-install-packages ()
-  (interactive)
+;; Bootstrap `use-package'
+(unless (package-installed-p 'use-package)
   (package-refresh-contents)
-  (mapc
-   #'(lambda (package)
-       (unless (package-installed-p package)
-         (package-install package)))
-   my-packages))
+  (package-install 'use-package))
 
-(defun my-install-docs ()
-  (interactive)
-  (mapc
-   #'(lambda (doc)
-       (helm-dash-install-docset doc))
-   my-docs))
+(require 'use-package)
 
-;; If elpa directory doesn't exist, install packages and reload
-(if (not (file-exists-p "~/.emacs.d/elpa/"))
-    (progn
-      (my-install-packages)
-      (load-file "~/.emacs.d/init.el")
-      (delete-other-windows)
-      (insert "Welcome to the Attic!")))
+(defvar attic-mode-map (make-keymap) "attic-mode keymap.")
+(define-minor-mode attic-mode
+  "A minor mode for key mapping."
+  t " attic" 'attic-mode-map)
 
-(require 'dash)
-(require 'elixir-mode)
-(require 'erc)
-(require 'erc-image)
-(require 'erlang)
-(require 'escreen)
-(require 'fbterm)
-(require 'flymake)
-(require 'gnus-notify)
-(require 'god-mode)
-(require 'helm)
-(require 'helm-dash)
-(require 'helm-ls-git)
-(require 'helm-swoop)
-(require 'magit)
-(require 'multiple-cursors)
-(require 'pastie)
-(require 'rebar)
-(require 'redo+)
-(require 's)
-(require 'sticky-windows)
-(require 'tempo)
-(require 'web-mode)
-(require 'linum)
-(require 'highlight-symbol)
-(require 'neotree)
-(require 'twittering-mode)
-(require 'top-mode)
-(require 'auto-complete)
-(require 'company)
-(require 'indy)
+(use-package ace-jump-mode
+  :init
+  (bind-key "M-q" 'ace-jump-mode attic-mode-map)
+  :ensure t)
+
+(use-package alchemist
+  :ensure t)
+
+(use-package auto-complete
+  :ensure t)
+
+(use-package buffer-move
+  :ensure t)
+
+(use-package color-theme-sanityinc-tomorrow
+  :ensure t)
+
+(use-package company
+  :ensure t)
+
+(use-package dash
+  :ensure t)
+
+(use-package dired
+  :init
+  (require 'dired)
+  (bind-key "c f" 'helm-ls-git-ls dired-mode-map)
+  (bind-key "z" 'ido-switch-buffer dired-mode-map)
+  (bind-key "c s a" 'helm-bookmarks dired-mode-map)
+  (bind-key "c s r" 'my/grep dired-mode-map)
+  (bind-key "c m" 'magit-status dired-mode-map)
+  (bind-key ";" 'semi-colon-map dired-mode-map)
+  (bind-key "c z" 'attic-make-map dired-mode-map))
+
+(use-package elixir-mode
+  :ensure t)
+
+(use-package elixir-yasnippets
+  :ensure t)
+
+(use-package elm-mode
+  :ensure t)
+
+(use-package erc-image
+  :ensure t)
+
+(use-package erlang
+  :ensure t)
+
+(use-package escreen
+  :ensure t)
+
+(use-package eww
+  :init
+  (bind-key "n" (lambda() (interactive) (scroll-up 1)) eww-mode-map)
+  (bind-key "p" (lambda() (interactive) (scroll-down 1)) eww-mode-map)
+  (bind-key "v" 'scroll-up-command eww-mode-map))
+
+(use-package expand-region
+  :init
+  (bind-key "M-@" 'er/expand-region attic-mode-map)
+  :ensure t)
+
+(use-package git-gutter+
+  :ensure t
+  :config
+  (global-git-gutter+-mode t)
+  (setq git-gutter+-unchanged-sign " "))
+
+(use-package git-gutter-fringe+
+  :ensure t
+  :config
+  (global-git-gutter+-mode t)
+  (setq git-gutter+-unchanged-sign " "))
+
+(use-package god-mode
+  :ensure t
+  :init
+  (require 'god-mode)
+  (bind-key "g" 'goto-line god-local-mode-map)
+  (bind-key "i" 'god-mode-disable god-local-mode-map)
+  (bind-key ";" 'semi-colon-map god-local-mode-map)
+  (bind-key "/" 'my-comment god-local-mode-map)
+  (god-mode)
+  :config
+  (add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
+  (add-to-list 'god-exempt-major-modes 'gnus-group-mode)
+  (add-to-list 'god-exempt-major-modes 'term-mode)
+  (add-to-list 'god-exempt-major-modes 'help-mode)
+  (add-to-list 'god-exempt-major-modes 'grep-mode)
+  (add-to-list 'god-exempt-major-modes 'doc-view-mode)
+  (add-to-list 'god-exempt-major-modes 'top-mode)
+  (add-to-list 'god-exempt-major-modes 'dired-mode)
+  (add-to-list 'god-exempt-major-modes 'twittering-mode))
+
+(use-package grep
+  :init
+  (bind-key "n" 'next-line grep-mode-map)
+  (bind-key "p" 'previous-line grep-mode-map)
+  (bind-key "TAB" (lambda() (interactive) (error-preview "*grep*")) grep-mode-map)
+  (bind-key "v" 'scroll-up-command grep-mode-map)
+  (bind-key ";" 'semi-colon-map grep-mode-map)
+  (bind-key ";" 'semi-colon-map grep-mode-map)
+  (bind-key "z" 'ido-switch-buffer grep-mode-map))
+
+(use-package hackernews
+  :ensure t)
+
+(use-package haskell-mode
+  :ensure t)
+
+(use-package helm
+  :init
+  (bind-key "M-[" 'helm-resume attic-mode-map)
+  (bind-key "C-c C-s C-a" 'helm-bookmarks attic-mode-map)
+  (bind-key "M-x" 'helm-M-x attic-mode-map)
+  :ensure t)
+
+(use-package helm-dash
+  :init
+  (bind-key "C-c C-s C-d" 'helm-dash attic-mode-map)
+  :ensure t)
+
+(use-package helm-descbinds
+  :ensure t)
+
+(use-package helm-ls-git
+  :init
+  (bind-key "C-c C-f" 'helm-ls-git-ls attic-mode-map)
+  :ensure t)
+
+(use-package helm-swoop
+  :init
+  (bind-key "C-c C-s C-s" 'helm-multi-swoop attic-mode-map)
+  (bind-key "C-c C-s C-f" 'helm-swoop-find-files-recursively attic-mode-map)
+  :ensure t)
+
+(use-package highlight-symbol
+  :ensure t
+  :config
+  ;; Highlight delay for multiple occurences
+  (setq highlight-symbol-idle-delay 0))
+
+(use-package hydra
+  :ensure t)
+
+(use-package ido
+  :config
+  (ido-mode 1)
+  (ido-everywhere 1)
+  (setq ido-enable-flex-matching t)
+  (setq ido-use-faces nil))
+
+(use-package ido-vertical-mode
+  :ensure t
+  :config
+  (ido-vertical-mode 1))
+
+(use-package indy
+  :ensure t)
+
+(use-package iy-go-to-char
+  :init
+  (bind-key "C-q" 'iy-go-up-to-char attic-mode-map)
+  :ensure t)
+
+(use-package js2-mode
+  :ensure t)
+
+(use-package key-chord
+  :ensure t
+  :init
+  (key-chord-define-global "xs" 'god-enable-and-save)
+  (key-chord-define-global ";j" 'escape-key)
+  (key-chord-define attic-mode-map ";j" 'escape-key)
+  (key-chord-define isearch-mode-map ";j" 'isearch-abort)
+  :config
+  (key-chord-mode t))
+
+(use-package linum
+  :config
+  ;; Always display 2 columns in linum mode (no stuttering)
+  (setq linum-format (quote "%3d"))
+  (setq linum-disabled-modes-list '(
+    mu4e-compose-mode
+    mu4e-headers-mode
+    mu4e-main-mode)))
+
+(use-package litable
+  :ensure t)
+
+(use-package macrostep
+  :ensure t)
+
+(use-package magit
+  :ensure t
+  :init
+  (bind-key "C-c C-m" 'magit-status attic-mode-map)
+  (bind-key "RET" (lambda () (interactive) (magit-visit-item t)) magit-status-mode-map)
+  (bind-key "g" 'magit-refresh magit-status-mode-map)
+  (bind-key ";" 'semi-colon-map magit-status-mode-map)
+  (bind-key ";" 'semi-colon-map magit-diff-mode-map)
+  (bind-key ";" 'semi-colon-map magit-commit-mode-map)
+  :config
+  (setq magit-last-seen-setup-instructions "1.4.0"))
+
+(use-package magit-gh-pulls
+  :ensure t)
+
+(use-package multiple-cursors
+  :ensure t
+  :init
+  (bind-key "M-N" 'mc/mark-next-like-this attic-mode-map)
+  (bind-key "M-P" 'mc/mark-previous-like-this attic-mode-map)
+  (bind-key "<return>" 'newline mc/keymap)
+  :config
+  (multiple-cursors-mode t)
+  ;; Make mc work better with iy-go-to-char
+  (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos))
+
+(use-package neotree
+  :ensure t)
+
+(use-package paredit
+  :ensure t)
+
+(use-package racket-mode
+  :ensure t)
+
+(use-package rainbow-delimiters
+  :ensure t)
+
+(use-package redo+
+  :ensure t
+  :init
+  (bind-key "M-_" 'redo attic-mode-map))
+
+(use-package s
+  :ensure t)
+
+(use-package sauron
+  :ensure t
+  :config
+  (setq sauron-active nil)
+  (setq sauron-hide-mode-line t)
+  (setq sauron-separate-frame nil)
+  (setq sauron-max-line-length (- (window-total-width) 10))
+  ;; Custom made variable for max line height
+  (setq sauron-max-line-height 4))
+
+(use-package top-mode
+  :ensure t
+  :init
+  (bind-key ";" 'semi-colon-map top-mode-map)
+  (bind-key "z" 'ido-switch-buffer top-mode-map))
+
+(use-package transpose-mark
+  :init
+  (bind-key "C-c C-t" 'transpose-mark attic-mode-map)
+  :ensure t)
+
+(use-package twittering-mode
+  :ensure t)
+
+(use-package web-mode
+  :ensure t
+  :config
+  (setq web-mode-markup-indent-offset 4)
+  (setq web-mode-css-indent-offset 4)
+  (setq web-mode-code-indent-offset 4))
+
+(use-package window-numbering
+  :ensure t
+  :init
+  (window-numbering-mode t))
+
+(use-package winner
+  :config
+  (winner-mode t)
+  ;; Buffers to be ignored by Winner
+  (setq winner-boring-buffers
+        '("*Completions*"
+          "*Compile-Log*"
+          "*inferior-lisp*"
+          "*Fuzzy Completions*"
+          "*Apropos*"
+          "*dvc-error*"
+          "*Help*"
+          "*cvs*"
+          "*Buffer List*"
+          "*Ibuffer*")))
+
+(use-package wrap-region
+  :ensure t)
+
+(use-package yasnippet
+  :ensure t
+  :init
+  (yas-global-mode t))
 
 (if window-system
     (require 'git-gutter-fringe+)
-    (require 'git-gutter+))
+  (require 'git-gutter+))
+
+(require 'gnus-notify)
 
 ;; Modes
 (display-battery-mode t)
-(global-git-gutter+-mode t)
-(god-mode)
-(key-chord-mode t)
-(multiple-cursors-mode t)
 (show-paren-mode t)
-(window-numbering-mode t)
-(winner-mode t)
 (wrap-region-global-mode t)
-(yas-global-mode t)
 (electric-pair-mode t)
-;; (hl-line-mode t)
-
-(setq sauron-active nil)
 (provide 'attic-packages)
 

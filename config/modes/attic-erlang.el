@@ -3,14 +3,11 @@
 ;;==============================================================================
 
 (define-key erlang-mode-map (kbd "M-/") 'erlang-get-error)
-(define-key erlang-mode-map (kbd "M-q") 'backward-kill-word)
 (define-key erlang-mode-map (kbd "C-c C-k")
   (lambda() (interactive)
-    (rebar-compile)
     (inferior-erlang)
     (split-window)
     (other-window 1)
-    (switch-to-buffer "*rebar-compilation*")
     (other-window -1)))
 (define-key erlang-mode-map (kbd "M-n") 'highlight-symbol-next)
 (define-key erlang-mode-map (kbd "M-p") 'highlight-symbol-prev)
@@ -31,7 +28,6 @@
             (default-language-settings)
             (setq inferior-erlang-machine-options '("-sname" "emacs"))
             (fix-tabs 4)
-            (rebar-mode 1)
             (setq-local helm-dash-docsets '("Erlang"))
             (subword-mode t)))
 

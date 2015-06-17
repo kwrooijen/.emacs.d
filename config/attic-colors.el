@@ -81,9 +81,13 @@
           (propertize "[NORMAL]" 'face 'font-lock-constant-face)
         (propertize "[INSERT]" 'face 'bg:erc-color-face3)))))
 
+(defun attic-gnus-notify ()
+  (if (equal (gnus-mst-notify-modeline-form) "")
+    (:eval (butlast (cdr (gnus-mst-notify-modeline-form))))) )
+
 (setq attic-mode-line-format
       '(" " (:eval (concat "[" (number-to-string (escreen-get-current-screen-number)) "]")) " "
-        (:eval (butlast (cdr (gnus-mst-notify-modeline-form)))) " "
+        ;; (attic-gnus-notify) TODO fix this
         (:eval erc-modified-channels-object)
         "%*" "_"
         mode-line-remote " "

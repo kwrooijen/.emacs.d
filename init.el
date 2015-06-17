@@ -4,8 +4,8 @@
 (add-to-list 'load-path "~/.emacs.d/tempo")
 (add-to-list 'load-path "~/.emacs.d/plugins/magit-gh-pulls")
 
-(require 'attic-packages)
 (require 'attic-functions)
+(require 'attic-packages)
 (require 'attic-advice)
 (require 'attic-keys)
 (require 'attic-hydra)

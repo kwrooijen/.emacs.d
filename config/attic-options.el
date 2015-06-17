@@ -65,12 +65,6 @@ Kevin W. van Rooijen
 ;; Delete seleted text when typing
 (delete-selection-mode 1)
 
-;; Make mc work better with iy-go-to-char
-(add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
-
-;; Always display 2 columns in linum mode (no stuttering)
-(setq linum-format (quote "%3d"))
-
 ;; Allow upcase-region and downcase-region functions
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -86,9 +80,6 @@ Kevin W. van Rooijen
 
 ;; Backup ~ files in seperate directory
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
-
-;; Don't resize minibuffer
-;; (setq resize-mini-windows nil)
 
 ;; Don't ask when creating new buffer
 (setq confirm-nonexistent-file-or-buffer nil)
@@ -116,9 +107,6 @@ Kevin W. van Rooijen
 
 ;; Let C-v M-v brings back where you were.
 (setq scroll-preserve-screen-position t)
-
-;; Highlight delay for multiple occurences
-(setq highlight-symbol-idle-delay 0)
 
 ;; Enable interactive behavior for Tempo
 (setq tempo-interactive t)
@@ -155,46 +143,6 @@ Kevin W. van Rooijen
 
 (setq auto-window-vscroll nil)
 
-;; Projectile
-; Enable Caching
-(setq projectile-enable-caching t)
-(setq projectile-projects-cache (make-hash-table))
-
-;; Web mode
-(setq web-mode-markup-indent-offset 4)
-(setq web-mode-css-indent-offset 4)
-(setq web-mode-code-indent-offset 4)
-
-;; Modes with no Linum
-(setq linum-disabled-modes-list '(
-    mu4e-compose-mode
-    mu4e-headers-mode
-    mu4e-main-mode))
-
-;; Sauron
-(setq sauron-hide-mode-line t)
-(setq sauron-separate-frame nil)
-(setq sauron-max-line-length (- (window-total-width) 10))
-
-;; Made up variable
-(setq sauron-max-line-height 4)
-
-;; Buffers to be ignored by Winner
-(setq winner-boring-buffers '(
-    "*Completions*"
-    "*Compile-Log*"
-    "*inferior-lisp*"
-    "*Fuzzy Completions*"
-    "*Apropos*"
-    "*dvc-error*"
-    "*Help*"
-    "*cvs*"
-    "*Buffer List*"
-    "*Ibuffer*"))
-
-;; Git gutter
-(setq git-gutter+-unchanged-sign " ")
-
 ;; Macro is not active at boot, setting variable
 (setq macro-active nil)
 
@@ -207,46 +155,25 @@ Kevin W. van Rooijen
 (escreen-create-screen)
 (escreen-goto-screen-1)
 
-;; Ido
-(ido-vertical-mode 1)
-(ido-mode 1)
-(ido-everywhere 1)
-(flx-ido-mode 1)
-;; disable ido faces to see flx highlights.
-(setq ido-enable-flex-matching t)
-(setq ido-use-faces nil)
-
-;; Magit
-(setq magit-last-seen-setup-instructions "1.4.0")
-
-;; God modes
-(add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
-(add-to-list 'god-exempt-major-modes 'gnus-group-mode)
-(add-to-list 'god-exempt-major-modes 'term-mode)
-(add-to-list 'god-exempt-major-modes 'help-mode)
-(add-to-list 'god-exempt-major-modes 'grep-mode)
-(add-to-list 'god-exempt-major-modes 'doc-view-mode)
-(add-to-list 'god-exempt-major-modes 'top-mode)
-(add-to-list 'god-exempt-major-modes 'dired-mode)
-(add-to-list 'god-exempt-major-modes 'twittering-mode)
-
 ;; Electric pair
 (setq electric-pair-pairs
       '((?\" . ?\")
         (?\{ . ?\})))
 
-;; Disable Mouse when Emacs has focus
-(defun turn-off-mouse (&optional frame)
-  (interactive)
-  (shell-command "xinput --disable \"ETPS/2 Elantech Touchpad\""))
 
-(defun turn-on-mouse (&optional frame)
-  (interactive)
-  (shell-command "xinput --enable \"ETPS/2 Elantech Touchpad\""))
+;; TODO create a toggle function for this
+;; ;; Disable Mouse when Emacs has focus
+;; (defun turn-off-mouse (&optional frame)
+;;   (interactive)
+;;   (shell-command "xinput --disable \"ETPS/2 Elantech Touchpad\""))
 
-(add-hook 'focus-in-hook #'turn-off-mouse)
-(add-hook 'focus-out-hook #'turn-on-mouse)
-(add-hook 'delete-frame-functions #'turn-on-mouse)
+;; (defun turn-on-mouse (&optional frame)
+;;   (interactive)
+;;   (shell-command "xinput --enable \"ETPS/2 Elantech Touchpad\""))
+
+;; (add-hook 'focus-in-hook #'turn-off-mouse)
+;; (add-hook 'focus-out-hook #'turn-on-mouse)
+;; (add-hook 'delete-frame-functions #'turn-on-mouse)
 
 (provide 'attic-options)
 

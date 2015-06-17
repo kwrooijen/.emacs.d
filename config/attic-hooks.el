@@ -34,15 +34,6 @@
             (god-local-mode)
             (key-chord-mode 1)))
 
-(require 'elpy)
-
-(add-hook 'python-mode-hook
-          (lambda()
-            (define-key python-mode-map (kbd "C-c C-z")  'attic-make-map)
-            (define-key python-mode-map (kbd "C-c C-k")  'elpy-shell-switch-to-shell)
-            (define-key python-mode-map (kbd "C-q")  'iy-go-up-to-char)
-            (define-key python-mode-map (kbd "M-q")  'ace-jump-mode)))
-
 (add-hook 'doc-view-mode-hook 'clean-hook)
 (add-hook 'w3m-mode-hook 'clean-hook)
 (add-hook 'message-mode-hook (lambda () (key-chord-force) (electric-pair-mode 0)))
@@ -102,7 +93,7 @@
     ("\\.rb$"        . ruby-mode)
     ("\\.ru$"        . ruby-mode)
     ("\\.app.src\\'" . erlang-mode)
-    ("rebar.conf"    . erlang-mode)
+    ("rebar.config"  . erlang-mode)
     ("\\.js\\'"      . js2-mode)
     ("\\.dtl\\'"     . web-mode)
     ("\\.eex\\'"     . web-mode)

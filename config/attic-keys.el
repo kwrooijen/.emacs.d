@@ -1,44 +1,20 @@
-(defvar attic-minor-mode-map (make-keymap) "attic-minor-mode keymap.")
 (define-prefix-command 'semi-colon-map)
 (define-prefix-command 'attic-make-map)
 
 (defun attic-key(key function)
-  (define-key attic-minor-mode-map (kbd key) function))
+  (define-key attic-mode-map (kbd key) function))
 
-(global-set-key (kbd "C-M-]") 'attic-minor-mode)
+(global-set-key (kbd "C-M-]") 'attic-mode)
 (mapcar (lambda(a) (attic-key (nth 0 a) (nth 1 a))) '(
 
-("<escape>" escape-key)
-
 ;; Control Keys
-;; ("C--" undo)
-;; ("C-," helm-resume)
-;; ("C-." repeat)
 ("C-/" my-comment)
-;; ("C-=" repeat)
-;; ("C-j" iy-go-to-char)
-;; ("C-l" helm-register)
-;; ("C-o" vim-o)
-;; ("C-q" backward-delete-char)
-("C-q" iy-go-up-to-char)
-("M-[" helm-resume)
-("M-q" ace-jump-mode)
 ("C-s" isearch-forward)
-("C-j" special-lispy-different)
-("M-j" (lambda() (interactive) (join-line -1)))
 ("C-z" ido-switch-buffer)
-;; ("C-M-q" backward-kill-sexp)
-("M-y" (lambda() (interactive)
-         (if (or (equal last-command 'yank) (equal last-command 'yank-pop))
-             (yank-pop)
-           (helm-show-kill-ring))))
 
 ;; Control Prefix
 ("C-c C-e" kmacro-end-or-call-macro-repeat)
-("C-c C-f" helm-ls-git-ls)
-("C-c C-m" magit-status)
 ("C-c C-q" kmacro-start-macro)
-("C-c C-t" transpose-mark)
 ("C-c M-t" transpose-paragraphs)
 ("C-c C-w" kill-rectangle)
 ("C-c C-v" inc-register)
@@ -58,46 +34,23 @@
 ("C-x C-3" split-window-right)
 ("C-x C-f" ido-find-file)
 ("C-x C-k" kill-this-buffer)
-("C-h f" counsel-describe-function)
-
 ("C-;" semi-colon-map)
 
 ;; ;; Control Prefix 3
-("C-c C-s C-a" helm-bookmarks)
-("C-c C-s C-d" helm-dash)
-("C-c C-s C-f" helm-swoop-find-files-recursively)
-("C-c C-s C-m" mu4e)
-
 ("C-c C-s C-r" my/grep)
-("C-c C-s C-s" helm-multi-swoop)
-
 ("C-c C-z" attic-make-map)
 
 ;; ;; Meta keys
-;; ("M-*" mc/mark-all-like-this)
-;; ("M-+" align-regexp)
-;; ("M--" redo)
 ("M-C" capitalize-previous-word)
-;; ("M-;" (lambda() (interactive) (ac-stop) (company-abort) (yas/expand)))
-("M-@" er/expand-region)
-;; ("M-#" align-regexp)
-("M-N" mc/mark-next-like-this)
-("M-P" mc/mark-previous-like-this)
-;; ("M-S" helm-swoop)
-("M-_" redo)
-;; ("M-g" escape-key)
 ("M-i" tab-to-tab-stop-line-or-region)
 ("M-I" (lambda() (interactive) (tab-to-tab-stop-line-or-region t)))
-;; ("M-o" (lambda() (interactive) (vim-o 1)))
-;; ("M-q" backward-kill-word)
-;; ("M-s" (lambda() (interactive) (helm-swoop :$query "")))
-("M-x" helm-M-x)
-;; ("M-\\" spawn-eshell)
-;; ("M-," (lambda() (interactive (winner-undo) (deactivate-mark))))
 ("M-0" attic-sauron-toggle)
 ("M-9" attic-neotree-toggle)
-;; ("s-w" other-frame)
-))
+("M-j" (lambda() (interactive) (join-line -1)))
+("M-y" (lambda() (interactive)
+         (if (or (equal last-command 'yank) (equal last-command 'yank-pop))
+             (yank-pop)
+           (helm-show-kill-ring))))))
 
 (defun set-map-list (a)
   (interactive)
@@ -115,7 +68,6 @@
                            ("p" escreen-goto-prev-screen)
                            ("x" helm-M-x)
                            (";" escreen-goto-last-screen)
-                           ("c" escreen-create-screen)
                            ("d" (lambda() (interactive) (helm-swoop :$query "")))
                            ("M-d" helm-swoop)
                            ("a" async-shell-command)
@@ -164,67 +116,7 @@
 ;; C Keys
 (defun c-keys-hook ()
 (define-key c-mode-base-map (kbd "C-c C-l") 'execute-c)
-(define-key c-mode-base-map (kbd "C-/") 'my-comment)
-(define-key god-local-mode-map (kbd "/") 'my-comment))
-
-;; Dired keys
-(define-key dired-mode-map (kbd "c f")   'helm-ls-git-ls)
-(define-key dired-mode-map (kbd "z")     'ido-switch-buffer)
-(define-key dired-mode-map (kbd "c s a") 'helm-bookmarks)
-(define-key dired-mode-map (kbd "c s r") 'my/grep)
-(define-key dired-mode-map (kbd "c m")   'magit-status)
-(define-key dired-mode-map (kbd ";")     'semi-colon-map)
-(define-key dired-mode-map (kbd "c z")   'attic-make-map)
-
-;; Key Chord
-(key-chord-define-global "xs"
-                         (lambda()
-                           (interactive)
-                           (god-mode-enable)
-                           (save-buffer)))
-
-(key-chord-define-global ";j"
-                         (lambda()
-                           (interactive)
-                           (escape-key)
-                           (god-mode-enable)))
-
-(key-chord-define attic-minor-mode-map ";j"
-                  (lambda()
-                    (interactive)
-                    (escape-key)
-                    (god-mode-enable)))
-
-(key-chord-define isearch-mode-map ";j" 'isearch-abort)
-
-(define-key mc/keymap (kbd "<return>")  'newline)
-
-;; Grep mode
-(define-key grep-mode-map (kbd "n") 'next-line)
-(define-key grep-mode-map (kbd "p") 'previous-line)
-(define-key grep-mode-map (kbd "TAB") (lambda() (interactive) (error-preview "*grep*")))
-(define-key grep-mode-map (kbd "v") 'scroll-up-command)
-(define-key grep-mode-map (kbd ";") 'semi-colon-map)
-
-;; God mode
-(define-key god-local-mode-map (kbd "g") 'goto-line)
-;; (define-key god-local-mode-map (kbd "h") 'ace-jump-mode)
-(define-key god-local-mode-map (kbd "i") 'god-mode-disable)
-;; (define-key god-local-mode-map (kbd "[") 'scroll-down-line)
-;; (define-key god-local-mode-map (kbd "]") 'scroll-up-line)
-(define-key god-local-mode-map (kbd ";") 'semi-colon-map)
-
-(require 'eww)
-(define-key eww-mode-map (kbd "n") (lambda() (interactive) (scroll-up 1)))
-(define-key eww-mode-map (kbd "p") (lambda() (interactive) (scroll-down 1)))
-(define-key eww-mode-map (kbd "v") 'scroll-up-command)
-
-;; Magit mode
-(define-key magit-status-mode-map (kbd "RET") (lambda () (interactive) (magit-visit-item t)))
-(define-key magit-status-mode-map (kbd "g") 'magit-refresh)
-(define-key magit-status-mode-map (kbd ";") 'semi-colon-map)
-(define-key magit-diff-mode-map   (kbd ";") 'semi-colon-map)
-(define-key magit-commit-mode-map (kbd ";") 'semi-colon-map)
+(define-key c-mode-base-map (kbd "C-/") 'my-comment))
 
 ;; Package Menu mode
 (define-key package-menu-mode-map (kbd ";") 'semi-colon-map)
@@ -233,28 +125,17 @@
 (define-key doc-view-mode-map (kbd "j") 'doc-view-next-line-or-next-page)
 (define-key doc-view-mode-map (kbd "k") 'doc-view-previous-line-or-previous-page)
 
-(define-key help-mode-map (kbd ";") 'semi-colon-map)
-(define-key help-mode-map (kbd "z") 'ido-switch-buffer)
-
-(define-key grep-mode-map (kbd ";") 'semi-colon-map)
-(define-key grep-mode-map (kbd "z") 'ido-switch-buffer)
-
 (define-key doc-view-mode-map (kbd ";") 'semi-colon-map)
 (define-key doc-view-mode-map (kbd "z") 'ido-switch-buffer)
 
-(define-key top-mode-map (kbd ";") 'semi-colon-map)
-(define-key top-mode-map (kbd "z") 'ido-switch-buffer)
+(define-key help-mode-map (kbd ";") 'semi-colon-map)
+(define-key help-mode-map (kbd "z") 'ido-switch-buffer)
 
 (define-key messages-buffer-mode-map (kbd ";") 'semi-colon-map)
 (define-key messages-buffer-mode-map (kbd "z") 'ido-switch-buffer)
 
-;; Modes
-(define-minor-mode attic-minor-mode
-  "A minor mode so that my key settings override annoying major modes."
-  t " attic" 'attic-minor-mode-map)
-
 (defun attic-minibuffer-setup-hook ()
-  (attic-minor-mode 0))
+  (attic-mode 0))
 
 ;; Other unset keys
 (global-unset-key "\C-x\C-z")

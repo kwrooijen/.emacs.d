@@ -1,12 +1,6 @@
 (require 'paredit)
-(require 'lispy)
 
 (define-key paredit-mode-map (kbd "M-R") 'paredit-splice-sexp-killing-backward)
-(define-key paredit-mode-map (kbd "C-c C-n") 'lispy-clone)
-(define-key paredit-mode-map (kbd "C-j") 'special-lispy-different)
-(define-key paredit-mode-map (kbd "M-q") 'lispy-ace-paren)
-(define-key paredit-mode-map (kbd "M-n") 'lispy-move-down)
-(define-key paredit-mode-map (kbd "M-p") 'lispy-move-up)
 
 (define-key paredit-mode-map (kbd ";")
   (lambda () (interactive)
