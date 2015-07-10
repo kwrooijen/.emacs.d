@@ -17,6 +17,7 @@
             (paredit-mode 1)
             (default-language-settings)
             (electric-pair-mode 0)
+            (cider-mode)
             (setq-local helm-dash-docsets '("Clojure"))))
 
 (provide 'attic-emacs-lisp)
