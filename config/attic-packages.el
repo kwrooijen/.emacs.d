@@ -17,6 +17,9 @@
   "A minor mode for key mapping."
   t " attic" 'attic-mode-map)
 
+(use-package ac-cider
+  :ensure t)
+
 (use-package ace-jump-mode
   :init
   (bind-key "M-q" 'ace-jump-mode attic-mode-map)
@@ -29,6 +32,15 @@
   :ensure t)
 
 (use-package buffer-move
+  :ensure t)
+
+(use-package clojure-mode
+  :ensure t)
+
+(use-package clojure-snippets
+  :ensure t)
+
+(use-package cider
   :ensure t)
 
 (use-package color-theme-sanityinc-tomorrow
