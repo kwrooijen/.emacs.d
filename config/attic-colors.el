@@ -7,10 +7,6 @@
 
 (load-theme 'sanityinc-tomorrow-night t)
 
-(set-face-attribute 'magit-diff-none nil :inherit nil)
-(set-face-attribute 'magit-item-highlight nil :inherit nil)
-(set-face-attribute 'magit-item-highlight nil :inherit nil)
-
 (set-face-attribute 'highlight-symbol-face nil :inherit 'default)
 
 (set-face-attribute 'neo-file-link-face nil :inherit 'helm-ff-file)
@@ -30,8 +26,6 @@
     (git-gutter+-deleted        "red" unspecified)
     (git-gutter+-modified       "magenta" unspecified)
     (git-gutter+-unchanged  nil "#383838")
-    (magit-diff-add             "black" "green")
-    (magit-diff-del             "white" "red")
     (font-lock-string-face      "cadet blue" unspecified)
     (highlight-symbol-face      "#fff" "gray20" )
     (neo-file-link-face         unspecified unspecified unspecified)
@@ -48,8 +42,7 @@
     (whitespace-trailing         "gray16" "#1d1f21")
     (ac-completion-face           unspecified unspecified)
     ;; (hl-line                     unspecified "gray14")
-    (fringe                      unspecified "gray14")
-    (magit-item-highlight       nil "dim grey" unspecified)))
+    (fringe                      unspecified "gray14")))
 
 (defun daytime ()
   (interactive)

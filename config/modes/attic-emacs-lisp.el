@@ -21,6 +21,7 @@
             (electric-pair-mode 0)
             (default-language-settings)
             ;; (litable-mode)
+            (god-local-mode)
             (setq-local helm-dash-docsets '("Emacs Lisp"))))
 
 (provide 'attic-emacs-lisp)

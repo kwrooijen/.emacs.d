@@ -1,23 +1,20 @@
-(defun set-hydra-function (var)
+(defun private--set-hydra-function (var)
   `(defhydra ,(make-symbol (concat "hydra-god-repeater-" var))
      (god-local-mode-map "g")
      (,var (lambda() (interactive) (call-interactively (key-binding (kbd ,(concat "M-" var))))))))
 
 (defmacro set-hydra-meta-repeat (&rest vars)
-  (let ((forms (mapcar 'set-hydra-function vars)))
+  (let ((forms (mapcar 'private--set-hydra-function vars)))
     `(progn ,@forms)))
 
 (set-hydra-meta-repeat "q" "w" "e" "r" "t" "y" "u" "i" "o"
-                       "p" "a" "s" "d" "f" "h" "j" "k" "l"
-                       "z" "x" "c" "v" "b" "n" "m" "Q" "W"
-                       "E" "R" "T" "Y" "U" "I" "O" "P" "A"
-                       "S" "D" "F" "H" "J" "K" "L" "Z" "X"
-                       "C" "V" "B" "N" "M" "1" "2" "3" "4"
-                       "5" "6" "7" "8" "9" "0" "!" "@" "#"
-                       "$" "%" "^" "&" "*" "(" ")" "_" "+"
-                       "{" "}" "|" ":" "\"" "<" ">" "?" "-"
-                       "=" "[" "]" ";" "'" "\\" "," "." "/"
-                       "`" "~")
+                       "p" "a" "s" "d" "f" "g" "h" "j" "k"
+                       "l" "z" "x" "c" "v" "b" "n" "m"
+                       "1" "2" "3" "4" "5" "6" "7" "8" "9"
+                       "0" "!" "@" "#" "$" "%" "^" "&" "*"
+                       "(" ")" "_" "+" "{" "}" "|" ":" "\""
+                       "<" ">" "?" "-" "=" "[" "]" ";" "'"
+                       "\\" "," "." "/" "`" "~")
 
 ;; Special cases
 (defhydra hydra-god-repeater-g (god-local-mode-map "g") ("g" goto-line))

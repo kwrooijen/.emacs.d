@@ -105,7 +105,8 @@
       ;; helm-mini-default-sources '(helm-source-buffers-list
       ;;                             helm-source-recentf
       ;;                             helm-source-bookmarks)
-      )
+      ;; Helm input should be in the header
+      helm-echo-input-in-header-line t)
 
 (setq helm-ls-git-project-source
       '((name . "Helm git ls project")
@@ -121,6 +122,9 @@
 (setq helm-ls-git-project-list nil)
 (if (file-exists-p helm-ls-git-project-list-file)
     (load-file helm-ls-git-project-list-file))
+
+(add-hook 'helm-minibuffer-set-up-hook 'helm-hide-minibuffer-maybe)
+(add-hook 'helm-minibuffer-set-up-hook (lambda () (interactive) (key-chord-mode 1)))
 
 ;;==============================================================================
 ;;== Advice
@@ -140,18 +144,17 @@
 (defadvice helm-swoop (after helm-swoop activate)
   (makunbound 'helm-swoop-active))
 
-(defadvice helm-ls-git-ls (before helm-ls-git-ls activate)
-  (let ((dir (magit-get-top-dir)))
-    (if dir
-        (unless (member dir helm-ls-git-project-list)
-          (progn
-            (add-to-list 'helm-ls-git-project-list dir)
-            (save-project-list-to-file))
-          (helm-ls-git-project)))))
-
 ;;==============================================================================
 ;;== Functions
 ;;==============================================================================
+
+(defun helm-hide-minibuffer-maybe ()
+  (when (with-helm-buffer helm-echo-input-in-header-line)
+    (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
+      (overlay-put ov 'window (selected-window))
+      (overlay-put ov 'face (let ((bg-color (face-background 'default nil)))
+                              `(:background ,bg-color :foreground ,bg-color)))
+      (setq-local cursor-type nil))))
 
 (defun helm-swoop-emms ()
     (interactive)

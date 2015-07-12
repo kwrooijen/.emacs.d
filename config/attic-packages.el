@@ -1,4 +1,5 @@
 (require 'package)
+(require 'ert)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("elpa" . "http://elpa.gnu.org/packages/") t)
@@ -56,7 +57,7 @@
   :init
   (require 'dired)
   (bind-key "c f" 'helm-ls-git-ls dired-mode-map)
-  (bind-key "z" 'ido-switch-buffer dired-mode-map)
+  (bind-key "z" 'helm-buffers-list dired-mode-map)
   (bind-key "c s a" 'helm-bookmarks dired-mode-map)
   (bind-key "c s r" 'my/grep dired-mode-map)
   (bind-key "c m" 'magit-status dired-mode-map)
@@ -108,7 +109,7 @@
   :ensure t
   :init
   (require 'god-mode)
-  (bind-key "g" 'goto-line god-local-mode-map)
+  ;; (bind-key "g" 'goto-line god-local-mode-map)
   (bind-key "i" 'god-mode-disable god-local-mode-map)
   (bind-key ";" 'semi-colon-map god-local-mode-map)
   (bind-key "/" 'my-comment god-local-mode-map)
@@ -132,7 +133,7 @@
   (bind-key "v" 'scroll-up-command grep-mode-map)
   (bind-key ";" 'semi-colon-map grep-mode-map)
   (bind-key ";" 'semi-colon-map grep-mode-map)
-  (bind-key "z" 'ido-switch-buffer grep-mode-map))
+  (bind-key "z" 'helm-buffers-list grep-mode-map))
 
 (use-package hackernews
   :ensure t)
@@ -174,18 +175,6 @@
 
 (use-package hydra
   :ensure t)
-
-(use-package ido
-  :config
-  (ido-mode 1)
-  (ido-everywhere 1)
-  (setq ido-enable-flex-matching t)
-  (setq ido-use-faces nil))
-
-(use-package ido-vertical-mode
-  :ensure t
-  :config
-  (ido-vertical-mode 1))
 
 (use-package indy
   :ensure t)
@@ -283,7 +272,7 @@
   :ensure t
   :init
   (bind-key ";" 'semi-colon-map top-mode-map)
-  (bind-key "z" 'ido-switch-buffer top-mode-map))
+  (bind-key "z" 'helm-buffers-list top-mode-map))
 
 (use-package transpose-mark
   :init
@@ -334,11 +323,12 @@
   (require 'git-gutter+))
 
 (require 'gnus-notify)
+(require 'sticky-windows)
 
 ;; Modes
 (display-battery-mode t)
 (show-paren-mode t)
 (wrap-region-global-mode t)
 (electric-pair-mode t)
-(provide 'attic-packages)
 
+(provide 'attic-packages)

@@ -10,7 +10,7 @@
 ;; Control Keys
 ("C-/" my-comment)
 ("C-s" isearch-forward)
-("C-z" ido-switch-buffer)
+("C-z" helm-buffers-list)
 
 ;; Control Prefix
 ("C-c C-e" kmacro-end-or-call-macro-repeat)
@@ -32,7 +32,7 @@
 ("C-x C-1" delete-other-windows)
 ("C-x C-2" split-window-below)
 ("C-x C-3" split-window-right)
-("C-x C-f" ido-find-file)
+("C-x C-f" helm-find-files)
 ("C-x C-k" kill-this-buffer)
 ("C-;" semi-colon-map)
 
@@ -126,13 +126,13 @@
 (define-key doc-view-mode-map (kbd "k") 'doc-view-previous-line-or-previous-page)
 
 (define-key doc-view-mode-map (kbd ";") 'semi-colon-map)
-(define-key doc-view-mode-map (kbd "z") 'ido-switch-buffer)
+(define-key doc-view-mode-map (kbd "z") 'helm-buffers-list)
 
 (define-key help-mode-map (kbd ";") 'semi-colon-map)
-(define-key help-mode-map (kbd "z") 'ido-switch-buffer)
+(define-key help-mode-map (kbd "z") 'helm-buffers-list)
 
 (define-key messages-buffer-mode-map (kbd ";") 'semi-colon-map)
-(define-key messages-buffer-mode-map (kbd "z") 'ido-switch-buffer)
+(define-key messages-buffer-mode-map (kbd "z") 'helm-buffers-list)
 
 (defun attic-minibuffer-setup-hook ()
   (attic-mode 0))

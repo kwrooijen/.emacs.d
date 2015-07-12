@@ -70,7 +70,6 @@
 (neotree-root-hook helm-ls-git-ls)
 (neotree-root-hook helm-mini)
 (neotree-root-hook kill-this-buffer)
-(neotree-root-hook ido-kill-buffer)
 
 ;;==============================================================================
 ;;== Functions
