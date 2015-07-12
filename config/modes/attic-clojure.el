@@ -18,7 +18,7 @@
             (default-language-settings)
             (electric-pair-mode 0)
             (cider-mode 1)
-            (god-local-mode)
+            (god-local-mode t)
             (setq-local helm-dash-docsets '("Clojure"))))
 
 (provide 'attic-emacs-lisp)
