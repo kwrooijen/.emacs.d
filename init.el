@@ -17,6 +17,7 @@
 
 ;; My modes
 (require 'attic-autocomplete)
+(require 'attic-clojure)
 (require 'attic-elixir)
 (require 'attic-emacs-lisp)
 (require 'attic-erc)

@@ -21,4 +21,4 @@
             (god-local-mode t)
             (setq-local helm-dash-docsets '("Clojure"))))
 
-(provide 'attic-emacs-lisp)
+(provide 'attic-clojure)
