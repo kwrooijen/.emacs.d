@@ -13,7 +13,8 @@
 (require 'attic-options)
 (require 'attic-hooks)
 (require 'attic-scripts)
-(require 'attic-colors)
+(if window-system
+    (require 'attic-colors))
 
 ;; My modes
 (require 'attic-autocomplete)

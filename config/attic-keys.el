@@ -32,7 +32,7 @@
 ("C-x C-1" delete-other-windows)
 ("C-x C-2" split-window-below)
 ("C-x C-3" split-window-right)
-("C-x C-f" helm-find-files)
+("C-x C-f" find-file)
 ("C-x C-k" kill-this-buffer)
 ("C-;" semi-colon-map)
 

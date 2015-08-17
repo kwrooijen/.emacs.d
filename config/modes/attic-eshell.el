@@ -13,17 +13,6 @@
 ;;== Options
 ;;==============================================================================
 
-;; Prompt for eshell, a bit buggy but it will do for now...
-(setq eshell-prompt-function
-      (lambda nil
-        (if (equal (car (s-split "/scp:" (eshell/pwd))) (eshell/pwd))
-            (setq tramp-prompt "")
-          (setq tramp-prompt "/scp:"))
-        (let ((split (s-split "/" (eshell/pwd))))
-          (let ((bot (car (last split)))
-                (top (car (last (butlast split)))))
-            (concat tramp-prompt top "/" bot " λ ")))))
-
 ;;==============================================================================
 ;;== Hook
 ;;==============================================================================
@@ -31,26 +20,6 @@
 ;;==============================================================================
 ;;== Advice
 ;;==============================================================================
-
-;; Not sure how eshell-bol is defined, but I think my custom prompt breaks it.
-(defadvice eshell-bol (after eshell-bol activate)
-  ;; Use a counter with a limit so we don't
-  ;; continue infinitely in case of an error.
-  (let ((count 0))
-    (while (and (< count 50) (not (equal (string(char-after (point))) "λ")))
-      (setq count (+ count 1))
-      (forward-char))
-    (forward-char 2)))
-
-;;==============================================================================
-;;== Functions
-;;==============================================================================
-
-(defun sh (buffer-name)
-    "Start a terminal and rename buffer."
-    (interactive "sbuffer name: ")
-    (eshell)
-    (rename-buffer (format "%s%s" "$" buffer-name) t))
 
 (defun spawn-eshell ()
   (interactive)
