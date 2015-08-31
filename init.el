@@ -4,6 +4,9 @@
 (add-to-list 'load-path "~/.emacs.d/tempo")
 (add-to-list 'load-path "~/.emacs.d/plugins/magit-gh-pulls")
 
+;; Set to true for Evil mode, nil for God mode
+(setq attic-evil t)
+
 (require 'attic-functions)
 (require 'attic-packages)
 (require 'attic-advice)

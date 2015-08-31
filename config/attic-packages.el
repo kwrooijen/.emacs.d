@@ -82,6 +82,9 @@
 (use-package escreen
   :ensure t)
 
+(use-package evil
+  :ensure t)
+
 (use-package eww
   :init
   (bind-key "n" (lambda() (interactive) (scroll-up 1)) eww-mode-map)
@@ -113,7 +116,6 @@
   (bind-key "i" 'god-mode-disable god-local-mode-map)
   (bind-key ";" 'semi-colon-map god-local-mode-map)
   (bind-key "/" 'my-comment god-local-mode-map)
-  (god-mode)
   :config
   (add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
   (add-to-list 'god-exempt-major-modes 'gnus-group-mode)
@@ -190,7 +192,7 @@
 (use-package key-chord
   :ensure t
   :init
-  (key-chord-define-global "xs" 'god-enable-and-save)
+  (key-chord-define-global "xs" 'attic-enable-and-save)
   (key-chord-define-global ";j" 'escape-key)
   (key-chord-define attic-mode-map ";j" 'escape-key)
   (key-chord-define isearch-mode-map ";j" 'isearch-abort)

@@ -147,11 +147,13 @@ buffer is not visiting a file."
   (deactivate-mark)
   (if (equal " *Minibuf-1*" (buffer-name))
       (keyboard-escape-quit)
-    (unless (or multiple-cursors-mode macro-active (not god-local-mode) (not macro-active))
+    (unless (or multiple-cursors-mode macro-active
+                (and (boundp 'god-local-mode) (not god-local-mode))
+                (not macro-active))
       (progn
         (call-interactively (key-binding (kbd "C-g")))
         (keyboard-escape-quit))))
-  (god-mode-enable))
+  (attic-lock))
 
 (defadvice keyboard-escape-quit (around my-keyboard-escape-quit activate)
   (let (orig-one-window-p)
@@ -421,9 +423,15 @@ makes)."
   (transpose-lines 1)
   (previous-line 1))
 
-(defun god-enable-and-save ()
+(defun attic-enable-and-save ()
   (interactive)
-  (god-mode-enable)
+  (attic-lock)
   (save-buffer))
+
+(defun attic-lock ()
+  (interactive)
+  (if attic-evil
+      (evil-force-normal-state)
+    (god-mode-enable)))
 
 (provide 'attic-functions)

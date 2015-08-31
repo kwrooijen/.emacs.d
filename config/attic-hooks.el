@@ -31,7 +31,7 @@
 (add-hook 'magit-mode-hook 'clean-hook)
 (add-hook 'shell-mode-hook
           (lambda()
-            (god-local-mode)
+            (attic-lock)
             (key-chord-mode 1)))
 
 (add-hook 'doc-view-mode-hook 'clean-hook)
