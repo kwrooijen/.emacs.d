@@ -244,6 +244,9 @@
 (use-package paredit
   :ensure t)
 
+(use-package pcmpl-args
+  :ensure t)
+
 (use-package racket-mode
   :ensure t)
 
