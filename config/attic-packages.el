@@ -81,10 +81,11 @@
       (global-evil-leader-mode)
       :config
       (progn
+        (undo-tree-mode -1)
         (evil-leader/set-leader "<SPC>")
         (evil-leader/set-key
           "g" 'magit-status
-	  "n" 'sauron-select-last-event
+          "n" 'sauron-select-last-event
           "p" 'escreen-goto-prev-screen
           "x" 'helm-M-x
           ";" 'escreen-goto-last-screen

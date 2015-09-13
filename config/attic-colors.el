@@ -65,13 +65,8 @@
             (count-lines (region-beginning) (region-end)))
     ""))
 
-(defun attic-gnus-notify ()
-  (if (equal (gnus-mst-notify-modeline-form) "")
-    (:eval (butlast (cdr (gnus-mst-notify-modeline-form))))) )
-
 (setq attic-mode-line-format
       '(" " (:eval (concat "[" (number-to-string (escreen-get-current-screen-number)) "]")) " "
-        ;; (attic-gnus-notify) TODO fix this
         (:eval erc-modified-channels-object)
         "%*" "_"
         mode-line-remote " "
@@ -85,6 +80,7 @@
 
 (defun set-theme-white ()
   (interactive)
+  (fringe-mode 0)
   (setq-default global-font-lock-mode nil)
   (setq-default mode-line-format nil)
   (setq mode-line-format nil)
@@ -93,6 +89,7 @@
 
 (defun set-theme-black ()
   (interactive)
+  (fringe-mode 0)
   (setq-default global-font-lock-mode nil)
   (setq-default mode-line-format nil)
   (setq mode-line-format nil)
@@ -101,6 +98,7 @@
 
 (defun set-theme-hackergreen ()
   (interactive)
+  (fringe-mode 0)
   (setq-default global-font-lock-mode nil)
   (setq-default mode-line-format nil)
   (setq mode-line-format nil)
@@ -111,6 +109,7 @@
 
 (defun set-theme-default ()
   (interactive)
+  (fringe-mode)
   (setq-default global-font-lock-mode t)
   (setq-default mode-line-format attic-mode-line-format)
   (setq mode-line-format attic-mode-line-format)
