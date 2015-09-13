@@ -113,6 +113,10 @@
 (global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
 (global-set-key [f11] 'screenshot-frame)
 
+
+(define-key evil-normal-state-map (kbd "TAB") 'indent-for-tab-command)
+(define-key evil-insert-state-map (kbd "TAB") 'indent-for-tab-command)
+
 ;; C Keys
 (defun c-keys-hook ()
 (define-key c-mode-base-map (kbd "C-c C-l") 'execute-c)
