@@ -25,7 +25,7 @@
     (git-gutter+-added          "green" unspecified)
     (git-gutter+-deleted        "red" unspecified)
     (git-gutter+-modified       "magenta" unspecified)
-    (git-gutter+-unchanged  nil "#383838")
+    (git-gutter+-unchanged  unspecified "#383838")
     (font-lock-string-face      "cadet blue" unspecified)
     (highlight-symbol-face      "#fff" "gray20" )
     (neo-file-link-face         unspecified unspecified unspecified)

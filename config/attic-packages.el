@@ -83,7 +83,8 @@
       (progn
         (evil-leader/set-leader "<SPC>")
         (evil-leader/set-key
-          "n" 'sauron-select-last-event
+          "g" 'magit-status
+	  "n" 'sauron-select-last-event
           "p" 'escreen-goto-prev-screen
           "x" 'helm-M-x
           ";" 'escreen-goto-last-screen
@@ -131,18 +132,21 @@
 
 (use-package git-gutter+
   :ensure t
+  :init
+  (require 'git-gutter+)
   :config
-  (global-git-gutter+-mode t)
-  (setq git-gutter+-unchanged-sign " "))
+  (global-git-gutter+-mode t))
 
 (use-package git-gutter-fringe+
   :ensure t
+  :init
+  (require 'git-gutter-fringe+)
   :config
-  (global-git-gutter+-mode t)
-  (setq git-gutter+-unchanged-sign " "))
+  (global-git-gutter+-mode t))
 
 (use-package grep
   :init
+  (require 'grep)
   (bind-key "n" 'next-line grep-mode-map)
   (bind-key "p" 'previous-line grep-mode-map)
   (bind-key "TAB" (lambda() (interactive) (error-preview "*grep*")) grep-mode-map)
@@ -223,12 +227,10 @@
 (use-package magit
   :ensure t
   :init
+  (require 'magit)
   (bind-key "C-c C-m" 'magit-status attic-mode-map)
   (bind-key "RET" (lambda () (interactive) (magit-visit-item t)) magit-status-mode-map)
   (bind-key "g" 'magit-refresh magit-status-mode-map)
-  (bind-key ";" 'semi-colon-map magit-status-mode-map)
-  (bind-key ";" 'semi-colon-map magit-diff-mode-map)
-  (bind-key ";" 'semi-colon-map magit-commit-mode-map)
   :config
   (setq magit-last-seen-setup-instructions "1.4.0"))
 
