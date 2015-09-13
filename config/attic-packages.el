@@ -21,18 +21,10 @@
 (use-package ac-cider
   :ensure t)
 
-(use-package ace-jump-mode
-  :init
-  (bind-key "M-q" 'ace-jump-mode attic-mode-map)
-  :ensure t)
-
 (use-package alchemist
   :ensure t)
 
 (use-package auto-complete
-  :ensure t)
-
-(use-package buffer-move
   :ensure t)
 
 (use-package clojure-mode
@@ -58,7 +50,6 @@
   (require 'dired)
   (bind-key "c f" 'helm-ls-git-ls dired-mode-map)
   (bind-key "z" 'helm-buffers-list dired-mode-map)
-  (bind-key "c s a" 'helm-bookmarks dired-mode-map)
   (bind-key "c s r" 'my/grep dired-mode-map)
   (bind-key "c m" 'magit-status dired-mode-map)
   (bind-key ";" 'semi-colon-map dired-mode-map)
@@ -73,9 +64,6 @@
 (use-package elm-mode
   :ensure t)
 
-(use-package erc-image
-  :ensure t)
-
 (use-package erlang
   :ensure t)
 
@@ -85,11 +73,56 @@
 (use-package evil
   :ensure t)
 
+(use-package evil-leader
+      :commands (evil-leader-mode)
+      :ensure evil-leader
+      :demand evil-leader
+      :init
+      (global-evil-leader-mode)
+      :config
+      (progn
+        (evil-leader/set-leader "<SPC>")
+        (evil-leader/set-key
+          "n" 'sauron-select-last-event
+          "p" 'escreen-goto-prev-screen
+          "x" 'helm-M-x
+          ";" 'escreen-goto-last-screen
+          "d" (lambda() (interactive) (helm-swoop :$query ""))
+          "M-d" 'helm-swoop
+          "a" 'async-shell-command
+          "s" 'shell-command
+          "f" 'helm-ls-git-ls
+          "y" 'x-clipboard-yank
+          "w" 'clipboard-kill-region
+          "e" 'eww
+          "b" 'helm-bookmarks
+          "[" 'winner-undo
+          "]" 'winner-redo
+          "1" 'escreen-goto-screen-1
+          "2" 'escreen-goto-screen-2
+          "3" 'escreen-goto-screen-3
+          "4" 'escreen-goto-screen-4
+          "5" 'escreen-goto-screen-5
+          "6" 'escreen-goto-screen-6
+          "7" 'escreen-goto-screen-7
+          "8" 'escreen-goto-screen-8
+          "9" 'escreen-goto-screen-9
+          "0" 'xsescreen-goto-screen-0
+          "'" 'helm-org-capture-templates
+          "mt" (lambda() (interactive) (run-make "test"    "[Make Test]"))
+          "mp" (lambda() (interactive) (run-make "stop"    "[Make Stop]"))
+          "mr" (lambda() (interactive) (run-make "restart" "[Make Restart]"))
+          "ms" (lambda() (interactive) (run-make "start"   "[Make Start]"))
+          "mo" (lambda() (interactive) (run-make "go"      "[Make Go]"))
+          "mz" (lambda() (interactive) (run-make ""        "[Make]"))
+          "mc" 'run-make-input)))
+
 (use-package eww
-  :init
-  (bind-key "n" (lambda() (interactive) (scroll-up 1)) eww-mode-map)
-  (bind-key "p" (lambda() (interactive) (scroll-down 1)) eww-mode-map)
-  (bind-key "v" 'scroll-up-command eww-mode-map))
+  :config
+  (progn
+    (bind-key "n" (lambda() (interactive) (scroll-up 1)) eww-mode-map)
+    (bind-key "p" (lambda() (interactive) (scroll-down 1)) eww-mode-map)
+    (bind-key "v" 'scroll-up-command eww-mode-map)))
 
 (use-package expand-region
   :init
@@ -107,25 +140,6 @@
   :config
   (global-git-gutter+-mode t)
   (setq git-gutter+-unchanged-sign " "))
-
-(use-package god-mode
-  :ensure t
-  :init
-  (require 'god-mode)
-  ;; (bind-key "g" 'goto-line god-local-mode-map)
-  (bind-key "i" 'god-mode-disable god-local-mode-map)
-  (bind-key ";" 'semi-colon-map god-local-mode-map)
-  (bind-key "/" 'my-comment god-local-mode-map)
-  :config
-  (add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
-  (add-to-list 'god-exempt-major-modes 'gnus-group-mode)
-  (add-to-list 'god-exempt-major-modes 'term-mode)
-  (add-to-list 'god-exempt-major-modes 'help-mode)
-  (add-to-list 'god-exempt-major-modes 'grep-mode)
-  (add-to-list 'god-exempt-major-modes 'doc-view-mode)
-  (add-to-list 'god-exempt-major-modes 'top-mode)
-  (add-to-list 'god-exempt-major-modes 'dired-mode)
-  (add-to-list 'god-exempt-major-modes 'twittering-mode))
 
 (use-package grep
   :init
@@ -146,7 +160,6 @@
 (use-package helm
   :init
   (bind-key "M-[" 'helm-resume attic-mode-map)
-  (bind-key "C-c C-s C-a" 'helm-bookmarks attic-mode-map)
   (bind-key "M-x" 'helm-M-x attic-mode-map)
   :ensure t)
 
@@ -159,8 +172,6 @@
   :ensure t)
 
 (use-package helm-ls-git
-  :init
-  (bind-key "C-c C-f" 'helm-ls-git-ls attic-mode-map)
   :ensure t)
 
 (use-package helm-swoop
@@ -181,20 +192,15 @@
 (use-package indy
   :ensure t)
 
-(use-package iy-go-to-char
-  :init
-  (bind-key "C-q" 'iy-go-up-to-char attic-mode-map)
-  :ensure t)
-
-(use-package js2-mode
-  :ensure t)
-
 (use-package key-chord
   :ensure t
   :init
-  (key-chord-define-global "xs" 'attic-enable-and-save)
-  (key-chord-define-global ";j" 'escape-key)
-  (key-chord-define attic-mode-map ";j" 'escape-key)
+  (key-chord-define-global "xs" '(lambda ()
+                                   (interactive)
+                                   (evil-force-normal-state)
+                                   (save-buffer)))
+  (key-chord-define-global ";j" 'attic-lock)
+  (key-chord-define attic-mode-map ";j" 'attic-lock)
   (key-chord-define isearch-mode-map ";j" 'isearch-abort)
   :config
   (key-chord-mode t))
@@ -226,9 +232,6 @@
   :config
   (setq magit-last-seen-setup-instructions "1.4.0"))
 
-(use-package magit-gh-pulls
-  :ensure t)
-
 (use-package multiple-cursors
   :ensure t
   :init
@@ -236,9 +239,7 @@
   (bind-key "M-P" 'mc/mark-previous-like-this attic-mode-map)
   (bind-key "<return>" 'newline mc/keymap)
   :config
-  (multiple-cursors-mode t)
-  ;; Make mc work better with iy-go-to-char
-  (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos))
+  (multiple-cursors-mode t))
 
 (use-package neotree
   :ensure t)
@@ -272,12 +273,6 @@
   (setq sauron-max-line-length (- (window-total-width) 10))
   ;; Custom made variable for max line height
   (setq sauron-max-line-height 4))
-
-(use-package top-mode
-  :ensure t
-  :init
-  (bind-key ";" 'semi-colon-map top-mode-map)
-  (bind-key "z" 'helm-buffers-list top-mode-map))
 
 (use-package transpose-mark
   :init
@@ -327,7 +322,6 @@
     (require 'git-gutter-fringe+)
   (require 'git-gutter+))
 
-(require 'gnus-notify)
 (require 'sticky-windows)
 
 ;; Modes

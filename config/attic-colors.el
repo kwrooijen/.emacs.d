@@ -65,15 +65,6 @@
             (count-lines (region-beginning) (region-end)))
     ""))
 
-(defun god-mode-bar ()
-  (if (member major-mode god-exempt-major-modes)
-      ""
-    (if mark-active
-        (propertize "[VISUAL]" 'face 'bg:erc-color-face8)
-      (if (and (boundp 'god-local-mode) god-local-mode)
-          (propertize "[NORMAL]" 'face 'font-lock-constant-face)
-        (propertize "[INSERT]" 'face 'bg:erc-color-face3)))))
-
 (defun attic-gnus-notify ()
   (if (equal (gnus-mst-notify-modeline-form) "")
     (:eval (butlast (cdr (gnus-mst-notify-modeline-form))))) )
@@ -90,7 +81,41 @@
         mode-line-buffer-identification " | "
         mode-name " |"
         (vc-mode vc-mode) " | "
-        battery-mode-line-string " | "
-        (:eval (god-mode-bar))))
+        battery-mode-line-string))
+
+(defun set-theme-white ()
+  (interactive)
+  (setq-default global-font-lock-mode nil)
+  (setq-default mode-line-format nil)
+  (setq mode-line-format nil)
+  (set-face-background 'default "#fff")
+  (set-face-foreground 'default "#000"))
+
+(defun set-theme-black ()
+  (interactive)
+  (setq-default global-font-lock-mode nil)
+  (setq-default mode-line-format nil)
+  (setq mode-line-format nil)
+  (set-face-background 'default "#000")
+  (set-face-foreground 'default "#fff"))
+
+(defun set-theme-hackergreen ()
+  (interactive)
+  (setq-default global-font-lock-mode nil)
+  (setq-default mode-line-format nil)
+  (setq mode-line-format nil)
+  (global-font-lock-mode -1)
+  (font-lock-mode -1)
+  (set-face-background 'default "#000")
+  (set-face-foreground 'default "#0DB804"))
+
+(defun set-theme-default ()
+  (interactive)
+  (setq-default global-font-lock-mode t)
+  (setq-default mode-line-format attic-mode-line-format)
+  (setq mode-line-format attic-mode-line-format)
+  (global-font-lock-mode t)
+  (font-lock-mode t)
+  (load-file "~/.emacs.d/config/attic-colors.el"))
 
 (provide 'attic-colors)

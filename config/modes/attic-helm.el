@@ -54,6 +54,9 @@
 ;; Don't show colors in Tramp mode
 (setq helm-ff-tramp-not-fancy t)
 
+(defun helm-highlight-files (x)
+  nil)
+
 ;; Smarter completion for Helm
 (setq helm-ff-smart-completion t)
 
@@ -168,23 +171,6 @@
         (delete-window)
         (switch-to-buffer current)
         (makunbound 'current)))))
-
-(defun helm-swoop-find-files-recursively ()
-    (interactive)
-    (let ( (current (current-buffer))
-           (current-dir default-directory))
-        (switch-to-buffer "*helm-find-files-recursively*")
-        (erase-buffer)
-        (shell-command (find-files-recursively-shell-command (home-directory)) -1)
-        (helm-swoop :$query "")
-        (if (equal helm-exit-status 0)
-            (setq final-location (buffer-substring
-            (line-beginning-position) (line-end-position))))
-        (switch-to-buffer current)
-        (if (boundp 'final-location)
-            (find-file final-location))
-        (makunbound 'final-location)
-        (makunbound 'current)))
 
 (defun helm-ls-git-project ()
   (interactive)

@@ -18,7 +18,6 @@
 (defun default-language-settings ()
   (key-chord-mode 1)
   (rainbow-delimiters-mode)
-  (highlight-symbol-mode 1)
   (electric-pair-mode 1)
   (auto-complete-mode))
 
@@ -31,7 +30,7 @@
 (add-hook 'magit-mode-hook 'clean-hook)
 (add-hook 'shell-mode-hook
           (lambda()
-            (attic-lock)
+            (evil-force-normal-state)
             (key-chord-mode 1)))
 
 (add-hook 'doc-view-mode-hook 'clean-hook)

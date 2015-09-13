@@ -1,12 +1,10 @@
+(setq gc-cons-threshold 100000000)
+
+(let ((file-name-handler-alist nil))
 (add-to-list 'load-path "~/.emacs.d/config")
 (add-to-list 'load-path "~/.emacs.d/config/modes")
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/tempo")
-(add-to-list 'load-path "~/.emacs.d/plugins/magit-gh-pulls")
-
-;; Set to true for Evil mode, nil for God mode
-(setq attic-evil t)
-
 (require 'attic-functions)
 (require 'attic-packages)
 (require 'attic-advice)
@@ -16,8 +14,7 @@
 (require 'attic-options)
 (require 'attic-hooks)
 (require 'attic-scripts)
-(if window-system
-    (require 'attic-colors))
+(if window-system (require 'attic-colors))
 
 ;; My modes
 (require 'attic-autocomplete)
@@ -27,16 +24,13 @@
 (require 'attic-erc)
 (require 'attic-erlang)
 (require 'attic-eshell)
-(require 'attic-gnus)
 (require 'attic-haskell)
 (require 'attic-elm)
 (require 'attic-helm)
 (require 'attic-neotree)
-(require 'attic-org)
 (require 'attic-ruby)
 (require 'attic-rust)
 (require 'attic-twittering)
-(require 'attic-gnus)
 (require 'attic-org)
 
 (custom-set-variables
@@ -54,5 +48,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
-
+ ))

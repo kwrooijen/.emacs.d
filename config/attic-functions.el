@@ -14,10 +14,6 @@ buffer is not visiting a file."
   (interactive)
   (async-shell-command "ssh-add ~/.ssh/id_rsa"))
 
-(defun get-battery-percentage ()
-  (interactive)
-  (concat (cdr (assoc '112 (funcall battery-status-function))) "%%"))
-
 (defun tab-to-tab-stop-line-or-region (&optional left)
   (interactive)
   (if (region-active-p)
@@ -49,12 +45,6 @@ buffer is not visiting a file."
   "Start a terminal and rename buffer."
   (interactive "cSend region to Pastie?: (y/n) ")
   (if (equal answer ?\y) (pastie-region (region-beginning) (region-end))))
-
-(defun sht (buffer-name)
-  "Start a terminal and rename buffer."
-  (interactive "sbuffer name: ")
-  (ansi-term "/bin/sh")
-  (rename-buffer (format "%s%s" "$" buffer-name) t))
 
 (defun my/grep (term)
   "Start a terminal and rename buffer."
@@ -96,112 +86,10 @@ buffer is not visiting a file."
   (if (get-buffer name) (kill-buffer name))
   (my-up-to-script "Makefile" (concat "make " arg) name))
 
-(defun guard ()
-  (interactive)
-  (my-up-to-script "Guardfile" "bundle exec guard start --clear" "[Guard]"))
-
-(defun run-mix (arg)
-  (interactive)
-  (my-up-to-script "mix.exs" (concat "mix " arg) "[Mix]"))
-
 (defun underscores-to-camel-case (str)
   "Converts STR, which is a word using underscores, to camel case."
   (interactive "S")
   (apply 'concat (mapcar 'capitalize (split-string str "_"))))
-
-(defun god-mode-disable ()
-  (interactive)
-  (god-mode-all-set -1)
-  (god-local-mode -1)
-  (key-chord-mode 1)
-  (if window-system
-      (set-cursor-color "green")
-    (if (getenv "DISPLAY")
-        (if (getenv "TMUX")
-            (send-string-to-terminal "\033Ptmux;\033\033]12;Green\007\033\\")
-          (send-string-to-terminal "\033]12;Green\007"))))
-  (message nil))
-
-(defun god-mode-enable ()
-  (interactive)
-  (unless (member major-mode god-exempt-major-modes)
-    (god-mode-all-set 1)
-    (god-local-mode 1)
-    (if window-system
-        (set-cursor-color "#cc6666")
-      (send-string-to-terminal "\033]12;White\007"))))
-
-(defun god-mode-all-set (arg)
-  "Set God mode in all buffers by argument."
-  (interactive)
-  (setq god-global-mode t)
-  (mapc
-   (lambda (buffer)
-     (with-current-buffer buffer
-       (god-mode-maybe-activate arg)))
-   (buffer-list))
-  (setq god-global-mode (= arg 1)))
-
-(defun escape-key ()
-  (interactive)
-  (deactivate-mark)
-  (if (equal " *Minibuf-1*" (buffer-name))
-      (keyboard-escape-quit)
-    (unless (or multiple-cursors-mode macro-active
-                (and (boundp 'god-local-mode) (not god-local-mode))
-                (not macro-active))
-      (progn
-        (call-interactively (key-binding (kbd "C-g")))
-        (keyboard-escape-quit))))
-  (attic-lock))
-
-(defadvice keyboard-escape-quit (around my-keyboard-escape-quit activate)
-  (let (orig-one-window-p)
-    (fset 'orig-one-window-p (symbol-function 'one-window-p))
-    (fset 'one-window-p (lambda (&optional nomini all-frames) t))
-    (unwind-protect
-        ad-do-it
-      (fset 'one-window-p (symbol-function 'orig-one-window-p)))))
-
-(defun vim-o (&optional up)
-  (interactive)
-  (if up
-      (progn
-        (beginning-of-line)
-        (open-line 1))
-    (progn
-      (end-of-line)
-      (newline)))
-  (if indy-mode
-      (indy)
-    (indent-for-tab-command))
-  (god-mode-disable))
-
-(defun default-directory-full ()
-  (if (equal (substring default-directory 0 1) "~")
-      (format "/home/%s%s" (user-login-name) (substring default-directory 1))
-    default-directory))
-
-(defun home-directory ()
-  (interactive)
-  (format "/home/%s/" (user-login-name)))
-
-(defun find-files-recursively-shell-command (x)
-  (interactive)
-  (format "find %s | grep -v '#' | grep -v '/\\.' | grep -v '/Downloads' |
-        grep -v '/Dropbox' | grep -v '/Music' | grep -v '/Videos' | grep -v '/Pictures' |
-        grep -v '/Mail' | grep -v 'ebin' | grep -v 'deps' | grep -v 'dist'" x))
-
-(defun execute-c ()
-  (interactive)
-  (if (buffer-file-name)
-      (progn
-        (shell-command
-         (format "gcc -g -o %s %s"
-                 (file-name-sans-extension (buffer-name))
-                 (buffer-file-name)))
-        (async-shell-command
-         (format " ./%s" (file-name-sans-extension (buffer-name)))))))
 
 (defun get-return-code (s)
   (nth 1 (reverse (split-string s "\n"))))
@@ -276,24 +164,6 @@ makes)."
     (backward-word)
     (capitalize-word 1)))
 
-(defun what-line-int (&optional p)
-  "Get the current line number as an int"
-  (interactive)
-  (save-restriction
-    (widen)
-    (save-excursion
-      (beginning-of-line)
-      (if p
-          (1+ (count-lines 1 p))
-        (1+ (count-lines 1 (point)))))))
-
-(setq reg-num 0)
-(defun inc-register ()
-  (interactive)
-  (setq reg-num (+ 1 reg-num))
-  (point-to-register reg-num)
-  (message nil))
-
 (defun camelcase-region (start end)
   "Changes region from snake_case to camelCase"
   (interactive "r")
@@ -366,18 +236,6 @@ makes)."
   (select-window-by-number 2)
   (doc-view-fit-width-to-window))
 
-(defun cm-fast-step-upward ()
-  "Step 3 lines up, recenteres the screen."
-  (interactive)
-  (forward-line -3)
-  (recenter))
-
-(defun cm-fast-step-downward ()
-  "Step 3 lines down, recenteres the screen."
-  (interactive)
-  (forward-line 3)
-  (recenter))
-
 (defun toggle-modeline ()
   (interactive)
   (if mode-line-format
@@ -388,13 +246,6 @@ makes)."
   (interactive)
   (setq-local split-width-threshold 2000)
   (setq-local split-height-threshold 2000))
-
-(defun select-line-from-indentation ()
-  (interactive)
-  (back-to-indentation)
-  (set-mark (point))
-  (activate-mark)
-  (move-end-of-line 1))
 
 (defun attic-sauron-toggle ()
   (interactive)
@@ -423,15 +274,25 @@ makes)."
   (transpose-lines 1)
   (previous-line 1))
 
-(defun attic-enable-and-save ()
+(defun attic-lock()
   (interactive)
-  (attic-lock)
-  (save-buffer))
+  (deactivate-mark)
+  (if (equal " *Minibuf-1*" (buffer-name))
+      (keyboard-escape-quit)
+    (unless (or multiple-cursors-mode macro-active
+                (and (boundp 'god-local-mode) (not god-local-mode))
+                (not macro-active))
+      (progn
+        (call-interactively (key-binding (kbd "C-g")))
+        (keyboard-escape-quit))))
+  (evil-force-normal-state))
 
-(defun attic-lock ()
-  (interactive)
-  (if attic-evil
-      (evil-force-normal-state)
-    (god-mode-enable)))
+(defadvice keyboard-escape-quit (around my-keyboard-escape-quit activate)
+  (let (orig-one-window-p)
+    (fset 'orig-one-window-p (symbol-function 'one-window-p))
+    (fset 'one-window-p (lambda (&optional nomini all-frames) t))
+    (unwind-protect
+        ad-do-it
+      (fset 'one-window-p (symbol-function 'orig-one-window-p)))))
 
 (provide 'attic-functions)

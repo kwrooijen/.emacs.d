@@ -5,7 +5,7 @@
 (add-hook 'elm-mode-hook (lambda ()
     (fix-tabs 4)
     (default-language-settings)
-    (attic-lock)
+    (evil-force-normal-state)
     (elm-indentation-mode 0)
     (setq iod--use-tab-cycle t)))
 

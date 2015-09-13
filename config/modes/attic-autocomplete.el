@@ -4,7 +4,7 @@
 
 ;; Auto Complete Mode
 (define-key ac-complete-mode-map (kbd "M-g")
-    (lambda() (interactive) (ac-stop) (escape-key)))
+    (lambda() (interactive) (ac-stop) (evil-force-normal-state)))
 (define-key ac-complete-mode-map (kbd "M-f") 'ac-complete)
 (define-key ac-complete-mode-map (kbd "<return>")
     (lambda() (interactive) (ac-stop) (call-interactively (key-binding (kbd "C-m")))))
@@ -22,7 +22,7 @@
 
 ;; Company Mode
 (define-key company-active-map (kbd "M-g")
-    (lambda() (interactive) (company-abort) (escape-key)))
+    (lambda() (interactive) (company-abort) (evil-force-normal-state)))
 (define-key company-active-map (kbd "M-f") 'company-complete-selection)
 (define-key company-active-map (kbd "<return>")
     (lambda() (interactive) (company-abort) (newline)))
