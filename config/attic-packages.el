@@ -94,8 +94,6 @@
           "a" 'async-shell-command
           "s" 'shell-command
           "f" 'helm-ls-git-ls
-          "y" 'x-clipboard-yank
-          "w" 'clipboard-kill-region
           "e" 'eww
           "b" 'helm-bookmarks
           "[" 'winner-undo

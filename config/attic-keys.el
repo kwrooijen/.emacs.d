@@ -29,6 +29,11 @@
              (yank-pop)
            (helm-show-kill-ring))))))
 
+(if window-system
+    (progn
+      (define-key attic-mode-map (kbd "C-S-V") 'x-clipboard-yank)
+      (define-key attic-mode-map (kbd "C-S-C") 'clipboard-kill-ring-save)))
+
 ;; Make keys
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
 (define-key isearch-mode-map (kbd "M-g") 'isearch-abort)
