@@ -1,14 +1,4 @@
 ;; Hooks
-(defun clean-hook ()
-  (interactive)
-  (linum-mode 0))
-
-(defun key-chord-force ()
-  (key-chord-mode 1)
-  (message nil))
-
-(defadvice ansi-term (after advice-term-line-mode activate)
-  (clean-hook))
 
 (defun fix-tabs (x)
   (indy-mode t)
@@ -20,17 +10,7 @@
 (add-hook 'before-save-hook 'whitespace-cleanup)
 (add-hook 'c-initialization-hook 'c-keys-hook)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
-(add-hook 'magit-mode-hook 'clean-hook)
-(add-hook 'shell-mode-hook
-          (lambda()
-            (key-chord-mode 1)))
-
-(add-hook 'doc-view-mode-hook 'clean-hook)
-(add-hook 'w3m-mode-hook 'clean-hook)
-(add-hook 'message-mode-hook (lambda () (key-chord-force) (electric-pair-mode 0)))
-
-(add-hook 'isearch-mode-hook (lambda()
-    (key-chord-mode 1)))
+(add-hook 'message-mode-hook (lambda () (electric-pair-mode 0)))
 
 (add-hook 'racket-repl-mode-hook (lambda ()
     (define-key ac-complete-mode-map (kbd "<return>")
@@ -93,4 +73,3 @@
     ) auto-mode-alist))
 
 (provide 'attic-hooks)
-

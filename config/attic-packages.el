@@ -320,11 +320,9 @@
     (switch-to-buffer "*Shell Command Output*")
     (rename-buffer "*Hoogle*")
     (haskell-mode)
-    (linum-mode 0)
     (previous-buffer))
 
   (defun attic-haskell-hook ()
-    (fix-tabs 4)
     (electric-pair-mode)
     (turn-on-haskell-doc-mode)
     (turn-on-haskell-indentation)

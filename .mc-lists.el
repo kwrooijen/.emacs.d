@@ -6,6 +6,7 @@
         ace-jump-mode
         ace-jump-move
         align-regexp
+        attic-lock
         attic-lock-disable
         attic-rock-lock
         backward-delete-char
@@ -28,15 +29,26 @@
         erlang-electric-semicolon
         escape-key
         eval-last-sexp
+        evil-append-line
         evil-backward-char
+        evil-backward-word-begin
         evil-delete
         evil-delete-char
+        evil-digit-argument-or-evil-beginning-of-line
+        evil-end-of-line
+        evil-exit-visual-state
         evil-find-char
         evil-forward-char
         evil-forward-sentence
+        evil-forward-word-begin
+        evil-forward-word-end
         evil-insert
+        evil-next-line
         evil-normal-state
+        evil-paste-after
+        evil-previous-line
         evil-substitute
+        evil-visual-char
         forward-sentence
         forward-sexp
         ghc-insert-template
@@ -86,6 +98,7 @@
         paredit-join-sexps
         paredit-kill
         paredit-raise-sexp
+        paredit-splice-sexp-killing-backward
         paredit-wrap-round
         paste-from-clipboard
         pop-to-mark-command
