@@ -10,12 +10,7 @@
 ("C-c C-o" switch-to-minibuffer)
 ("C-;" semi-colon-map)
 
-;; ;; Control Prefix 3
-("C-c C-s C-r" my/grep)
-("C-c C-z" attic-make-map)
-
 ;; ;; Meta keys
-
 ("M-N" mc/mark-next-like-this)
 ("M-P" mc/mark-previous-like-this)
 ;("<return>" newline mc/keymap)

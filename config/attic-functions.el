@@ -46,7 +46,7 @@ buffer is not visiting a file."
   (interactive "cSend region to Pastie?: (y/n) ")
   (if (equal answer ?\y) (pastie-region (region-beginning) (region-end))))
 
-(defun my/grep (term)
+(defun attic/grep (term)
   "Start a terminal and rename buffer."
   (interactive "sGrep value: ")
   (let ((term-list (split-string term)))

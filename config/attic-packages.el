@@ -50,7 +50,6 @@
   (require 'dired)
   (bind-key "c f" 'helm-ls-git-ls dired-mode-map)
   (bind-key "z" 'helm-buffers-list dired-mode-map)
-  (bind-key "c s r" 'my/grep dired-mode-map)
   (bind-key "c m" 'magit-status dired-mode-map)
   (bind-key ";" 'semi-colon-map dired-mode-map)
   (bind-key "c z" 'attic-make-map dired-mode-map))
@@ -87,6 +86,7 @@
         (evil-leader/set-leader "<SPC>")
         (evil-leader/set-key
           "g" 'magit-status
+          "r" 'attic/grep
           "n" 'sauron-select-last-event
           "p" 'escreen-goto-prev-screen
           "x" 'helm-M-x
@@ -111,13 +111,13 @@
           "9" 'escreen-goto-screen-9
           "0" 'xsescreen-goto-screen-0
           "'" 'helm-org-capture-templates
-          "mt" (lambda() (interactive) (run-make "test"    "[Make Test]"))
-          "mp" (lambda() (interactive) (run-make "stop"    "[Make Stop]"))
-          "mr" (lambda() (interactive) (run-make "restart" "[Make Restart]"))
-          "ms" (lambda() (interactive) (run-make "start"   "[Make Start]"))
-          "mo" (lambda() (interactive) (run-make "go"      "[Make Go]"))
-          "mz" (lambda() (interactive) (run-make ""        "[Make]"))
-          "mc" 'run-make-input)))
+          "qt" (lambda() (interactive) (run-make "test"    "[Make Test]"))
+          "qp" (lambda() (interactive) (run-make "stop"    "[Make Stop]"))
+          "qr" (lambda() (interactive) (run-make "restart" "[Make Restart]"))
+          "qs" (lambda() (interactive) (run-make "start"   "[Make Start]"))
+          "qo" (lambda() (interactive) (run-make "go"      "[Make Go]"))
+          "qq" (lambda() (interactive) (run-make ""        "[Make]"))
+          "qc" 'run-make-input)))
 
 (use-package eww
   :config
@@ -229,7 +229,6 @@
   :ensure t
   :init
   (require 'magit)
-  (bind-key "C-c C-m" 'magit-status attic-mode-map)
   (bind-key "RET" (lambda () (interactive) (magit-visit-item t)) magit-status-mode-map)
   (bind-key "g" 'magit-refresh magit-status-mode-map)
   :config
