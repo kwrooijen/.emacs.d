@@ -71,6 +71,8 @@
   :ensure t)
 
 (use-package evil
+  :init
+  (evil-mode t)
   :ensure t)
 
 (use-package evil-leader
@@ -88,7 +90,7 @@
           "n" 'sauron-select-last-event
           "p" 'escreen-goto-prev-screen
           "x" 'helm-M-x
-          ";" 'escreen-goto-last-screen
+          "<SPC>" 'escreen-goto-last-screen
           "d" (lambda() (interactive) (helm-swoop :$query ""))
           "M-d" 'helm-swoop
           "a" 'async-shell-command

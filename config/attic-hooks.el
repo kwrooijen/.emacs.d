@@ -1,7 +1,6 @@
 ;; Hooks
 (defun clean-hook ()
   (interactive)
-  (key-chord-mode 0)
   (linum-mode 0))
 
 (defun key-chord-force ()
@@ -30,7 +29,6 @@
 (add-hook 'magit-mode-hook 'clean-hook)
 (add-hook 'shell-mode-hook
           (lambda()
-            (evil-force-normal-state)
             (key-chord-mode 1)))
 
 (add-hook 'doc-view-mode-hook 'clean-hook)

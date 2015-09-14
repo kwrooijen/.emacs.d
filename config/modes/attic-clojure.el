@@ -18,7 +18,6 @@
             (default-language-settings)
             (electric-pair-mode 0)
             (cider-mode 1)
-            (evil-force-normal-state)
             (setq-local helm-dash-docsets '("Clojure"))))
 
 (provide 'attic-clojure)

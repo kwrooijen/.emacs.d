@@ -20,7 +20,6 @@
             (paredit-mode 1)
             (electric-pair-mode 0)
             (default-language-settings)
-            (evil-force-normal-state)
             (setq-local helm-dash-docsets '("Emacs Lisp"))))
 
 (provide 'attic-emacs-lisp)
