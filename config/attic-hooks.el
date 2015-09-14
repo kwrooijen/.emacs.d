@@ -14,12 +14,6 @@
   (indy-mode t)
   (setq-local tab-width x))
 
-(defun default-language-settings ()
-  (key-chord-mode 1)
-  (rainbow-delimiters-mode)
-  (electric-pair-mode 1)
-  (auto-complete-mode))
-
 (add-hook 'sauron-mode-hook 'no-split)
 (sauron-start-hidden)
 

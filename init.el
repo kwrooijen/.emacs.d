@@ -2,7 +2,6 @@
 
 (let ((file-name-handler-alist nil))
 (add-to-list 'load-path "~/.emacs.d/config")
-(add-to-list 'load-path "~/.emacs.d/config/modes")
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/tempo")
 (require 'attic-functions)
@@ -15,23 +14,6 @@
 (require 'attic-hooks)
 (require 'attic-scripts)
 (if window-system (require 'attic-colors))
-
-;; My modes
-(require 'attic-autocomplete)
-(require 'attic-clojure)
-(require 'attic-elixir)
-(require 'attic-emacs-lisp)
-(require 'attic-erc)
-(require 'attic-erlang)
-(require 'attic-eshell)
-(require 'attic-haskell)
-(require 'attic-elm)
-(require 'attic-helm)
-(require 'attic-neotree)
-(require 'attic-ruby)
-(require 'attic-rust)
-(require 'attic-twittering)
-(require 'attic-org)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
