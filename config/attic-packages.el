@@ -231,7 +231,7 @@
       (global-undo-tree-mode -1)
       (evil-leader/set-leader "<SPC>")
       (evil-leader/set-key
-        "r" 'attic/grep
+        "r" 'rgrep
         "g" 'magit-status
         "k" 'kill-buffer
         "n" 'sauron-select-last-event

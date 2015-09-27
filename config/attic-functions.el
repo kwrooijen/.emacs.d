@@ -46,26 +46,6 @@ buffer is not visiting a file."
   (interactive "cSend region to Pastie?: (y/n) ")
   (if (equal answer ?\y) (pastie-region (region-beginning) (region-end))))
 
-(defun attic/grep (term)
-  "Start a terminal and rename buffer."
-  (interactive "sGrep value: ")
-  (let ((term-list (split-string term)))
-    (grep-find
-     (format
-      (concat
-       "find . -type f "
-       "! -name '*.log' "
-       "! -name '*.dump' "
-       "! -name '*#*' "
-       "! -path '*/\.*' "
-       "! -wholename '*/deps/*' "
-       "! -wholename '*/tmp/*' "
-       "! -wholename '*/elpa/*' "
-       "! -wholename '*/backups/*' "
-       "-exec grep -nH -e %s {} + "
-       "| grep -v 'Binary file' "
-       (mapconcat (lambda(X) (concat " | grep " X)) (cdr term-list) "")) term))))
-
 (defun get-current-buffer-major-mode ()
   (interactive)
   (message "%s" major-mode))
