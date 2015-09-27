@@ -44,7 +44,7 @@
   :config
   (bind-key "C-x C-e" 'cider-eval-last-sexp clojure-mode-map)
   (defun attic-clojure-hook ()
-    (paredit-mode 1)
+    (evil-paredit-mode 1)
     (electric-pair-mode)
     (electric-pair-mode 0)
     (cider-mode 1)
@@ -214,7 +214,7 @@
     (bind-key "C-i" 'helm-esh-pcomplete eshell-mode-map)
     (bind-key "M-m" 'eshell-bol eshell-mode-map)
     (bind-key "C-M-m" 'eshell-broadcast eshell-mode-map))
-    (add-hook 'eshell-mode-hook attic-eshell-hook))
+  (add-hook 'eshell-mode-hook attic-eshell-hook))
 
 (use-package evil
   :ensure t
@@ -222,49 +222,52 @@
   (evil-mode t))
 
 (use-package evil-leader
-      :commands (evil-leader-mode)
-      :ensure evil-leader
-      :demand evil-leader
-      :init
-      (global-evil-leader-mode)
-      :config
-      (global-undo-tree-mode -1)
-      (evil-leader/set-leader "<SPC>")
-      (evil-leader/set-key
-        "r" 'rgrep
-        "g" 'magit-status
-        "k" 'kill-buffer
-        "n" 'sauron-select-last-event
-        "p" 'escreen-goto-prev-screen
-        "x" 'helm-M-x
-        "<SPC>" 'escreen-goto-last-screen
-        "d" (lambda() (interactive) (helm-swoop :$query ""))
-        "M-d" 'helm-swoop
-        "a" 'async-shell-command
-        "s" 'shell-command
-        "f" 'helm-ls-git-ls
-        "e" 'eww
-        "b" 'helm-bookmarks
-        "[" 'winner-undo
-        "]" 'winner-redo
-        "1" 'escreen-goto-screen-1
-        "2" 'escreen-goto-screen-2
-        "3" 'escreen-goto-screen-3
-        "4" 'escreen-goto-screen-4
-        "5" 'escreen-goto-screen-5
-        "6" 'escreen-goto-screen-6
-        "7" 'escreen-goto-screen-7
-        "8" 'escreen-goto-screen-8
-        "9" 'escreen-goto-screen-9
-        "0" 'xsescreen-goto-screen-0
-        "'" 'helm-org-capture-templates
-        "qt" (lambda() (interactive) (run-make "test"    "[Make Test]"))
-        "qp" (lambda() (interactive) (run-make "stop"    "[Make Stop]"))
-        "qr" (lambda() (interactive) (run-make "restart" "[Make Restart]"))
-        "qs" (lambda() (interactive) (run-make "start"   "[Make Start]"))
-        "qo" (lambda() (interactive) (run-make "go"      "[Make Go]"))
-        "qq" (lambda() (interactive) (run-make ""        "[Make]"))
-        "qc" 'run-make-input))
+  :commands (evil-leader-mode)
+  :ensure evil-leader
+  :demand evil-leader
+  :init
+  (global-evil-leader-mode)
+  :config
+  (global-undo-tree-mode -1)
+  (evil-leader/set-leader "<SPC>")
+  (evil-leader/set-key
+    "r" 'rgrep
+    "g" 'magit-status
+    "k" 'kill-buffer
+    "n" 'sauron-select-last-event
+    "p" 'escreen-goto-prev-screen
+    "x" 'helm-M-x
+    "<SPC>" 'escreen-goto-last-screen
+    "d" (lambda() (interactive) (helm-swoop :$query ""))
+    "M-d" 'helm-swoop
+    "a" 'async-shell-command
+    "s" 'shell-command
+    "f" 'helm-ls-git-ls
+    "e" 'eww
+    "b" 'helm-bookmarks
+    "[" 'winner-undo
+    "]" 'winner-redo
+    "1" 'escreen-goto-screen-1
+    "2" 'escreen-goto-screen-2
+    "3" 'escreen-goto-screen-3
+    "4" 'escreen-goto-screen-4
+    "5" 'escreen-goto-screen-5
+    "6" 'escreen-goto-screen-6
+    "7" 'escreen-goto-screen-7
+    "8" 'escreen-goto-screen-8
+    "9" 'escreen-goto-screen-9
+    "0" 'xsescreen-goto-screen-0
+    "'" 'helm-org-capture-templates
+    "qt" (lambda() (interactive) (run-make "test"    "[Make Test]"))
+    "qp" (lambda() (interactive) (run-make "stop"    "[Make Stop]"))
+    "qr" (lambda() (interactive) (run-make "restart" "[Make Restart]"))
+    "qs" (lambda() (interactive) (run-make "start"   "[Make Start]"))
+    "qo" (lambda() (interactive) (run-make "go"      "[Make Go]"))
+    "qq" (lambda() (interactive) (run-make ""        "[Make]"))
+    "qc" 'run-make-input))
+
+(use-package evil-paredit
+  :ensure t)
 
 (use-package eww
   :config
@@ -626,9 +629,6 @@
     "^\\([^#|^.]\\|\\.[^.]\\|\\.\\..\\)"))
   (add-hook 'org-mode-hook 'org-keys-hook))
 
-(use-package paredit
-  :ensure t)
-
 (use-package pcmpl-args
   :ensure t)
 
@@ -739,7 +739,7 @@
 
 ;;;; TODO require emacs lisp?
 (defun attic-emacs-lisp-hook ()
-  (paredit-mode 1)
+  (evil-paredit-mode 1)
   (setq-local helm-dash-docsets '("Emacs Lisp")))
 (add-hook 'emacs-lisp-mode-hook 'attic-emacs-lisp-hook)
 

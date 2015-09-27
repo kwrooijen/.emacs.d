@@ -13,7 +13,7 @@
 (require 'attic-options)
 (require 'attic-hooks)
 (require 'attic-scripts)
-(if window-system (require 'attic-colors))
+(require 'attic-colors)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
