@@ -44,7 +44,8 @@
   :config
   (bind-key "C-x C-e" 'cider-eval-last-sexp clojure-mode-map)
   (defun attic-clojure-hook ()
-    (evil-paredit-mode 1)
+    (attic-lock)
+    (paredit-mode 1)
     (electric-pair-mode)
     (electric-pair-mode 0)
     (cider-mode 1)
@@ -64,7 +65,7 @@
   :ensure t
   :config
   (setq company-idle-delay 0.3)
-  (bind-key "M-g" (lambda() (interactive) (company-abort) (evil-force-normal-state)) company-active-map)
+  (bind-key "M-g" (lambda() (interactive) (company-abort) (god-local-mode-resume)) company-active-map)
   (bind-key "M-f" 'company-complete-selection company-active-map)
   (bind-key "<return>" (lambda() (interactive) (company-abort) (newline)) company-active-map)
   (bind-key "SPC" (lambda() (interactive) (company-abort) (insert " ")) company-active-map)
@@ -92,6 +93,7 @@
   :ensure t
   :config
   (defun attic-elixir-hook ()
+    (attic-lock)
     (electric-pair-mode)
     (auto-complete-mode 0)
     (setq tab-stop-list tab-stop-list-2)
@@ -110,6 +112,7 @@
     (interactive)
     (async-shell-command "elm-reactor" "*elm-reactor*"))
   (defun attic-elm-hook ()
+    (attic-lock)
     (fix-tabs 4)
     (electric-pair-mode)
     (elm-indentation-mode 0)
@@ -164,6 +167,7 @@
         (progn
           (flymake-erlang-init)
           (flymake-mode 1)))
+    (attic-lock)
     (electric-pair-mode)
     (fix-tabs 4)
     (setq-local helm-dash-docsets '("Erlang")))
@@ -216,59 +220,6 @@
     (bind-key "C-M-m" 'eshell-broadcast eshell-mode-map))
   (add-hook 'eshell-mode-hook attic-eshell-hook))
 
-(use-package evil
-  :ensure t
-  :init
-  (evil-mode t))
-
-(use-package evil-leader
-  :commands (evil-leader-mode)
-  :ensure evil-leader
-  :demand evil-leader
-  :init
-  (global-evil-leader-mode)
-  :config
-  (global-undo-tree-mode -1)
-  (evil-leader/set-leader "<SPC>")
-  (evil-leader/set-key
-    "r" 'rgrep
-    "g" 'magit-status
-    "k" 'kill-buffer
-    "n" 'sauron-select-last-event
-    "p" 'escreen-goto-prev-screen
-    "x" 'helm-M-x
-    "<SPC>" 'escreen-goto-last-screen
-    "d" (lambda() (interactive) (helm-swoop :$query ""))
-    "M-d" 'helm-swoop
-    "a" 'async-shell-command
-    "s" 'shell-command
-    "f" 'helm-ls-git-ls
-    "e" 'eww
-    "b" 'helm-bookmarks
-    "[" 'winner-undo
-    "]" 'winner-redo
-    "1" 'escreen-goto-screen-1
-    "2" 'escreen-goto-screen-2
-    "3" 'escreen-goto-screen-3
-    "4" 'escreen-goto-screen-4
-    "5" 'escreen-goto-screen-5
-    "6" 'escreen-goto-screen-6
-    "7" 'escreen-goto-screen-7
-    "8" 'escreen-goto-screen-8
-    "9" 'escreen-goto-screen-9
-    "0" 'xsescreen-goto-screen-0
-    "'" 'helm-org-capture-templates
-    "qt" (lambda() (interactive) (run-make "test"    "[Make Test]"))
-    "qp" (lambda() (interactive) (run-make "stop"    "[Make Stop]"))
-    "qr" (lambda() (interactive) (run-make "restart" "[Make Restart]"))
-    "qs" (lambda() (interactive) (run-make "start"   "[Make Start]"))
-    "qo" (lambda() (interactive) (run-make "go"      "[Make Go]"))
-    "qq" (lambda() (interactive) (run-make ""        "[Make]"))
-    "qc" 'run-make-input))
-
-(use-package evil-paredit
-  :ensure t)
-
 (use-package eww
   :config
   (bind-key "n" (lambda() (interactive) (scroll-up 1)) eww-mode-map)
@@ -280,6 +231,9 @@
   :init
   (bind-key "M-@" 'er/expand-region attic-mode-map))
 
+(use-package geiser
+  :ensure t)
+
 (use-package git-gutter+
   :ensure t
   :config
@@ -289,6 +243,24 @@
   :ensure t
   :config
   (global-git-gutter+-mode t))
+
+(use-package god-mode
+  :ensure t
+  :config
+  (god-mode)
+  (bind-key "i" (lambda () (interactive) (god-local-mode -1)) god-local-mode-map)
+  (bind-key "J" '(lambda () (interactive) (join-line -1)) god-local-mode-map)
+  (bind-key "/" 'my-comment god-local-mode-map)
+
+  (add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
+  (add-to-list 'god-exempt-major-modes 'gnus-group-mode)
+  (add-to-list 'god-exempt-major-modes 'term-mode)
+  (add-to-list 'god-exempt-major-modes 'help-mode)
+  (add-to-list 'god-exempt-major-modes 'grep-mode)
+  (add-to-list 'god-exempt-major-modes 'doc-view-mode)
+  (add-to-list 'god-exempt-major-modes 'top-mode)
+  (add-to-list 'god-exempt-major-modes 'dired-mode)
+  (add-to-list 'god-exempt-major-modes 'twittering-mode))
 
 (use-package grep
   :config
@@ -314,18 +286,22 @@
     "Search with hoogle commandline"
     (interactive "sHoogle query: ")
     (if (get-buffer "*Hoogle*") (kill-buffer "*Hoogle*"))
-    ; get the version of hoogle so I don't have to manually adjust it for each update
-    (shell-command (format "version=`hoogle --version | head -n 1 | awk '{print $2}' |
-        cut -c 2- | rev | cut -c 2- | rev`;
-        data=\"/databases\";
-        two=$version$data;
-        hoogle \"%s\" --data=$HOME/.lazyVault/sandboxes/hoogle/cabal/share/hoogle-$two" query))
+                                        ; get the version of hoogle so
+                                        ; I don't have to manually
+                                        ; adjust it for each update
+    (shell-command
+     (format "version=`hoogle --version | head -n 1
+        | awk '{print $2}' | cut -c 2- | rev | cut -c 2- | rev`;
+        data=\"/databases\"; two=$version$data; hoogle \"%s\"
+        --data=$HOME/.lazyVault/sandboxes/hoogle/cabal/share/hoogle-$two"
+             query))
     (switch-to-buffer "*Shell Command Output*")
     (rename-buffer "*Hoogle*")
     (haskell-mode)
     (previous-buffer))
 
   (defun attic-haskell-hook ()
+    (attic-lock)
     (electric-pair-mode)
     (turn-on-haskell-doc-mode)
     (turn-on-haskell-indentation)
@@ -452,7 +428,21 @@
   :ensure t
   :init
   (bind-key "C-c C-s C-s" 'helm-multi-swoop attic-mode-map)
-  (bind-key "C-c C-s C-f" 'helm-swoop-find-files-recursively attic-mode-map))
+  (bind-key "C-c C-s C-f" 'helm-swoop-find-files-recursively attic-mode-map)
+  (define-key helm-map (kbd "C-n")
+    (lambda()
+      (interactive)
+      (if (or (boundp 'helm-swoop-active)
+              (boundp 'helm-register-active))
+          (progn (helm-next-line) (helm-execute-persistent-action))
+        (helm-next-line))))
+  (define-key helm-map (kbd "C-p")
+    (lambda()
+      (interactive)
+      (if (or (boundp 'helm-swoop-active)
+              (boundp 'helm-register-active))
+          (progn (helm-previous-line) (helm-execute-persistent-action))
+        (helm-previous-line)))))
 
 (use-package highlight-symbol
   :ensure t
@@ -473,7 +463,7 @@
   :config
   (key-chord-define-global "xs" '(lambda ()
                                    (interactive)
-                                   (evil-force-normal-state)
+                                   (god-local-mode 1)
                                    (save-buffer)))
 
   (key-chord-define helm-map ";j" 'helm-keyboard-quit)
@@ -592,6 +582,9 @@
 
 (use-package org
   :config
+  (org-babel-do-local-languages
+   'org-babel-load-languages
+   '(sh . t))
   (setq org-log-done 'time)
   (setq org-capture-templates '())
   (setq org-capture-templates
@@ -622,17 +615,33 @@
     (define-key org-mode-map (kbd "C-c C-o") 'org-mode-custom-map)
     (define-key org-mode-custom-map (kbd "C-l") 'browse-url-at-point)
     (define-key org-mode-custom-map (kbd "C-t") 'org-todo))
+  (defun attic-org-mode-hook ()
+    (attic-lock))
   (add-my-todos-to-org
    (directory-files
     (expand-file-name "~/Documents/notes/Org/Todo")
     nil
     "^\\([^#|^.]\\|\\.[^.]\\|\\.\\..\\)"))
+  (add-hook 'org-mode-hook 'attic-org-mode-hook)
   (add-hook 'org-mode-hook 'org-keys-hook))
 
-(use-package pcmpl-args
-  :ensure t)
+(use-package paredit
+  :ensure t
+  :config
+  (bind-key ";" nil paredit-mode-map)
+  (define-key paredit-mode-map (kbd ")")
+    (lambda () (interactive)
+      (if god-local-mode
+          (call-interactively (key-binding (kbd "C-)")))
+        (paredit-close-round))))
+  (define-key paredit-mode-map (kbd "(")
+    (lambda () (interactive)
+      (if (or (not god-local-mode) (region-active-p))
+          (paredit-open-round)
+        (call-interactively
+         (key-binding (kbd "C-(")))))))
 
-(use-package racket-mode
+(use-package pcmpl-args
   :ensure t)
 
 (use-package rainbow-delimiters
@@ -657,6 +666,7 @@
   :ensure t
   :config
   (defun attic-rust-map ()
+    (attic-lock)
     (electric-pair-mode)
     (setq-local tab-width 4)
     (rust-keys-hook)
@@ -675,6 +685,13 @@
   (setq sauron-max-line-length (- (window-total-width) 10))
   ;; Custom made variable for max line height
   (setq sauron-max-line-height 4))
+
+(use-package scheme
+  :config
+  (defun attic-scheme-mode-hook ()
+    (attic-lock)
+    (paredit-mode 1))
+  (add-hook 'scheme-mode-hook 'attic-scheme-mode-hook))
 
 (use-package transpose-mark
   :ensure t
@@ -711,7 +728,6 @@
   (winner-mode t)
   ;; Buffers to be ignored by Winner
   (setq winner-boring-buffers
-
         '("*Completions*"
           "*Compile-Log*"
           "*inferior-lisp*"
@@ -739,8 +755,10 @@
 
 ;;;; TODO require emacs lisp?
 (defun attic-emacs-lisp-hook ()
-  (evil-paredit-mode 1)
+  (attic-lock)
+  (paredit-mode 1)
   (setq-local helm-dash-docsets '("Emacs Lisp")))
+
 (add-hook 'emacs-lisp-mode-hook 'attic-emacs-lisp-hook)
 
 ;; Modes

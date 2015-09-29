@@ -265,7 +265,7 @@ makes)."
       (progn
         (call-interactively (key-binding (kbd "C-g")))
         (keyboard-escape-quit))))
-  (evil-force-normal-state))
+  (god-local-mode 1))
 
 (defadvice keyboard-escape-quit (around my-keyboard-escape-quit activate)
   (let (orig-one-window-p)
