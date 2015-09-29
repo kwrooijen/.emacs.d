@@ -249,6 +249,8 @@
   :config
   (god-mode)
   (bind-key "i" (lambda () (interactive) (god-local-mode -1)) god-local-mode-map)
+  (bind-key "u" 'undo god-local-mode-map)
+  (bind-key "M-u" 'redo god-local-mode-map)
   (bind-key "J" '(lambda () (interactive) (join-line -1)) god-local-mode-map)
   (bind-key "/" 'my-comment god-local-mode-map)
 
