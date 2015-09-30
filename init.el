@@ -8,8 +8,6 @@
 (require 'attic-packages)
 (require 'attic-advice)
 (require 'attic-keys)
-(require 'attic-hydra)
-(require 'attic-paredit)
 (require 'attic-options)
 (require 'attic-hooks)
 (require 'attic-scripts)

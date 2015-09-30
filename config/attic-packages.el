@@ -88,7 +88,7 @@
   (bind-key "c f" 'helm-ls-git-ls dired-mode-map)
   (bind-key "z" 'helm-buffers-list dired-mode-map)
   (bind-key "c m" 'magit-status dired-mode-map)
-  (bind-key ";" 'semi-colon-map dired-mode-map)
+  (bind-key ";" 'attic-semi-colon/body dired-mode-map)
   (bind-key "c z" 'attic-make-map dired-mode-map))
 
 (use-package elixir-mode
@@ -272,8 +272,8 @@
   (bind-key "p" 'previous-line grep-mode-map)
   (bind-key "TAB" (lambda() (interactive) (error-preview "*grep*")) grep-mode-map)
   (bind-key "v" 'scroll-up-command grep-mode-map)
-  (bind-key ";" 'semi-colon-map grep-mode-map)
-  (bind-key ";" 'semi-colon-map grep-mode-map)
+  (bind-key ";" 'attic-semi-colon/body grep-mode-map)
+  (bind-key ";" 'attic-semi-colon/body grep-mode-map)
   (bind-key "z" 'helm-buffers-list grep-mode-map))
 
 (use-package hackernews
@@ -495,7 +495,7 @@
   :config
   (bind-key "RET" (lambda () (interactive) (magit-visit-item t)) magit-status-mode-map)
   (bind-key "g" 'magit-refresh magit-status-mode-map)
-  (bind-key ";" 'semi-colon-map magit-status-mode-map)
+  (bind-key ";" 'attic-semi-colon/body magit-status-mode-map)
   (setq magit-last-seen-setup-instructions "1.4.0"))
 
 (use-package multiple-cursors
@@ -561,7 +561,7 @@
   (bind-key "RET" 'neotree-enter neotree-mode-map)
   (bind-key "c s a" 'helm-bookmarks neotree-mode-map)
   (bind-key "z" 'helm-mini neotree-mode-map)
-  (bind-key ";" 'semi-colon-map neotree-mode-map)
+  (bind-key ";" 'attic-semi-colon/body neotree-mode-map)
   (defun set-neo-root-project ()
     (interactive)
     (unless (or (member major-mode neotree-ignore-list)
@@ -633,7 +633,14 @@
 (use-package paredit
   :ensure t
   :config
-  (bind-key ";" nil paredit-mode-map)
+  (define-key paredit-mode-map (kbd "M-R") 'paredit-splice-sexp-killing-backward)
+  (bind-key ";"
+            (lambda ()
+              (interactive)
+              (if god-local-mode
+                  (attic-semi-colon/body)
+                (paredit-semicolon)))
+            paredit-mode-map)
   (define-key paredit-mode-map (kbd ")")
     (lambda () (interactive)
       (if god-local-mode
@@ -723,7 +730,7 @@
         twittering-cert-file "/etc/ssl/certs/ca-bundle.crt"
         twittering-use-master-password t)
   (bind-key "s" 'twittering-search twittering-mode-map)
-  (bind-key ";" 'semi-colon-map twittering-mode-map)
+  (bind-key ";" 'attic-semi-colon/body twittering-mode-map)
   (bind-key "q" (lambda () (interactive) (switch-to-buffer nil)) twittering-mode-map)
   (bind-key "w" 'delete-window twittering-mode-map)
   (add-hook 'twittering-mode-hook 'toggle-modeline))
