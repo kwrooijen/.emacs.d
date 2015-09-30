@@ -495,6 +495,7 @@
   :config
   (bind-key "RET" (lambda () (interactive) (magit-visit-item t)) magit-status-mode-map)
   (bind-key "g" 'magit-refresh magit-status-mode-map)
+  (bind-key ";" 'semi-colon-map magit-status-mode-map)
   (setq magit-last-seen-setup-instructions "1.4.0"))
 
 (use-package multiple-cursors
