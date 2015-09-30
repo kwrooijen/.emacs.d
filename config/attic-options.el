@@ -144,6 +144,9 @@ Kevin W. van Rooijen
 ;; Macro is not active at boot, setting variable
 (setq macro-active nil)
 
+;; Default scheme to use is Guile
+(setq scheme-program-name "guile")
+
 ;; Create 6 initial screens and move to number 1
 (escreen-create-screen)
 (escreen-create-screen)

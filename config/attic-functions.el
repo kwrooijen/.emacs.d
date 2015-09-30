@@ -103,7 +103,7 @@ buffer is not visiting a file."
   (interactive)
   (copy-line-fun nil))
 
-(defun my-comment ()
+(defun attic/comment ()
   (interactive)
   (if (region-active-p)
       (comment-or-uncomment-region (region-beginning) (region-end))

@@ -26,6 +26,8 @@
 
 (use-package auto-complete
   :ensure t
+  :init
+  (global-auto-complete-mode)
   :config
   (setq ac-auto-show-menu 0.3
         ac-candidate-limit 15
@@ -252,7 +254,7 @@
   (bind-key "u" 'undo god-local-mode-map)
   (bind-key "M-u" 'redo god-local-mode-map)
   (bind-key "J" '(lambda () (interactive) (join-line -1)) god-local-mode-map)
-  (bind-key "/" 'my-comment god-local-mode-map)
+  (bind-key "/" 'attic/comment god-local-mode-map)
 
   (add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
   (add-to-list 'god-exempt-major-modes 'gnus-group-mode)
@@ -694,6 +696,18 @@
     (attic-lock)
     (paredit-mode 1))
   (add-hook 'scheme-mode-hook 'attic-scheme-mode-hook))
+
+(use-package scheme-complete
+  :ensure t
+  :config
+  (eval-after-load 'scheme
+    '(define-key scheme-mode-map "\t" 'scheme-complete-or-indent))
+  (autoload 'scheme-get-current-symbol-info "scheme-complete" nil t)
+  (add-hook 'scheme-mode-hook
+            (lambda ()
+              (make-local-variable 'eldoc-documentation-function)
+              (setq eldoc-documentation-function 'scheme-get-current-symbol-info)
+              (eldoc-mode))))
 
 (use-package transpose-mark
   :ensure t

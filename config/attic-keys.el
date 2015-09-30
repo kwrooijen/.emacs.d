@@ -9,6 +9,9 @@
 
 ("C-c C-o" switch-to-minibuffer)
 ("C-;" semi-colon-map)
+("C-x C-1" delete-other-windows)
+("C-x C-2" split-window-below)
+("C-x C-3" split-window-right)
 
 ;; ;; Meta keys
 ("M-N" mc/mark-next-like-this)
@@ -42,7 +45,7 @@
                            ("n" sauron-select-last-event)
                            ("p" escreen-goto-prev-screen)
                            ("x" helm-M-x)
-                           ("<SPC>" escreen-goto-last-screen)
+                           (";" escreen-goto-last-screen)
                            ("d" (lambda() (interactive) (helm-swoop :$query "")))
                            ("M-d" helm-swoop)
                            ("a" async-shell-command)
@@ -92,7 +95,7 @@
 
 ;; C Keys
 (defun c-keys-hook ()
-(define-key c-mode-base-map (kbd "C-/") 'my-comment))
+(define-key c-mode-base-map (kbd "C-/") 'attic/comment))
 
 ;; Package Menu mode
 (define-key package-menu-mode-map (kbd ";") 'semi-colon-map)
