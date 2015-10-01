@@ -8,9 +8,14 @@
 
 ("C-c C-o" switch-to-minibuffer)
 ("C-;" attic-semi-colon/body)
+("C-q" backward-delete-char)
+("M-q" backward-kill-word)
+("C-M-q" backward-kill-sexp)
 ("C-x C-1" delete-other-windows)
 ("C-x C-2" split-window-below)
 ("C-x C-3" split-window-right)
+("C-c C-p" copy-line-up)
+("C-c C-n" copy-line-down)
 
 ;; ;; Meta keys
 ("M-N" mc/mark-next-like-this)
@@ -32,6 +37,7 @@
     "Attic"
     ("r" rgrep "RGrep")
     ("g" magit-status "Magit")
+    ("i" remove-newline-space "")
     ("k" kill-buffer "Kill")
     ("n" sauron-select-last-event "Sauron")
     ("x" helm-M-x "M-x")

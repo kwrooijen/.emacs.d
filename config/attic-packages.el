@@ -634,6 +634,11 @@
   :ensure t
   :config
   (define-key paredit-mode-map (kbd "M-R") 'paredit-splice-sexp-killing-backward)
+  (define-key paredit-mode-map (kbd "C-z") 'paredit-reindent-defun)
+  (define-key paredit-mode-map (kbd "C-q") 'paredit-backward-delete)
+  (define-key paredit-mode-map (kbd "M-q") 'paredit-backward-kill-word)
+  (define-key paredit-mode-map (kbd "C-c C-p") 'paredit-copy-sexp-up)
+  (define-key paredit-mode-map (kbd "C-c C-n") 'paredit-copy-sexp-down)
   (bind-key ";"
             (lambda ()
               (interactive)
