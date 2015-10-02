@@ -51,6 +51,7 @@
     ("b" helm-bookmarks "Bookmarks")
     ("[" winner-undo)
     ("]" winner-redo)
+    ("<SPC>" pop-to-mark-command)
     ("1" escreen-goto-screen-1)
     ("2" escreen-goto-screen-2)
     ("3" escreen-goto-screen-3)
