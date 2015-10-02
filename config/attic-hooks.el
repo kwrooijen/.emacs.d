@@ -16,6 +16,7 @@
     (define-key ac-complete-mode-map (kbd "<return>")
       (lambda() (interactive) (ac-stop) (racket-repl-eval-or-newline-and-indent)))))
 
+;; Dear god what was I thinking? I'm supposed to be writing Lisp!!!!!!!
 (setq indy-rules '(
     (all . (
         ((and (indy--prev 'indy--ends-on "[") (indy--current 'indy--starts-with "]")) (indy--prev-tab))

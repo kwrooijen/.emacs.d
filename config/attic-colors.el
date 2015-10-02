@@ -2,10 +2,11 @@
   (set-face-foreground face foreground)
   (if background (set-face-background face background)))
 
-(defun sfb(l)
+(defun sfb (l)
   (mapcar (lambda(list) (set-foreground-background (nth 0 list)(nth 1 list)(nth 2 list) )) l))
 
-(load-theme 'sanityinc-tomorrow-night t)
+;; (load-theme 'sanityinc-tomorrow-night t)
+(load-theme 'material t)
 
 (set-face-attribute 'highlight-symbol-face nil :inherit 'default)
 
@@ -22,27 +23,18 @@
 (set-face-background 'fringe 'unspecified)
 (require 'whitespace)
 (sfb '(
-    (git-gutter+-added          "green" unspecified)
-    (git-gutter+-deleted        "red" unspecified)
-    (git-gutter+-modified       "magenta" unspecified)
-    (git-gutter+-unchanged  unspecified "#383838")
-    (font-lock-string-face      "cadet blue" unspecified)
-    (highlight-symbol-face      "#fff" "gray20" )
-    (neo-file-link-face         unspecified unspecified unspecified)
-    (neo-button-face            unspecified unspecified unspecified)
-    (whitespace-empty            "gray16" "#1d1f21")
-    (whitespace-hspace           "gray16" "#1d1f21")
-    (whitespace-indentation      "gray16" "#1d1f21")
-    (whitespace-line             "gray16" "#1d1f21")
-    (whitespace-newline          "gray16" "#1d1f21")
-    (whitespace-space            "gray16" "#1d1f21")
-    (whitespace-space-after-tab  "gray16" "#1d1f21")
-    (whitespace-space-before-tab "gray16" "#1d1f21")
-    (whitespace-tab              "gray16" "#1d1f21")
-    (whitespace-trailing         "gray16" "#1d1f21")
-    (ac-completion-face           unspecified unspecified)
-    ;; (hl-line                     unspecified "gray14")
-    (fringe                      unspecified "gray14")))
+       ;; (git-gutter+-added           "green" unspecified)
+       ;; (git-gutter+-deleted         "red" unspecified)
+       ;; (git-gutter+-modified        "magenta" unspecified)
+       ;; (git-gutter+-unchanged       unspecified "#383838")
+       (font-lock-string-face       "cadet blue" unspecified)
+       (highlight-symbol-face       "#fff" "gray20" )
+       (neo-file-link-face          unspecified unspecified unspecified)
+       (neo-button-face             unspecified unspecified unspecified)
+       (ac-completion-face           unspecified unspecified)
+       ;; (hl-line                     unspecified "gray14")
+       ;; (fringe                      unspecified "gray14")
+       ))
 
 (defun daytime ()
   (interactive)
@@ -65,18 +57,18 @@
             (count-lines (region-beginning) (region-end)))
     ""))
 
-(setq attic-mode-line-format
-      '(" " (:eval (concat "[" (number-to-string (escreen-get-current-screen-number)) "]")) " "
-        (:eval erc-modified-channels-object)
-        "%*" "_"
-        mode-line-remote " "
-        (:eval (modeline-region-counter))
-        "%3lL:%2cC "
-        (:eval (format-time-string "%-I:%M%p")) " | "
-        mode-line-buffer-identification " | "
-        mode-name " |"
-        (vc-mode vc-mode) " | "
-        battery-mode-line-string))
+;; (setq attic-mode-line-format
+;;       '(" " (:eval (concat "[" (number-to-string (escreen-get-current-screen-number)) "]")) " "
+;;         (:eval erc-modified-channels-object)
+;;         "%*" "_"
+;;         mode-line-remote " "
+;;         (:eval (modeline-region-counter))
+;;         "%3lL:%2cC "
+;;         (:eval (format-time-string "%-I:%M%p")) " | "
+;;         mode-line-buffer-identification " | "
+;;         mode-name " |"
+;;         (vc-mode vc-mode) " | "
+;;         battery-mode-line-string))
 
 (defun set-theme-white ()
   (interactive)
@@ -116,5 +108,50 @@
   (global-font-lock-mode t)
   (font-lock-mode t)
   (load-file "~/.emacs.d/config/attic-colors.el"))
+
+(setq powerline-default-separator 'wave)
+(setq-default mode-line-format
+              '("%e"
+                (:eval
+                 (let* ((active (powerline-selected-window-active))
+                        (mode-line (if active (quote mode-line) (quote mode-line-inactive)))
+                        (face1 (if active (quote powerline-active1) (quote powerline-inactive1)))
+                        (face2 (if active (quote powerline-active2) (quote powerline-inactive2)))
+                        (separator-left (intern (format "powerline-%s-%s"
+                                                        (powerline-current-separator)
+                                                        (car powerline-default-separator-dir))))
+                        (separator-right (intern (format "powerline-%s-%s"
+                                                         (powerline-current-separator)
+                                                         (cdr powerline-default-separator-dir))))
+                        (lhs (list (powerline-raw "%*" nil (quote l))
+                                   (powerline-buffer-size nil (quote l))
+                                   (powerline-buffer-id nil (quote l))
+                                   (powerline-raw " ")
+                                   (powerline-raw (modeline-region-counter))
+                                   (funcall separator-left mode-line face1)
+                                   (powerline-narrow face1 (quote l))
+                                   (powerline-vc face1)))
+                        (rhs (list (powerline-raw global-mode-string face1 (quote r))
+                                   (powerline-raw "%4l" face1 (quote r))
+                                   (powerline-raw ":" face1)
+                                   (powerline-raw "%3c" face1 (quote r))
+                                   (funcall separator-right face1 mode-line)
+                                   (powerline-raw " ")
+                                   (powerline-raw "%6p" nil (quote r))
+                                   (powerline-hud face2 face1)))
+                        (center (list (powerline-raw " " face1)
+                                      (funcall separator-left face1 face2)
+                                      (when (and (boundp (quote erc-track-minor-mode))
+                                                 erc-track-minor-mode)
+                                        (powerline-raw erc-modified-channels-object face2 (quote l)))
+                                      (powerline-major-mode face2 (quote l))
+                                      (powerline-process face2)
+                                      (powerline-raw " " face2)
+                                      (funcall separator-right face2 face1))))
+                   (concat (powerline-render lhs)
+                           (powerline-fill-center face1 (/ (powerline-width center) 2.0))
+                           (powerline-render center)
+                           (powerline-fill face1 (powerline-width rhs))
+                           (powerline-render rhs))))))
 
 (provide 'attic-colors)

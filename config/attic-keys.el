@@ -8,6 +8,8 @@
 
 ("C-c C-o" switch-to-minibuffer)
 ("C-;" attic-semi-colon/body)
+("C-j" iy-go-up-to-char)
+("M-j" ace-jump-mode)
 ("C-q" backward-delete-char)
 ("M-q" backward-kill-word)
 ("C-M-q" backward-kill-sexp)
@@ -16,7 +18,6 @@
 ("C-x C-3" split-window-right)
 ("C-c C-p" copy-line-up)
 ("C-c C-n" copy-line-down)
-
 ;; ;; Meta keys
 ("M-N" mc/mark-next-like-this)
 ("M-P" mc/mark-previous-like-this)

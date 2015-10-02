@@ -161,7 +161,6 @@ Kevin W. van Rooijen
       '((?\" . ?\")
         (?\{ . ?\})))
 
-
 ;; TODO create a toggle function for this
 ;; ;; Disable Mouse when Emacs has focus
 ;; (defun turn-off-mouse (&optional frame)

@@ -254,7 +254,7 @@ makes)."
   (transpose-lines 1)
   (previous-line 1))
 
-(defun attic-lock()
+(defun attic-lock ()
   (interactive)
   (deactivate-mark)
   (if (equal " *Minibuf-1*" (buffer-name))
@@ -265,7 +265,8 @@ makes)."
       (progn
         (call-interactively (key-binding (kbd "C-g")))
         (keyboard-escape-quit))))
-  (god-local-mode 1))
+  (unless (member major-mode god-exempt-major-modes)
+    (god-local-mode 1)))
 
 (defadvice keyboard-escape-quit (around my-keyboard-escape-quit activate)
   (let (orig-one-window-p)
@@ -313,6 +314,7 @@ makes)."
     (while (point-is-blank)
       (delete-char 1))
     (newline-and-indent)
-    (newline-and-indent)))
+    (unless (member major-mode '(scheme-mode))
+      (newline-and-indent))))
 
 (provide 'attic-functions)

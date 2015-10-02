@@ -21,6 +21,9 @@
 (use-package ac-cider
   :ensure t)
 
+(use-package ace-jump-mode
+  :ensure t)
+
 (use-package alchemist
   :ensure t)
 
@@ -264,6 +267,7 @@
   (add-to-list 'god-exempt-major-modes 'doc-view-mode)
   (add-to-list 'god-exempt-major-modes 'top-mode)
   (add-to-list 'god-exempt-major-modes 'dired-mode)
+  (add-to-list 'god-exempt-major-modes 'magit-status-mode)
   (add-to-list 'god-exempt-major-modes 'twittering-mode))
 
 (use-package grep
@@ -375,6 +379,14 @@
   ;; Try to hide source header as much as possible
   (set-face-attribute 'helm-source-header nil :height 0.1 :background "#000"  :foreground "#000")
 
+  ;; Work around for the [Display not ready] error when typing to awesomely fast
+  (defun my/helm-exit-minibuffer ()
+    (interactive)
+    (helm-exit-minibuffer))
+  (eval-after-load "helm"
+    '(progn
+       (define-key helm-map (kbd "<RET>") 'my/helm-exit-minibuffer)))
+
   (bind-key "M-[" 'helm-resume attic-mode-map)
   (bind-key "M-x" 'helm-M-x attic-mode-map)
   (bind-key "C-b" 'nil helm-map)
@@ -458,6 +470,9 @@
   :ensure t)
 
 (use-package indy
+  :ensure t)
+
+(use-package iy-go-to-char
   :ensure t)
 
 (use-package key-chord
@@ -634,6 +649,7 @@
   :ensure t
   :config
   (define-key paredit-mode-map (kbd "M-R") 'paredit-splice-sexp-killing-backward)
+  (define-key paredit-mode-map (kbd "C-j") 'iy-go-up-to-char)
   (define-key paredit-mode-map (kbd "C-z") 'paredit-reindent-defun)
   (define-key paredit-mode-map (kbd "C-q") 'paredit-backward-delete)
   (define-key paredit-mode-map (kbd "M-q") 'paredit-backward-kill-word)
@@ -659,6 +675,9 @@
          (key-binding (kbd "C-(")))))))
 
 (use-package pcmpl-args
+  :ensure t)
+
+(use-package powerline
   :ensure t)
 
 (use-package rainbow-delimiters
