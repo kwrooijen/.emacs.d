@@ -50,6 +50,7 @@
     ("f" helm-ls-git-ls "Git")
     ("e" eww "Eww")
     ("b" helm-bookmarks "Bookmarks")
+    ("." create-tags)
     ("[" winner-undo)
     ("]" winner-redo)
     ("<SPC>" pop-to-mark-command)

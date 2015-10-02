@@ -147,6 +147,9 @@ Kevin W. van Rooijen
 ;; Default scheme to use is Guile
 (setq scheme-program-name "guile")
 
+;; Ctags location
+(setq tags-file-name "~/.ctags")
+
 ;; Create 6 initial screens and move to number 1
 (escreen-create-screen)
 (escreen-create-screen)

@@ -317,4 +317,10 @@ makes)."
     (unless (member major-mode '(scheme-mode))
       (newline-and-indent))))
 
+(defun create-tags (dir-name)
+  "Create tags file."
+  (interactive "DDirectory: ")
+  (shell-command
+   (format "ctags -f %s -e -R %s" tags-file-name (directory-file-name dir-name))))
+
 (provide 'attic-functions)

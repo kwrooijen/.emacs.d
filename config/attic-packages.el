@@ -237,7 +237,11 @@
   (bind-key "M-@" 'er/expand-region attic-mode-map))
 
 (use-package geiser
-  :ensure t)
+  :ensure t
+  :config
+  (defun attic-geiser-hook ()
+    (define-key geiser-mode-map (kbd "M-.") 'find-tag))
+  (add-hook 'geiser-mode-hook 'attic-geiser-hook))
 
 (use-package git-gutter+
   :ensure t

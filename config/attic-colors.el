@@ -138,6 +138,8 @@
                                    (funcall separator-right face1 mode-line)
                                    (powerline-raw " ")
                                    (powerline-raw "%6p" nil (quote r))
+                                   (format-time-string "%-I:%M%p")
+                                   (powerline-raw " ")
                                    (powerline-hud face2 face1)))
                         (center (list (powerline-raw " " face1)
                                       (funcall separator-left face1 face2)
