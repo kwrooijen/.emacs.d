@@ -227,22 +227,6 @@ makes)."
   (setq-local split-width-threshold 2000)
   (setq-local split-height-threshold 2000))
 
-(defun attic-sauron-toggle ()
-  (interactive)
-  (setq sauron-active (not (get-buffer-window "*Sauron*")))
-  (sauron-toggle-hide-show)
-  (if sauron-active
-      (let ((previous-window (window-numbering-get-number)))
-        (switch-to-buffer-other-window "*Sauron*")
-        (set-window-height sauron-max-line-height)
-        (select-window-by-number previous-window))))
-
-(defun sauron-select-last-event ()
-  (interactive)
-  (sauron-pop-to-buffer)
-  (end-of-buffer)
-  (sauron-activate-event-prev))
-
 (defun move-line-up ()
   (interactive)
   (transpose-lines 1)
@@ -275,32 +259,6 @@ makes)."
     (unwind-protect
         ad-do-it
       (fset 'one-window-p (symbol-function 'orig-one-window-p)))))
-
-(defun paredit-copy-sexp-down ()
-  (interactive)
-  (let ((prev-column (current-column)))
-    (kill-sexp)
-    (yank)
-    (paredit-newline)
-    (yank)
-    (paredit-reindent-defun)
-    (paredit-backward)
-    (move-to-column prev-column)))
-
-(defun paredit-copy-sexp-up ()
-  (interactive)
-  (let ((prev-column (current-column)))
-    (kill-sexp)
-    (yank)
-    (paredit-backward)
-    (let ((copy-indent (current-column)))
-      (beginning-of-line)
-      (open-line 1)
-      (insert (make-string copy-indent 32))
-      (yank)
-      (paredit-reindent-defun)
-      (paredit-backward)
-      (move-to-column prev-column))))
 
 (defun remove-newline-space ()
   (interactive)

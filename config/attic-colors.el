@@ -109,8 +109,7 @@
   (font-lock-mode t)
   (load-file "~/.emacs.d/config/attic-colors.el"))
 
-(setq powerline-default-separator 'wave)
-(setq-default mode-line-format
+(setq attic-mode-line-format
               '("%e"
                 (:eval
                  (let* ((active (powerline-selected-window-active))
@@ -124,6 +123,8 @@
                                                          (powerline-current-separator)
                                                          (cdr powerline-default-separator-dir))))
                         (lhs (list (powerline-raw "%*" nil (quote l))
+                                   (powerline-raw " ")
+                                   (concat "[" (number-to-string (escreen-get-current-screen-number)) "]")
                                    (powerline-buffer-size nil (quote l))
                                    (powerline-buffer-id nil (quote l))
                                    (powerline-raw " ")
@@ -155,5 +156,7 @@
                            (powerline-render center)
                            (powerline-fill face1 (powerline-width rhs))
                            (powerline-render rhs))))))
+
+(setq-default mode-line-format attic-mode-line-format)
 
 (provide 'attic-colors)

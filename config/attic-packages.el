@@ -107,9 +107,6 @@
     (setq-local helm-dash-docsets '("Elixir")))
   (add-hook 'elixir-mode-hook 'attic-elixir-hook))
 
-(use-package elixir-yasnippets
-  :ensure t)
-
 (use-package elm-mode
   :ensure t
   :config
@@ -676,13 +673,45 @@
       (if (or (not god-local-mode) (region-active-p))
           (paredit-open-round)
         (call-interactively
-         (key-binding (kbd "C-(")))))))
+         (key-binding (kbd "C-("))))))
+
+  (defun paredit-copy-sexp-down ()
+    (interactive)
+    (let ((prev-column (current-column)))
+      (paredit-forward)
+      (paredit-backward)
+      (kill-sexp)
+      (yank)
+      (paredit-newline)
+      (yank)
+      (paredit-reindent-defun)
+      (paredit-backward)
+      (move-to-column prev-column)))
+
+  (defun paredit-copy-sexp-up ()
+    (interactive)
+    (let ((prev-column (current-column)))
+      (paredit-forward)
+      (paredit-backward)
+      (kill-sexp)
+      (yank)
+      (paredit-backward)
+      (let ((copy-indent (current-column)))
+        (beginning-of-line)
+        (open-line 1)
+        (insert (make-string copy-indent 32))
+        (yank)
+        (paredit-reindent-defun)
+        (paredit-backward)
+        (move-to-column prev-column)))))
 
 (use-package pcmpl-args
   :ensure t)
 
 (use-package powerline
-  :ensure t)
+  :ensure t
+  :config
+  (setq powerline-default-separator 'wave))
 
 (use-package rainbow-delimiters
   :ensure t)
@@ -724,7 +753,23 @@
   (setq sauron-separate-frame nil)
   (setq sauron-max-line-length (- (window-total-width) 10))
   ;; Custom made variable for max line height
-  (setq sauron-max-line-height 4))
+  (setq sauron-max-line-height 4)
+
+  (defun attic-sauron-toggle ()
+    (interactive)
+    (setq sauron-active (not (get-buffer-window "*Sauron*")))
+    (sauron-toggle-hide-show)
+    (if sauron-active
+        (let ((previous-window (window-numbering-get-number)))
+          (switch-to-buffer-other-window "*Sauron*")
+          (set-window-height sauron-max-line-height)
+          (select-window-by-number previous-window))))
+
+  (defun sauron-select-last-event ()
+    (interactive)
+    (sauron-pop-to-buffer)
+    (end-of-buffer)
+    (sauron-activate-event-prev)))
 
 (use-package scheme
   :config
