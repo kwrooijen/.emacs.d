@@ -79,9 +79,6 @@ Kevin W. van Rooijen
 ;; Backup ~ files in seperate directory
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
-;; Don't ask when creating new buffer
-(setq confirm-nonexistent-file-or-buffer nil)
-
 ;; No animation when loading workgroups
 (setq wg-morph-on nil)
 

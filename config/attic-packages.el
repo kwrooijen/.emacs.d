@@ -468,7 +468,37 @@
   (setq highlight-symbol-idle-delay 0))
 
 (use-package hydra
-  :ensure t)
+  :ensure t
+  :config
+  (defun god-repeater--set-hydra-function (var)
+    `(defhydra ,(make-symbol (concat "hydra-god-repeater-" var))
+       (god-local-mode-map "g")
+       "God repeater"
+       (,var (call-interactively (key-binding (kbd ,(concat "M-" var))))
+             ,(let ((function-name (format "%s" (lookup-key
+                                                 (current-global-map)
+                                                 (kbd (concat "M-" var))))))
+                (if (> (length function-name) 50)
+                    (concat "M-" var)
+                  function-name)))))
+
+  (defmacro god-repeater--set-characters (&rest vars)
+    (let ((forms (mapcar 'god-repeater--set-hydra-function vars)))
+      `(progn ,@forms)))
+
+  (god-repeater--set-characters
+   "q" "w" "e" "r" "t" "y" "u" "i" "o"
+   "p" "a" "s" "d" "f" "g" "h" "j" "k"
+   "l" "z" "x" "c" "v" "b" "n" "m"
+   "1" "2" "3" "4" "5" "6" "7" "8" "9"
+   "0" "!" "@" "#" "$" "%" "^" "&" "*"
+   "(" ")" "_" "+" "{" "}" "|" ":" "\""
+   "<" ">" "?" "-" "=" "[" "]" ";" "'"
+   "\\" "," "." "/" "`" "~")
+
+  ;; Special cases
+  (defhydra hydra-god-repeater-g (god-local-mode-map "g") ("g" goto-line))
+  (defhydra hydra-god-repeater-G (god-local-mode-map "g") ("G" goto-line)))
 
 (use-package indy
   :ensure t)
