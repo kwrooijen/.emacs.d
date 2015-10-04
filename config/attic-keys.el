@@ -16,6 +16,7 @@
 ("C-x C-1" delete-other-windows)
 ("C-x C-2" split-window-below)
 ("C-x C-3" split-window-right)
+("C-x C-b" helm-buffers-list)
 ("C-c C-p" copy-line-up)
 ("C-c C-n" copy-line-down)
 ;; ;; Meta keys
