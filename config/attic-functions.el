@@ -1,3 +1,8 @@
+(defun new-shell (buffer)
+  "Create a new shell."
+  (interactive "sShell Name: ")
+  (shell (concat "*" buffer "*")))
+
 (defun sudo-edit (&optional arg)
   "Edit currently visited file as root.
 With a prefix ARG prompt for a file to visit.

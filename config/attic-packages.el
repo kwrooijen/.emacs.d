@@ -57,9 +57,6 @@
     (setq-local helm-dash-docsets '("Clojure")))
   (add-hook 'clojure-mode-hook 'attic-clojure-hook))
 
-(use-package clojure-snippets
-  :ensure t)
-
 (use-package cider
   :ensure t)
 
@@ -182,7 +179,7 @@
   :config
   (defun eshell-broadcast(&optional yank-eshell-input)
     (interactive)
-    (if eshell-mode
+    (if (or eshell-mode (equal major-mode 'shell-mode))
         (let ((buff (get-buffer-window))
               (col (current-column)))
           (eshell-bol)
@@ -191,29 +188,35 @@
           (setq eshell-oel-column (point))
           (kill-ring-save eshell-indentation-column eshell-oel-column)
           (move-to-column col)
-          (unless yank-eshell-input (eshell-send-input))
+          (if eshell-mode (unless yank-eshell-input (eshell-send-input))
+            (unless yank-eshell-input (comint-send-input)))
           (other-window 1)
           (while (not (eq (get-buffer-window) buff))
-            (if eshell-mode
+            (if (or eshell-mode (equal major-mode 'shell-mode))
                 (progn
                   (end-of-buffer)
                   (yank)
-                  (unless yank-eshell-input (eshell-send-input))))
+                  (if eshell-mode (unless yank-eshell-input (eshell-send-input))
+                    (unless yank-eshell-input (comint-send-input)))))
             (other-window 1)))))
+
   (defun eshell-broadcast-diff()
     (interactive)
     (let ((buff-win (get-buffer-window))
           (buff (current-buffer)))
       (other-window 1)
       (while (not (eq (get-buffer-window) buff-win))
-        (if eshell-mode
+        (if (or eshell-mode (equal major-mode 'shell-mode))
             (progn
               (highlight-changes-mode -1)
               (highlight-compare-buffers buff (current-buffer))))
         (sleep-for 0.1)
         (end-of-buffer)
+        (recenter-top-bottom (window-height))
         (other-window 1))
-      (highlight-changes-mode -1)))
+      (highlight-changes-mode -1)
+      (recenter-top-bottom (window-height))))
+
   (defun attic-eshell-hook ()
     (bind-key "M-p" 'eshell-previous-input eshell-mode-map)
     (bind-key "M-n" 'eshell-next-input eshell-mode-map)
@@ -237,8 +240,10 @@
   :ensure t
   :config
   (defun attic-geiser-hook ()
-    (define-key geiser-mode-map (kbd "M-.") 'find-tag))
-  (add-hook 'geiser-mode-hook 'attic-geiser-hook))
+    (define-key geiser-mode-map (kbd "M-.") 'find-tag)
+    (paredit-mode 1))
+  (add-hook 'geiser-mode-hook 'attic-geiser-hook)
+  (add-hook 'geiser-repl-mode-hook 'attic-geiser-hook))
 
 (use-package git-gutter+
   :ensure t
@@ -764,11 +769,10 @@
 (use-package rust-mode
   :ensure t
   :config
-  (defun attic-rust-map ()
+  (defun attic-rust-hook ()
     (attic-lock)
     (electric-pair-mode)
     (setq-local tab-width 4)
-    (rust-keys-hook)
     (setq-local helm-dash-docsets '("Rust")))
   (add-hook 'rust-mode-hook 'attic-rust-hook))
 
