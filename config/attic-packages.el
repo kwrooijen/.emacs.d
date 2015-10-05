@@ -269,6 +269,7 @@
   (add-to-list 'god-exempt-major-modes 'top-mode)
   (add-to-list 'god-exempt-major-modes 'dired-mode)
   (add-to-list 'god-exempt-major-modes 'magit-status-mode)
+  (add-to-list 'god-exempt-major-modes 'magit-revision-mode)
   (add-to-list 'god-exempt-major-modes 'twittering-mode))
 
 (use-package grep
@@ -549,6 +550,7 @@
   (bind-key "RET" (lambda () (interactive) (magit-visit-item t)) magit-status-mode-map)
   (bind-key "g" 'magit-refresh magit-status-mode-map)
   (bind-key ";" 'attic-semi-colon/body magit-status-mode-map)
+  (bind-key ";" 'attic-semi-colon/body magit-revision-mode-map)
   (setq magit-last-seen-setup-instructions "1.4.0"))
 
 (use-package material-theme
