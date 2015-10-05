@@ -506,6 +506,13 @@
 (use-package iy-go-to-char
   :ensure t)
 
+(use-package js2-mode
+  :ensure t
+  :config
+  (defun attic-js2-hook ()
+    (attic-lock))
+  (add-hook 'js2-mode-hook 'attic-js2-hook))
+
 (use-package key-chord
   :ensure t
   :init
@@ -543,6 +550,9 @@
   (bind-key "g" 'magit-refresh magit-status-mode-map)
   (bind-key ";" 'attic-semi-colon/body magit-status-mode-map)
   (setq magit-last-seen-setup-instructions "1.4.0"))
+
+(use-package material-theme
+  :ensure t)
 
 (use-package multiple-cursors
   :ensure t
