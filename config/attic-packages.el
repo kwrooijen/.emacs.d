@@ -274,6 +274,7 @@
   (add-to-list 'god-exempt-major-modes 'top-mode)
   (add-to-list 'god-exempt-major-modes 'dired-mode)
   (add-to-list 'god-exempt-major-modes 'magit-status-mode)
+  (add-to-list 'god-exempt-major-modes 'magit-revision-mode)
   (add-to-list 'god-exempt-major-modes 'twittering-mode))
 
 (use-package grep
@@ -511,6 +512,13 @@
 (use-package iy-go-to-char
   :ensure t)
 
+(use-package js2-mode
+  :ensure t
+  :config
+  (defun attic-js2-hook ()
+    (attic-lock))
+  (add-hook 'js2-mode-hook 'attic-js2-hook))
+
 (use-package key-chord
   :ensure t
   :init
@@ -547,7 +555,11 @@
   (bind-key "RET" (lambda () (interactive) (magit-visit-item t)) magit-status-mode-map)
   (bind-key "g" 'magit-refresh magit-status-mode-map)
   (bind-key ";" 'attic-semi-colon/body magit-status-mode-map)
+  (bind-key ";" 'attic-semi-colon/body magit-revision-mode-map)
   (setq magit-last-seen-setup-instructions "1.4.0"))
+
+(use-package material-theme
+  :ensure t)
 
 (use-package multiple-cursors
   :ensure t

@@ -7,7 +7,9 @@
 (add-hook 'sauron-mode-hook 'no-split)
 (sauron-start-hidden)
 
-(add-hook 'before-save-hook 'whitespace-cleanup)
+(setq clean-on-save nil)
+(add-hook 'before-save-hook (lambda ()
+                              (when clean-on-save (whitespace-cleanup))))
 (add-hook 'c-initialization-hook 'c-keys-hook)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
 (add-hook 'message-mode-hook (lambda () (electric-pair-mode 0)))
