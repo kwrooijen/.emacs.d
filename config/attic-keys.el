@@ -8,7 +8,7 @@
 
 ("C-c C-o" switch-to-minibuffer)
 ("C-;" attic-semi-colon/body)
-("C-j" iy-go-up-to-char)
+("C-j" iy-go-to-char)
 ("M-j" ace-jump-mode)
 ("C-q" backward-delete-char)
 ("M-q" backward-kill-word)

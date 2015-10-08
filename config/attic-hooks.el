@@ -7,6 +7,9 @@
 (add-hook 'sauron-mode-hook 'no-split)
 (sauron-start-hidden)
 
+(add-hook 'isearch-mode-hook (lambda()
+                               (key-chord-mode 1)))
+
 (setq clean-on-save nil)
 (add-hook 'before-save-hook (lambda ()
                               (when clean-on-save (whitespace-cleanup))))
