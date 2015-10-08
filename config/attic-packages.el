@@ -566,8 +566,8 @@
   :init
   (bind-key "M-N" 'mc/mark-next-like-this attic-mode-map)
   (bind-key "M-P" 'mc/mark-previous-like-this attic-mode-map)
-  (bind-key "<return>" 'newline mc/keymap)
   :config
+  (bind-key "<return>" 'newline mc/keymap)
   (multiple-cursors-mode t))
 
 (use-package neotree
