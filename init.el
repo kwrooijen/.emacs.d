@@ -11,6 +11,8 @@
   (require 'attic-options)
   (require 'attic-hooks)
   (require 'attic-scripts)
-  (require 'attic-colors))
+  (require 'attic-colors)
+  (when (file-exists-p "~/.system.el")
+    (load-file "~/.system.el")))
 
 (setq gc-cons-threshold 800000)

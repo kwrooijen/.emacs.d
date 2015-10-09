@@ -20,6 +20,7 @@
 ("C-c C-p" copy-line-up)
 ("C-c C-n" copy-line-down)
 ;; ;; Meta keys
+("M-+" align-regexp)
 ("M-N" mc/mark-next-like-this)
 ("M-P" mc/mark-previous-like-this)
 ;("<return>" newline mc/keymap)
