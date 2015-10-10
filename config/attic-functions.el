@@ -286,4 +286,26 @@ makes)."
   (shell-command
    (format "ctags -f %s -e -R %s" tags-file-name (directory-file-name dir-name))))
 
+(defun increment-decimal (&optional arg)
+  "Increment the number forward at point by 'arg'."
+  (interactive "p*")
+  (let ((last-col (current-column)))
+    (save-match-data
+      (let ((inc-by (if arg arg 1))
+            (field-width (- (match-end 0) (match-beginning 0)))
+            answer)
+        (skip-chars-backward "0123456789")
+        (when (re-search-forward "[0-9]+" nil t)
+          (setq answer (+ (string-to-number (match-string 0) 10) inc-by))
+          (when (< answer 0)
+            (setq answer (+ (expt 10 field-width) answer)))
+          (replace-match (format (concat "%0" (int-to-string field-width) "d")
+                                 answer)))))
+    (move-to-column last-col)))
+
+(defun decrement-decimal (&optional arg)
+  "Decrement the number forward at point by 'arg'."
+  (interactive "p*")
+  (my-increment-number-decimal (if arg (- arg) -1)))
+
 (provide 'attic-functions)

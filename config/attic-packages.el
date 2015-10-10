@@ -44,6 +44,9 @@
   (bind-key "M-j" 'yas/expand ac-complete-mode-map)
   (bind-key "C-n" 'ac-next ac-complete-mode-map))
 
+(use-package cargo
+  :ensure t)
+
 (use-package clojure-mode
   :ensure t
   :config
@@ -781,6 +784,7 @@
 (use-package rust-mode
   :ensure t
   :config
+  (add-hook 'rust-mode-hook 'cargo-minor-mode)
   (defun attic-rust-hook ()
     (attic-lock)
     (electric-pair-mode)
