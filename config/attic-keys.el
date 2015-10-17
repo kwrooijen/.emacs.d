@@ -7,6 +7,8 @@
 (mapcar (lambda(a) (attic-key (nth 0 a) (nth 1 a))) '(
 
 ("C-c C-o" switch-to-minibuffer)
+("C-c C-=" increment-decimal)
+("C-c C--" decrement-decimal)
 ("C-;" attic-semi-colon/body)
 ("C-j" iy-go-to-char)
 ("M-j" ace-jump-mode)

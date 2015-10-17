@@ -69,7 +69,8 @@
 (use-package company
   :ensure t
   :config
-  (setq company-idle-delay 0.3)
+  (setq company-idle-delay 0.2)
+  (setq company-minimum-prefix-length 1)
   (bind-key "M-g" (lambda() (interactive) (company-abort) (god-local-mode-resume)) company-active-map)
   (bind-key "M-f" 'company-complete-selection company-active-map)
   (bind-key "<return>" (lambda() (interactive) (company-abort) (newline)) company-active-map)
@@ -81,6 +82,9 @@
   (bind-key "M-j" 'yas/expand company-active-map)
   (bind-key "C-n" 'company-select-next company-active-map)
   (bind-key "C-p" 'company-select-previous company-active-map))
+
+(use-package company-racer
+  :ensure t)
 
 (use-package dash
   :ensure t)
@@ -238,6 +242,9 @@
   :ensure t
   :init
   (bind-key "M-@" 'er/expand-region attic-mode-map))
+
+(use-package flycheck-rust
+  :ensure t)
 
 (use-package geiser
   :ensure t
@@ -763,6 +770,14 @@
   :config
   (setq powerline-default-separator 'wave))
 
+(use-package racer
+  :ensure t
+  :config
+  ;; Set path to racer binary
+  (setq racer-cmd "/usr/local/bin/racer")
+  ;; Set path to rust src directory
+  (setq racer-rust-src-path "/usr/local/src/rust/src/"))
+
 (use-package rainbow-delimiters
   :ensure t)
 
@@ -786,10 +801,19 @@
   :config
   (add-hook 'rust-mode-hook 'cargo-minor-mode)
   (defun attic-rust-hook ()
+    (racer-mode)
+    ;; Hook in racer with eldoc to provide documentation
+    (racer-turn-on-eldoc)
+    ;; Use company-racer in rust mode
+    (set (make-local-variable 'company-backends) '(company-racer))
+    ;; Key binding to jump to method definition
+    (local-set-key (kbd "M-.") #'racer-find-definition)
     (attic-lock)
     (electric-pair-mode)
     (setq-local tab-width 4)
-    (setq-local helm-dash-docsets '("Rust")))
+    (setq-local helm-dash-docsets '("Rust"))
+    (company-mode)
+    (auto-complete-mode -1))
   (add-hook 'rust-mode-hook 'attic-rust-hook))
 
 (use-package s
@@ -839,6 +863,11 @@
               (make-local-variable 'eldoc-documentation-function)
               (setq eldoc-documentation-function 'scheme-get-current-symbol-info)
               (eldoc-mode))))
+
+(use-package toml-mode
+  :ensure t
+  :config
+  (add-hook 'toml-mode-hook 'cargo-minor-mode))
 
 (use-package transpose-mark
   :ensure t
