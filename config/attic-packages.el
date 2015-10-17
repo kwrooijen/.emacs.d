@@ -44,6 +44,11 @@
   (bind-key "M-j" 'yas/expand ac-complete-mode-map)
   (bind-key "C-n" 'ac-next ac-complete-mode-map))
 
+(use-package beacon-mode
+  :ensure t
+  :config
+  (beacon-mode t))
+
 (use-package cargo
   :ensure t)
 
