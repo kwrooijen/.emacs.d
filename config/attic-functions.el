@@ -306,6 +306,6 @@ makes)."
 (defun decrement-decimal (&optional arg)
   "Decrement the number forward at point by 'arg'."
   (interactive "p*")
-  (my-increment-number-decimal (if arg (- arg) -1)))
+  (increment-decimal (if arg (- arg) -1)))
 
 (provide 'attic-functions)

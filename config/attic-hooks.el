@@ -10,7 +10,7 @@
 (add-hook 'isearch-mode-hook (lambda()
                                (key-chord-mode 1)))
 
-(setq clean-on-save nil)
+(setq clean-on-save t)
 (add-hook 'before-save-hook (lambda ()
                               (when clean-on-save (whitespace-cleanup))))
 (add-hook 'c-initialization-hook 'c-keys-hook)

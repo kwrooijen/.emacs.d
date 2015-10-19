@@ -70,7 +70,7 @@
   :ensure t
   :config
   (setq company-idle-delay 0.3)
-  (bind-key "M-g" (lambda() (interactive) (company-abort) (god-local-mode-resume)) company-active-map)
+  (bind-key "M-g" (lambda() (interactive) (company-abort) (god-local-mode)) company-active-map)
   (bind-key "M-f" 'company-complete-selection company-active-map)
   (bind-key "<return>" (lambda() (interactive) (company-abort) (newline)) company-active-map)
   (bind-key "SPC" (lambda() (interactive) (company-abort) (insert " ")) company-active-map)
@@ -264,9 +264,15 @@
   (god-mode)
   (bind-key "i" (lambda () (interactive) (god-local-mode -1)) god-local-mode-map)
   (bind-key "u" 'undo god-local-mode-map)
+  (bind-key "h" 'ace-jump-mode god-local-mode-map)
   (bind-key "M-u" 'redo god-local-mode-map)
   (bind-key "J" '(lambda () (interactive) (join-line -1)) god-local-mode-map)
   (bind-key "/" 'attic/comment god-local-mode-map)
+
+  (add-hook 'sh-mode-hook 'god-local-mode)
+  (add-hook 'sql-mode-hook 'god-local-mode)
+  (add-hook 'makefile-gmake-mode-hook 'god-local-mode)
+  (add-hook 'python-mode-hook 'god-local-mode)
 
   (add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
   (add-to-list 'god-exempt-major-modes 'gnus-group-mode)
@@ -701,7 +707,7 @@
   :config
   (define-key paredit-mode-map (kbd "M-R") 'paredit-splice-sexp-killing-backward)
   (define-key paredit-mode-map (kbd "C-j") 'iy-go-up-to-char)
-  (define-key paredit-mode-map (kbd "C-z") 'paredit-reindent-defun)
+  (define-key paredit-mode-map (kbd "C-c C-r") 'paredit-reindent-defun)
   (define-key paredit-mode-map (kbd "C-q") 'paredit-backward-delete)
   (define-key paredit-mode-map (kbd "M-q") 'paredit-backward-kill-word)
   (define-key paredit-mode-map (kbd "C-c C-p") 'paredit-copy-sexp-up)
