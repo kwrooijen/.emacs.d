@@ -24,6 +24,9 @@
 (use-package ace-jump-mode
   :ensure t)
 
+(use-package aggressive-indent
+  :ensure t)
+
 (use-package alchemist
   :ensure t)
 
@@ -45,7 +48,8 @@
   (bind-key "C-n" 'ac-next ac-complete-mode-map))
 
 (use-package beacon-mode
-  :ensure t
+  ;; Need to wait until it stops bugging out
+  ;;:ensure t
   :config
   (beacon-mode t))
 
@@ -860,7 +864,8 @@
   :config
   (defun attic-scheme-mode-hook ()
     (attic-lock)
-    (paredit-mode 1))
+    (paredit-mode 1)
+    (aggressive-indent-mode))
   (add-hook 'scheme-mode-hook 'attic-scheme-mode-hook))
 
 (use-package scheme-complete
@@ -943,6 +948,7 @@
 ;;;; TODO require emacs lisp?
 (defun attic-emacs-lisp-hook ()
   (attic-lock)
+  (aggressive-indent-mode)
   (paredit-mode 1)
   (setq-local helm-dash-docsets '("Emacs Lisp")))
 
