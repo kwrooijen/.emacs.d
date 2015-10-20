@@ -107,6 +107,9 @@
   (bind-key ";" 'attic-semi-colon/body dired-mode-map)
   (bind-key "c z" 'attic-make-map dired-mode-map))
 
+(use-package dockerfile-mode
+  :ensure t)
+
 (use-package elixir-mode
   :ensure t
   :config
@@ -289,6 +292,9 @@
   (add-hook 'sql-mode-hook 'god-local-mode)
   (add-hook 'makefile-gmake-mode-hook 'god-local-mode)
   (add-hook 'python-mode-hook 'god-local-mode)
+  (add-hook 'yaml-mode-hook 'god-local-mode)
+  (add-hook 'dockerfile-mode-hook 'god-local-mode)
+  (add-hook 'markdown-mode-hook 'god-local-mode)
 
   (add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
   (add-to-list 'god-exempt-major-modes 'gnus-group-mode)
@@ -572,6 +578,9 @@
   :ensure t)
 
 (use-package macrostep
+  :ensure t)
+
+(use-package markdown-mode
   :ensure t)
 
 (use-package magit
@@ -932,6 +941,9 @@
           "*Ibuffer*")))
 
 (use-package wrap-region
+  :ensure t)
+
+(use-package yaml-mode
   :ensure t)
 
 (use-package yasnippet
