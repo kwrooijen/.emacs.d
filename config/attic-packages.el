@@ -50,7 +50,7 @@
 (use-package beacon-mode
   ;; Need to wait until it stops bugging out
   ;;:ensure t
-  :config
+  :init
   (beacon-mode t))
 
 (use-package cargo
