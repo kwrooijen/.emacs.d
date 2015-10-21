@@ -308,4 +308,13 @@ makes)."
   (interactive "p*")
   (increment-decimal (if arg (- arg) -1)))
 
+(defun attic/erc ()
+  (interactive)
+  (unless (or (not (boundp 'erc-password)) erc-password)
+    (load "~/.erc.gpg"))
+  (erc :server "irc.freenode.net"
+       :port 6667
+       :nick erc-nick
+       :password erc-password))
+
 (provide 'attic-functions)

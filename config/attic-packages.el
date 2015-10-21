@@ -80,7 +80,7 @@
   :config
   (setq company-idle-delay 0.2)
   (setq company-minimum-prefix-length 1)
-  (bind-key "M-g" (lambda() (interactive) (company-abort) (god-local-mode-resume)) company-active-map)
+  (bind-key "M-g" (lambda() (interactive) (company-abort) (attic-lock)) company-active-map)
   (bind-key "M-f" 'company-complete-selection company-active-map)
   (bind-key "<return>" (lambda() (interactive) (company-abort) (newline)) company-active-map)
   (bind-key "SPC" (lambda() (interactive) (company-abort) (insert " ")) company-active-map)
@@ -147,11 +147,7 @@
   (setq erc-hide-list '("JOIN" "PART" "QUIT"))
   (bind-key "" 'function erc-mode-map)
   (bind-key "C-M-m" 'erc-send-current-line erc-mode-map)
-  (bind-key "RET" (lambda() (interactive) (message "Use C-M-m to send")) erc-mode-map)
-  (defadvice erc (before erc activate)
-    (setq erc-prompt-for-password nil)
-    (load "~/.erc.gpg")
-    (setq erc-password ercpass)))
+  (bind-key "RET" (lambda() (interactive) (message "Use C-M-m to send")) erc-mode-map))
 
 (use-package erlang
   :ensure t
@@ -557,7 +553,7 @@
   :config
   (key-chord-define-global "xs" '(lambda ()
                                    (interactive)
-                                   (god-local-mode 1)
+                                   (attic-lock)
                                    (save-buffer)))
 
   (key-chord-define helm-map ";j" 'helm-keyboard-quit)
