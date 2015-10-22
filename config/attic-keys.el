@@ -27,7 +27,6 @@
 ("M-+" align-regexp)
 ("M-N" mc/mark-next-like-this)
 ("M-P" mc/mark-previous-like-this)
-;("<return>" newline mc/keymap)
 ("M-C" capitalize-previous-word)
 ("M-i" tab-to-tab-stop-line-or-region)
 ("M-I" (lambda() (interactive) (tab-to-tab-stop-line-or-region t)))
@@ -105,14 +104,14 @@
     ("C-r" rgrep nil)))
 
 (defhydra attic-make (:color blue)
-  "toggle"
-  ("p" (lambda() (interactive) (run-make "stop"    "[Make Stop]")) "Stop")
-  ("r" (lambda() (interactive) (run-make "restart" "[Make Restart]")) "Restart")
-  ("s" (lambda() (interactive) (run-make "start"   "[Make Start]")) "Start")
-  ("t" (lambda() (interactive) (run-make "test"    "[Make Test]")) "Test")
-  ("o" (lambda() (interactive) (run-make "go"      "[Make Go]")) "Go")
-  ("q" (lambda() (interactive) (run-make ""        "[Make]")) "Make")
-  ("c" run-make-input "Custom"))
+  "[Make]"
+  ("p" attic/make-stop    "Stop")
+  ("r" attic/make-restart "Restart")
+  ("s" attic/make-start   "Start")
+  ("t" attic/make-test    "Test")
+  ("o" attic/make-go      "Go")
+  ("q" attic/make-default "Make")
+  ("c" run-make-input     "Custom"))
 
 (if window-system
     (progn

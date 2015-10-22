@@ -10,7 +10,6 @@
   (require 'attic-keys)
   (require 'attic-options)
   (require 'attic-hooks)
-  (require 'attic-scripts)
   (require 'attic-colors)
   (when (file-exists-p "~/.system.el")
     (load-file "~/.system.el")))

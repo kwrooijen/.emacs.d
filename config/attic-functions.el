@@ -61,15 +61,60 @@ buffer is not visiting a file."
     (if (not (string-match "/$" name))
         (rename-buffer (concat "!" name) t))))
 
-(defun run-make-input (input)
-  "Run make with user input."
-  (interactive "sMake: ")
-  (run-make input "[Custom Make]"))
+(defun cd-up-to-file (file)
+  "Go up a directory until you find FILE or enter the root directory.
+If file is found then return t else nil."
+  (while (not (or (file-exists-p file) (equal default-directory "/")))
+    (cd ".."))
+  (file-exists-p file))
+
+(defun kill-buffer-if-exists (buffer)
+  "Attempt to kill BUFFER if it exists."
+  (if (get-buffer buffer)
+      (kill-buffer buffer)))
+
+(defun reset-buffer (buffer)
+  (kill-buffer-if-exists buffer)
+  (generate-new-buffer buffer))
 
 (defun run-make (arg name)
   (interactive)
-  (if (get-buffer name) (kill-buffer name))
-  (my-up-to-script "Makefile" (concat "make " arg) name))
+  (reset-buffer "*Make Find Makefile*")
+  (with-current-buffer "*Make Find Makefile*"
+    (if (cd-up-to-file "Makefile")
+        (progn
+          (kill-buffer-if-exists name)
+          (async-shell-command (concat "make " arg) name))
+      (message "Could not find Makefile"))))
+
+(defun attic/make-go ()
+  (interactive)
+  (run-make "go" "[Make go]"))
+
+(defun attic/make-restart ()
+  (interactive)
+  (run-make "restart" "[Make Restart]"))
+
+(defun attic/make-start ()
+  (interactive)
+  (run-make "start" "[Make Start]"))
+
+(defun attic/make-stop ()
+  (interactive)
+  (run-make "stop" "[Make Stop]"))
+
+(defun attic/make-test ()
+  (interactive)
+  (run-make "test" "[Make Test]"))
+
+(defun attic/make-default ()
+  (interactive)
+  (run-make "" "[Make]"))
+
+(defun attic/make-custom (input)
+  "run make with user input."
+  (interactive "sMake: ")
+  (run-make input "[Custom Make]"))
 
 (defun underscores-to-camel-case (str)
   "Converts STR, which is a word using underscores, to camel case."
