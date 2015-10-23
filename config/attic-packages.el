@@ -72,15 +72,11 @@
 (use-package cider
   :ensure t)
 
-(use-package color-theme-sanityinc-tomorrow
-  :ensure t)
-
 (use-package company
   :ensure t
   :config
   (setq company-idle-delay 0.2)
   (setq company-minimum-prefix-length 1)
-  (bind-key "M-g" (lambda() (interactive) (company-abort) (attic-lock)) company-active-map)
   (bind-key "M-f" 'company-complete-selection company-active-map)
   (bind-key "<return>" (lambda() (interactive) (company-abort) (newline)) company-active-map)
   (bind-key "SPC" (lambda() (interactive) (company-abort) (insert " ")) company-active-map)
@@ -137,6 +133,33 @@
     (setq iod--use-tab-cycle t))
   (add-hook 'elm-mode-hook 'attic-elm-hook))
 
+(use-package elscreen
+  :ensure t
+  :init
+  (elscreen-start)
+  (elscreen-create) (elscreen-create) (elscreen-create)
+  (elscreen-create) (elscreen-create) (elscreen-kill 0)
+  (elscreen-goto 1)
+  :config
+  (defun elscreen-goto-template (num)
+    `(defun ,(read  (concat "elscreen-goto-" (number-to-string num))) ()
+       ,(concat "Go to elscreen workspace " (number-to-string num) ".")
+       (interactive)
+       (elscreen-goto ,num)))
+
+  (defmacro elscreen-goto-workspace-list (&rest nums)
+    (let ((forms (mapcar 'elscreen-goto-template nums)))
+      `(progn ,@forms)))
+
+  (elscreen-goto-workspace-list 1 2 3 4 5)
+  (setq elscreen-display-screen-number nil
+        elscreen-prefix-key nil
+        elscreen-tab-display-control nil
+        elscreen-tab-display-kill-screen nil)
+  (set-face-attribute 'elscreen-tab-background-face     nil :background "#25201b")
+  (set-face-attribute 'elscreen-tab-current-screen-face nil :background "#2f2922" :foreground "#c6a57b")
+  (set-face-attribute 'elscreen-tab-other-screen-face   nil :background "#4b4238" :foreground "#25201b"))
+
 (use-package erc
   :config
   (erc-truncate-mode 1)
@@ -155,11 +178,11 @@
   (setq inferior-erlang-machine-options '("-sname" "emacs"))
   (bind-key "M-/" 'erlang-get-error erlang-mode-map)
   (bind-key "C-c C-k"
-    (lambda() (interactive)
-      (inferior-erlang)
-      (split-window)
-      (other-window 1)
-      (other-window -1)) erlang-mode-map)
+            (lambda() (interactive)
+              (inferior-erlang)
+              (split-window)
+              (other-window 1)
+              (other-window -1)) erlang-mode-map)
   (bind-key "M-n" 'highlight-symbol-next erlang-mode-map)
   (bind-key "M-p" 'highlight-symbol-prev erlang-mode-map)
   (bind-key "M-n" 'highlight-symbol-next erlang-mode-map)
@@ -187,11 +210,8 @@
     (setq-local helm-dash-docsets '("Erlang")))
   (add-hook 'erlang-mode-hook 'attic-erlang-hook))
 
-(use-package escreen
-  :ensure t)
-
 (use-package eshell
-  :config
+  :init
   (defun eshell-broadcast(&optional yank-eshell-input)
     (interactive)
     (if (or eshell-mode (equal major-mode 'shell-mode))
@@ -238,7 +258,7 @@
     (bind-key "C-i" 'helm-esh-pcomplete eshell-mode-map)
     (bind-key "M-m" 'eshell-bol eshell-mode-map)
     (bind-key "C-M-m" 'eshell-broadcast eshell-mode-map))
-  (add-hook 'eshell-mode-hook attic-eshell-hook))
+  (add-hook 'eshell-mode-hook 'attic-eshell-hook))
 
 (use-package eww
   :config
@@ -421,21 +441,15 @@
     '(progn
        (define-key helm-map (kbd "<RET>") 'my/helm-exit-minibuffer)))
 
-  (bind-key "M-[" 'helm-resume attic-mode-map)
-  (bind-key "M-x" 'helm-M-x attic-mode-map)
-  (bind-key "C-b" 'nil helm-map)
-  (bind-key "C-f" 'nil helm-map)
-  (bind-key "M-b" 'nil helm-map)
-  (bind-key "M-f" 'forward-word helm-map)
-  (bind-key "M-s" 'helm-select-action helm-map)
-  (bind-key "TAB" 'helm-execute-persistent-action helm-map)
-  (bind-key "C-a" 'helm-buffers-toggle-show-hidden-buffers helm-buffer-map)
-  (bind-key "M-e" 'helm-swoop-edit helm-swoop-map)
-  (bind-key "M-?" 'helm-help helm-map)
-  (bind-key "M-g" 'helm-keyboard-quit helm-map)
-  (bind-key "M-g" 'helm-keyboard-quit helm-find-files-map)
-  (bind-key "M-g" 'helm-keyboard-quit helm-generic-find-files-map)
-  (bind-key "M-g" 'helm-keyboard-quit helm-buffer-map)
+  (define-key attic-mode-map (kbd "M-[") 'helm-resume)
+  (define-key attic-mode-map (kbd "M-x") 'helm-M-x)
+  (define-key helm-map (kbd "C-b") 'nil)
+  (define-key helm-map (kbd "C-f") 'nil)
+  (define-key helm-map (kbd "M-b") 'nil)
+  (define-key helm-map (kbd "M-f") 'forward-word)
+  (define-key helm-map (kbd "M-s") 'helm-select-action)
+  (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
+  (define-key helm-map (kbd "M-?") 'helm-help)
 
   (defun helm-highlight-files (x)
     nil)
@@ -476,6 +490,8 @@
 
 (use-package helm-swoop
   :ensure t
+  :config
+  (define-key helm-swoop-map (kbd "M-e") 'helm-swoop-edit)
   :init
   (bind-key "C-c C-s C-s" 'helm-multi-swoop attic-mode-map)
   (bind-key "C-c C-s C-f" 'helm-swoop-find-files-recursively attic-mode-map)
@@ -493,6 +509,17 @@
               (boundp 'helm-register-active))
           (progn (helm-previous-line) (helm-execute-persistent-action))
         (helm-previous-line)))))
+
+(use-package help-mode
+  :config
+  (bind-key "n" 'next-line help-mode-map)
+  (bind-key "p" 'previous-line help-mode-map)
+  (bind-key "f" 'backward-char help-mode-map)
+  (bind-key "b" 'forward-char help-mode-map)
+  (bind-key "s" 'isearch-forward help-mode-map)
+  (bind-key "r" 'isearch-backward help-mode-map)
+  (bind-key "e" 'end-of-line help-mode-map)
+  (bind-key "a" 'beginning-of-line help-mode-map))
 
 (use-package highlight-symbol
   :ensure t
@@ -537,6 +564,9 @@
   :ensure t)
 
 (use-package iy-go-to-char
+  :ensure t)
+
+(use-package jazz-theme
   :ensure t)
 
 (use-package js2-mode
@@ -588,8 +618,8 @@
   (bind-key ";" 'attic-semi-colon/body magit-revision-mode-map)
   (setq magit-last-seen-setup-instructions "1.4.0"))
 
-(use-package material-theme
-  :ensure t)
+;; (use-package material-theme
+;;   :ensure t)
 
 (use-package multiple-cursors
   :ensure t
@@ -680,9 +710,6 @@
 
 (use-package org
   :config
-  (org-babel-do-local-languages
-   'org-babel-load-languages
-   '(sh . t))
   (setq org-log-done 'time)
   (setq org-capture-templates '())
   (setq org-capture-templates

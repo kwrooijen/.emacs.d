@@ -147,15 +147,6 @@ Kevin W. van Rooijen
 ;; Ctags location
 (setq tags-file-name "~/.ctags")
 
-;; Create 6 initial screens and move to number 1
-(escreen-create-screen)
-(escreen-create-screen)
-(escreen-create-screen)
-(escreen-create-screen)
-(escreen-create-screen)
-(escreen-create-screen)
-(escreen-goto-screen-1)
-
 ;; Electric pair
 (setq electric-pair-pairs
       '((?\" . ?\")
