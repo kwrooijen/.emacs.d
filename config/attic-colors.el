@@ -11,8 +11,31 @@
 
 (set-face-attribute 'highlight-symbol-face nil :inherit 'default)
 
-(set-face-attribute 'neo-file-link-face nil :inherit 'helm-ff-file)
-(set-face-attribute 'neo-button-face nil :inherit 'helm-ff-directory)
+(set-face-attribute 'helm-ff-directory nil
+                    :foreground 'unspecified
+                    :background 'unspecified
+                    :inherit 'dired-directory)
+
+(set-face-attribute 'helm-ff-file nil
+                    :foreground 'unspecified
+                    :background 'unspecified
+                    :inherit 'default)
+
+(set-face-attribute 'helm-ff-symlink nil
+                    :foreground 'unspecified
+                    :background 'unspecified
+                    :inherit 'dired-symlink)
+
+(set-face-attribute 'neo-file-link-face nil
+                    :foreground 'unspecified
+                    :background 'unspecified
+                    :inherit 'helm-ff-file)
+
+(set-face-attribute 'neo-button-face nil
+                    :foreground 'unspecified
+                    :background 'unspecified
+                    :inherit 'helm-ff-directory)
+
 
 (set-face-attribute 'linum nil :inherit 'default)
 (set-face-background 'linum nil)
