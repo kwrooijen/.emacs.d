@@ -16,6 +16,7 @@
 ("C-q" backward-delete-char)
 ("M-q" backward-kill-word)
 ("C-M-q" backward-kill-sexp)
+("C-x C-f" helm-find-files)
 ("C-x C-1" delete-other-windows)
 ("C-x C-2" split-window-below)
 ("C-x C-3" split-window-right)
@@ -108,7 +109,7 @@
   ("t" attic/make-test    "Test")
   ("o" attic/make-go      "Go")
   ("q" attic/make-default "Make")
-  ("c" run-make-input     "Custom"))
+  ("c" attic/make-custom  "Custom"))
 
 (if window-system
     (progn
