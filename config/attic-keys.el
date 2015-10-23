@@ -29,13 +29,10 @@
 ("M-P" mc/mark-previous-like-this)
 ("M-C" capitalize-previous-word)
 ("M-i" tab-to-tab-stop-line-or-region)
-("M-I" (lambda() (interactive) (tab-to-tab-stop-line-or-region t)))
+("M-I" tab-to-tab-stop-line-or-region-backward)
 ("M-0" attic-sauron-toggle)
 ("M-9" attic-neotree-toggle)
-("M-y" (lambda() (interactive)
-         (if (or (equal last-command 'yank) (equal last-command 'yank-pop))
-             (yank-pop)
-           (helm-show-kill-ring))))))
+("M-y" yank-pop-or-kill-ring)))
 
 (define-key attic-mode-map
   (kbd "C-;")

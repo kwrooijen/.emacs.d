@@ -34,6 +34,16 @@ buffer is not visiting a file."
         (error "Region tab"))
     (tab-to-tab-stop)))
 
+(defun tab-to-tab-stop-line-or-region-backward (&optional left)
+  (interactive)
+  (tab-to-tab-stop-line-or-region t))
+
+(defun yank-pop-or-kill-ring ()
+  (interactive)
+  (if (or (equal last-command 'yank) (equal last-command 'yank-pop))
+      (yank-pop)
+    (helm-show-kill-ring)))
+
 (defun switch-to-minibuffer ()
   "Switch to minibuffer window."
   (interactive)
