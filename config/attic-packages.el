@@ -137,9 +137,13 @@
   :ensure t
   :init
   (elscreen-start)
-  (elscreen-create) (elscreen-create) (elscreen-create)
-  (elscreen-create) (elscreen-create) (elscreen-kill 0)
-  (elscreen-goto 1)
+  (defun elscreen-create-initial-5-screens ()
+    (interactive)
+    (elscreen-kill-others)
+    (elscreen-create) (elscreen-create) (elscreen-create)
+    (elscreen-create) (elscreen-create) (elscreen-kill 0)
+    (elscreen-goto 1))
+  (elscreen-create-initial-5-screens)
   :config
   (defun elscreen-goto-template (num)
     `(defun ,(read  (concat "elscreen-goto-" (number-to-string num))) ()
@@ -160,6 +164,18 @@
   (set-face-attribute 'elscreen-tab-current-screen-face nil :background "#2f2922" :foreground "#c6a57b")
   (set-face-attribute 'elscreen-tab-other-screen-face   nil :background "#4b4238" :foreground "#25201b"))
 
+(use-package emms
+  :ensure t
+  :init
+  (emms-standard)
+  (emms-default-players)
+  (emms-add-directory-tree "~/Music/")
+  (emms-toggle-repeat-playlist)
+  (emms-shuffle)
+  :config
+  (setq emms-setup-default-player-list '(emms-player-vlc)
+        emms-volume-change-amount 5))
+
 (use-package erc
   :config
   (erc-truncate-mode 1)
@@ -170,7 +186,8 @@
   (setq erc-hide-list '("JOIN" "PART" "QUIT"))
   (bind-key "" 'function erc-mode-map)
   (bind-key "C-M-m" 'erc-send-current-line erc-mode-map)
-  (bind-key "RET" (lambda() (interactive) (message "Use C-M-m to send")) erc-mode-map))
+  (bind-key "RET" (lambda() (interactive) (message "Use C-M-m to send")) erc-mode-map)
+  (add-hook 'erc-mode-hook 'toggle-modeline))
 
 (use-package erlang
   :ensure t
@@ -530,6 +547,16 @@
 (use-package hydra
   :ensure t
   :config
+  (defhydra attic-emms (:color red)
+    "EMMS"
+    ("a" emms-pause "Pause")
+    ("g" emms-playlist-mode-go "Playlist")
+    ("n" emms-next "Next")
+    ("p" emms-previous "Previous")
+    ("]" emms-volume-raise "+")
+    ("[" emms-volume-lower "-")
+    ("q" nil "Quit" :color blue))
+
   (defun god-repeater--set-hydra-function (var)
     `(defhydra ,(make-symbol (concat "hydra-god-repeater-" var))
        (god-local-mode-map "g")
