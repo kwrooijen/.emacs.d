@@ -26,6 +26,20 @@
                     :background 'unspecified
                     :inherit 'dired-symlink)
 
+(set-face-attribute 'helm-buffer-directory nil
+                    :foreground 'unspecified
+                    :background 'unspecified
+                    :inherit 'dired-directory)
+
+(set-face-attribute 'helm-buffer-file nil
+                    :foreground 'unspecified
+                    :background 'unspecified
+                    :inherit 'default)
+
+(set-face-attribute 'helm-buffer-process nil
+                    :foreground "#cd8500"
+                    :background 'unspecified)
+
 (set-face-attribute 'neo-file-link-face nil
                     :foreground 'unspecified
                     :background 'unspecified
