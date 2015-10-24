@@ -71,6 +71,32 @@
 (use-package cider
   :ensure t)
 
+(use-package comint
+  :config
+  (setq tramp-default-method "ssh"          ; uses ControlMaster
+        comint-scroll-to-bottom-on-input t  ; always insert at the bottom
+        comint-scroll-to-bottom-on-output nil ; always add output at the bottom
+        comint-scroll-show-maximum-output t ; scroll to show max possible output
+        comint-completion-autolist t     ; show completion list when ambiguous
+        comint-input-ignoredups t           ; no duplicates in command history
+        comint-completion-addsuffix t       ; insert space/slash after file completion
+        comint-buffer-maximum-size 20000    ; max length of the buffer in lines
+        comint-prompt-read-only nil         ; if this is t, it breaks shell-command
+        comint-get-old-input (lambda () "") ; what to run when i press enter on a
+                                        ; line above the current prompt
+        comint-input-ring-size 5000         ; max shell history size
+        protect-buffer-bury-p nil)
+
+  (defun make-my-shell-output-read-only (text)
+    "Add to comint-output-filter-functions to make stdout read only in my shells."
+    (interactive)
+    (if (equal major-mode 'shell-mode)
+        (let ((inhibit-read-only t)
+              (output-end (process-mark (get-buffer-process (current-buffer)))))
+          (put-text-property comint-last-output-start output-end 'read-only t))))
+  (add-hook 'comint-output-filter-functions 'make-my-shell-output-read-only)
+  (add-hook 'comint-output-filter-functions 'comint-truncate-buffer))
+
 (use-package company
   :ensure t
   :config

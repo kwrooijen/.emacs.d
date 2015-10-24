@@ -373,4 +373,34 @@ makes)."
        :nick erc-nick
        :password erc-password))
 
+(defun attic/setup-frames ()
+  (interactive)
+  (set-frame-name "Main")
+
+  ;; Twitter Frame
+  (new-frame '((name . "Twitter")))
+  (select-frame-by-name "Twitter")
+  (unless (get-buffer ":home")
+    (twit))
+  (elscreen-create-initial-5-screens)
+  (switch-to-buffer ":home")
+
+  ;; IRC Frame
+  (new-frame '((name . "IRC")))
+  (select-frame-by-name "IRC")
+  (elscreen-create-initial-5-screens)
+  (let ((irc-buffer-exists (get-buffer "irc.freenode.net:6667")))
+    (unless irc-buffer-exists
+      (attic/erc))
+    (elscreen-goto-2)
+    (switch-to-buffer "irc.freenode.net:6667")
+    (elscreen-goto-3)
+    (switch-to-buffer "irc.freenode.net:6667")
+    (elscreen-goto-4)
+    (switch-to-buffer "irc.freenode.net:6667")
+    (elscreen-goto-5)
+    (switch-to-buffer "irc.freenode.net:6667")
+    (elscreen-goto-1)
+    (switch-to-buffer "irc.freenode.net:6667")))
+
 (provide 'attic-functions)
