@@ -362,10 +362,12 @@ makes)."
   (interactive "p*")
   (increment-decimal (if arg (- arg) -1)))
 
+(defadvice attic/erc (after attic/erc activate)
+  (setq erc-password nil))
+
 (defun attic/erc ()
   (interactive)
-  (unless (or (not (boundp 'erc-password)) erc-password)
-    (load "~/.erc.gpg"))
+  (load "~/.erc.gpg")
   (erc :server "irc.freenode.net"
        :port 6667
        :nick erc-nick
