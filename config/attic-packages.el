@@ -47,9 +47,8 @@
   (bind-key "M-j" 'yas/expand ac-complete-mode-map)
   (bind-key "C-n" 'ac-next ac-complete-mode-map))
 
-(use-package beacon-mode
-  ;; Need to wait until it stops bugging out
-  ;;:ensure t
+(use-package beacon
+  :ensure t
   :init
   (beacon-mode t))
 
