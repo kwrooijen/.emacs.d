@@ -127,6 +127,9 @@
   (font-lock-mode t)
   (load-file "~/.emacs.d/config/attic-colors.el"))
 
+(set-face-attribute 'mode-line-buffer-id nil :foreground "#cd853f")
+(set-face-attribute 'mode-line-inactive nil :foreground "grey")
+
 (setq attic-mode-line-format
       '("%e"
         (:eval
