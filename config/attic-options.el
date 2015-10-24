@@ -52,9 +52,9 @@
 (setq user-full-name "Kevin W. van Rooijen")
 (setq user-mail-address "kevin.van.rooijen@attichacker.com")
 (setq mail-signature "
---------------------
 Kevin W. van Rooijen
 @attichacker
+PGP 4096R: A0A9 0D06 A754 6D4E EAD4  E6B8 A006 B0B1 CD62 28AB
 ")
 
 ;; Emacs temp directory

@@ -338,6 +338,9 @@
   (add-to-list 'god-exempt-major-modes 'dired-mode)
   (add-to-list 'god-exempt-major-modes 'magit-status-mode)
   (add-to-list 'god-exempt-major-modes 'magit-revision-mode)
+  (add-to-list 'god-exempt-major-modes 'mu4e-main-mode)
+  (add-to-list 'god-exempt-major-modes 'mu4e-headers-mode)
+  (add-to-list 'god-exempt-major-modes 'mu4e-view-mode)
   (add-to-list 'god-exempt-major-modes 'twittering-mode))
 
 (use-package grep
@@ -644,8 +647,38 @@
   (bind-key ";" 'attic-semi-colon/body magit-revision-mode-map)
   (setq magit-last-seen-setup-instructions "1.4.0"))
 
-;; (use-package material-theme
-;;   :ensure t)
+(use-package mu4e
+  :config
+  (require 'smtpmail)
+  (defun new-messages ()
+    "Check our Maildir for 'new' messages and return the count"
+    (let ((cmd (concat "find " (expand-file-name "~/Mail")
+                       " -type f | grep -i new | wc -l")))
+      (string-to-number (replace-regexp-in-string "![0-9]" "" (shell-command-to-string cmd)))))
+
+  (defadvice mu4e-update-mail-and-index (after mu4e-update-mail-and-index activate)
+    (setq mu4e-total-unread (new-messages)))
+
+  (defadvice mu4e-update-index (after mu4e-update-index activate)
+    (setq mu4e-total-unread (new-messages)))
+
+  ;; default
+  (define-key mu4e-main-mode-map (kbd ";") 'attic-semi-colon/body)
+  (define-key mu4e-headers-mode-map (kbd ";") 'attic-semi-colon/body)
+  (define-key mu4e-view-mode-map (kbd ";") 'attic-semi-colon/body)
+  (define-key mu4e-view-mode-map (kbd "v") 'epa-mail-verify)
+  (setq message-send-mail-function 'smtpmail-send-it
+        mu4e-get-mail-command "offlineimap"
+        mu4e-maildir (expand-file-name "~/Mail")
+        starttls-use-gnutls t
+        smtpmail-starttls-credentials '(("mail.attichacker.com" 587 nil nil))
+        smtpmail-default-smtp-server "mail.attichacker.com"
+        smtpmail-smtp-server "mail.attichacker.com"
+        smtpmail-smtp-service 587
+        smtpmail-debug-info t
+        mu4e-update-interval 45
+        message-kill-buffer-on-exit t
+        mu4e-total-unread (new-messages)))
 
 (use-package multiple-cursors
   :ensure t

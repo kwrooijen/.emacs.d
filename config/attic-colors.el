@@ -145,6 +145,8 @@
                                                  (cdr powerline-default-separator-dir))))
                 (lhs (list (powerline-raw "%*" nil (quote l))
                            (powerline-raw " ")
+                           (when (> mu4e-total-unread 0)
+                             (powerline-raw (concat "[" (int-to-string mu4e-total-unread) "]")))
                            (powerline-buffer-size nil (quote l))
                            (powerline-buffer-id nil (quote l))
                            (powerline-raw " ")
