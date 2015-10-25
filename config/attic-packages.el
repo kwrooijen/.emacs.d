@@ -656,13 +656,10 @@
   :config
   ;; Always display 2 columns in linum mode (no stuttering)
   (setq linum-format (quote "%3d"))
-  (setq linum-disabled-modes-list '(
-    mu4e-compose-mode
-    mu4e-headers-mode
-    mu4e-main-mode)))
-
-(use-package litable
-  :ensure t)
+  (setq linum-disabled-modes-list
+        '(mu4e-compose-mode
+          mu4e-headers-mode
+          mu4e-main-mode)))
 
 (use-package macrostep
   :ensure t)
