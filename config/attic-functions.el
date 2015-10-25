@@ -311,7 +311,7 @@ makes)."
   (unless (member major-mode god-exempt-major-modes)
     (god-local-mode 1)))
 
-(defadvice keyboard-escape-quit (around my-keyboard-escape-quit activate)
+(defadvice keyboard-escape-quit (around attic-ad/my-keyboard-escape-quit-around activate)
   (let (orig-one-window-p)
     (fset 'orig-one-window-p (symbol-function 'one-window-p))
     (fset 'one-window-p (lambda (&optional nomini all-frames) t))
@@ -362,7 +362,7 @@ makes)."
   (interactive "p*")
   (increment-decimal (if arg (- arg) -1)))
 
-(defadvice attic/erc (after attic/erc activate)
+(defadvice attic/erc (after attic-ad/attic/erc-after activate)
   (setq erc-password nil))
 
 (defun attic/erc ()

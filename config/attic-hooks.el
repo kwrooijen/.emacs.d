@@ -4,8 +4,6 @@
   (indy-mode t)
   (setq-local tab-width x))
 
-(add-hook 'sauron-mode-hook 'no-split)
-
 (add-hook 'isearch-mode-hook (lambda()
                                (key-chord-mode 1)))
 

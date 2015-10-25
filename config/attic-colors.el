@@ -40,17 +40,6 @@
                     :foreground "#cd8500"
                     :background 'unspecified)
 
-(set-face-attribute 'neo-file-link-face nil
-                    :foreground 'unspecified
-                    :background 'unspecified
-                    :inherit 'helm-ff-file)
-
-(set-face-attribute 'neo-button-face nil
-                    :foreground 'unspecified
-                    :background 'unspecified
-                    :inherit 'helm-ff-directory)
-
-
 (set-face-attribute 'linum nil :inherit 'default)
 (set-face-background 'linum nil)
 
@@ -62,8 +51,6 @@
 (require 'whitespace)
 (sfb '(
        (highlight-symbol-face       "#fff" "gray20" )
-       (neo-file-link-face          unspecified unspecified unspecified)
-       (neo-button-face             unspecified unspecified unspecified)
        (ac-completion-face           unspecified unspecified)
        ))
 

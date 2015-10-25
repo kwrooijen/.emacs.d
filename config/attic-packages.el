@@ -499,18 +499,18 @@
   (defun helm-highlight-files (x)
     nil)
 
-  (defadvice helm-register (before helm-register activate)
+  (defadvice helm-register (before attic-ad/helm-register-before activate)
     (setq helm-register-active t))
 
-  (defadvice helm-register (after helm-register activate)
+  (defadvice helm-register (after attic-ad/helm-register-after activate)
     (makunbound 'helm-register-active))
 
-  (defadvice helm-swoop (before helm-swoop activate)
+  (defadvice helm-swoop (before attic-ad/helm-swoop-before activate)
     (set-mark-command nil)
     (deactivate-mark)
     (setq helm-swoop-active t))
 
-  (defadvice helm-swoop (after helm-swoop activate)
+  (defadvice helm-swoop (after attic-ad/helm-swoop-after activate)
     (makunbound 'helm-swoop-active))
 
   (defun helm-hide-minibuffer-maybe ()
@@ -575,6 +575,12 @@
 (use-package hydra
   :ensure t
   :config
+
+  (defhydra attic-winner (:color red)
+    "Winner"
+    ("[" winner-undo "Undo")
+    ("]" winner-undo "Redo"))
+
   (defhydra attic-emms (:color red)
     "EMMS"
     ("a" emms-pause "Pause")
@@ -667,7 +673,6 @@
 (use-package magit
   :ensure t
   :config
-  (bind-key "RET" (lambda () (interactive) (magit-visit-item t)) magit-status-mode-map)
   (bind-key "g" 'magit-refresh magit-status-mode-map)
   (bind-key ";" 'attic-semi-colon/body magit-status-mode-map)
   (bind-key ";" 'attic-semi-colon/body magit-revision-mode-map)
@@ -702,7 +707,7 @@
         smtpmail-smtp-server "mail.attichacker.com"
         smtpmail-smtp-service 587
         smtpmail-debug-info t
-        mu4e-update-interval 45
+        mu4e-update-interval 60
         message-kill-buffer-on-exit t
         mu4e-total-unread (new-messages)))
 
@@ -714,84 +719,6 @@
   :config
   (bind-key "<return>" 'newline mc/keymap)
   (multiple-cursors-mode t))
-
-(use-package neotree
-  :ensure t
-  :config
-  ;; For this module to work properly you need to have the package window-numbering
-  ;; installed and activated. neotree tries to take focus when toggling / changing
-  ;; directory and I use the window-numbering package to return to the previous
-  ;; window.
-
-  (defmacro neotree-root-hook (function-name)
-    `(defadvice ,function-name (after ,function-name activate)
-       (if neotree-active
-           (set-neo-root-project))))
-
-  (neotree-root-hook dired-find-file)
-  (neotree-root-hook select-window-1)
-  (neotree-root-hook select-window-2)
-  (neotree-root-hook select-window-3)
-  (neotree-root-hook select-window-4)
-  (neotree-root-hook select-window-5)
-  (neotree-root-hook select-window-6)
-  (neotree-root-hook select-window-7)
-  (neotree-root-hook select-window-8)
-  (neotree-root-hook select-window-9)
-  (neotree-root-hook select-window-0)
-  (neotree-root-hook magit-visit-item)
-  (neotree-root-hook neotree-enter)
-  (neotree-root-hook helm-find-files)
-  (neotree-root-hook helm-ls-git-ls)
-  (neotree-root-hook helm-mini)
-  (neotree-root-hook kill-this-buffer)
-
-  (setq neo-theme 'ascii
-        neo-window-width 30
-        ;; Made up options
-        neotree-active nil
-        neotree-ignore-list '(erc-mode
-                              sauron-mode
-                              help-mode
-                              eww-mode
-                              doc-view-mode
-                              top-mode
-                              Custom-mode
-                              message-mode
-                              twittering-mode
-                              alchemist-iex-mode
-                              shell-mode)
-        neotree-overlay nil)
-  (defface neotree-overlay-face
-    '((t :background "#696969"))
-    "" :group 'neotree)
-
-  (bind-key "RET" 'neotree-enter neotree-mode-map)
-  (bind-key "c s a" 'helm-bookmarks neotree-mode-map)
-  (bind-key "z" 'helm-mini neotree-mode-map)
-  (bind-key ";" 'attic-semi-colon/body neotree-mode-map)
-  (defun set-neo-root-project ()
-    (interactive)
-    (unless (or (member major-mode neotree-ignore-list)
-                (is-tramp-mode)
-                (equal (buffer-name) " *NeoTree*"))
-      (let ((previous-window (window-numbering-get-number)))
-        (neotree-dir (or (magit-get-top-dir) default-directory))
-        (select-window-by-number previous-window)
-        (neotree-find)
-        (if neotree-overlay (delete-overlay neotree-overlay))
-        (setq neotree-overlay (make-overlay (point) (progn (end-of-line) (point))))
-        (beginning-of-line)
-        (overlay-put neotree-overlay 'face 'neotree-overlay-face)
-        (select-window-by-number previous-window))))
-  (defun attic-neotree-toggle ()
-    (interactive)
-    (setq neotree-active (not (get-buffer-window " *NeoTree*")))
-    (neotree-toggle)
-    (if neotree-active
-        (let ((previous-window (window-numbering-get-number)))
-          (select-window-by-number (+ 1 previous-window))
-          (set-neo-root-project)))))
 
 (use-package org
   :config
@@ -918,7 +845,7 @@
   :init
   (bind-key "M-_" 'redo attic-mode-map))
 
-(use-package ruby
+(use-package ruby-mode
   :config
   ;; Don't use deep indent in Ruby
   (setq ruby-deep-indent-paren nil)
@@ -950,32 +877,6 @@
 
 (use-package s
   :ensure t)
-
-(use-package sauron
-  :ensure t
-  :config
-  (setq sauron-active nil)
-  (setq sauron-hide-mode-line t)
-  (setq sauron-separate-frame nil)
-  (setq sauron-max-line-length (- (window-total-width) 10))
-  ;; Custom made variable for max line height
-  (setq sauron-max-line-height 4)
-
-  (defun attic-sauron-toggle ()
-    (interactive)
-    (setq sauron-active (not (get-buffer-window "*Sauron*")))
-    (sauron-toggle-hide-show)
-    (if sauron-active
-        (let ((previous-window (window-numbering-get-number)))
-          (switch-to-buffer-other-window "*Sauron*")
-          (set-window-height sauron-max-line-height)
-          (select-window-by-number previous-window))))
-
-  (defun sauron-select-last-event ()
-    (interactive)
-    (sauron-pop-to-buffer)
-    (end-of-buffer)
-    (sauron-activate-event-prev)))
 
 (use-package scheme
   :config
@@ -1062,8 +963,6 @@
 (if window-system
     (require 'git-gutter-fringe+)
   (require 'git-gutter+))
-
-(require 'sticky-windows)
 
 ;;;; TODO require emacs lisp?
 (defun attic-emacs-lisp-hook ()

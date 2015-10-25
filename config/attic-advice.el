@@ -1,36 +1,24 @@
-(defadvice attic-semi-colon/body (after attic-semi-colon/body activate)
-  (unless (boundp 'powerline-fixed)
+(defadvice attic-semi-colon/body (after attic-ad/attic-semi-colon/body-after activate)
+  (unless powerline-fixed
     (powerline-reset)
     (setq powerline-fixed t)))
 
-(defadvice kmacro-start-macro (before kmacro-start-macro activate)
+(defadvice kmacro-start-macro (before attic-ad/kmacro-start-before-macro activate)
   (setq macro-active t))
 
-(defadvice kmacro-end-or-call-macro-repeat (after kmacro-end-or-call-macro-repeat activate)
+(defadvice kmacro-end-or-call-macro-repeat (after attic-ad/kmacro-end-or-call-macro-repeat-after activate)
   (setq macro-active nil))
 
-(defadvice digit-argument (before digit-argument activate)
+(defadvice digit-argument (before attic-ad/digit-argument-before activate)
   (set-mark-command nil)
   (deactivate-mark))
 
-(defadvice forward-list (before forward-list activate)
+(defadvice forward-list (before attic-ad/forward-list-before activate)
   (set-mark-command nil)
   (deactivate-mark))
 
-(defadvice backward-list (before backward-list activate)
+(defadvice backward-list (before attic-ad/backward-list-before activate)
   (set-mark-command nil)
   (deactivate-mark))
-
-(defadvice delete-other-windows (after delete-other-windows activate)
-  (if sauron-active
-      (progn
-        (attic-sauron-toggle)
-        (switch-to-buffer-other-window "*Sauron*")
-        (split-window-right)
-        (other-window 1)
-        (switch-to-buffer ":home")
-        (beginning-of-buffer)
-        (sticky-window-keep-window-visible)
-        (other-window 1))))
 
 (provide 'attic-advice)

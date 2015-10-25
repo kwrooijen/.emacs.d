@@ -1,14 +1,14 @@
-(if window-system (progn
+(when window-system
   (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
   (let ((path-from-shell (shell-command-to-string "$SHELL -i -c 'echo -n $PATH'")))
     (setenv "PATH" path-from-shell)
-    (setq exec-path (split-string path-from-shell path-separator)))))
+    (setq exec-path (split-string path-from-shell path-separator))))
 
 ;; Font for X
-(setq default-frame-alist '(
-    (font . "-CTDB-Fira Mono-bold-normal-normal-*-14-*-*-*-m-0-iso10646-1")
-    (vertical-scroll-bars . nil)
-    (line-spacing . 0)))
+(setq default-frame-alist
+      '((font . "-CTDB-Fira Mono-bold-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+        (vertical-scroll-bars . nil)
+        (line-spacing . 0)))
 
 ;; Disable Tool bar
 (tool-bar-mode 0)
@@ -138,9 +138,6 @@ PGP 4096R: A0A9 0D06 A754 6D4E EAD4  E6B8 A006 B0B1 CD62 28AB
 
 (setq auto-window-vscroll nil)
 
-;; Macro is not active at boot, setting variable
-(setq macro-active nil)
-
 ;; Default scheme to use is Guile
 (setq scheme-program-name "guile")
 
@@ -151,6 +148,9 @@ PGP 4096R: A0A9 0D06 A754 6D4E EAD4  E6B8 A006 B0B1 CD62 28AB
 (setq electric-pair-pairs
       '((?\" . ?\")
         (?\{ . ?\})))
+
+;; Don't warn on redefinitions
+(setq ad-redefinition-action 'accept)
 
 ;; TODO create a toggle function for this
 ;; ;; Disable Mouse when Emacs has focus
