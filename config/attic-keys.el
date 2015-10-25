@@ -26,7 +26,7 @@
           ("C-x C-b" helm-buffers-list)
           ("C-c C-p" copy-line-up)
           ("C-c C-n" copy-line-down)
-          ;; ;; Meta keys
+          ;; Meta keys
           ("M-+" align-regexp)
           ("M-N" mc/mark-next-like-this)
           ("M-P" mc/mark-previous-like-this)
@@ -69,10 +69,10 @@
     ("C-<SPC>" pop-to-mark-command nil)
     ("M-d" helm-swoop nil)
     ("C-M-d" helm-swoop nil)
-    ("[" attic-winner/body nil)
-    ("C-[" attic-winner/body nil)
-    ("]" attic-winner/body nil)
-    ("C-]" attic-winner/body nil)
+    ("[" winner-undo nil :color red)
+    ("C-[" winner-undo nil :color red)
+    ("]" winner-redo nil :color red)
+    ("C-]" winner-redo nil :color red)
     ("a" async-shell-command "ASync Shell")
     ("C-a" async-shell-command nil)
     ("b" helm-bookmarks "Bookmarks")
@@ -99,7 +99,9 @@
     ("x" helm-M-x "M-x")
     ("C-x" helm-M-x nil)
     ("r" rgrep "RGrep")
-    ("C-r" rgrep nil)))
+    ("C-r" rgrep nil)
+    ("t" transpose-mark nil)
+    ("C-t" transpose-mark nil)))
 
 (defhydra attic-make (:color blue)
   "[Make]"

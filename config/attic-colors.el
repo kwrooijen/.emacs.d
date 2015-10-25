@@ -47,7 +47,7 @@
 (set-face-attribute 'ac-completion-face nil :inherit 'company-preview-common)
 (set-face-attribute 'ac-selection-face nil :inherit 'company-tooltip-common-selection)
 
-(set-face-background 'fringe 'unspecified)
+(set-face-background 'fringe "#25201b")
 (require 'whitespace)
 (sfb '(
        (highlight-symbol-face       "#fff" "gray20" )

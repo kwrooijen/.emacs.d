@@ -561,12 +561,6 @@
 (use-package hydra
   :ensure t
   :config
-
-  (defhydra attic-winner (:color red)
-    "Winner"
-    ("[" winner-undo "Undo")
-    ("]" winner-undo "Redo"))
-
   (defhydra attic-emms (:color red)
     "EMMS"
     ("a" emms-pause "Pause")
@@ -668,6 +662,8 @@
   (define-key mu4e-main-mode-map (kbd ";") 'attic-semi-colon/body)
   (define-key mu4e-main-mode-map (kbd "p") 'previous-line)
   (define-key mu4e-main-mode-map (kbd "n") 'next-line)
+  (define-key mu4e-main-mode-map (kbd "z") 'helm-buffers-list)
+  (define-key mu4e-main-mode-map (kbd "v") 'scroll-up-command)
   (define-key mu4e-headers-mode-map (kbd ";") 'attic-semi-colon/body)
   (define-key mu4e-view-mode-map (kbd ";") 'attic-semi-colon/body)
   (define-key mu4e-view-mode-map (kbd "v") 'epa-mail-verify)
@@ -888,9 +884,7 @@
   (add-hook 'toml-mode-hook 'cargo-minor-mode))
 
 (use-package transpose-mark
-  :ensure t
-  :init
-  (bind-key "C-c C-t" 'transpose-mark attic-mode-map))
+  :ensure t)
 
 (use-package twittering-mode
   :ensure t
