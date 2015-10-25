@@ -7,10 +7,6 @@
 (defvar macro-active nil)
 ;; Total of unread messages from mu4e
 (defvar mu4e-total-unread 0)
-;; Is helm swoop active?
-(defvar helm-swoop-active nil)
-;; Is helm register active?
-(defvar helm-register-active nil)
 
 (let ((file-name-handler-alist nil))
   (add-to-list 'load-path "~/.emacs.d/config")

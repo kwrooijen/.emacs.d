@@ -495,8 +495,6 @@
   (define-key helm-map (kbd "M-s") 'helm-select-action)
   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "M-?") 'helm-help)
-  (define-key helm-map (kbd "C-n") 'helm-next-line)
-  (define-key helm-map (kbd "C-p") 'helm-previous-line)
 
   (defun helm-highlight-files (x)
     nil)
@@ -541,21 +539,7 @@
   (define-key helm-swoop-map (kbd "M-e") 'helm-swoop-edit)
   :init
   (bind-key "C-c C-s C-s" 'helm-multi-swoop attic-mode-map)
-  (bind-key "C-c C-s C-f" 'helm-swoop-find-files-recursively attic-mode-map)
-  (define-key helm-map (kbd "C-n")
-    (lambda()
-      (interactive)
-      (if (or (boundp 'helm-swoop-active)
-              (boundp 'helm-register-active))
-          (progn (helm-next-line) (helm-execute-persistent-action))
-        (helm-next-line))))
-  (define-key helm-map (kbd "C-p")
-    (lambda()
-      (interactive)
-      (if (or (boundp 'helm-swoop-active)
-              (boundp 'helm-register-active))
-          (progn (helm-previous-line) (helm-execute-persistent-action))
-        (helm-previous-line)))))
+  (bind-key "C-c C-s C-f" 'helm-swoop-find-files-recursively attic-mode-map))
 
 (use-package help-mode
   :config
