@@ -14,6 +14,8 @@
           ("M-j" iy-go-to-char-backward)
           ("C-q" backward-delete-char)
           ("M-q" backward-kill-word)
+          ("C-S-V" x-clipboard-yank)
+          ("C-S-C" clipboard-kill-ring-save)
           ("C-M-q" backward-kill-sexp)
           ("C-x C-f" helm-find-files)
           ("C-x C-1" delete-other-windows)
@@ -108,11 +110,6 @@
   ("o" attic/make-go      "Go")
   ("q" attic/make-default "Make")
   ("c" attic/make-custom  "Custom"))
-
-(if window-system
-    (progn
-      (define-key attic-mode-map (kbd "C-S-V") 'x-clipboard-yank)
-      (define-key attic-mode-map (kbd "C-S-C") 'clipboard-kill-ring-save)))
 
 ;; Make keys
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
