@@ -1,8 +1,6 @@
 (setq gc-cons-threshold 100000000)
 
 ;; My vars
-;; TODO find a way to fix powerline without this hack
-(defvar powerline-fixed nil)
 ;; Macro is not active at boot, setting variable
 (defvar macro-active nil)
 ;; Total of unread messages from mu4e

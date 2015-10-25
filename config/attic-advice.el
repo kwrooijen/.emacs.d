@@ -1,8 +1,3 @@
-(defadvice attic-semi-colon/body (after attic-ad/attic-semi-colon/body-after activate)
-  (unless powerline-fixed
-    (powerline-reset)
-    (setq powerline-fixed t)))
-
 (defadvice kmacro-start-macro (before attic-ad/kmacro-start-before-macro activate)
   (setq macro-active t))
 
