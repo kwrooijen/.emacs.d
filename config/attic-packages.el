@@ -495,6 +495,8 @@
   (define-key helm-map (kbd "M-s") 'helm-select-action)
   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "M-?") 'helm-help)
+  (define-key helm-map (kbd "C-n") 'helm-next-line)
+  (define-key helm-map (kbd "C-p") 'helm-previous-line)
 
   (defun helm-highlight-files (x)
     nil)
@@ -706,7 +708,9 @@
         smtpmail-debug-info t
         mu4e-update-interval 60
         message-kill-buffer-on-exit t
-        mu4e-total-unread (new-messages)))
+        mu4e-total-unread (new-messages)
+        ;; Requires html2text package
+        mu4e-html2text-command "html2text -utf8 -width 72"))
 
 (use-package multiple-cursors
   :ensure t
