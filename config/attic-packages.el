@@ -881,6 +881,8 @@
               (setq eldoc-documentation-function 'scheme-get-current-symbol-info)
               (eldoc-mode))))
 
+(use-package term)
+
 (use-package toml-mode
   :ensure t
   :config

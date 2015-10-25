@@ -20,3 +20,6 @@
     (load-file "~/.system.el")))
 
 (setq gc-cons-threshold 800000)
+
+;; Should be removed once patch gets merged
+(require 'elscreen-fix)
