@@ -43,6 +43,8 @@
 (set-face-attribute 'linum nil :inherit 'default)
 (set-face-background 'linum nil)
 
+(set-face-attribute 'term-color-blue nil :background "#385e6b" :foreground "#385e6b")
+
 (set-face-attribute 'ac-candidate-face nil :inherit 'company-tooltip-common)
 (set-face-attribute 'ac-completion-face nil :inherit 'company-preview-common)
 (set-face-attribute 'ac-selection-face nil :inherit 'company-tooltip-common-selection)

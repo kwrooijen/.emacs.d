@@ -665,8 +665,11 @@
   (define-key mu4e-main-mode-map (kbd "z") 'helm-buffers-list)
   (define-key mu4e-main-mode-map (kbd "v") 'scroll-up-command)
   (define-key mu4e-headers-mode-map (kbd ";") 'attic-semi-colon/body)
+  (define-key mu4e-headers-mode-map (kbd "v") 'scroll-up-command)
   (define-key mu4e-view-mode-map (kbd ";") 'attic-semi-colon/body)
-  (define-key mu4e-view-mode-map (kbd "v") 'epa-mail-verify)
+  (define-key mu4e-view-mode-map (kbd "f") 'epa-mail-verify)
+  (define-key mu4e-view-mode-map (kbd "v") 'scroll-up-command)
+  (define-key mu4e-compose-mode-map (kbd "M-s") 'mml-secure-sign-pgp)
   (setq message-send-mail-function 'smtpmail-send-it
         mu4e-get-mail-command "offlineimap"
         mu4e-maildir (expand-file-name "~/Mail")

@@ -376,6 +376,8 @@ makes)."
 (defun attic/setup-frames ()
   (interactive)
   (set-frame-name "Main")
+  (select-frame-by-name "Main")
+  (elscreen-create-initial-5-screens)
 
   ;; Twitter Frame
   (new-frame '((name . "Twitter")))
