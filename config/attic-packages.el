@@ -664,20 +664,10 @@
 (use-package mu4e
   :config
   (require 'smtpmail)
-  (defun new-messages ()
-    "Check our Maildir for 'new' messages and return the count"
-    (let ((cmd (concat "find " (expand-file-name "~/Mail")
-                       " -type f | grep -i new | wc -l")))
-      (string-to-number (replace-regexp-in-string "![0-9]" "" (shell-command-to-string cmd)))))
 
-  (defadvice mu4e-update-mail-and-index (after mu4e-update-mail-and-index activate)
-    (setq mu4e-total-unread (new-messages)))
-
-  (defadvice mu4e-update-index (after mu4e-update-index activate)
-    (setq mu4e-total-unread (new-messages)))
-
-  ;; default
   (define-key mu4e-main-mode-map (kbd ";") 'attic-semi-colon/body)
+  (define-key mu4e-main-mode-map (kbd "p") 'previous-line)
+  (define-key mu4e-main-mode-map (kbd "n") 'next-line)
   (define-key mu4e-headers-mode-map (kbd ";") 'attic-semi-colon/body)
   (define-key mu4e-view-mode-map (kbd ";") 'attic-semi-colon/body)
   (define-key mu4e-view-mode-map (kbd "v") 'epa-mail-verify)
@@ -692,9 +682,18 @@
         smtpmail-debug-info t
         mu4e-update-interval 60
         message-kill-buffer-on-exit t
-        mu4e-total-unread (new-messages)
         ;; Requires html2text package
         mu4e-html2text-command "html2text -utf8 -width 72"))
+
+(use-package mu4e-alert
+  :ensure t
+  :init
+  (mu4e-alert-enable-mode-line-display))
+
+(use-package mu4e-maildirs-extension
+  :ensure t
+  :init
+  (mu4e-maildirs-extension))
 
 (use-package multiple-cursors
   :ensure t

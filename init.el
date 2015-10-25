@@ -3,8 +3,6 @@
 ;; My vars
 ;; Macro is not active at boot, setting variable
 (defvar macro-active nil)
-;; Total of unread messages from mu4e
-(defvar mu4e-total-unread 0)
 
 (let ((file-name-handler-alist nil))
   (add-to-list 'load-path "~/.emacs.d/config")
