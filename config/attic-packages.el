@@ -898,7 +898,8 @@
   (setq twittering-icon-mode t
         ;; Use master password for twitter instead of authenticating every time
         twittering-cert-file "/etc/ssl/certs/ca-bundle.crt"
-        twittering-use-master-password t)
+        twittering-use-master-password t
+        twittering-convert-fix-size 24)
   (bind-key "s" 'twittering-search twittering-mode-map)
   (bind-key ";" 'attic-semi-colon/body twittering-mode-map)
   (bind-key "q" (lambda () (interactive) (switch-to-buffer nil)) twittering-mode-map)
