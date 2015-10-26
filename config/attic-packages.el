@@ -881,7 +881,12 @@
               (setq eldoc-documentation-function 'scheme-get-current-symbol-info)
               (eldoc-mode))))
 
-(use-package term)
+(use-package term
+  :config
+  (defun attic-term-hook ()
+    (setq yas-dont-activate t))
+  (add-hook 'term-mode-hook 'attic-term-hook)
+  (add-hook 'ansi-term-mode-hook 'attic-term-hook))
 
 (use-package toml-mode
   :ensure t
