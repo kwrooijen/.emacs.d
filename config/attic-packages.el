@@ -180,7 +180,7 @@
     (let ((forms (mapcar 'elscreen-goto-template nums)))
       `(progn ,@forms)))
 
-  (elscreen-goto-workspace-list 1 2 3 4 5)
+  (elscreen-goto-workspace-list 1 2 3 4 5 6 7 8 9)
   (setq elscreen-display-screen-number nil
         elscreen-prefix-key nil
         elscreen-tab-display-control nil
@@ -315,6 +315,10 @@
 
 (use-package flycheck-rust
   :ensure t)
+
+(use-package flyspell
+  :config
+  (define-key flyspell-mode-map (kbd "C-;") 'attic-semi-colon/body))
 
 (use-package geiser
   :ensure t
@@ -682,7 +686,8 @@
         mu4e-update-interval 60
         message-kill-buffer-on-exit t
         ;; Requires html2text package
-        mu4e-html2text-command "html2text -utf8 -width 72"))
+        mu4e-html2text-command "html2text -utf8 -width 72"
+        mu4e-view-show-images t))
 
 (use-package mu4e-alert
   :ensure t
@@ -909,6 +914,9 @@
   (bind-key "q" (lambda () (interactive) (switch-to-buffer nil)) twittering-mode-map)
   (bind-key "w" 'delete-window twittering-mode-map)
   (add-hook 'twittering-mode-hook 'toggle-modeline))
+
+(use-package vagrant
+  :ensure t)
 
 (use-package web-mode
   :ensure t

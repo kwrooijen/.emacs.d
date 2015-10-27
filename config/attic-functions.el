@@ -373,14 +373,22 @@ makes)."
        :nick erc-nick
        :password erc-password))
 
+(defun frame-name (frame)
+  (frame-parameter frame 'name))
+
+(defun frame-exists (name)
+  (member name (mapcar 'frame-name (frame-list))))
+
 (defun attic/setup-frames ()
   (interactive)
   (set-frame-name "Main")
   (select-frame-by-name "Main")
-  (elscreen-create-initial-5-screens)
+  (unless (-any 'elscreen-screen-live-p '(1 2 3 4 5))
+    (elscreen-create-initial-5-screens))
 
   ;; Twitter Frame
-  (new-frame '((name . "Twitter")))
+  (unless (frame-exists "Twitter")
+    (new-frame '((name . "Twitter"))))
   (select-frame-by-name "Twitter")
   (unless (get-buffer ":home")
     (twit))
@@ -388,7 +396,8 @@ makes)."
   (switch-to-buffer ":home")
 
   ;; IRC Frame
-  (new-frame '((name . "IRC")))
+  (unless (frame-exists "IRC")
+    (new-frame '((name . "IRC"))))
   (select-frame-by-name "IRC")
   (elscreen-create-initial-5-screens)
   (let ((irc-buffer-exists (get-buffer "irc.freenode.net:6667")))
