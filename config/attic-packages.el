@@ -50,7 +50,10 @@
 (use-package beacon
   :ensure t
   :init
-  (beacon-mode t))
+  (beacon-mode t)
+  (add-to-list 'beacon-dont-blink-major-modes 'mu4e-compose-mode)
+  (add-to-list 'beacon-dont-blink-major-modes 'mu4e-headers-mode)
+  (add-to-list 'beacon-dont-blink-major-modes 'mu4e-main-mode))
 
 (use-package cargo
   :ensure t)
