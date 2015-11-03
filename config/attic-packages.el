@@ -565,6 +565,11 @@
   ;; Highlight delay for multiple occurences
   (setq highlight-symbol-idle-delay 0))
 
+(use-package highlight-sexp
+  :ensure t
+  :config
+  (setq hl-sexp-background-color "gray18"))
+
 (use-package hydra
   :ensure t
   :config
@@ -756,6 +761,7 @@
 (use-package paredit
   :ensure t
   :config
+  (define-key paredit-mode-map (kbd "C-w") 'paredit-kill-region)
   (define-key paredit-mode-map (kbd "M-R") 'paredit-splice-sexp-killing-backward)
   (define-key paredit-mode-map (kbd "C-j") 'iy-go-up-to-char)
   (define-key paredit-mode-map (kbd "C-c C-r") 'paredit-reindent-defun)
@@ -828,6 +834,15 @@
   ;; Set path to rust src directory
   (setq racer-rust-src-path "/usr/local/src/rust/src/"))
 
+(use-package racket-mode
+  :ensure t
+  :config
+  (defun attic-racket-hook ()
+    (highlight-sexp-mode t)
+    (attic-lock)
+    (paredit-mode 1))
+  (add-hook 'racket-mode-hook 'attic-racket-hook))
+
 (use-package rainbow-delimiters
   :ensure t)
 
@@ -874,6 +889,7 @@
   (defun attic-scheme-mode-hook ()
     (attic-lock)
     (paredit-mode 1)
+    (highlight-sexp-mode t)
     (aggressive-indent-mode))
   (add-hook 'scheme-mode-hook 'attic-scheme-mode-hook))
 
@@ -969,6 +985,7 @@
   (attic-lock)
   (aggressive-indent-mode)
   (paredit-mode 1)
+  (highlight-sexp-mode t)
   (setq-local helm-dash-docsets '("Emacs Lisp")))
 
 (add-hook 'emacs-lisp-mode-hook 'attic-emacs-lisp-hook)
