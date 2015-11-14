@@ -134,6 +134,32 @@
 (use-package dockerfile-mode
   :ensure t)
 
+(use-package elfeed
+  :ensure t
+  :config
+  (setq elfeed-feeds
+        '("http://feeds.5by5.tv/changelog"
+          "http://feeds.twit.tv/floss.xml"))
+  (bind-key "j" 'elfeed-open-in-emms elfeed-show-mode-map)
+  (bind-key ";" 'attic-semi-colon/body elfeed-show-mode-map)
+  (bind-key ";" 'attic-semi-colon/body elfeed-search-mode-map)
+  (bind-key "z" 'helm-M-x elfeed-show-mode-map)
+  (bind-key "z" 'helm-M-x elfeed-search-mode-map)
+  (defun elfeed-open-in-emms ()
+    (interactive)
+    (save-excursion
+      (goto-char 1)
+      (let ((done nil))
+        (while (and (re-search-forward ".*mp3$" nil t)
+                    (not done))
+          (backward-char 1)
+          (when (get-text-property (point) 'shr-url)
+            (setq kill-ring (cdr kill-ring))
+            (let* ((url (string-remove-prefix  "Copied " (shr-copy-url)))
+                   (full-path (url-copy-file-to-path url "~/Podcasts/")))
+              (emms-play-file full-path)
+              (setq done t))))))))
+
 (use-package elixir-mode
   :ensure t
   :config
@@ -195,12 +221,13 @@
 (use-package emms
   :ensure t
   :init
-  (when  (file-exists-p "~/Music/")
+  (when (file-exists-p "~/Music/")
     (emms-standard)
     (emms-default-players)
     (emms-add-directory-tree "~/Music/")
     (emms-toggle-repeat-playlist)
-    (emms-shuffle))
+    (emms-shuffle)
+    (emms-playing-time-enable-display))
   :config
   (setq emms-setup-default-player-list '(emms-player-vlc)
         emms-volume-change-amount 5))
@@ -362,6 +389,8 @@
   (add-hook 'dockerfile-mode-hook 'god-local-mode)
   (add-hook 'markdown-mode-hook 'god-local-mode)
 
+  (add-to-list 'god-exempt-major-modes 'elfeed-show-mode)
+  (add-to-list 'god-exempt-major-modes 'elfeed-search-mode)
   (add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
   (add-to-list 'god-exempt-major-modes 'gnus-group-mode)
   (add-to-list 'god-exempt-major-modes 'term-mode)
@@ -577,6 +606,8 @@
     ("p" emms-previous "Previous")
     ("]" emms-volume-raise "+")
     ("[" emms-volume-lower "-")
+    ("f" emms-seek-forward "f")
+    ("b" emms-seek-backward "b")
     ("q" nil "Quit" :color blue))
 
   (defun god-repeater--set-hydra-function (var)
