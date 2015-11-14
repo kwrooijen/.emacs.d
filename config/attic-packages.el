@@ -835,7 +835,6 @@
   :ensure t
   :config
   (defun attic-racket-hook ()
-    (highlight-sexp-mode t)
     (attic-lock)
     (paredit-mode 1))
   (add-hook 'racket-mode-hook 'attic-racket-hook))
@@ -888,7 +887,6 @@
     (paredit-mode 1)
     (company-mode t)
     (auto-complete-mode -1)
-    (highlight-sexp-mode t)
     (aggressive-indent-mode))
   (add-hook 'scheme-mode-hook 'attic-scheme-mode-hook))
 
@@ -981,7 +979,6 @@
   (attic-lock)
   (aggressive-indent-mode)
   (paredit-mode 1)
-  (highlight-sexp-mode t)
   (setq-local helm-dash-docsets '("Emacs Lisp")))
 
 (add-hook 'emacs-lisp-mode-hook 'attic-emacs-lisp-hook)
