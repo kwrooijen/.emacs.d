@@ -993,6 +993,14 @@
 (use-package wrap-region
   :ensure t)
 
+(use-package ws-butler
+  :ensure t
+  :init
+  (ws-butler-global-mode)
+  :config
+  ;; Disable aftersave
+  (defun ws-butler-after-save ()))
+
 (use-package yaml-mode
   :ensure t)
 
