@@ -9,19 +9,25 @@
         attic-lock
         attic-lock-disable
         attic-rock-lock
+        attic-semi-colon/attic-lock-and-exit
+        attic-semi-colon/body
+        attic/comment
         backward-delete-char
         backward-kill-sexp
         backward-sexp
         backward-to-word
         c-electric-delete-forward
+        c-electric-paren
         c-electric-semi&comma
         c-electric-slash
+        c-electric-star
         capitalize-previous-word
         comment-or-uncomment-region
         control-lock-enable
         copy-line-down
         dabbrev-expand
         downcase-region
+        electric-pair-delete-pair
         end-of-buffer
         enh-ruby-electric-brace
         erlang-electric-comma
@@ -60,6 +66,7 @@
         haskell-indentation-delete-char
         haskell-newline-and-indent
         helm-buffers-list
+        indent-new-comment-line
         indent-of-doom
         inferior-haskell-load-file
         info
@@ -90,6 +97,7 @@
         org-self-insert-command
         org-yank
         orgtbl-self-insert-command
+        paredit-backslash
         paredit-backward-kill-word
         paredit-close-round-and-newline
         paredit-forward-delete
@@ -97,6 +105,7 @@
         paredit-forward-slurp-sexp
         paredit-join-sexps
         paredit-kill
+        paredit-kill-region
         paredit-raise-sexp
         paredit-splice-sexp-killing-backward
         paredit-wrap-round
@@ -105,6 +114,7 @@
         repeat
         save-and-lock2
         select-window-1
+        select-window-2
         select-window-3
         sgml-slash
         sh-assignment
@@ -188,6 +198,7 @@
         special-swiper
         tab-to-tab-stop
         tab-to-tab-stop-line-or-region
+        term-send-raw
         transpose-mark
         transpose-words
         undefined

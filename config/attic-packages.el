@@ -565,11 +565,6 @@
   ;; Highlight delay for multiple occurences
   (setq highlight-symbol-idle-delay 0))
 
-(use-package highlight-sexp
-  :ensure t
-  :config
-  (setq hl-sexp-background-color "gray18"))
-
 (use-package hydra
   :ensure t
   :config
@@ -889,6 +884,8 @@
   (defun attic-scheme-mode-hook ()
     (attic-lock)
     (paredit-mode 1)
+    (company-mode t)
+    (auto-complete-mode -1)
     (highlight-sexp-mode t)
     (aggressive-indent-mode))
   (add-hook 'scheme-mode-hook 'attic-scheme-mode-hook))
@@ -933,9 +930,6 @@
   (bind-key "q" (lambda () (interactive) (switch-to-buffer nil)) twittering-mode-map)
   (bind-key "w" 'delete-window twittering-mode-map)
   (add-hook 'twittering-mode-hook 'toggle-modeline))
-
-(use-package vagrant
-  :ensure t)
 
 (use-package web-mode
   :ensure t

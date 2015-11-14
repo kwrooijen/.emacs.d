@@ -90,10 +90,15 @@ If file is found then return t else nil."
   (interactive)
   (reset-buffer "*Make Find Makefile*")
   (with-current-buffer "*Make Find Makefile*"
-    (if (cd-up-to-file "Makefile")
-        (progn
-          (kill-buffer-if-exists name)
-          (async-shell-command (concat "make " arg) name))
+    (when (cd-up-to-file "Makefile")
+      (kill-buffer-if-exists name)
+      (cond
+       ((equal arg "start")
+        (async-shell-command (concat "make " arg) name))
+       (t
+        (let ((comp-buffer (compile (concat "make " arg))))
+          (with-current-buffer comp-buffer
+            (rename-buffer name)))))
       (message "Could not find Makefile"))))
 
 (defun attic/make-go ()

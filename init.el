@@ -20,3 +20,5 @@
     (load-file "~/.system.el")))
 
 (setq gc-cons-threshold 800000)
+
+(require 'vagrant)

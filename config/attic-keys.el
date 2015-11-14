@@ -9,6 +9,7 @@
           ("C-c C-=" increment-decimal)
           ("C-c C--" decrement-decimal)
           ("C-;" attic-semi-colon/body)
+          ("C-'" helm-M-x)
           ("C-z" helm-buffers-list)
           ("C-j" iy-go-to-char)
           ("M-j" iy-go-to-char-backward)
@@ -24,6 +25,7 @@
           ("C-x C-4" delete-window)
           ("C-x C-8" fill-paragraph)
           ("C-x C-b" helm-buffers-list)
+          ("C-x C-k" kill-this-buffer)
           ("C-c C-p" copy-line-up)
           ("C-c C-n" copy-line-down)
           ;; Meta keys
@@ -41,7 +43,7 @@
     "Attic"
     ("'" helm-org-capture-templates nil)
     ("C-'" helm-org-capture-templates nil)
-    ("." create-tags nil)
+    ("." create-tags "Tag")
     ("C-." create-tags nil)
     ("0" elscreen-goto-0 nil)
     ("C-0" elscreen-goto-0 nil)
