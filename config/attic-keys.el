@@ -103,7 +103,43 @@
     ("r" rgrep "RGrep")
     ("C-r" rgrep nil)
     ("t" transpose-mark nil)
-    ("C-t" transpose-mark nil)))
+    ("C-t" transpose-mark nil)
+    ("c" attic-macro/body "Macro")
+    ("C-c" attic-macro/body nil)
+    ))
+
+(defhydra attic-macro (:color blue :hint nil)
+  "
+^Call^                   ^Edit^                 ^Save^                ^View^
+^^^^^^^^------------------------------------------------------------------------------
+_s_: Start             _C-e_: Edit repeat       _b_: Bind to key      _C-n_: Cycle next
+_k_: Call or repeat    _r_: Edit                _n_: Name last        _C-p_: Cycle prev
+_q_: Query             _e_: Edit kbd macro      _x_: To register      _C-v_: Macro view
+_r_: Apply region      _l_: Edit lossage        _C-f_: Set format
+_C-d_: Delete head     _ _: Step edit-macro     _C-c_: Set counter
+"
+  ("s"    kmacro-start-macro)
+  ("k"    kmacro-end-or-call-macro-repeat)
+  ("r"    apply-macro-to-region-lines)
+  ("q"    kbd-macro-query)
+  ("C-n"  kmacro-cycle-ring-next)
+  ("C-p"  kmacro-cycle-ring-previous)
+  ("C-v"  kmacro-view-macro-repeat)
+  ("C-d"  kmacro-delete-ring-head)
+  ("C-t"  kmacro-swap-ring)
+  ("C-l"  kmacro-call-ring-2nd-repeat)
+  ("C-f"  kmacro-set-format)
+  ("C-c"  kmacro-set-counter)
+  ("C-i"  kmacro-insert-counter)
+  ("C-a"  kmacro-add-counter)
+  ("C-e"  kmacro-edit-macro-repeat)
+  ("r"    kmacro-edit-macro)
+  ("e"    edit-kbd-macro)
+  ("l"    kmacro-edit-lossage)
+  (" "    kmacro-step-edit-macro)
+  ("b"    kmacro-bind-to-key)
+  ("n"    kmacro-name-last-macro)
+  ("x"    kmacro-to-register))
 
 (defhydra attic-make (:color blue)
   "[Make]"
