@@ -1,7 +1,7 @@
 (defun new-shell (buffer)
   "Create a new shell."
   (interactive "sShell Name: ")
-  (shell (concat "*" buffer "*")))
+  (eshell (concat "*" buffer "*")))
 
 (defun sudo-edit (&optional arg)
   "Edit currently visited file as root.

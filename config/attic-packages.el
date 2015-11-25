@@ -24,6 +24,12 @@
 (use-package ace-jump-mode
   :ensure t)
 
+(use-package adjust-parens
+  :ensure t
+  :init
+  (add-hook 'emacs-lisp-mode-hook #'adjust-parens-mode)
+  (add-hook 'clojure-mode-hook #'adjust-parens-mode))
+
 (use-package aggressive-indent
   :ensure t)
 

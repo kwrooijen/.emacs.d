@@ -62,6 +62,11 @@
   (set-face-background 'hl-line nil)
   (set-face-attribute 'highlight-symbol-face nil :inherit 'highlight))
 
+(set-face-attribute 'whitespace-space nil
+                    :foreground "#505050"
+                    :background 'unspecified
+                    :inherit 'default)
+
 (setq whitespace-style
       '(face tabs spaces trailing
              space-before-tab indentation
