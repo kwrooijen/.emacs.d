@@ -26,9 +26,11 @@
 
 (use-package adjust-parens
   :ensure t
-  :init
+  :config
   (add-hook 'emacs-lisp-mode-hook #'adjust-parens-mode)
-  (add-hook 'clojure-mode-hook #'adjust-parens-mode))
+  (add-hook 'clojure-mode-hook #'adjust-parens-mode)
+  (add-hook 'scheme-mode-hook #'adjust-parens-mode)
+  (add-hook 'racket-mode-hook #'adjust-parens-mode))
 
 (use-package aggressive-indent
   :ensure t)
