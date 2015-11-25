@@ -205,14 +205,34 @@
   :ensure t
   :config
   (bind-key "C-x C-e" 'cider-eval-last-sexp clojure-mode-map)
+  (bind-key "C-c C-r" 'cljr-helm clojure-mode-map)
   (defun attic-clojure-hook ()
     (attic-lock)
     (paredit-mode 1)
-    (electric-pair-mode)
-    (electric-pair-mode 0)
+    (electric-pair-mode -1)
     (cider-mode 1)
     (setq-local helm-dash-docsets '("Clojure")))
   (add-hook 'clojure-mode-hook 'attic-clojure-hook))
+
+(use-package clj-refactor
+  :ensure t
+  :config
+  (defhydra cljr-refactor-all (:color blue)
+    "[Clojure refactor]"
+    ("c"  hydra-cljr-cljr-menu/body "cljr-menu")
+    ("o"  hydra-cljr-code-menu/body "code-menu")
+    ("h"  hydra-cljr-help-menu/body "help-menu")
+    ("n"  hydra-cljr-ns-menu/body "ns-menu")
+    ("p"  hydra-cljr-project-menu/body "project-menu")
+    ("t"  hydra-cljr-toplevel-form-menu/body "toplevel-form-menu"))
+  (cljr-add-keybindings-with-prefix "C-c C-m")
+  (define-key clojure-mode-map (kbd "C-c C-a") 'cljr-refactor-all/body)
+  (add-hook 'clojure-mode-hook #'clj-refactor-mode))
+
+(use-package cljr-helm
+  :ensure t
+  :config
+  (define-key clojure-mode-map (kbd "C-c C-l") 'cljr-helm))
 
 (use-package cider
   :ensure t)
@@ -540,6 +560,7 @@
   (add-hook 'yaml-mode-hook 'god-local-mode)
   (add-hook 'dockerfile-mode-hook 'god-local-mode)
   (add-hook 'markdown-mode-hook 'god-local-mode)
+  (add-hook 'clojure-mode-hook 'god-local-mode)
 
   (add-to-list 'god-exempt-major-modes 'elfeed-show-mode)
   (add-to-list 'god-exempt-major-modes 'elfeed-search-mode)
