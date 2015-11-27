@@ -385,10 +385,7 @@
   (setq elscreen-display-screen-number nil
         elscreen-prefix-key nil
         elscreen-tab-display-control nil
-        elscreen-tab-display-kill-screen nil)
-  (set-face-attribute 'elscreen-tab-background-face     nil :background "#25201b")
-  (set-face-attribute 'elscreen-tab-current-screen-face nil :background "#2f2922" :foreground "#c6a57b")
-  (set-face-attribute 'elscreen-tab-other-screen-face   nil :background "#4b4238" :foreground "#25201b"))
+        elscreen-tab-display-kill-screen nil))
 
 (use-package emms
   :ensure t
@@ -1091,7 +1088,8 @@
     (paredit-mode 1)
     (company-mode t)
     (auto-complete-mode -1)
-    (aggressive-indent-mode))
+    (aggressive-indent-mode)
+    (rainbow-delimiters-mode 1))
   (add-hook 'scheme-mode-hook 'attic-scheme-mode-hook))
 
 (use-package scheme-complete

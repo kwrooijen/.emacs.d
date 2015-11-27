@@ -123,6 +123,9 @@
 
 (set-face-attribute 'mode-line-buffer-id nil :foreground "#cd853f")
 (set-face-attribute 'mode-line-inactive nil :foreground "grey")
+(set-face-attribute 'elscreen-tab-background-face     nil :background "#25201b")
+(set-face-attribute 'elscreen-tab-current-screen-face nil :background "#2f2922" :foreground "#c6a57b")
+(set-face-attribute 'elscreen-tab-other-screen-face   nil :background "#4b4238" :foreground "#25201b")
 
 (setq attic-mode-line-format
       '("%e"
