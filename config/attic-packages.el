@@ -205,7 +205,6 @@
   :ensure t
   :config
   (bind-key "C-x C-e" 'cider-eval-last-sexp clojure-mode-map)
-  (bind-key "C-c C-r" 'cljr-helm clojure-mode-map)
   (defun attic-clojure-hook ()
     (attic-lock)
     (paredit-mode 1)
@@ -213,26 +212,6 @@
     (cider-mode 1)
     (setq-local helm-dash-docsets '("Clojure")))
   (add-hook 'clojure-mode-hook 'attic-clojure-hook))
-
-(use-package clj-refactor
-  :ensure t
-  :config
-  (defhydra cljr-refactor-all (:color blue)
-    "[Clojure refactor]"
-    ("c"  hydra-cljr-cljr-menu/body "cljr-menu")
-    ("o"  hydra-cljr-code-menu/body "code-menu")
-    ("h"  hydra-cljr-help-menu/body "help-menu")
-    ("n"  hydra-cljr-ns-menu/body "ns-menu")
-    ("p"  hydra-cljr-project-menu/body "project-menu")
-    ("t"  hydra-cljr-toplevel-form-menu/body "toplevel-form-menu"))
-  (cljr-add-keybindings-with-prefix "C-c C-m")
-  (define-key clojure-mode-map (kbd "C-c C-a") 'cljr-refactor-all/body)
-  (add-hook 'clojure-mode-hook #'clj-refactor-mode))
-
-(use-package cljr-helm
-  :ensure t
-  :config
-  (define-key clojure-mode-map (kbd "C-c C-l") 'cljr-helm))
 
 (use-package cider
   :ensure t)
@@ -501,6 +480,20 @@
     (bind-key "M-m" 'eshell-bol eshell-mode-map)
     (bind-key "C-M-m" 'eshell-broadcast eshell-mode-map))
   (add-hook 'eshell-mode-hook 'attic-eshell-hook))
+(when (equal mode-lock 'evil)
+  (use-package evil
+    :ensure t
+    :config
+    (define-key evil-normal-state-map ";" 'attic-semi-colon/body))
+
+  (use-package evil-lisp-state
+    :ensure t)
+
+  (use-package evil-paredit
+    :ensure t
+    :config
+    (evil-paredit-mode)))
+
 
 (use-package eww
   :config
@@ -539,42 +532,74 @@
   :config
   (global-git-gutter+-mode t))
 
-(use-package god-mode
-  :ensure t
-  :config
-  (god-mode)
-  (bind-key "i" (lambda () (interactive) (god-local-mode -1)) god-local-mode-map)
-  (bind-key "u" 'undo god-local-mode-map)
-  (bind-key "h" 'ace-jump-mode god-local-mode-map)
-  (bind-key "M-u" 'redo god-local-mode-map)
-  (bind-key "J" '(lambda () (interactive) (join-line -1)) god-local-mode-map)
-  (bind-key "/" 'attic/comment god-local-mode-map)
+(when (equal mode-lock 'god)
+  (use-package god-mode
+    :ensure t
+    :ensure hydra
+    :config
+    (defun god-repeater--set-hydra-function (var)
+      `(defhydra ,(make-symbol (concat "hydra-god-repeater-" var))
+         (god-local-mode-map "g")
+         "God repeater"
+         (,var (call-interactively (key-binding (kbd ,(concat "M-" var))))
+               ,(let ((function-name (format "%s" (lookup-key
+                                                   (current-global-map)
+                                                   (kbd (concat "M-" var))))))
+                  (if (> (length function-name) 50)
+                      (concat "M-" var)
+                    function-name)))))
 
-  (add-hook 'sh-mode-hook 'god-local-mode)
-  (add-hook 'sql-mode-hook 'god-local-mode)
-  (add-hook 'makefile-gmake-mode-hook 'god-local-mode)
-  (add-hook 'python-mode-hook 'god-local-mode)
-  (add-hook 'yaml-mode-hook 'god-local-mode)
-  (add-hook 'dockerfile-mode-hook 'god-local-mode)
-  (add-hook 'markdown-mode-hook 'god-local-mode)
-  (add-hook 'clojure-mode-hook 'god-local-mode)
+    (defmacro god-repeater--set-characters (&rest vars)
+      (let ((forms (mapcar 'god-repeater--set-hydra-function vars)))
+        `(progn ,@forms)))
 
-  (add-to-list 'god-exempt-major-modes 'elfeed-show-mode)
-  (add-to-list 'god-exempt-major-modes 'elfeed-search-mode)
-  (add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
-  (add-to-list 'god-exempt-major-modes 'gnus-group-mode)
-  (add-to-list 'god-exempt-major-modes 'term-mode)
-  (add-to-list 'god-exempt-major-modes 'help-mode)
-  (add-to-list 'god-exempt-major-modes 'grep-mode)
-  (add-to-list 'god-exempt-major-modes 'doc-view-mode)
-  (add-to-list 'god-exempt-major-modes 'top-mode)
-  (add-to-list 'god-exempt-major-modes 'dired-mode)
-  (add-to-list 'god-exempt-major-modes 'magit-status-mode)
-  (add-to-list 'god-exempt-major-modes 'magit-revision-mode)
-  (add-to-list 'god-exempt-major-modes 'mu4e-main-mode)
-  (add-to-list 'god-exempt-major-modes 'mu4e-headers-mode)
-  (add-to-list 'god-exempt-major-modes 'mu4e-view-mode)
-  (add-to-list 'god-exempt-major-modes 'twittering-mode))
+    (god-repeater--set-characters
+     "q" "w" "e" "r" "t" "y" "u" "i" "o"
+     "p" "a" "s" "d" "f" "g" "h" "j" "k"
+     "l" "z" "x" "c" "v" "b" "n" "m"
+     "1" "2" "3" "4" "5" "6" "7" "8" "9"
+     "0" "!" "@" "#" "$" "%" "^" "&" "*"
+     "(" ")" "_" "+" "{" "}" "|" ":" "\""
+     "<" ">" "?" "-" "=" "[" "]" ";" "'"
+     "\\" "," "." "/" "`" "~")
+
+    ;; Special cases
+    (defhydra hydra-god-repeater-g (god-local-mode-map "g") ("g" goto-line))
+    (defhydra hydra-god-repeater-G (god-local-mode-map "g") ("G" goto-line))
+
+    (god-mode)
+    (bind-key "i" (lambda () (interactive) (god-local-mode -1)) god-local-mode-map)
+    (bind-key "u" 'undo god-local-mode-map)
+    (bind-key "h" 'ace-jump-mode god-local-mode-map)
+    (bind-key "M-u" 'redo god-local-mode-map)
+    (bind-key "J" '(lambda () (interactive) (join-line -1)) god-local-mode-map)
+    (bind-key "/" 'attic/comment god-local-mode-map)
+
+    (add-hook 'sh-mode-hook 'attic-lock)
+    (add-hook 'sql-mode-hook 'attic-lock)
+    (add-hook 'makefile-gmake-mode-hook 'attic-lock)
+    (add-hook 'python-mode-hook 'attic-lock)
+    (add-hook 'yaml-mode-hook 'attic-lock)
+    (add-hook 'dockerfile-mode-hook 'attic-lock)
+    (add-hook 'markdown-mode-hook 'attic-lock)
+    (add-hook 'clojure-mode-hook 'attic-lock)
+
+    (add-to-list 'god-exempt-major-modes 'elfeed-show-mode)
+    (add-to-list 'god-exempt-major-modes 'elfeed-search-mode)
+    (add-to-list 'god-exempt-major-modes 'gnus-summary-mode)
+    (add-to-list 'god-exempt-major-modes 'gnus-group-mode)
+    (add-to-list 'god-exempt-major-modes 'term-mode)
+    (add-to-list 'god-exempt-major-modes 'help-mode)
+    (add-to-list 'god-exempt-major-modes 'grep-mode)
+    (add-to-list 'god-exempt-major-modes 'doc-view-mode)
+    (add-to-list 'god-exempt-major-modes 'top-mode)
+    (add-to-list 'god-exempt-major-modes 'dired-mode)
+    (add-to-list 'god-exempt-major-modes 'magit-status-mode)
+    (add-to-list 'god-exempt-major-modes 'magit-revision-mode)
+    (add-to-list 'god-exempt-major-modes 'mu4e-main-mode)
+    (add-to-list 'god-exempt-major-modes 'mu4e-headers-mode)
+    (add-to-list 'god-exempt-major-modes 'mu4e-view-mode)
+    (add-to-list 'god-exempt-major-modes 'twittering-mode)))
 
 (use-package grep
   :config
@@ -695,6 +720,10 @@
 
   (define-key attic-mode-map (kbd "M-[") 'helm-resume)
   (define-key attic-mode-map (kbd "M-x") 'helm-M-x)
+  (define-key helm-map (kbd "C-n") 'helm-next-line)
+  (define-key helm-map (kbd "C-p") 'helm-prev-line)
+  (define-key helm-map (kbd "C-j") 'helm-next-line)
+  (define-key helm-map (kbd "C-k") 'helm-prev-line)
   (define-key helm-map (kbd "C-b") 'nil)
   (define-key helm-map (kbd "C-f") 'nil)
   (define-key helm-map (kbd "M-b") 'nil)
@@ -702,6 +731,22 @@
   (define-key helm-map (kbd "M-s") 'helm-select-action)
   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "M-?") 'helm-help)
+  (defhydra helm-like-unite ()
+    ("q" keyboard-escape-quit "exit")
+    ("<spc>" helm-toggle-visible-mark "mark")
+    ("a" helm-toggle-all-marks "(un)mark all")
+    ("v" helm-execute-persistent-action)
+    ("g" helm-beginning-of-buffer "top")
+    ("h" helm-previous-source)
+    ("l" helm-next-source)
+    ("G" helm-end-of-buffer "bottom")
+    ("j" helm-next-line "down")
+    ("J" helm-next-source "down source")
+    ("K" helm-prev-source "up source")
+    ("k" helm-previous-line "up")
+    ("i" nil "cancel"))
+  (key-chord-define helm-map "jh" 'helm-like-unite/body)
+
 
   (defun helm-highlight-files (x)
     nil)
@@ -778,37 +823,7 @@
     ("[" emms-volume-lower "-")
     ("f" emms-seek-forward "f")
     ("b" emms-seek-backward "b")
-    ("q" nil "Quit" :color blue))
-
-  (defun god-repeater--set-hydra-function (var)
-    `(defhydra ,(make-symbol (concat "hydra-god-repeater-" var))
-       (god-local-mode-map "g")
-       "God repeater"
-       (,var (call-interactively (key-binding (kbd ,(concat "M-" var))))
-             ,(let ((function-name (format "%s" (lookup-key
-                                                 (current-global-map)
-                                                 (kbd (concat "M-" var))))))
-                (if (> (length function-name) 50)
-                    (concat "M-" var)
-                  function-name)))))
-
-  (defmacro god-repeater--set-characters (&rest vars)
-    (let ((forms (mapcar 'god-repeater--set-hydra-function vars)))
-      `(progn ,@forms)))
-
-  (god-repeater--set-characters
-   "q" "w" "e" "r" "t" "y" "u" "i" "o"
-   "p" "a" "s" "d" "f" "g" "h" "j" "k"
-   "l" "z" "x" "c" "v" "b" "n" "m"
-   "1" "2" "3" "4" "5" "6" "7" "8" "9"
-   "0" "!" "@" "#" "$" "%" "^" "&" "*"
-   "(" ")" "_" "+" "{" "}" "|" ":" "\""
-   "<" ">" "?" "-" "=" "[" "]" ";" "'"
-   "\\" "," "." "/" "`" "~")
-
-  ;; Special cases
-  (defhydra hydra-god-repeater-g (god-local-mode-map "g") ("g" goto-line))
-  (defhydra hydra-god-repeater-G (god-local-mode-map "g") ("G" goto-line)))
+    ("q" nil "Quit" :color blue)))
 
 (use-package indy
   :ensure t)
@@ -837,8 +852,12 @@
                                    (save-buffer)))
 
   (key-chord-define helm-map ";j" 'helm-keyboard-quit)
-  (key-chord-define-global ";j" 'attic-lock)
-  (key-chord-define attic-mode-map ";j" 'attic-lock)
+  (when (equal mode-lock 'god)
+    (key-chord-define-global ";j" 'attic-lock)
+    (key-chord-define attic-mode-map ";j" 'attic-lock))
+  (when (equal mode-lock 'evil)
+    (key-chord-define-global ";j" 'evil-force-normal-state)
+    (key-chord-define attic-mode-map ";j" 'evil-force-normal-state))
   (key-chord-define isearch-mode-map ";j" 'isearch-abort))
 
 (use-package linum
@@ -849,6 +868,9 @@
         '(mu4e-compose-mode
           mu4e-headers-mode
           mu4e-main-mode)))
+
+(use-package lispy
+  :ensure t)
 
 (use-package macrostep
   :ensure t)
@@ -904,14 +926,38 @@
   :init
   (mu4e-maildirs-extension))
 
+
+(if (equal mode-lock 'god)
 (use-package multiple-cursors
+     :ensure t
+      :init
+      (bind-key "M-N" 'mc/mark-next-like-this attic-mode-map)
+      (bind-key "M-P" 'mc/mark-previous-like-this attic-mode-map)
+      :config
+      (bind-key "<return>" 'newline mc/keymap)
+      (multiple-cursors-mode t))
+
+(use-package evil-mc
   :ensure t
   :init
-  (bind-key "M-N" 'mc/mark-next-like-this attic-mode-map)
-  (bind-key "M-P" 'mc/mark-previous-like-this attic-mode-map)
+  (bind-key "M-N" 'evil-mc-next-line)
+  (bind-key "M-P" 'evil-mc-prev-line)
   :config
-  (bind-key "<return>" 'newline mc/keymap)
-  (multiple-cursors-mode t))
+  (defun evil-mc-next-line ()
+    (interactive)
+    (evil-mc-pause-cursors)
+    (evil-mc-make-cursor-here)
+    (evil-mc-resume-cursors)
+    (next-line 1))
+  (defun evil-mc-prev-line ()
+    (interactive)
+    (evil-mc-pause-cursors)
+    (evil-mc-make-cursor-here)
+    (evil-mc-resume-cursors)
+    (previous-line 1))
+
+  (when (equal mode-lock 'evil)
+    (global-evil-mc-mode  1))))
 
 (use-package org
   :config
@@ -967,24 +1013,28 @@
   (define-key paredit-mode-map (kbd "M-q") 'paredit-backward-kill-word)
   (define-key paredit-mode-map (kbd "C-c C-p") 'paredit-copy-sexp-up)
   (define-key paredit-mode-map (kbd "C-c C-n") 'paredit-copy-sexp-down)
-  (bind-key ";"
-            (lambda ()
-              (interactive)
-              (if god-local-mode
-                  (attic-semi-colon/body)
-                (paredit-semicolon)))
-            paredit-mode-map)
-  (define-key paredit-mode-map (kbd ")")
-    (lambda () (interactive)
-      (if god-local-mode
-          (call-interactively (key-binding (kbd "C-)")))
-        (paredit-close-round))))
-  (define-key paredit-mode-map (kbd "(")
-    (lambda () (interactive)
-      (if (or (not god-local-mode) (region-active-p))
-          (paredit-open-round)
-        (call-interactively
-         (key-binding (kbd "C-("))))))
+
+  (when (equal mode-lock 'evil)
+    (add-hook 'paredit-mode-hook 'evil-paredit-mode))
+  (when (equal mode-lock 'god)
+    (bind-key ";"
+              (lambda ()
+                (interactive)
+                (if god-local-mode
+                    (attic-semi-colon/body)
+                  (paredit-semicolon)))
+              paredit-mode-map)
+    (define-key paredit-mode-map (kbd ")")
+      (lambda () (interactive)
+        (if god-local-mode
+            (call-interactively (key-binding (kbd "C-)")))
+          (paredit-close-round))))
+    (define-key paredit-mode-map (kbd "(")
+      (lambda () (interactive)
+        (if (or (not god-local-mode) (region-active-p))
+            (paredit-open-round)
+          (call-interactively
+           (key-binding (kbd "C-(")))))))
 
   (defun paredit-copy-sexp-down ()
     (interactive)

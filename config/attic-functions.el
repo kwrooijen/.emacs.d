@@ -303,19 +303,29 @@ makes)."
   (transpose-lines 1)
   (previous-line 1))
 
+(defun mc-active ()
+  (and (boundp 'multiple-cursors-mode) multiple-cursors-mode))
+
+(when (equal mode-lock 'god)
 (defun attic-lock ()
   (interactive)
   (deactivate-mark)
   (if (equal " *Minibuf-1*" (buffer-name))
       (keyboard-escape-quit)
-    (unless (or multiple-cursors-mode macro-active
-                (and (boundp 'god-local-mode) (not god-local-mode))
-                (not macro-active))
+    (unless (or (mc-active) macro-active
+                (not macro-active)
+                (and (equal mode-lock 'god)
+                     (boundp 'god-local-mode)
+                     (not god-local-mode)))
       (progn
         (call-interactively (key-binding (kbd "C-g")))
         (keyboard-escape-quit))))
   (unless (member major-mode god-exempt-major-modes)
-    (god-local-mode 1)))
+    (god-local-mode 1))))
+
+(when (equal mode-lock 'evil)
+  (defun attic-lock ()
+    (evil-force-normal-state)))
 
 (defadvice keyboard-escape-quit (around attic-ad/my-keyboard-escape-quit-around activate)
   (let (orig-one-window-p)

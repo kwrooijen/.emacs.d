@@ -30,8 +30,6 @@
           ("C-c C-n" copy-line-down)
           ;; Meta keys
           ("M-+" align-regexp)
-          ("M-N" mc/mark-next-like-this)
-          ("M-P" mc/mark-previous-like-this)
           ("M-C" capitalize-previous-word)
           ("M-i" tab-to-tab-stop-line-or-region)
           ("M-I" tab-to-tab-stop-line-or-region-backward)
@@ -83,8 +81,8 @@
     ("C-d" (lambda() (interactive) (helm-swoop :$query "")) nil)
     ("e" eww "Eww")
     ("C-e" eww nil)
-    ("f" helm-ls-git-ls "Git")
-    ("C-f" helm-ls-git-ls nil)
+    ("f" attic-file/body)
+    ("C-f" attic-file/body)
     ("g" magit-status "Magit")
     ("i" remove-newline-space nil)
     ("C-i" remove-newline-space nil)
@@ -150,6 +148,23 @@ _C-d_: Delete head     _ _: Step edit-macro     _C-c_: Set counter
   ("o" attic/make-go      "Go")
   ("q" attic/make-default "Make")
   ("c" attic/make-custom  "Custom"))
+
+
+(defhydra attic-file (:color blue :hint nil)
+  "
+^File^                   ^Buffer^
+^^^^^^^^----------------------------------------
+_f_: helm-find-files     _j_: helm-buffer-list
+_d_: helm-ls-git-ls      _b_: helm-bookmarks
+^ ^                      _l_: next-buffer
+^ ^                      _h_: previous-buffer
+"
+  ("f" helm-find-files)
+  ("d" helm-ls-git-ls)
+  ("b" helm-bookmarks)
+  ("j" helm-buffers-list)
+  ("h" previous-buffer :color red)
+  ("l" next-buffer :color red))
 
 ;; Make keys
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)

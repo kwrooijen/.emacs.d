@@ -4,6 +4,9 @@
 ;; Macro is not active at boot, setting variable
 (defvar macro-active nil)
 
+(defvar mode-lock 'god)
+;;(defvar mode-lock 'evil)
+
 (let ((file-name-handler-alist nil))
   (add-to-list 'load-path "~/.emacs.d/config")
   (add-to-list 'load-path "~/.emacs.d/plugins")
