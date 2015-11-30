@@ -650,13 +650,12 @@
 (use-package helm
   :ensure t
   :config
-  (setq ;; truncate long lines in helm completion
+  (setq
+   ;; truncate long lines in helm completion
    helm-truncate-lines t
    ;; may be overridden if 'ggrep' is in path (see below)
-   helm-grep-default-command
-   "grep -a -d skip %e -n%cH -e %p %f"
-   helm-grep-default-recurse-command
-   "grep -a -d recurse %e -n%cH -e %p %f"
+   helm-grep-default-command "grep -a -d skip %e -n%cH -e %p %f"
+   helm-grep-default-recurse-command "grep --exclude-dir=\"dist\" -a -d recurse %e -n%cH -e %p %f"
    ;; do not display invisible candidates
    helm-quick-update t
    ;; be idle for this many seconds, before updating in delayed sources.
@@ -669,23 +668,14 @@
    helm-candidate-number-limit 200
    ;; don't use recentf stuff in helm-ff
    helm-ff-file-name-history-use-recentf nil
-   ;; move to end or beginning of source when reaching top or bottom
-   ;; of source
-   helm-move-to-line-cycle-in-source t
    ;; fuzzy matching
    helm-buffers-fuzzy-matching t
    helm-semantic-fuzzy-match t
    helm-imenu-fuzzy-match t
    helm-completion-in-region-fuzzy-match t
    helm-echo-input-in-header-line t
-   helm-ls-git-project-source '((name . "Helm git ls project")
-                                (candidates . helm-ls-git-project-list)
-                                (action . helm-ls-git-project-action)
-                                (default . ""))
-   helm-ls-git-project-list-file "~/.emacs.d/.helm-ls-git-project-list"
    ;; Don't ask to create new file
    helm-ff-newfile-prompt-p nil
-   helm-grep-default-recurse-command "grep --exclude-dir=\"dist\" -a -d recurse %e -n%cH -e %p %f"
    helm-reuse-last-window-split-state t
    helm-ff-transformer-show-only-basename nil
    ;; Split window down
@@ -706,11 +696,14 @@
    helm-display-header-line nil
    ;; Set a min / max height of 30% of current buffer
    helm-autoresize-max-height 30
-   helm-autoresize-min-height 30)
+   helm-autoresize-min-height 30
+   helm-bookmark-show-location t
+   helm-always-two-windows t
+   helm-imenu-execute-action-at-once-if-one nil)
   ;; Try to hide source header as much as possible
   (set-face-attribute 'helm-source-header nil :height 0.1 :background "#000"  :foreground "#000")
 
-  ;; Work around for the [Display not ready] error when typing to awesomely fast
+  ;; Work around for the [Display not ready] error when typing too awesomely fast
   (defun my/helm-exit-minibuffer ()
     (interactive)
     (helm-exit-minibuffer))
@@ -720,8 +713,6 @@
 
   (define-key attic-mode-map (kbd "M-[") 'helm-resume)
   (define-key attic-mode-map (kbd "M-x") 'helm-M-x)
-  (define-key helm-map (kbd "C-n") 'helm-next-line)
-  (define-key helm-map (kbd "C-p") 'helm-previous-line)
   (define-key helm-map (kbd "C-b") 'nil)
   (define-key helm-map (kbd "C-f") 'nil)
   (define-key helm-map (kbd "M-b") 'nil)
@@ -745,24 +736,6 @@
     ("i" nil "cancel"))
   (key-chord-define helm-map "jh" 'helm-like-unite/body)
 
-
-  (defun helm-highlight-files (x)
-    nil)
-
-  (defadvice helm-register (before attic-ad/helm-register-before activate)
-    (setq helm-register-active t))
-
-  (defadvice helm-register (after attic-ad/helm-register-after activate)
-    (makunbound 'helm-register-active))
-
-  (defadvice helm-swoop (before attic-ad/helm-swoop-before activate)
-    (set-mark-command nil)
-    (deactivate-mark)
-    (setq helm-swoop-active t))
-
-  (defadvice helm-swoop (after attic-ad/helm-swoop-after activate)
-    (makunbound 'helm-swoop-active))
-
   (defun helm-hide-minibuffer-maybe ()
     (when (with-helm-buffer helm-echo-input-in-header-line)
       (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
@@ -781,6 +754,9 @@
   :ensure t)
 
 (use-package helm-ls-git
+  :ensure t)
+
+(use-package helm-projectile
   :ensure t)
 
 (use-package helm-swoop
@@ -925,37 +901,14 @@
   (mu4e-maildirs-extension))
 
 
-(if (equal mode-lock 'god)
 (use-package multiple-cursors
-     :ensure t
-      :init
-      (bind-key "M-N" 'mc/mark-next-like-this attic-mode-map)
-      (bind-key "M-P" 'mc/mark-previous-like-this attic-mode-map)
-      :config
-      (bind-key "<return>" 'newline mc/keymap)
-      (multiple-cursors-mode t))
-
-(use-package evil-mc
   :ensure t
   :init
-  (bind-key "M-N" 'evil-mc-next-line)
-  (bind-key "M-P" 'evil-mc-prev-line)
+  (bind-key "M-N" 'mc/mark-next-like-this attic-mode-map)
+  (bind-key "M-P" 'mc/mark-previous-like-this attic-mode-map)
   :config
-  (defun evil-mc-next-line ()
-    (interactive)
-    (evil-mc-pause-cursors)
-    (evil-mc-make-cursor-here)
-    (evil-mc-resume-cursors)
-    (next-line 1))
-  (defun evil-mc-prev-line ()
-    (interactive)
-    (evil-mc-pause-cursors)
-    (evil-mc-make-cursor-here)
-    (evil-mc-resume-cursors)
-    (previous-line 1))
-
-  (when (equal mode-lock 'evil)
-    (global-evil-mc-mode  1))))
+  (bind-key "<return>" 'newline mc/keymap)
+  (multiple-cursors-mode t))
 
 (use-package org
   :config

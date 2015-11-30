@@ -307,21 +307,21 @@ makes)."
   (and (boundp 'multiple-cursors-mode) multiple-cursors-mode))
 
 (when (equal mode-lock 'god)
-(defun attic-lock ()
-  (interactive)
-  (deactivate-mark)
-  (if (equal " *Minibuf-1*" (buffer-name))
-      (keyboard-escape-quit)
-    (unless (or (mc-active) macro-active
-                (not macro-active)
-                (and (equal mode-lock 'god)
-                     (boundp 'god-local-mode)
-                     (not god-local-mode)))
-      (progn
-        (call-interactively (key-binding (kbd "C-g")))
-        (keyboard-escape-quit))))
-  (unless (member major-mode god-exempt-major-modes)
-    (god-local-mode 1))))
+  (defun attic-lock ()
+    (interactive)
+    (deactivate-mark)
+    (if (equal " *Minibuf-1*" (buffer-name))
+        (keyboard-escape-quit)
+      (unless (or (mc-active) macro-active
+                  (not macro-active)
+                  (and (equal mode-lock 'god)
+                       (boundp 'god-local-mode)
+                       (not god-local-mode)))
+        (progn
+          (call-interactively (key-binding (kbd "C-g")))
+          (keyboard-escape-quit))))
+    (unless (member major-mode god-exempt-major-modes)
+      (god-local-mode 1))))
 
 (when (equal mode-lock 'evil)
   (defun attic-lock ()
