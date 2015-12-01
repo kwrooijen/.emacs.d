@@ -484,7 +484,8 @@
   (use-package evil
     :ensure t
     :config
-    (define-key evil-normal-state-map ";" 'attic-semi-colon/body))
+    (define-key evil-normal-state-map ";" 'attic-semi-colon/body)
+    (define-key evil-normal-state-map "<SPC>" 'attic-semi-colon/body))
 
   (use-package evil-lisp-state
     :ensure t)
@@ -569,7 +570,7 @@
 
     (god-mode)
     (bind-key "i" (lambda () (interactive) (god-local-mode -1) (setq cursor-type 'bar)) god-local-mode-map)
-    (bind-key "SPC" 'attic-semi-colon/body god-local-mode-map)
+    (bind-key "<SPC>" 'attic-semi-colon/body god-local-mode-map)
     (bind-key "u" 'undo god-local-mode-map)
     (bind-key "h" 'ace-jump-mode god-local-mode-map)
     (bind-key "M-u" 'redo god-local-mode-map)

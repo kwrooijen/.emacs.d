@@ -261,13 +261,11 @@
                          dired-mode-map
                          elfeed-show-mode-map
                          elfeed-search-mode-map
-                         god-local-mode-map
                          grep-mode-map
                          grep-mode-map
                          magit-status-mode-map
                          magit-revision-mode-map
                          twittering-mode-map
-                         evil-normal-state-map
                          flyspell-mode-map
                          mu4e-main-mode-map
                          mu4e-headers-mode-map
