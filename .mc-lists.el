@@ -205,12 +205,19 @@
         upcase-region
         vim-o
         x-clipboard-yank
+        yank-pop-or-kill-ring
         yas-expand
         ))
 
 (setq mc/cmds-to-run-once
       '(
         ace-jump-done
+        attic-mc/mc/cycle-backward
+        attic-mc/mc/cycle-forward
+        attic-mc/mc/mark-next-like-this
+        attic-mc/mc/mark-previous-like-this
+        attic-mc/nil
+        attic-semi-colon/attic-mc/body-and-exit
         describe-key
         emms-pause
         execute-rust

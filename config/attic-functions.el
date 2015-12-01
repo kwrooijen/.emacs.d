@@ -309,6 +309,7 @@ makes)."
 (when (equal mode-lock 'god)
   (defun attic-lock ()
     (interactive)
+    (setq cursor-type 'box)
     (deactivate-mark)
     (if (equal " *Minibuf-1*" (buffer-name))
         (keyboard-escape-quit)
@@ -429,5 +430,9 @@ makes)."
     (switch-to-buffer "irc.freenode.net:6667")
     (elscreen-goto-1)
     (switch-to-buffer "irc.freenode.net:6667")))
+
+(defun buffer-toggle ()
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) t)))
 
 (provide 'attic-functions)

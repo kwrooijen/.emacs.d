@@ -568,7 +568,8 @@
     (defhydra hydra-god-repeater-G (god-local-mode-map "g") ("G" goto-line))
 
     (god-mode)
-    (bind-key "i" (lambda () (interactive) (god-local-mode -1)) god-local-mode-map)
+    (bind-key "i" (lambda () (interactive) (god-local-mode -1) (setq cursor-type 'bar)) god-local-mode-map)
+    (bind-key "SPC" 'attic-semi-colon/body god-local-mode-map)
     (bind-key "u" 'undo god-local-mode-map)
     (bind-key "h" 'ace-jump-mode god-local-mode-map)
     (bind-key "M-u" 'redo god-local-mode-map)
@@ -757,7 +758,9 @@
   :ensure t)
 
 (use-package helm-projectile
-  :ensure t)
+  :ensure t
+  :init
+  (projectile-global-mode 1))
 
 (use-package helm-swoop
   :ensure t
@@ -805,8 +808,8 @@
 (use-package iy-go-to-char
   :ensure t)
 
-(use-package jazz-theme
-  :ensure t)
+;; (use-package jazz-theme
+;;   :ensure t)
 
 (use-package js2-mode
   :ensure t
@@ -900,12 +903,8 @@
   :init
   (mu4e-maildirs-extension))
 
-
 (use-package multiple-cursors
   :ensure t
-  :init
-  (bind-key "M-N" 'mc/mark-next-like-this attic-mode-map)
-  (bind-key "M-P" 'mc/mark-previous-like-this attic-mode-map)
   :config
   (bind-key "<return>" 'newline mc/keymap)
   (multiple-cursors-mode t))
@@ -1105,6 +1104,9 @@
               (setq eldoc-documentation-function 'scheme-get-current-symbol-info)
               (eldoc-mode))))
 
+(use-package spacemacs-theme
+  :ensure t)
+
 (use-package term
   :config
   (defun attic-term-hook ()
@@ -1133,6 +1135,11 @@
   (bind-key "q" (lambda () (interactive) (switch-to-buffer nil)) twittering-mode-map)
   (bind-key "w" 'delete-window twittering-mode-map)
   (add-hook 'twittering-mode-hook 'toggle-modeline))
+
+(use-package vi-tilde-fringe
+  :ensure t
+  :init
+  (global-vi-tilde-fringe-mode 1))
 
 (use-package web-mode
   :ensure t

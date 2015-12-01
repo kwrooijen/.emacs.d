@@ -5,9 +5,10 @@
 (defun sfb (l)
   (mapcar (lambda(list) (set-foreground-background (nth 0 list)(nth 1 list)(nth 2 list) )) l))
 
-(load-theme 'jazz t)
-
-(set-face-background 'default "#2f2922")
+;; (load-theme 'jazz t)
+;; (set-face-background 'default "#2f2922")
+;; (set-face-background 'fringe "#25201b")
+(load-theme 'spacemacs-dark t)
 
 (set-face-attribute 'highlight-symbol-face nil :inherit 'default)
 
@@ -49,7 +50,6 @@
 (set-face-attribute 'ac-completion-face nil :inherit 'company-preview-common)
 (set-face-attribute 'ac-selection-face nil :inherit 'company-tooltip-common-selection)
 
-(set-face-background 'fringe "#25201b")
 (require 'whitespace)
 (sfb '(
        (highlight-symbol-face       "#fff" "gray20" )
@@ -123,7 +123,8 @@
 
 (set-face-attribute 'mode-line-buffer-id nil :foreground "#cd853f")
 (set-face-attribute 'mode-line-inactive nil :foreground "grey")
-(set-face-attribute 'elscreen-tab-background-face     nil :background "#25201b")
+(set-face-attribute 'elscreen-tab-background-face     nil :background nil :inherit 'fringe)
+(set-face-attribute 'elscreen-tab-current-screen-face nil :foreground nil :background nil :inherit 'fringe)
 (set-face-attribute 'elscreen-tab-current-screen-face nil :background "#2f2922" :foreground "#c6a57b")
 (set-face-attribute 'elscreen-tab-other-screen-face   nil :background "#4b4238" :foreground "#25201b")
 

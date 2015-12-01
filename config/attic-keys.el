@@ -10,7 +10,6 @@
           ("C-c C--" decrement-decimal)
           ("C-;" attic-semi-colon/body)
           ("C-'" helm-M-x)
-          ("C-z" helm-buffers-list)
           ("C-j" iy-go-to-char)
           ("M-j" iy-go-to-char-backward)
           ("C-q" backward-delete-char)
@@ -39,6 +38,9 @@
   (kbd "C-;")
   (defhydra attic-semi-colon (:color blue :columns 7)
     "Attic"
+    ("<tab>" buffer-toggle "Buffer Toggle")
+    ("`" elscreen-toggle "Elscreen Toggle")
+    ("RET" nil)
     ("'" helm-org-capture-templates nil)
     ("." create-tags "Tag")
     ("0" elscreen-goto-0 nil)
@@ -54,13 +56,13 @@
     (";" elscreen-toggle nil)
     ("<SPC>" pop-to-mark-command "Pop Mark")
     ("M-d" helm-swoop nil)
-    ("[" winner-undo nil :color red)
-    ("]" winner-redo nil :color red)
     ("s" async-shell-command "ASync Shell")
     ("b" helm-bookmarks "Bookmarks")
     ("d" (lambda() (interactive) (helm-swoop :$query "")) "Swoop")
     ("e" eww "Eww")
     ("f" attic-file/body "File")
+    ("w" attic-window/body "Window")
+    ("n" attic-mc/body "Multi Cursor")
     ("g" magit-status "Magit")
     ("i" remove-newline-space nil)
     ("j" attic-lock "Lock")
@@ -72,6 +74,94 @@
     ("r" rgrep "RGrep")
     ("t" transpose-mark nil)
     ("c" attic-macro/body "Macro")))
+
+(defhydra attic-window (:color red :columns 4)
+  "Attic Window"
+  ("q" nil "Quit" :color blue)
+  ("RET" nil :color blue)
+  ("[" winner-undo "Winner Undo")
+  ("]" winner-redo "Winner Redo")
+  ("h" shrink-window-horizontally "Shrink Horizontally")
+  ("l" enlarge-window-horizontally "Enlarge Horizontally")
+  ("j" enlarge-window "Shrink")
+  ("k" shrink-window "Enlarge"))
+
+(defhydra attic-mc (:color red :columns 4)
+  "Attic MC"
+  ("q" nil "Quit")
+  ("e" attic-mc-edit "Edit" :color blue)
+  ("l" attic-mc-like-this "Like this" :color blue)
+  ("r" attic-mc-region "Region" :color blue)
+  ("m" attic-mc-mmlte "Mmlte" :color blue)
+  ("w" attic-mc-word "Word" :color blue)
+  ("s" attic-mc-symbol "Symbol" :color blue)
+  ("d" attic-mc-defun "Defun" :color blue)
+  ("o" mc/mark-pop "mark-pop")
+  ("@" mc/mark-all-dwim "mark-all-dwim")
+  ("k" mc/keyboard-quit "keyboard-quit")
+  ("f" mc/cycle-forward "cycle-forward")
+  ("b" mc/cycle-backward "cycle-backward")
+  ("va" mc/vertical-align "vertical-align")
+  ("vs" mc/vertical-align-with-space "vertical-align-with-space")
+  ;; ("n" mc/mark-next-lines "mark-next-lines")
+  ;; ("p" mc/mark-previous-lines "mark-previous-lines")
+  ;; ("" mc/mark-sgml-tag-pair "mark-sgml-tag-pair")
+  ("@" mc/mark-all-like-this "mark-all-like-this")
+  ("n" mc/mark-next-like-this "mark-next-like-this")
+  ("p" mc/mark-previous-like-this "mark-previous-like-this")
+  ("N" mc/skip-to-next-like-this "skip-to-next-like-this")
+  ("P" mc/skip-to-previous-like-this "skip-to-previous-like-this"))
+
+(defhydra attic-mc-edit (:color red :columns 4)
+  ("q" nil "Quit")
+  ("<tab>" 'attic-mc "Back")
+  ("l" mc/edit-lines "edit-lines")
+  ("b" mc/edit-beginnings-of-lines "edit-beginnings-of-lines")
+  ("e" mc/edit-ends-of-lines "edit-ends-of-lines")
+  ("i" mc/insert-numbers "insert-numbers")
+  )
+(defhydra attic-mc-like-this (:color red :columns 4)
+  ("q" nil "Quit")
+  ("<tab>" 'attic-mc "Back")
+  ("un" mc/unmark-next-like-this "unmark-next-like-this")
+  ("d@" mc/mark-all-like-this-dwim "mark-all-like-this-dwim")
+  ("up" mc/unmark-previous-like-this "unmark-previous-like-this")
+  ("m" mc/mark-more-like-this-extended "mark-more-like-this-extended"))
+
+(defhydra attic-mc-region (:color red :columns 4)
+  ("q" nil "Quit")
+  ("<tab>" 'attic-mc "Back")
+  ("s" mc/sort-regions "sort-regions")
+  ("r" mc/reverse-regions "reverse-regions")
+  ("@" mc/mark-all-in-region "mark-all-in-region")
+  ("x" mc/mark-all-in-region-regexp "mark-all-in-region-regexp"))
+
+(defhydra attic-mc-mmlte (:color red :columns 4)
+  ("q" nil "Quit")
+  ("<tab>" 'attic-mc "Back")
+  ("k" mc/mmlte--up "mmlte--up")
+  ("h" mc/mmlte--left "mmlte--left")
+  ("j" mc/mmlte--down "mmlte--down")
+  ("l" mc/mmlte--right "mmlte--right"))
+
+(defhydra attic-mc-word (:color red :columns 4)
+  ("q" nil "Quit")
+  ("<tab>" 'attic-mc "Back")
+  ("n" mc/mark-next-word-like-this "mark-next-word-like-this")
+  ("@" mc/mark-all-words-like-this "mark-all-words-like-this")
+  ("p" mc/mark-previous-word-like-this "mark-previous-word-like-this"))
+
+(defhydra attic-mc-symbol (:color red :columns 4)
+  ("q" nil "Quit")
+  ("<tab>" 'attic-mc "Back")
+  ("n" mc/mark-next-symbol-like-this "mark-next-symbol-like-this")
+  ("p" mc/mark-previous-symbol-like-this "mark-previous-symbol-like-this")
+  ("@" mc/mark-all-symbols-like-this "mark-all-symbols-like-this"))
+
+(defhydra attic-mc-defun (:color red :columns 4)
+  ("t" mc/mark-all-like-this-in-defun "mark-all-like-this-in-defun")
+  ("s" mc/mark-all-symbols-like-this-in-defun "mark-all-symbols-like-this-in-defun")
+  ("w" mc/mark-all-words-like-this-in-defun "mark-all-words-like-this-in-defun"))
 
 (defhydra attic-macro (:color blue :columns 4)
   "Attic Macro"
@@ -124,13 +214,13 @@
   ("c" helm-projectile-ack "helm-projectile-ack")
   ("d" helm-projectile-find-dir "helm-projectile-find-dir")
   ("e" helm-projectile-switch-to-eshell "helm-projectile-switch-to-eshell")
-  ("f" helm-projectile-find-file "helm-projectile-find-file")
+  ("s" helm-projectile-find-file "helm-projectile-find-file")
   ("g" helm-projectile-grep "helm-projectile-grep")
   ("i" helm-projectile-find-files-eshell-command-on-file-action "helm-projectile-find-files-eshell-command-on-file-action")
   ("k" helm-projectile-find-file-in-known-projects "helm-projectile-find-file-in-known-projects")
   ("o" helm-projectile-find-other-file "helm-projectile-find-other-file")
   ("r" helm-projectile-recentf "helm-projectile-recentf")
-  ("s" helm-projectile-switch-project "helm-projectile-switch-project")
+  ("f" helm-projectile-switch-project "helm-projectile-switch-project")
   ("t" helm-projectile-ff-etags-select-action "helm-projectile-ff-etags-select-action")
   ("w" helm-projectile-find-file-dwim "helm-projectile-find-file-dwim"))
 
@@ -149,23 +239,39 @@
 
 ;; C Keys
 (defun c-keys-hook ()
-(define-key c-mode-base-map (kbd "C-/") 'attic/comment))
-
-;; Package Menu mode
-(define-key package-menu-mode-map (kbd ";") 'attic-semi-colon/body)
+  (define-key c-mode-base-map (kbd "C-/") 'attic/comment))
 
 (require 'doc-view)
 (define-key doc-view-mode-map (kbd "j") 'doc-view-next-line-or-next-page)
 (define-key doc-view-mode-map (kbd "k") 'doc-view-previous-line-or-previous-page)
 
-(define-key doc-view-mode-map (kbd ";") 'attic-semi-colon/body)
-(define-key doc-view-mode-map (kbd "z") 'helm-buffers-list)
 
-(define-key help-mode-map (kbd ";") 'attic-semi-colon/body)
-(define-key help-mode-map (kbd "z") 'helm-buffers-list)
+(defun macro-add-key (m)
+  `(progn (define-key ,m (kbd ";") 'attic-semi-colon/body)
+          (define-key ,m (kbd "<SPC>") 'attic-semi-colon/body)))
 
-(define-key messages-buffer-mode-map (kbd ";") 'attic-semi-colon/body)
-(define-key messages-buffer-mode-map (kbd "z") 'helm-buffers-list)
+(defmacro add-semi-colon-to-modes (&rest modes)
+  (let ((forms (mapcar 'macro-add-key modes)))
+    `(progn ,@forms)))
+
+(add-semi-colon-to-modes messages-buffer-mode-map
+                         help-mode-map
+                         doc-view-mode-map
+                         package-menu-mode-map
+                         dired-mode-map
+                         elfeed-show-mode-map
+                         elfeed-search-mode-map
+                         god-local-mode-map
+                         grep-mode-map
+                         grep-mode-map
+                         magit-status-mode-map
+                         magit-revision-mode-map
+                         twittering-mode-map
+                         evil-normal-state-map
+                         flyspell-mode-map
+                         mu4e-main-mode-map
+                         mu4e-headers-mode-map
+                         mu4e-view-mode-map)
 
 (defun attic-minibuffer-setup-hook ()
   (attic-mode 0))
