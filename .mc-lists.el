@@ -100,6 +100,7 @@
         paredit-backslash
         paredit-backward-kill-word
         paredit-close-round-and-newline
+        paredit-forward
         paredit-forward-delete
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
