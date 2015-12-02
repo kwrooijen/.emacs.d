@@ -369,7 +369,8 @@
 (use-package emms
   :ensure t
   :init
-  (when (file-exists-p "~/Music/")
+  (when (and (file-exists-p "~/Music/")
+             (>  (length (directory-files "~/Music/")) 2))
     (emms-standard)
     (emms-default-players)
     (emms-add-directory-tree "~/Music/")
@@ -908,6 +909,8 @@
   :ensure t
   :config
   (bind-key "<return>" 'newline mc/keymap)
+  (bind-key "M-P" 'mc/mark-previous-like-this attic-mode-map)
+  (bind-key "M-N" 'mc/mark-next-like-this attic-mode-map)
   (multiple-cursors-mode t))
 
 (use-package org
