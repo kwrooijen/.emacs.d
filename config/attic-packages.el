@@ -451,6 +451,7 @@
     (attic-lock)
     (electric-pair-mode)
     (fix-tabs 4)
+    (auto-complete-mode 1)
     (setq-local helm-dash-docsets '("Erlang")))
   (add-hook 'erlang-mode-hook 'attic-erlang-hook))
 
