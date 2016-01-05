@@ -407,7 +407,7 @@
   :config
   (erc-truncate-mode 1)
   (erc-scrolltobottom-mode 1)
-  (setq erc-nick "attichacker")
+  (setq erc-nick "kwrooijen")
   (setq erc-prompt-for-password nil)
   (setq erc-ignore-list '("*Flowdock*" "Flowdock" "-Flowdock-"))
   (setq erc-hide-list '("JOIN" "PART" "QUIT"))
