@@ -11,9 +11,11 @@
         attic-rock-lock
         attic-semi-colon/attic-lock-and-exit
         attic-semi-colon/body
+        attic-semi-colon/remove-newline-space-and-exit
         attic/comment
         backward-delete-char
         backward-kill-sexp
+        backward-sentence
         backward-sexp
         backward-to-word
         c-electric-delete-forward
@@ -22,6 +24,7 @@
         c-electric-slash
         c-electric-star
         capitalize-previous-word
+        cljr-splice-sexp-killing-backward
         comment-or-uncomment-region
         control-lock-enable
         copy-line-down
@@ -66,6 +69,7 @@
         haskell-indentation-delete-char
         haskell-newline-and-indent
         helm-buffers-list
+        increment-decimal
         indent-new-comment-line
         indent-of-doom
         inferior-haskell-load-file
@@ -78,7 +82,9 @@
         keyboard-escape-quit
         keyboard-escape-quit-mc
         kill-region
+        kill-sentence
         kill-sexp
+        lisp-indent-adjust-parens
         lispy-braces
         lispy-brackets
         lispy-delete
@@ -98,9 +104,11 @@
         org-yank
         orgtbl-self-insert-command
         paredit-backslash
+        paredit-backward
         paredit-backward-kill-word
         paredit-close-round-and-newline
         paredit-forward
+        paredit-forward-barf-sexp
         paredit-forward-delete
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
@@ -108,7 +116,9 @@
         paredit-kill
         paredit-kill-region
         paredit-raise-sexp
+        paredit-splice-sexp
         paredit-splice-sexp-killing-backward
+        paredit-split-sexp
         paredit-wrap-round
         paste-from-clipboard
         pop-to-mark-command
@@ -150,6 +160,7 @@
         special-lispy-goto
         special-lispy-goto-def-ace
         special-lispy-goto-def-down
+        special-lispy-goto-elisp-commands
         special-lispy-goto-local
         special-lispy-goto-mode
         special-lispy-goto-projectile
@@ -188,6 +199,7 @@
         special-lispy-to-defun
         special-lispy-to-ifs
         special-lispy-to-lambda
+        special-lispy-underscore
         special-lispy-undo
         special-lispy-up
         special-lispy-up-slurp
@@ -199,6 +211,7 @@
         special-swiper
         tab-to-tab-stop
         tab-to-tab-stop-line-or-region
+        tab-to-tab-stop-line-or-region-backward
         term-send-raw
         transpose-mark
         transpose-words
@@ -213,6 +226,7 @@
 (setq mc/cmds-to-run-once
       '(
         ace-jump-done
+        alchemist-mix-test
         attic-mc/mc/cycle-backward
         attic-mc/mc/cycle-forward
         attic-mc/mc/mark-next-like-this

@@ -209,9 +209,31 @@
     (attic-lock)
     (paredit-mode 1)
     (electric-pair-mode -1)
+    (aggressive-indent-mode 1)
     (cider-mode 1)
     (setq-local helm-dash-docsets '("Clojure")))
   (add-hook 'clojure-mode-hook 'attic-clojure-hook))
+
+(use-package clj-refactor
+  :ensure t
+  :config
+  (defhydra cljr-refactor-all (:color blue)
+    "[Clojure refactor]"
+    ("c"  hydra-cljr-cljr-menu/body "cljr-menu")
+    ("o"  hydra-cljr-code-menu/body "code-menu")
+    ("h"  hydra-cljr-help-menu/body "help-menu")
+    ("n"  hydra-cljr-ns-menu/body "ns-menu")
+    ("p"  hydra-cljr-project-menu/body "project-menu")
+    ("t"  hydra-cljr-toplevel-form-menu/body "toplevel-form-menu"))
+  (cljr-add-keybindings-with-prefix "C-c C-m")
+  (define-key clojure-mode-map (kbd "C-c C-a") 'cljr-refactor-all/body)
+  (add-hook 'clojure-mode-hook #'clj-refactor-mode))
+
+(use-package cljr-helm
+  :ensure t
+  :config
+  (define-key clojure-mode-map (kbd "C-c C-l") 'cljr-helm))
+
 
 (use-package cider
   :ensure t)
@@ -485,8 +507,7 @@
   (use-package evil
     :ensure t
     :config
-    (define-key evil-normal-state-map ";" 'attic-semi-colon/body)
-    (define-key evil-normal-state-map "<SPC>" 'attic-semi-colon/body))
+    (define-key evil-normal-state-map ";" 'attic-semi-colon/body))
 
   (use-package evil-lisp-state
     :ensure t)
@@ -523,6 +544,9 @@
     (paredit-mode 1))
   (add-hook 'geiser-mode-hook 'attic-geiser-hook)
   (add-hook 'geiser-repl-mode-hook 'attic-geiser-hook))
+
+(use-package gist
+  :ensure t)
 
 (use-package git-gutter+
   :ensure t
@@ -571,7 +595,6 @@
 
     (god-mode)
     (bind-key "i" (lambda () (interactive) (god-local-mode -1) (setq cursor-type 'bar)) god-local-mode-map)
-    (bind-key "<SPC>" 'attic-semi-colon/body god-local-mode-map)
     (bind-key "u" 'undo god-local-mode-map)
     (bind-key "h" 'ace-jump-mode god-local-mode-map)
     (bind-key "M-u" 'redo god-local-mode-map)
@@ -1151,6 +1174,12 @@
   (setq web-mode-markup-indent-offset 4)
   (setq web-mode-css-indent-offset 4)
   (setq web-mode-code-indent-offset 4))
+
+(use-package which-key
+  :ensure t
+  :init
+  (setq which-key-idle-delay 0.0)
+  (which-key-mode 1))
 
 (use-package window-numbering
   :ensure t

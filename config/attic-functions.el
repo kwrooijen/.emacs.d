@@ -56,10 +56,10 @@ buffer is not visiting a file."
   (compile-goto-error)
   (switch-to-buffer-other-window buff))
 
-(defun send-to-pastie (answer)
-  "Start a terminal and rename buffer."
-  (interactive "cSend region to Pastie?: (y/n) ")
-  (if (equal answer ?\y) (pastie-region (region-beginning) (region-end))))
+(defun send-to-gist (answer)
+  ""
+  (interactive "cSend region to Gist?: (y/n) ")
+  (if (equal answer ?\y) (gist-region (region-beginning) (region-end))))
 
 (defun get-current-buffer-major-mode ()
   (interactive)

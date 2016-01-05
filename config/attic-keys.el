@@ -231,7 +231,7 @@
 
 ;; Other Keys
 (global-set-key [f3] 'describe-key)
-(global-set-key [f4] 'send-to-pastie)
+(global-set-key [f4] 'send-to-gist)
 (global-set-key [f6] 'describe-mode)
 (global-set-key [f7] 'get-current-buffer-major-mode)
 (global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
@@ -247,8 +247,7 @@
 
 
 (defun macro-add-key (m)
-  `(progn (define-key ,m (kbd ";") 'attic-semi-colon/body)
-          (define-key ,m (kbd "<SPC>") 'attic-semi-colon/body)))
+  `(progn (define-key ,m (kbd ";") 'attic-semi-colon/body)))
 
 (defmacro add-semi-colon-to-modes (&rest modes)
   (let ((forms (mapcar 'macro-add-key modes)))
