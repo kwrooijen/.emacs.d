@@ -12,6 +12,8 @@
 (set-fringe-mode '(1 . 0))
 
 (set-face-attribute 'highlight-symbol-face nil :inherit 'default)
+(set-face-attribute 'highlight-numbers-number nil :foreground "#ff7f00")
+
 
 (set-face-attribute 'helm-ff-directory nil
                     :foreground 'unspecified

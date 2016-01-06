@@ -807,6 +807,11 @@
   (bind-key "e" 'end-of-line help-mode-map)
   (bind-key "a" 'beginning-of-line help-mode-map))
 
+(use-package highlight-numbers
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'highlight-numbers-mode))
+
 (use-package highlight-symbol
   :ensure t
   :config
@@ -834,8 +839,8 @@
 (use-package iy-go-to-char
   :ensure t)
 
-;; (use-package jazz-theme
-;;   :ensure t)
+(use-package jazz-theme
+  :ensure t)
 
 (use-package js2-mode
   :ensure t
@@ -1066,7 +1071,12 @@
   (add-hook 'racket-mode-hook 'attic-racket-hook))
 
 (use-package rainbow-delimiters
-  :ensure t)
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'scheme-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'racket-mode-hook #'rainbow-delimiters-mode))
 
 (use-package redo+
   :ensure t
@@ -1113,8 +1123,7 @@
     (paredit-mode 1)
     (company-mode t)
     (auto-complete-mode -1)
-    (aggressive-indent-mode)
-    (rainbow-delimiters-mode 1))
+    (aggressive-indent-mode))
   (add-hook 'scheme-mode-hook 'attic-scheme-mode-hook))
 
 (use-package scheme-complete
