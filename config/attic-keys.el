@@ -54,7 +54,7 @@
     ("8" elscreen-goto-8 nil)
     ("9" elscreen-goto-9 nil)
     (";" elscreen-toggle nil)
-    ("<SPC>" pop-to-mark-command "Pop Mark")
+    ("<SPC>" pop-to-mark-command "Pop Mark" :color red)
     ("M-d" helm-swoop nil)
     ("s" async-shell-command "ASync Shell")
     ("b" helm-bookmarks "Bookmarks")

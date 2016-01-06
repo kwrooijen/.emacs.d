@@ -91,15 +91,16 @@ If file is found then return t else nil."
   (interactive)
   (reset-buffer "*Make Find Makefile*")
   (with-current-buffer "*Make Find Makefile*"
-    (when (cd-up-to-file "Makefile")
-      (kill-buffer-if-exists name)
-      (cond
-       ((equal arg "start")
-        (async-shell-command (concat "make " arg) name))
-       (t
-        (let ((comp-buffer (compile (concat "make " arg))))
-          (with-current-buffer comp-buffer
-            (rename-buffer name)))))
+    (if (cd-up-to-file "Makefile")
+        (progn
+          (kill-buffer-if-exists name)
+          (cond
+           ((equal arg "start")
+            (async-shell-command (concat "make " arg) name))
+           (t
+            (let ((comp-buffer (compile (concat "make " arg))))
+              (with-current-buffer comp-buffer
+                (rename-buffer name))))))
       (message "Could not find Makefile"))))
 
 (defun attic/make-go ()
@@ -434,5 +435,8 @@ makes)."
 (defun buffer-toggle ()
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) t)))
+
+(defun insert! (value)
+  (insert (format "%s" value)))
 
 (provide 'attic-functions)

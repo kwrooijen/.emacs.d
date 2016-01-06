@@ -1044,9 +1044,6 @@
         (paredit-backward)
         (move-to-column prev-column)))))
 
-(use-package pcmpl-args
-  :ensure t)
-
 (use-package powerline
   :ensure t
   :config

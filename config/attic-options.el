@@ -157,6 +157,9 @@ PGP 4096R: A0A9 0D06 A754 6D4E EAD4  E6B8 A006 B0B1 CD62 28AB
 ;; Battery display format
 (setq battery-mode-line-format " [%b%p%\\] ")
 
+;; Scroll on in the *compilation* buffer
+(setq compilation-scroll-output t)
+
 ;; TODO create a toggle function for this
 ;; ;; Disable Mouse when Emacs has focus
 ;; (defun turn-off-mouse (&optional frame)
