@@ -235,6 +235,7 @@
 (global-set-key [f6] 'describe-mode)
 (global-set-key [f7] 'get-current-buffer-major-mode)
 (global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
+(global-set-key [f10] 'kmacro-end-or-call-macro-repeat)
 (global-set-key [f11] 'screenshot-frame)
 
 ;; C Keys

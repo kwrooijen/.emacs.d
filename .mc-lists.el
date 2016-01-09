@@ -227,11 +227,13 @@
       '(
         ace-jump-done
         alchemist-mix-test
+        attic-make/attic/make-default-and-exit
         attic-mc/mc/cycle-backward
         attic-mc/mc/cycle-forward
         attic-mc/mc/mark-next-like-this
         attic-mc/mc/mark-previous-like-this
         attic-mc/nil
+        attic-semi-colon/attic-make/body-and-exit
         attic-semi-colon/attic-mc/body-and-exit
         describe-key
         emms-pause

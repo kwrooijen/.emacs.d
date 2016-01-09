@@ -206,7 +206,6 @@
   :config
   (bind-key "C-x C-e" 'cider-eval-last-sexp clojure-mode-map)
   (defun attic-clojure-hook ()
-    (attic-lock)
     (paredit-mode 1)
     (electric-pair-mode -1)
     (aggressive-indent-mode 1)
@@ -267,8 +266,9 @@
 (use-package company
   :ensure t
   :config
-  (setq company-idle-delay 0.2)
+  (setq company-idle-delay 0.3)
   (setq company-minimum-prefix-length 1)
+  (add-to-list 'company-backends 'company-elm)
   (bind-key "M-f" 'company-complete-selection company-active-map)
   (bind-key "<return>" (lambda() (interactive) (company-abort) (newline)) company-active-map)
   (bind-key "SPC" (lambda() (interactive) (company-abort) (insert " ")) company-active-map)
@@ -337,7 +337,6 @@
   :ensure t
   :config
   (defun attic-elixir-hook ()
-    (attic-lock)
     (electric-pair-mode)
     (auto-complete-mode 0)
     (setq tab-stop-list tab-stop-list-2)
@@ -353,11 +352,9 @@
     (interactive)
     (async-shell-command "elm-reactor" "*elm-reactor*"))
   (defun attic-elm-hook ()
-    (attic-lock)
-    (fix-tabs 4)
-    (electric-pair-mode)
-    (elm-indentation-mode 0)
-    (setq iod--use-tab-cycle t))
+    (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
+    (company-mode)
+    (electric-pair-mode))
   (add-hook 'elm-mode-hook 'attic-elm-hook))
 
 (use-package elscreen
@@ -448,7 +445,6 @@
         (progn
           (flymake-erlang-init)
           (flymake-mode 1)))
-    (attic-lock)
     (electric-pair-mode)
     (fix-tabs 4)
     (auto-complete-mode 1)
@@ -667,7 +663,6 @@
     (previous-buffer))
 
   (defun attic-haskell-hook ()
-    (attic-lock)
     (electric-pair-mode)
     (turn-on-haskell-doc-mode)
     (turn-on-haskell-indentation)
@@ -796,17 +791,6 @@
   (bind-key "C-c C-s C-s" 'helm-multi-swoop attic-mode-map)
   (bind-key "C-c C-s C-f" 'helm-swoop-find-files-recursively attic-mode-map))
 
-(use-package help-mode
-  :config
-  (bind-key "n" 'next-line help-mode-map)
-  (bind-key "p" 'previous-line help-mode-map)
-  (bind-key "f" 'backward-char help-mode-map)
-  (bind-key "b" 'forward-char help-mode-map)
-  (bind-key "s" 'isearch-forward help-mode-map)
-  (bind-key "r" 'isearch-backward help-mode-map)
-  (bind-key "e" 'end-of-line help-mode-map)
-  (bind-key "a" 'beginning-of-line help-mode-map))
-
 (use-package highlight-numbers
   :ensure t
   :config
@@ -843,11 +827,7 @@
   :ensure t)
 
 (use-package js2-mode
-  :ensure t
-  :config
-  (defun attic-js2-hook ()
-    (attic-lock))
-  (add-hook 'js2-mode-hook 'attic-js2-hook))
+  :ensure t)
 
 (use-package key-chord
   :ensure t
@@ -975,14 +955,11 @@
       (define-key org-mode-map (kbd "C-c C-o") 'org-mode-custom-map)
       (define-key org-mode-custom-map (kbd "C-l") 'browse-url-at-point)
       (define-key org-mode-custom-map (kbd "C-t") 'org-todo))
-    (defun attic-org-mode-hook ()
-      (attic-lock))
     (add-my-todos-to-org
      (directory-files
       (expand-file-name "~/Documents/notes/Org/Todo")
       nil
       "^\\([^#|^.]\\|\\.[^.]\\|\\.\\..\\)"))
-    (add-hook 'org-mode-hook 'attic-org-mode-hook)
     (add-hook 'org-mode-hook 'org-keys-hook)))
 
 (use-package paredit
@@ -1066,7 +1043,6 @@
   :ensure t
   :config
   (defun attic-racket-hook ()
-    (attic-lock)
     (paredit-mode 1))
   (add-hook 'racket-mode-hook 'attic-racket-hook))
 
@@ -1105,7 +1081,6 @@
     (set (make-local-variable 'company-backends) '(company-racer))
     ;; Key binding to jump to method definition
     (local-set-key (kbd "M-.") #'racer-find-definition)
-    (attic-lock)
     (electric-pair-mode)
     (setq-local tab-width 4)
     (setq-local helm-dash-docsets '("Rust"))
@@ -1119,7 +1094,6 @@
 (use-package scheme
   :config
   (defun attic-scheme-mode-hook ()
-    (attic-lock)
     (paredit-mode 1)
     (company-mode t)
     (auto-complete-mode -1)
@@ -1234,7 +1208,6 @@
 
 ;;;; TODO require emacs lisp?
 (defun attic-emacs-lisp-hook ()
-  (attic-lock)
   (aggressive-indent-mode)
   (paredit-mode 1)
   (setq-local helm-dash-docsets '("Emacs Lisp")))

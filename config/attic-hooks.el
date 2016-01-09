@@ -1,11 +1,16 @@
 ;; Hooks
 
+(defun enable-key-chord ()
+  (key-chord-mode 1))
+
 (defun fix-tabs (x)
   (indy-mode t)
   (setq-local tab-width x))
 
-(add-hook 'isearch-mode-hook (lambda()
-                               (key-chord-mode 1)))
+(add-hook 'prog-mode-hook 'attic-lock)
+(add-hook 'prog-mode-hook 'enable-key-chord)
+
+(add-hook 'isearch-mode-hook 'enable-key-chord)
 
 (add-hook 'c-initialization-hook 'c-keys-hook)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
