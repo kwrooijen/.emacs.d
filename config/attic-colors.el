@@ -11,6 +11,9 @@
 (set-face-foreground 'fringe "#c6a57b")
 (set-fringe-mode '(1 . 0))
 
+(set-face-background 'font-lock-comment-delimiter-face "#2a251e")
+(set-face-background 'font-lock-comment-face "#2a251e")
+
 (set-face-attribute 'highlight-symbol-face nil :inherit 'default)
 (set-face-attribute 'highlight-numbers-number nil :foreground "#ff7f00")
 
