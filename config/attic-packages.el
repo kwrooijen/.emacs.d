@@ -1156,12 +1156,6 @@
   (setq web-mode-css-indent-offset 4)
   (setq web-mode-code-indent-offset 4))
 
-(use-package which-key
-  :ensure t
-  :init
-  (setq which-key-idle-delay 0.0)
-  (which-key-mode 1))
-
 (use-package window-numbering
   :ensure t
   :init
