@@ -242,11 +242,6 @@
 (defun c-keys-hook ()
   (define-key c-mode-base-map (kbd "C-/") 'attic/comment))
 
-(require 'doc-view)
-(define-key doc-view-mode-map (kbd "j") 'doc-view-next-line-or-next-page)
-(define-key doc-view-mode-map (kbd "k") 'doc-view-previous-line-or-previous-page)
-
-
 (defun macro-add-key (m)
   `(progn (define-key ,m (kbd ";") 'attic-semi-colon/body)))
 

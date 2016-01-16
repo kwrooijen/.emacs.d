@@ -295,6 +295,13 @@
   (bind-key ";" 'attic-semi-colon/body dired-mode-map)
   (bind-key "c z" 'attic-make-map dired-mode-map))
 
+(use-package doc-view
+  :config
+  (define-key doc-view-mode-map (kbd "j") 'doc-view-next-line-or-next-page)
+  (define-key doc-view-mode-map (kbd "k") 'doc-view-previous-line-or-previous-page)
+  (define-key doc-view-mode-map (kbd "l") 'image-forward-hscroll)
+  (define-key doc-view-mode-map (kbd "h") 'image-backward-hscroll))
+
 (use-package dockerfile-mode
   :ensure t)
 
@@ -504,10 +511,7 @@
   (use-package evil
     :ensure t
     :config
-    (define-key evil-normal-state-map ";" 'attic-semi-colon/body))
-
-  (use-package evil-lisp-state
-    :ensure t)
+    (define-key evil-normal-state-map (kbd "<SPC>") 'attic-semi-colon/body))
 
   (use-package evil-paredit
     :ensure t
