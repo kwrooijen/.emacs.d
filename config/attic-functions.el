@@ -439,4 +439,92 @@ makes)."
 (defun insert! (value)
   (insert (format "%s" value)))
 
+(defun line-only-spaces? ()
+  (save-excursion
+    (beginning-of-line)
+    (looking-at "[ \t]*$")))
+
+(defun what-line-int (&optional p)
+  "Get the current line number as an int"
+  (interactive)
+  (save-restriction
+    (widen)
+    (save-excursion
+      (beginning-of-line)
+      (if p
+          (1+ (count-lines 1 p))
+        (1+ (count-lines 1 (point)))))))
+
+(defun vim-o ()
+  (interactive)
+  (end-of-line)
+  (newline)
+  (if indy-mode
+      (indy)
+    (indent-for-tab-command))
+  (god-local-mode -1))
+
+(defun vim-O ()
+  (interactive)
+  (beginning-of-line)
+  (open-line 1)
+  (if indy-mode
+      (indy)
+    (indent-for-tab-command))
+  (god-local-mode -1))
+
+(defun forward-char-and-insert ()
+  (interactive)
+  (forward-char 1)
+  (god-local-mode -1))
+
+(defun move-end-of-line-and-insert ()
+  (interactive)
+  (move-end-of-line 1)
+  (god-local-mode -1))
+
+(defun delete-char-and-insert ()
+  (interactive)
+  (delete-char 1)
+  (god-local-mode -1))
+
+(defun replace-char (char)
+  (interactive "c")
+  (save-excursion
+    (delete-char 1)
+    (insert char)))
+
+(defun compose-delete (char &optional line)
+  (interactive "c")
+  (if (equal (string char) (or line "d"))
+      (let ((l (what-line-int)))
+        (beginning-of-line)
+        (if (line-only-spaces?)
+            (safe-kill-line)
+          (progn
+            (safe-kill-line)
+            (join-line)))
+        (back-to-indentation))
+    (save-excursion
+      (let ((beg (point)))
+        (call-interactively (key-binding (kbd (string char))))
+        (safe-kill-region beg (point))))))
+
+(defun compose-replace (char)
+  (interactive "c")
+  (compose-delete char "c")
+  (god-local-mode -1))
+
+(defun safe-kill-line ()
+  (interactive)
+  (if paredit-mode
+      (paredit-kill)
+    (kill-line)))
+
+(defun safe-kill-region (beg end)
+  (interactive)
+  (if paredit-mode
+      (paredit-kill-region beg end)
+    (kill-region beg end)))
+
 (provide 'attic-functions)

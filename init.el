@@ -5,6 +5,8 @@
 (defvar macro-active nil)
 
 (defvar mode-lock 'god)
+(defvar key-setup 'hybrid)
+;; (defvar key-setup 'off)
 ;;(defvar mode-lock 'evil)
 
 (let ((file-name-handler-alist nil))

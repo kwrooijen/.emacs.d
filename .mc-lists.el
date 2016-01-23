@@ -47,6 +47,7 @@
         evil-end-of-line
         evil-exit-visual-state
         evil-find-char
+        evil-force-normal-state
         evil-forward-char
         evil-forward-sentence
         evil-forward-word-begin
