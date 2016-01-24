@@ -7,9 +7,7 @@
         ace-jump-move
         align-regexp
         attic-lock
-        attic-lock-disable
         attic-rock-lock
-        attic-semi-colon/attic-lock-and-exit
         attic-semi-colon/body
         attic-semi-colon/remove-newline-space-and-exit
         attic/comment
@@ -26,6 +24,7 @@
         capitalize-previous-word
         cljr-splice-sexp-killing-backward
         comment-or-uncomment-region
+        compose-delete
         control-lock-enable
         copy-line-down
         dabbrev-expand

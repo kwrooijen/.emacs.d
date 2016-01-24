@@ -310,7 +310,6 @@ makes)."
 (when (equal mode-lock 'god)
   (defun attic-lock ()
     (interactive)
-    (setq cursor-type 'box)
     (deactivate-mark)
     (if (equal " *Minibuf-1*" (buffer-name))
         (keyboard-escape-quit)
@@ -496,35 +495,37 @@ makes)."
 
 (defun compose-delete (char &optional line)
   (interactive "c")
-  (if (equal (string char) (or line "d"))
-      (let ((l (what-line-int)))
-        (beginning-of-line)
-        (if (line-only-spaces?)
-            (safe-kill-line)
-          (progn
-            (safe-kill-line)
-            (join-line)))
-        (back-to-indentation))
-    (save-excursion
-      (let ((beg (point)))
-        (call-interactively (key-binding (kbd (string char))))
-        (safe-kill-region beg (point))))))
+  (cond
+   ((equal (string char) (or line "d"))
+    (let ((l (what-line-int)))
+      (beginning-of-line)
+      (if (line-only-spaces?)
+          (safe-kill-line)
+        (progn
+          (safe-kill-line)
+          (join-line)))
+      (back-to-indentation)))
+   (t (save-excursion
+        (let ((beg (point)))
+          (call-interactively (key-binding (kbd (string char))))
+          (when (and (equal char ?f) (> (- (point) 1) beg))
+            (safe-delete-char 1))
+          (safe-kill-region beg (point)))))))
 
 (defun compose-replace (char)
   (interactive "c")
   (compose-delete char "c")
   (god-local-mode -1))
 
-(defun safe-kill-line ()
-  (interactive)
-  (if paredit-mode
-      (paredit-kill)
-    (kill-line)))
+(defmacro defsafe (normal par &optional args)
+  `(defun ,(intern (format "safe-%s" normal)) ,args
+     (interactive)
+     (if (and ,(boundp 'paredit-mode) paredit-mode)
+         (apply ',par ,(cons 'list args))
+       (apply ',normal ,(cons 'list args)))))
 
-(defun safe-kill-region (beg end)
-  (interactive)
-  (if paredit-mode
-      (paredit-kill-region beg end)
-    (kill-region beg end)))
+(defsafe kill-line paredit-kill)
+(defsafe kill-region paredit-kill-region (beg end))
+(defsafe delete-char paredit-forward-delete (num))
 
 (provide 'attic-functions)
