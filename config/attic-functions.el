@@ -528,4 +528,51 @@ makes)."
 (defsafe kill-region paredit-kill-region (beg end))
 (defsafe delete-char paredit-forward-delete (num))
 
+(defun mp/store-lot-position ()
+  (point-to-register ?z))
+
+(defun mp/goto-lot-position ()
+  (interactive)
+  (if (equal (copy-marker (point)) (get-register ?z))
+      (jump-to-register ?x)
+    (progn
+      (point-to-register ?x)
+      (jump-to-register ?z))))
+
+(add-hook 'post-self-insert-hook 'mp/store-lot-position)
+
+(defun toggle-window-split ()
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (if (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
+        (let ((first-win (selected-window)))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
+
+(defun rotate-windows-helper (x d)
+  (if (equal (cdr x) nil) (set-window-buffer (car x) d)
+    (set-window-buffer (car x) (window-buffer (cadr x))) (rotate-windows-helper (cdr x) d)))
+
+(defun rotate-windows ()
+  (interactive)
+  (rotate-windows-helper (window-list) (window-buffer (car (window-list))))
+  (select-window (car (last (window-list)))))
+
 (provide 'attic-functions)

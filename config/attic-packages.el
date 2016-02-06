@@ -602,6 +602,7 @@
     (bind-key "J" '(lambda () (interactive) (join-line -1)) god-local-mode-map)
     (bind-key "/" 'attic/comment god-local-mode-map)
     (when (equal key-setup 'hybrid)
+      (define-key god-local-mode-map (kbd "SPC") 'mp/goto-lot-position)
       (define-key god-local-mode-map (kbd "h") 'backward-char)
       (define-key god-local-mode-map (kbd "j") 'next-line)
       (define-key god-local-mode-map (kbd "k") 'previous-line)
@@ -924,8 +925,6 @@
 (use-package mu4e
   :config
   (require 'smtpmail)
-
-  (define-key mu4e-main-mode-map (kbd ";") 'attic-semi-colon/body)
   (define-key mu4e-main-mode-map (kbd "p") 'previous-line)
   (define-key mu4e-main-mode-map (kbd "n") 'next-line)
   (define-key mu4e-main-mode-map (kbd "z") 'helm-buffers-list)
@@ -1223,6 +1222,15 @@
           "*cvs*"
           "*Buffer List*"
           "*Ibuffer*")))
+
+(use-package wisp-mode
+  :ensure t
+  :config
+  (defun attic-wisp-hook ()
+    (paredit-mode 1)
+    (electric-pair-mode -1)
+    (aggressive-indent-mode -1))
+  (add-hook 'wisp-mode-hook 'attic-wisp-hook))
 
 (use-package wrap-region
   :ensure t)

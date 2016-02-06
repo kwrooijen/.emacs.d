@@ -84,7 +84,9 @@
   ("h" shrink-window-horizontally "Shrink Horizontally")
   ("l" enlarge-window-horizontally "Enlarge Horizontally")
   ("j" enlarge-window "Shrink")
-  ("k" shrink-window "Enlarge"))
+  ("k" shrink-window "Enlarge")
+  ("t" toggle-window-split "Toggle")
+  ("w" rotate-windows "Rotate"))
 
 (defhydra attic-mc (:color red :columns 4)
   "Attic MC"
