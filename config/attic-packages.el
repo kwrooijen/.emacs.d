@@ -946,6 +946,7 @@
         smtpmail-debug-info t
         mu4e-update-interval 60
         message-kill-buffer-on-exit t
+        mu4e-hide-index-messages t
         ;; Requires html2text package
         mu4e-html2text-command "html2text -utf8 -width 72"
         mu4e-view-show-images t))
