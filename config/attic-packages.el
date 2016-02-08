@@ -623,8 +623,8 @@
       (define-key god-local-mode-map (kbd "C-f") 'scroll-up-command)
       (define-key god-local-mode-map (kbd "C-b") 'scroll-down-command)
 
-      (define-key god-local-mode-map (kbd "e") 'forward-sexp)
-      (define-key god-local-mode-map (kbd "E") 'backward-sexp)
+      (define-key god-local-mode-map (kbd "e") 'paredit-forward)
+      (define-key god-local-mode-map (kbd "E") 'paredit-backward)
 
       (define-key god-local-mode-map (kbd "r") 'replace-char)
       (define-key god-local-mode-map (kbd "s") 'delete-char-and-insert)

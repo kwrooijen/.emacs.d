@@ -529,7 +529,8 @@ makes)."
 (defsafe delete-char paredit-forward-delete (num))
 
 (defun mp/store-lot-position ()
-  (point-to-register ?z))
+  (unless(active-minibuffer-window)
+    (point-to-register ?z)))
 
 (defun mp/goto-lot-position ()
   (interactive)
