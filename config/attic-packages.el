@@ -235,7 +235,10 @@
 
 
 (use-package cider
-  :ensure t)
+  :ensure t
+  :config
+  (add-hook 'cider-repl-mode-hook #'paredit-mode)
+  (setq cider-auto-jump-to-error nil))
 
 (use-package comint
   :config
