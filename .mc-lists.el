@@ -94,6 +94,7 @@
         lispy-quotes
         magit-stage-item
         markdown-exdent-or-delete
+        mp/goto-lot-position
         my-comment
         org-beginning-of-line
         org-delete-char
