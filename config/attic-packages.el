@@ -38,17 +38,9 @@
 (use-package alchemist
   :ensure t
   :config
-  (setq alchemist-hooks-compile-on-save t)
-  (setq alchemist-hooks-test-on-save t)
-  (defun alchemist-compile-on-save ()
-    (when (equal major-mode 'elixir-mode)
-      (alchemist-report-run "mix compile"
-                            "alchemist-mix-report"
-                            alchemist-mix-buffer-name
-                            'alchemist-mix-mode
-                            nil
-                            t)))
-  (add-hook 'after-save-hook 'alchemist-compile-on-save)
+  (setq alchemist-hooks-compile-on-save t
+        alchemist-hooks-test-on-save t)
+
   (add-hook 'alchemist-iex-mode-hook #'company-mode)
   (bind-key "M-N" 'mc/mark-next-like-this alchemist-mode-map)
   (bind-key "M-P" 'mc/mark-previous-like-this alchemist-mode-map)
@@ -360,7 +352,9 @@
   :config
   (defun attic-elixir-hook ()
     (electric-pair-mode)
+    (aggressive-indent-mode 1)
     (auto-complete-mode 0)
+    (paredit-mode 1)
     (setq tab-stop-list tab-stop-list-2)
     (company-mode)
     (alchemist-mode)
