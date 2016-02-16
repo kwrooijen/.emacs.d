@@ -17,10 +17,6 @@
 (set-face-attribute 'highlight-symbol-face nil :inherit 'default)
 (set-face-attribute 'highlight-numbers-number nil :foreground "#ff7f00")
 
-(set-face-attribute 'hl-sexp-face nil
-                    :foreground 'unspecified
-                    :background "#2f2520")
-
 (set-face-attribute 'helm-ff-directory nil
                     :foreground 'unspecified
                     :background 'unspecified

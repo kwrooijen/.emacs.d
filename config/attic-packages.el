@@ -858,11 +858,6 @@
   ;; Highlight delay for multiple occurences
   (setq highlight-symbol-idle-delay 0))
 
-(use-package hl-sexp
-  :ensure t
-  :config
-  (global-hl-sexp-mode 1))
-
 (use-package hydra
   :ensure t
   :config
