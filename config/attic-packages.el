@@ -624,7 +624,6 @@
       (define-key god-local-mode-map (kbd "l") 'forward-char)
       (define-key god-local-mode-map (kbd "f") 'iy-go-up-to-char)
       (define-key god-local-mode-map (kbd "F") 'iy-go-to-char-backward)
-      (define-key god-local-mode-map (kbd "t") 'iy-go-to-char)
       (define-key god-local-mode-map (kbd "T") 'iy-go-to-char-backward)
       (define-key god-local-mode-map (kbd "b") 'backward-word)
       (define-key god-local-mode-map (kbd "p") 'yank)
