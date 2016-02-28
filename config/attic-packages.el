@@ -1027,8 +1027,22 @@
   (define-key paredit-mode-map (kbd "C-c C-r") 'paredit-reindent-defun)
   (define-key paredit-mode-map (kbd "C-q") 'paredit-backward-delete)
   (define-key paredit-mode-map (kbd "M-q") 'paredit-backward-kill-word)
-  (define-key paredit-mode-map (kbd "C-c C-p") 'paredit-copy-sexp-up)
-  (define-key paredit-mode-map (kbd "C-c C-n") 'paredit-copy-sexp-down)
+  (define-key paredit-mode-map (kbd "C-c C-p") 'maybe-paredit-copy-sexp-up)
+  (define-key paredit-mode-map (kbd "C-c C-n") 'maybe-paredit-copy-sexp-down)
+
+  (setq ignore-paredit-copy '(elixir-mode erlang-mode))
+
+  (defun maybe-paredit-copy-sexp-down ()
+    (interactive)
+    (if (member major-mode ignore-paredit-copy)
+        (copy-line-down)
+      (paredit-copy-sexp-down)))
+
+  (defun maybe-paredit-copy-sexp-up ()
+    (interactive)
+    (if (member major-mode ignore-paredit-copy)
+        (copy-line-up)
+      (paredit-copy-sexp-up)))
 
   (when (equal mode-lock 'evil)
     (add-hook 'paredit-mode-hook 'evil-paredit-mode))
