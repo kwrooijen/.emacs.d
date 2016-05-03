@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: iop
-# key: iop
+# name: d
+# key: d
 # binding: direct-keybinding
 # --
-IO.puts("$1 #{inspect $1}")$0
+(define $0)

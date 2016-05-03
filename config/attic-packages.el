@@ -319,7 +319,8 @@
   (setq elfeed-feeds
         '("http://feeds.5by5.tv/changelog"
           "http://feeds.twit.tv/floss.xml"
-          "http://thecommandline.net/cmdln"))
+          "http://thecommandline.net/cmdln"
+          "http://cloudevangelist.jellycast.com/podcast/feed/123"))
   (bind-key "j" 'elfeed-open-in-emms elfeed-show-mode-map)
   (bind-key ";" 'attic-semi-colon/body elfeed-show-mode-map)
   (bind-key ";" 'attic-semi-colon/body elfeed-search-mode-map)
@@ -352,7 +353,6 @@
   :config
   (defun attic-elixir-hook ()
     (electric-pair-mode)
-    (aggressive-indent-mode 1)
     (auto-complete-mode 0)
     (paredit-mode 1)
     (setq tab-stop-list tab-stop-list-2)
@@ -628,8 +628,6 @@
       (define-key god-local-mode-map (kbd "w") 'forward-word)
       (define-key god-local-mode-map (kbd "$") 'move-end-of-line)
       (define-key god-local-mode-map (kbd "0") 'move-beginning-of-line)
-      (define-key god-local-mode-map (kbd "C-f") 'scroll-up-command)
-      (define-key god-local-mode-map (kbd "C-b") 'scroll-down-command)
 
       (define-key god-local-mode-map (kbd "e") 'paredit-forward)
       (define-key god-local-mode-map (kbd "E") 'paredit-backward)
@@ -947,9 +945,9 @@
         mu4e-get-mail-command "offlineimap"
         mu4e-maildir (expand-file-name "~/Mail")
         starttls-use-gnutls t
-        smtpmail-starttls-credentials '(("mail.attichacker.com" 587 nil nil))
-        smtpmail-default-smtp-server "mail.attichacker.com"
-        smtpmail-smtp-server "mail.attichacker.com"
+        smtpmail-starttls-credentials '(("mail.hover.com" 587 nil nil))
+        smtpmail-default-smtp-server "mail.hover.com"
+        smtpmail-smtp-server "mail.hover.com"
         smtpmail-smtp-service 587
         smtpmail-debug-info t
         mu4e-update-interval 60
@@ -1183,6 +1181,9 @@
               (eldoc-mode))))
 
 (use-package spacemacs-theme
+  :ensure t)
+
+(use-package string-edit
   :ensure t)
 
 (use-package term

@@ -190,7 +190,7 @@
   ("n"    kmacro-name-last-macro "kmacro-name-last-macro")
   ("x"    kmacro-to-register "kmacro-to-register"))
 
-(defhydra attic-make (:color blue :columns 4)
+(defhydra attic-make (:color blue :columns 2)
   "[Make]"
   ("p" attic/make-stop    "Stop")
   ("r" attic/make-restart "Restart")
@@ -200,7 +200,7 @@
   ("q" attic/make-default "Make")
   ("c" attic/make-custom  "Custom"))
 
-(defhydra attic-file (:color blue :columns 4)
+(defhydra attic-file (:color blue :columns 2)
   "Attic File"
   ("f" helm-find-files "helm-find-files")
   ("d" helm-ls-git-ls "helm-ls-git-ls")
@@ -209,7 +209,7 @@
   ("h" previous-buffer "previous-buffer" :color red)
   ("l" next-buffer "next-buffer" :color red))
 
-(defhydra attic-projectile (:color blue :columns 4)
+(defhydra attic-projectile (:color blue :columns 2)
   "Helm Projectile"
   ("a" helm-projectile "helm-projectile")
   ("b" helm-projectile-switch-to-buffer "helm-projectile-switch-to-buffer")

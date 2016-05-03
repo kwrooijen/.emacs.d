@@ -8,6 +8,7 @@
         align-regexp
         attic-lock
         attic-rock-lock
+        attic-semi-colon/attic-lock-and-exit
         attic-semi-colon/body
         attic-semi-colon/remove-newline-space-and-exit
         attic/comment
@@ -23,6 +24,7 @@
         c-electric-star
         capitalize-previous-word
         cljr-splice-sexp-killing-backward
+        comint-delchar-or-maybe-eof
         comment-or-uncomment-region
         compose-delete
         control-lock-enable
@@ -60,6 +62,7 @@
         evil-visual-char
         forward-sentence
         forward-sexp
+        geiser-eval-last-sexp
         ghc-insert-template
         ghc-save-buffer
         god-mode-disable
@@ -76,6 +79,7 @@
         info
         iy-go-to-char
         iy-go-to-char--command
+        iy-go-up-to-char
         jump-char-forward
         jump-char-process-char
         kbd-macro-query
@@ -94,6 +98,8 @@
         lispy-quotes
         magit-stage-item
         markdown-exdent-or-delete
+        maybe-paredit-copy-sexp-down
+        move-end-of-line-and-insert
         mp/goto-lot-position
         my-comment
         org-beginning-of-line
@@ -108,6 +114,7 @@
         paredit-backward
         paredit-backward-kill-word
         paredit-close-round-and-newline
+        paredit-close-square
         paredit-forward
         paredit-forward-barf-sexp
         paredit-forward-delete
@@ -124,6 +131,7 @@
         paste-from-clipboard
         pop-to-mark-command
         repeat
+        safe-kill-line
         save-and-lock2
         select-window-1
         select-window-2
@@ -218,6 +226,7 @@
         transpose-words
         undefined
         upcase-region
+        vim-O
         vim-o
         x-clipboard-yank
         yank-pop-or-kill-ring
@@ -253,4 +262,5 @@
         mouse-appearance-menu
         my/grep
         special-lispy-other-mode
+        wdired-finish-edit
         ))

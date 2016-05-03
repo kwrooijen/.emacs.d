@@ -328,6 +328,9 @@ makes)."
   (defun attic-lock ()
     (evil-force-normal-state)))
 
+(when (equal mode-lock 'none)
+  (defun attic-lock ()))
+
 (defadvice keyboard-escape-quit (around attic-ad/my-keyboard-escape-quit-around activate)
   (let (orig-one-window-p)
     (fset 'orig-one-window-p (symbol-function 'one-window-p))
