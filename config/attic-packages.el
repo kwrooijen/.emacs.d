@@ -834,6 +834,8 @@
 
 (use-package helm-projectile
   :ensure t
+  :config
+  (setq projectile-use-git-grep t)
   :init
   (projectile-global-mode 1))
 
@@ -1181,6 +1183,9 @@
               (eldoc-mode))))
 
 (use-package spacemacs-theme
+  :ensure t)
+
+(use-package swiper
   :ensure t)
 
 (use-package string-edit

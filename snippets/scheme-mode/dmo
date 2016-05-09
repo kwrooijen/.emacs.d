@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: dm
-# key: dm
+# name: dmo
+# key: dmo
 # binding: direct-keybinding
 # --
 (define-module ($1)

@@ -10,6 +10,7 @@
         attic-rock-lock
         attic-semi-colon/attic-lock-and-exit
         attic-semi-colon/body
+        lispy-delete-backward
         attic-semi-colon/remove-newline-space-and-exit
         attic/comment
         backward-delete-char
