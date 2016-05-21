@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: ds
+# key: ds
+# binding: direct-keybinding
+# --
+(define-syntax $1
+  (syntax-rules ($2)
+    (($0)
+    )))

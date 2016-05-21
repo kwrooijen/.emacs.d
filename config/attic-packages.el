@@ -858,6 +858,15 @@
   ;; Highlight delay for multiple occurences
   (setq highlight-symbol-idle-delay 0))
 
+(use-package hl-defined
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook 'hdefd-highlight-mode)
+  (add-hook 'scheme-mode-hook 'hdefd-highlight-mode)
+  (add-hook 'clojure-mode-hook 'hdefd-highlight-mode)
+  (setq hdefd-highlight-type 'functions)
+  (set-face-attribute 'hdefd-functions nil :inherit 'font-lock-function-name-face))
+
 (use-package hydra
   :ensure t
   :config

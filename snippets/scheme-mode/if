@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: dma
-# key: dma
+# name: if
+# key: if
 # binding: direct-keybinding
 # --
-(define-macro ($1)
+(if $1
   $0)

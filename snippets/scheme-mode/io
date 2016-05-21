@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# name: dma
-# key: dma
+# name: io
+# key: io
 # binding: direct-keybinding
 # --
-(define-macro ($1)
-  $0)
+(display $1)$0

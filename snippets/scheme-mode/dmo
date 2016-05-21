@@ -5,5 +5,4 @@
 # --
 (define-module ($1)
   #:use-module ($2)
-  #:export ($3))
-$0
+  #:export ($3))$0

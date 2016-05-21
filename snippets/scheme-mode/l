@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: dma
-# key: dma
+# name: l
+# key: l
 # binding: direct-keybinding
 # --
-(define-macro ($1)
+(let ([$1])
   $0)
