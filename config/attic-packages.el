@@ -516,6 +516,7 @@
     (bind-key "M-m" 'eshell-bol eshell-mode-map)
     (bind-key "C-M-m" 'eshell-broadcast eshell-mode-map))
   (add-hook 'eshell-mode-hook 'attic-eshell-hook))
+
 (when (equal mode-lock 'evil)
   (use-package evil
     :ensure t
@@ -526,7 +527,6 @@
     :ensure t
     :config
     (evil-paredit-mode)))
-
 
 (use-package eww
   :config
@@ -1288,7 +1288,10 @@
 (use-package yasnippet
   :ensure t
   :init
-  (yas-global-mode t))
+  (yas-global-mode t)
+  (add-hook 'snippet-mode-hook
+            (lambda ()
+              (setq-local require-final-newline nil))))
 
 (if window-system
     (require 'git-gutter-fringe+)

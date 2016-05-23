@@ -7,6 +7,9 @@
   (indy-mode t)
   (setq-local tab-width x))
 
+(add-hook 'fundamental-mode-hook (lambda ()
+                                   (setq-local require-final-newline nil)))
+
 (add-hook 'prog-mode-hook 'attic-lock)
 (add-hook 'prog-mode-hook 'enable-key-chord)
 

@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# name: if
-# key: if
+# name: cons
+# key: cons
 # binding: direct-keybinding
 # --
-(if $1
-    $0)
+(cons $0)

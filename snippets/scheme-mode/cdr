@@ -1,7 +1,6 @@
 # -*- mode: snippet -*-
-# name: if
-# key: if
+# name: cdr
+# key: cdr
 # binding: direct-keybinding
 # --
-(if $1
-    $0)
+(cdr $0)

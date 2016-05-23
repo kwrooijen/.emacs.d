@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: if
-# key: if
+# name: m
+# key: m
 # binding: direct-keybinding
 # --
-(if $1
-    $0)
+(match ${1:match}
+  [$0])
