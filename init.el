@@ -4,12 +4,12 @@
 ;; Macro is not active at boot, setting variable
 (defvar macro-active nil)
 
-(defvar mode-lock 'god)
-(defvar key-setup 'hybrid)
-;; (defvar key-setup 'off)
-;;(defvar mode-lock 'evil)
+;; (defvar key-setup 'hybrid)
+(defvar key-setup 'off)
+(defvar mode-lock 'evil)
 
 (let ((file-name-handler-alist nil))
+  (add-to-list 'load-path "~/.emacs.d/multiple-cursors.el")
   (add-to-list 'load-path "~/.emacs.d/config")
   (add-to-list 'load-path "~/.emacs.d/plugins")
   (add-to-list 'load-path "~/.emacs.d/tempo")
@@ -21,6 +21,7 @@
   (require 'attic-keys)
   (require 'attic-hooks)
   (require 'attic-colors)
+  (require 'multiple-cursors)
   (when (file-exists-p "~/.system.el")
     (load-file "~/.system.el")))
 

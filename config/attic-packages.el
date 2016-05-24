@@ -521,12 +521,27 @@
   (use-package evil
     :ensure t
     :config
-    (define-key evil-normal-state-map (kbd "<SPC>") 'attic-semi-colon/body))
+    (define-key evil-normal-state-map (kbd "<SPC>") 'attic-semi-colon/body)
+    (define-key evil-normal-state-map (kbd "[") 'evil-bracket-open)
+    (define-key evil-normal-state-map (kbd "]") 'evil-bracket-close)
+    (defun evil-bracket-open ()
+      (interactive)
+      (if (member major-mode '(scheme-mode emacs-lisp-mode))
+          (evil-lispy/enter-state-left)))
+    (defun evil-bracket-close ()
+      (interactive)
+      (if (member major-mode '(scheme-mode emacs-lisp-mode))
+          (evil-lispy/enter-state-right))))
 
   (use-package evil-paredit
     :ensure t
     :config
-    (evil-paredit-mode)))
+    (evil-paredit-mode))
+  (use-package evil-lispy
+    :ensure t
+    :config
+    (add-hook 'scheme-mode-hook 'evil-lispy-mode)
+    (add-hook 'emacs-lisp-mode-hook 'evil-lispy-mode)))
 
 (use-package eww
   :config
@@ -549,8 +564,14 @@
 (use-package geiser
   :ensure t
   :config
+  (defun evil-geiser-eval-last-sexp ()
+    (interactive)
+    (save-excursion
+      (forward-char 1)
+      (geiser-eval-last-sexp nil)))
   (defun attic-geiser-hook ()
     (define-key geiser-mode-map (kbd "M-.") 'find-tag)
+    (define-key geiser-mode-map (kbd "C-x C-e") 'evil-geiser-eval-last-sexp)
     (paredit-mode 1))
   (add-hook 'geiser-mode-hook 'attic-geiser-hook)
   (add-hook 'geiser-repl-mode-hook 'attic-geiser-hook))
@@ -979,7 +1000,6 @@
   (mu4e-maildirs-extension))
 
 (use-package multiple-cursors
-  :ensure t
   :config
   (bind-key "<return>" 'newline mc/keymap)
   (bind-key "M-P" 'mc/mark-previous-like-this attic-mode-map)

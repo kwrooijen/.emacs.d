@@ -62,7 +62,7 @@
     ("s" async-shell-command "ASync Shell")
     ("b" helm-bookmarks "Bookmarks")
     ("d" swiper "Swiper")
-    ("e" eww "Eww")
+    ("e" evil-geiser-eval-last-sexp "Eval")
     ("f" attic-file/body "File")
     ("w" attic-window/body "Window")
     ("n" attic-mc/body "Multi Cursor")
