@@ -16,6 +16,7 @@
   (add-to-list 'load-path "~/.emacs.d/plugins")
   (add-to-list 'load-path "~/.emacs.d/tempo")
   (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+  (require 'multiple-cursors)
   (require 'attic-options)
   (require 'attic-functions)
   (require 'attic-packages)
@@ -23,7 +24,6 @@
   (require 'attic-keys)
   (require 'attic-hooks)
   (require 'attic-colors)
-  (require 'multiple-cursors)
   (when (file-exists-p "~/.system.el")
     (load-file "~/.system.el"))
 
