@@ -9,6 +9,8 @@
 (defvar mode-lock 'evil)
 
 (let ((file-name-handler-alist nil))
+  (unless (file-exists-p "~/.emacs.d/multiple-cursors.el/multiple-cursors.el")
+    (shell-command "cd ~/.emacs.d && git submodule init && git submodule update"))
   (add-to-list 'load-path "~/.emacs.d/multiple-cursors.el")
   (add-to-list 'load-path "~/.emacs.d/config")
   (add-to-list 'load-path "~/.emacs.d/plugins")
@@ -23,6 +25,12 @@
   (require 'attic-colors)
   (require 'multiple-cursors)
   (when (file-exists-p "~/.system.el")
-    (load-file "~/.system.el")))
+    (load-file "~/.system.el"))
+
+  ;; temp hack
+  (bind-key "<return>" 'newline mc/keymap)
+  (bind-key "M-P" 'mc/mark-previous-like-this attic-mode-map)
+  (bind-key "M-N" 'mc/mark-next-like-this attic-mode-map)
+  (multiple-cursors-mode t))
 
 (setq gc-cons-threshold 800000)

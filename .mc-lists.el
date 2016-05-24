@@ -10,7 +10,6 @@
         attic-rock-lock
         attic-semi-colon/attic-lock-and-exit
         attic-semi-colon/body
-        lispy-delete-backward
         attic-semi-colon/remove-newline-space-and-exit
         attic/comment
         backward-delete-char
@@ -57,6 +56,7 @@
         evil-insert
         evil-next-line
         evil-normal-state
+        evil-paredit-delete
         evil-paste-after
         evil-previous-line
         evil-substitute
@@ -93,6 +93,7 @@
         lispy-braces
         lispy-brackets
         lispy-delete
+        lispy-delete-backward
         lispy-kill
         lispy-move-down
         lispy-parens

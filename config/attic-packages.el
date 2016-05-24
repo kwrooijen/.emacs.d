@@ -999,13 +999,6 @@
   :init
   (mu4e-maildirs-extension))
 
-(use-package multiple-cursors
-  :config
-  (bind-key "<return>" 'newline mc/keymap)
-  (bind-key "M-P" 'mc/mark-previous-like-this attic-mode-map)
-  (bind-key "M-N" 'mc/mark-next-like-this attic-mode-map)
-  (multiple-cursors-mode t))
-
 (use-package org
   :config
   (when (file-exists-p "~/Documents/notes/Org")
