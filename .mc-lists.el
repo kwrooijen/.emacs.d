@@ -6,11 +6,9 @@
         ace-jump-mode
         ace-jump-move
         align-regexp
-        attic-lock
         attic-rock-lock
-        attic-semi-colon/attic-lock-and-exit
-        attic-semi-colon/body
-        attic-semi-colon/remove-newline-space-and-exit
+        attic-main/body
+        attic-main/remove-newline-space-and-exit
         attic/comment
         backward-delete-char
         backward-kill-sexp
@@ -66,10 +64,6 @@
         geiser-eval-last-sexp
         ghc-insert-template
         ghc-save-buffer
-        god-mode-disable
-        god-mode-meta
-        god-mode-self-insert
-        godly/lambda-c
         haskell-indentation-delete-char
         haskell-newline-and-indent
         helm-buffers-list
@@ -245,17 +239,11 @@
         attic-mc/mc/mark-next-like-this
         attic-mc/mc/mark-previous-like-this
         attic-mc/nil
-        attic-semi-colon/attic-make/body-and-exit
-        attic-semi-colon/attic-mc/body-and-exit
+        attic-main-olon/attic-make/body-and-exit
+        attic-main-olon/attic-mc/body-and-exit
         describe-key
         emms-pause
         execute-rust
-        god-g
-        god-mode-enable
-        godly/lambda-N
-        godly/lambda-P
-        godly/lambda-n
-        godly/lambda-p
         goto-line
         helm-M-x
         helm-maybe-exit-minibuffer

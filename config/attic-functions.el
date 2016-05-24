@@ -307,30 +307,6 @@ makes)."
 (defun mc-active ()
   (and (boundp 'multiple-cursors-mode) multiple-cursors-mode))
 
-(when (equal mode-lock 'god)
-  (defun attic-lock ()
-    (interactive)
-    (deactivate-mark)
-    (if (equal " *Minibuf-1*" (buffer-name))
-        (keyboard-escape-quit)
-      (unless (or (mc-active) macro-active
-                  (not macro-active)
-                  (and (equal mode-lock 'god)
-                       (boundp 'god-local-mode)
-                       (not god-local-mode)))
-        (progn
-          (call-interactively (key-binding (kbd "C-g")))
-          (keyboard-escape-quit))))
-    (unless (member major-mode god-exempt-major-modes)
-      (god-local-mode 1))))
-
-(when (equal mode-lock 'evil)
-  (defun attic-lock ()
-    (evil-force-normal-state)))
-
-(when (equal mode-lock 'none)
-  (defun attic-lock ()))
-
 (defadvice keyboard-escape-quit (around attic-ad/my-keyboard-escape-quit-around activate)
   (let (orig-one-window-p)
     (fset 'orig-one-window-p (symbol-function 'one-window-p))
@@ -341,7 +317,7 @@ makes)."
 
 (defun remove-newline-space ()
   (interactive)
-  (flet ((point-is-blank () (member (thing-at-point 'char t) '("\n" "\s"))))
+  (cl-flet ((point-is-blank () (member (thing-at-point 'char t) '("\n" "\s"))))
     (unless (and (point-is-blank)
                  (equal (current-column) 0))
       (backward-char 1))
@@ -456,69 +432,6 @@ makes)."
       (if p
           (1+ (count-lines 1 p))
         (1+ (count-lines 1 (point)))))))
-
-(defun vim-o ()
-  (interactive)
-  (end-of-line)
-  (newline)
-  (if indy-mode
-      (indy)
-    (indent-for-tab-command))
-  (god-local-mode -1))
-
-(defun vim-O ()
-  (interactive)
-  (beginning-of-line)
-  (open-line 1)
-  (if indy-mode
-      (indy)
-    (indent-for-tab-command))
-  (god-local-mode -1))
-
-(defun forward-char-and-insert ()
-  (interactive)
-  (forward-char 1)
-  (god-local-mode -1))
-
-(defun move-end-of-line-and-insert ()
-  (interactive)
-  (move-end-of-line 1)
-  (god-local-mode -1))
-
-(defun delete-char-and-insert ()
-  (interactive)
-  (delete-char 1)
-  (god-local-mode -1))
-
-(defun replace-char (char)
-  (interactive "c")
-  (save-excursion
-    (delete-char 1)
-    (insert char)))
-
-(defun compose-delete (char &optional line)
-  (interactive "c")
-  (cond
-   ((equal (string char) (or line "d"))
-    (let ((l (what-line-int)))
-      (beginning-of-line)
-      (if (line-only-spaces?)
-          (safe-kill-line)
-        (progn
-          (safe-kill-line)
-          (join-line)))
-      (back-to-indentation)))
-   (t (save-excursion
-        (let ((beg (point)))
-          (call-interactively (key-binding (kbd (string char))))
-          (when (and (equal char ?f) (> (- (point) 1) beg))
-            (safe-delete-char 1))
-          (safe-kill-region beg (point)))))))
-
-(defun compose-replace (char)
-  (interactive "c")
-  (compose-delete char "c")
-  (god-local-mode -1))
 
 (defmacro defsafe (normal par &optional args)
   `(defun ,(intern (format "safe-%s" normal)) ,args

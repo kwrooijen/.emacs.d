@@ -4,10 +4,6 @@
 ;; Macro is not active at boot, setting variable
 (defvar macro-active nil)
 
-;; (defvar key-setup 'hybrid)
-(defvar key-setup 'off)
-(defvar mode-lock 'evil)
-
 (let ((file-name-handler-alist nil))
   (unless (file-exists-p "~/.emacs.d/multiple-cursors.el/multiple-cursors.el")
     (shell-command "cd ~/.emacs.d && git submodule init && git submodule update"))

@@ -1,4 +1,5 @@
 (define-prefix-command 'attic-make-map)
+(require 'flyspell)
 
 (defun attic-key(key function)
   (define-key attic-mode-map (kbd key) function))
@@ -8,7 +9,6 @@
         '(("C-c C-o" switch-to-minibuffer)
           ("C-c C-=" increment-decimal)
           ("C-c C--" decrement-decimal)
-          ("C-;" attic-semi-colon/body)
           ("C-u" undo)
           ("M-u" redo)
           ("C-_" universal-argument)
@@ -37,46 +37,44 @@
           ("M-I" tab-to-tab-stop-line-or-region-backward)
           ("M-y" yank-pop-or-kill-ring)))
 
-(define-key attic-mode-map
-  (kbd "C-;")
-  (defhydra attic-semi-colon (:color blue :columns 7)
-    "Attic"
-    ("<tab>" buffer-toggle "Buffer Toggle")
-    ("`" elscreen-toggle "Elscreen Toggle")
-    ("RET" nil)
-    ("'" helm-org-capture-templates nil)
-    ("." create-tags "Tag")
-    ("0" elscreen-goto-0 nil)
-    ("1" elscreen-goto-1 nil)
-    ("2" elscreen-goto-2 nil)
-    ("3" elscreen-goto-3 nil)
-    ("4" elscreen-goto-4 nil)
-    ("5" elscreen-goto-5 nil)
-    ("6" elscreen-goto-6 nil)
-    ("7" elscreen-goto-7 nil)
-    ("8" elscreen-goto-8 nil)
-    ("9" elscreen-goto-9 nil)
-    (";" elscreen-toggle nil)
-    ("<SPC>" pop-to-mark-command "Pop Mark" :color red)
-    ("M-d" swiper nil)
-    ("s" async-shell-command "ASync Shell")
-    ("b" helm-bookmarks "Bookmarks")
-    ("d" swiper "Swiper")
-    ("e" evil-geiser-eval-last-sexp "Eval")
-    ("f" attic-file/body "File")
-    ("w" attic-window/body "Window")
-    ("n" attic-mc/body "Multi Cursor")
-    ("g" magit-status "Magit")
-    ("i" remove-newline-space nil)
-    ("j" attic-lock "Lock")
-    ("k" kill-buffer "Kill")
-    ("m" attic-emms/body "EMMS")
-    ("q" attic-make/body "Make")
-    ("a" attic-projectile/body "Projectile")
-    ("x" helm-M-x "M-x")
-    ("r" rgrep "RGrep")
-    ("t" transpose-mark nil)
-    ("c" attic-macro/body "Macro")))
+(defhydra attic-main (:color blue :columns 7)
+  "Attic"
+  ("<tab>" buffer-toggle "Buffer Toggle")
+  ("`" elscreen-toggle "Elscreen Toggle")
+  ("RET" nil)
+  ("'" helm-org-capture-templates nil)
+  ("." create-tags "Tag")
+  ("0" elscreen-goto-0 nil)
+  ("1" elscreen-goto-1 nil)
+  ("2" elscreen-goto-2 nil)
+  ("3" elscreen-goto-3 nil)
+  ("4" elscreen-goto-4 nil)
+  ("5" elscreen-goto-5 nil)
+  ("6" elscreen-goto-6 nil)
+  ("7" elscreen-goto-7 nil)
+  ("8" elscreen-goto-8 nil)
+  ("9" elscreen-goto-9 nil)
+  (";" elscreen-toggle nil)
+  ("<SPC>" pop-to-mark-command "Pop Mark" :color red)
+  ("M-d" swiper nil)
+  ("s" async-shell-command "ASync Shell")
+  ("b" helm-bookmarks "Bookmarks")
+  ("d" swiper "Swiper")
+  ("e" evil-geiser-eval-last-sexp "Eval")
+  ("f" attic-file/body "File")
+  ("w" attic-window/body "Window")
+  ("n" attic-mc/body "Multi Cursor")
+  ("g" magit-status "Magit")
+  ("i" remove-newline-space nil)
+  ("j" evil-normal-state "Lock")
+  ("k" kill-buffer "Kill")
+  ("m" attic-emms/body "EMMS")
+  ("q" attic-make/body "Make")
+  ("a" attic-projectile/body "Projectile")
+  ("x" helm-M-x "M-x")
+  ("r" rgrep "RGrep")
+  ("t" transpose-mark nil)
+  ("c" attic-macro/body "Macro"))
 
 (defhydra attic-window (:color red :columns 4)
   "Attic Window"
@@ -248,20 +246,19 @@
   (define-key c-mode-base-map (kbd "C-/") 'attic/comment))
 
 (defun macro-add-key (m)
-  `(progn (define-key ,m (kbd ";") 'attic-semi-colon/body)))
+  `(progn (define-key ,m (kbd "<SPC>") 'attic-main/body)))
 
-(defmacro add-semi-colon-to-modes (&rest modes)
+(defmacro add-attic-main-to-modes (&rest modes)
   (let ((forms (mapcar 'macro-add-key modes)))
     `(progn ,@forms)))
 
-(add-semi-colon-to-modes messages-buffer-mode-map
+(add-attic-main-to-modes messages-buffer-mode-map
                          help-mode-map
                          doc-view-mode-map
                          package-menu-mode-map
                          dired-mode-map
                          elfeed-show-mode-map
                          elfeed-search-mode-map
-                         grep-mode-map
                          grep-mode-map
                          magit-status-mode-map
                          magit-revision-mode-map
