@@ -163,14 +163,6 @@
 (use-package dash
   :ensure t)
 
-(use-package dired
-  :config
-  (require 'dired)
-  (bind-key "c f" 'helm-ls-git-ls dired-mode-map)
-  (bind-key "z" 'helm-buffers-list dired-mode-map)
-  (bind-key "c m" 'magit-status dired-mode-map)
-  (bind-key "c z" 'attic-make-map dired-mode-map))
-
 (use-package doc-view
   :config
   (define-key doc-view-mode-map (kbd "j") 'doc-view-next-line-or-next-page)
@@ -391,6 +383,9 @@
   (define-key evil-normal-state-map (kbd "<SPC>") 'attic-main/body)
   (define-key evil-normal-state-map (kbd "[") 'evil-bracket-open)
   (define-key evil-normal-state-map (kbd "]") 'evil-bracket-close)
+  (define-key evil-normal-state-map (kbd "C-/") 'attic/comment)
+  (define-key evil-insert-state-map (kbd "C-/") 'attic/comment)
+  (define-key evil-visual-state-map (kbd "C-/") 'attic/comment)
   (defun evil-bracket-open ()
     (interactive)
     (if (member major-mode '(scheme-mode emacs-lisp-mode))
@@ -531,8 +526,6 @@
    helm-split-window-in-side-p t
    ;; Split when multiple windows open
    helm-swoop-split-with-multiple-windows t
-   ;; Show relative path
-   helm-ls-git-ls-show-abs-or-relative 'relative
    ;; Don't show colors in Tramp mode
    helm-ff-tramp-not-fancy t
    ;; Smarter completion for Helm
@@ -600,9 +593,6 @@
   (bind-key "C-c C-s C-d" 'helm-dash attic-mode-map))
 
 (use-package helm-descbinds
-  :ensure t)
-
-(use-package helm-ls-git
   :ensure t)
 
 (use-package helm-projectile
@@ -1025,7 +1015,7 @@
   :ensure t
   :init
   (yas-global-mode t)
-  (add-hook 'elixir-mode-hook 'yas-minor-mode)
+  (add-hook 'prog-mode-hook 'yas-minor-mode)
   (add-hook 'snippet-mode-hook
             (lambda ()
               (setq-local require-final-newline nil))))

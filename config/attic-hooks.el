@@ -11,52 +11,23 @@
                                    (setq-local require-final-newline nil)))
 
 (add-hook 'prog-mode-hook 'enable-key-chord)
-
 (add-hook 'isearch-mode-hook 'enable-key-chord)
-
 (add-hook 'c-initialization-hook 'c-keys-hook)
 (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl)
 (add-hook 'message-mode-hook (lambda () (electric-pair-mode 0)))
 
-(add-hook 'racket-repl-mode-hook (lambda ()
-    (define-key ac-complete-mode-map (kbd "<return>")
-      (lambda() (interactive) (ac-stop) (racket-repl-eval-or-newline-and-indent)))))
-
-;; Dear god what was I thinking? I'm supposed to be writing Lisp!!!!!!!
 (setq indy-rules '(
-    (all . (
-        ((and (indy--prev 'indy--ends-on "[") (indy--current 'indy--starts-with "]")) (indy--prev-tab))
-        ((and (indy--prev 'indy--ends-on "{") (indy--current 'indy--starts-with "}")) (indy--prev-tab))
-        ((and (indy--prev 'indy--ends-on "(") (indy--current 'indy--starts-with ")")) (indy--prev-tab))
-
-        ((indy--current 'indy--starts-with "]" "}" ")") (indy--prev-tab -1))
-        ((indy--prev 'indy--ends-on "[" "{" "(")  (indy--prev-tab 1))
-        ((indy--prev 'indy--ends-on ",")          (indy--prev-tab))
-    ))
     (erlang-mode . (
         ((indy--prev 'indy--ends-on "->" "fun" "of" "begin") (indy--prev-tab 1))
         ((indy--prev 'indy--ends-on ";") (indy--prev-tab -1))
         ((and (indy--prev 'indy--ends-on "end") (indy--current 'indy--starts-with "end")) (indy--prev-tab -1))
         ((indy--current 'indy--ends-on "end") (indy--prev-tab -1))
-    ))
-    (haskell-mode . (
-        ((indy--prev 'indy--starts-with ",") (indy--prev-tab))
-        ((indy--prev 'indy--starts-with "[") (indy--prev-tab))
-        ((indy--prev 'indy--ends-on "=" "= do" "=do") (indy--prev-tab 1))
-    ))
-    (elm-mode . (
-        ((indy--prev 'indy--starts-with ",") (indy--prev-tab))
-        ((and (indy--current 'indy--starts-with ", ") (indy--prev 'indy--starts-with "[")) (indy--prev-tab))
-        ((indy--prev 'indy--ends-on "=") (indy--prev-tab 1))
-        ((and (indy--current 'indy--starts-with ", ") (or (indy--prev 'indy--starts-with ", ") (indy--prev 'indy--starts-with "[ ") )) (indy--prev-tab))
-        ((indy--current 'indy--starts-with "|> ") (indy--prev-tab))
-        ((indy--prev 'indy--ends-on "if") (indy--prev-tab 1))
-        ((and (indy--prev 'indy--starts-with "{") (indy--current 'indy--starts-with "," "}")) (indy--prev-tab))
-        ((and (indy--prev 'indy--starts-with "[") (indy--current 'indy--starts-with "," "]")) (indy--prev-tab))
-    ))
-    (elixir-mode . (
-        ((and (indy--prev 'indy--ends-on ") ->") (indy--current 'indy--starts-with "end")) (indy--prev-tab))
-        ((indy--prev 'indy--ends-on ") ->") (indy--prev-tab 1))
+        ((and (indy--prev 'indy--ends-on "[") (indy--current 'indy--starts-with "]")) (indy--prev-tab))
+        ((and (indy--prev 'indy--ends-on "{") (indy--current 'indy--starts-with "}")) (indy--prev-tab))
+        ((and (indy--prev 'indy--ends-on "(") (indy--current 'indy--starts-with ")")) (indy--prev-tab))
+        ((indy--current 'indy--starts-with "]" "}" ")") (indy--prev-tab -1))
+        ((indy--prev 'indy--ends-on "[" "{" "(")  (indy--prev-tab 1))
+        ((indy--prev 'indy--ends-on ",")          (indy--prev-tab))
     ))
 ))
 

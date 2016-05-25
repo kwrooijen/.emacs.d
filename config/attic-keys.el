@@ -14,6 +14,7 @@
           ("C-_" universal-argument)
           ("C-'" helm-M-x)
           ("C-j" iy-go-to-char)
+          ("C-/" attic/comment)
           ("M-j" iy-go-to-char-backward)
           ("C-q" backward-delete-char)
           ("M-q" backward-kill-word)
@@ -204,7 +205,6 @@
 (defhydra attic-file (:color blue :columns 2)
   "Attic File"
   ("f" helm-find-files "helm-find-files")
-  ("d" helm-ls-git-ls "helm-ls-git-ls")
   ("b" helm-bookmarks "helm-bookmarks")
   ("j" helm-buffers-list "helm-buffers-list")
   ("h" previous-buffer "previous-buffer" :color red)
