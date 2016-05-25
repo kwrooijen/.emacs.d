@@ -679,10 +679,11 @@
 (use-package lispy
   :ensure t
   :init
-  (defun lispy--eval-scheme (str)
+  (defun attic/lispy--eval ()
     (interactive)
-    (geiser-eval-definition)
-    str)
+    (if (equal major-mode 'scheme-mode)
+        (geiser-eval-definition)
+      (special-lispy-eval)))
   :config
   (defun lispy-left-no-mark ()
     (interactive)
@@ -692,7 +693,8 @@
   (define-key lispy-mode-map (kbd "d") 'lispy-different)
   (define-key lispy-mode-map (kbd "o") 'lispy-other-mode)
   (define-key lispy-mode-map (kbd "f") 'lispy-flow)
-  (define-key lispy-mode-map (kbd "i") 'evil-insert))
+  (define-key lispy-mode-map (kbd "i") 'evil-insert)
+  (define-key lispy-mode-map (kbd "e") 'attic/lispy--eval))
 
 (use-package macrostep
   :ensure t)
