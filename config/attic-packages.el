@@ -381,19 +381,14 @@
   :ensure t
   :config
   (define-key evil-normal-state-map (kbd "<SPC>") 'attic-main/body)
-  (define-key evil-normal-state-map (kbd "[") 'evil-bracket-open)
-  (define-key evil-normal-state-map (kbd "]") 'evil-bracket-close)
   (define-key evil-normal-state-map (kbd "C-/") 'attic/comment)
   (define-key evil-insert-state-map (kbd "C-/") 'attic/comment)
   (define-key evil-visual-state-map (kbd "C-/") 'attic/comment)
+  (define-key evil-normal-state-map (kbd "TAB") 'evil-bracket-open)
   (defun evil-bracket-open ()
     (interactive)
-    (if (member major-mode '(scheme-mode emacs-lisp-mode))
-        (evil-lispy/enter-state-left)))
-  (defun evil-bracket-close ()
-    (interactive)
-    (if (member major-mode '(scheme-mode emacs-lisp-mode))
-        (evil-lispy/enter-state-right))))
+    (if (member major-mode '(lisp-interaction-mode scheme-mode emacs-lisp-mode))
+        (evil-lispy/enter-state-left))))
 
 (use-package evil-paredit
   :ensure t
@@ -682,7 +677,22 @@
           mu4e-main-mode)))
 
 (use-package lispy
-  :ensure t)
+  :ensure t
+  :init
+  (defun lispy--eval-scheme (str)
+    (interactive)
+    (geiser-eval-definition)
+    str)
+  :config
+  (defun lispy-left-no-mark ()
+    (interactive)
+    (deactivate-mark)
+    (lispy-left 1))
+  (define-key lispy-mode-map (kbd "TAB") 'lispy-left-no-mark)
+  (define-key lispy-mode-map (kbd "d") 'lispy-different)
+  (define-key lispy-mode-map (kbd "o") 'lispy-other-mode)
+  (define-key lispy-mode-map (kbd "f") 'lispy-flow)
+  (define-key lispy-mode-map (kbd "i") 'evil-insert))
 
 (use-package macrostep
   :ensure t)
@@ -909,8 +919,6 @@
 (use-package scheme-complete
   :ensure t
   :config
-  (eval-after-load 'scheme
-    '(define-key scheme-mode-map "\t" 'scheme-complete-or-indent))
   (autoload 'scheme-get-current-symbol-info "scheme-complete" nil t)
   (add-hook 'scheme-mode-hook
             (lambda ()
@@ -930,6 +938,11 @@
     (setq yas-dont-activate t))
   (add-hook 'term-mode-hook 'attic-term-hook)
   (add-hook 'ansi-term-mode-hook 'attic-term-hook))
+
+(use-package tiny
+  :ensure t
+  :config
+  (define-key attic-mode-map (kbd "C-;") 'tiny-expand))
 
 (use-package toml-mode
   :ensure t
@@ -1024,7 +1037,7 @@
     (require 'git-gutter-fringe+)
   (require 'git-gutter+))
 
-;;;; TODO require emacs lisp?
+;;; TODO require emacs lisp?
 (defun attic-emacs-lisp-hook ()
   (aggressive-indent-mode)
   (paredit-mode 1)

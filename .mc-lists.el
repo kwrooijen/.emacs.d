@@ -58,6 +58,7 @@
         evil-paredit-delete-line
         evil-paste-after
         evil-previous-line
+        evil-replace-state
         evil-substitute
         evil-visual-char
         forward-sentence
@@ -109,6 +110,7 @@
         orgtbl-self-insert-command
         paredit-backslash
         paredit-backward
+        paredit-backward-barf-sexp
         paredit-backward-kill-word
         paredit-close-round-and-newline
         paredit-close-square
@@ -244,6 +246,8 @@
         attic-mc/nil
         describe-key
         emms-pause
+        evil-scroll-down
+        evil-scroll-line-down
         execute-rust
         goto-line
         helm-M-x
@@ -253,5 +257,6 @@
         mouse-appearance-menu
         my/grep
         special-lispy-other-mode
+        switch-to-minibuffer
         wdired-finish-edit
         ))
