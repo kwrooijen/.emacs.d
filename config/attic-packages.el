@@ -225,6 +225,7 @@
     (setq tab-stop-list tab-stop-list-2)
     (company-mode)
     (alchemist-mode)
+    (evil-normal-state 1)
     (setq-local helm-dash-docsets '("Elixir")))
   (add-hook 'elixir-mode-hook 'attic-elixir-hook))
 
@@ -403,6 +404,7 @@
   :ensure t
   :config
   (evil-paredit-mode))
+
 (use-package evil-lispy
   :ensure t
   :config
@@ -960,6 +962,9 @@
   (bind-key "w" 'delete-window twittering-mode-map)
   (add-hook 'twittering-mode-hook 'toggle-modeline))
 
+(use-package uuidgen
+  :ensure t)
+
 (use-package vi-tilde-fringe
   :ensure t
   :init
@@ -1020,6 +1025,7 @@
   :ensure t
   :init
   (yas-global-mode t)
+  (add-hook 'elixir-mode-hook 'yas-minor-mode)
   (add-hook 'snippet-mode-hook
             (lambda ()
               (setq-local require-final-newline nil))))

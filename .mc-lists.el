@@ -6,9 +6,9 @@
         ace-jump-mode
         ace-jump-move
         align-regexp
-        attic-rock-lock
         attic-main/body
         attic-main/remove-newline-space-and-exit
+        attic-rock-lock
         attic/comment
         backward-delete-char
         backward-kill-sexp
@@ -55,6 +55,7 @@
         evil-next-line
         evil-normal-state
         evil-paredit-delete
+        evil-paredit-delete-line
         evil-paste-after
         evil-previous-line
         evil-substitute
@@ -233,14 +234,14 @@
       '(
         ace-jump-done
         alchemist-mix-test
+        attic-main-olon/attic-make/body-and-exit
+        attic-main-olon/attic-mc/body-and-exit
         attic-make/attic/make-default-and-exit
         attic-mc/mc/cycle-backward
         attic-mc/mc/cycle-forward
         attic-mc/mc/mark-next-like-this
         attic-mc/mc/mark-previous-like-this
         attic-mc/nil
-        attic-main-olon/attic-make/body-and-exit
-        attic-main-olon/attic-mc/body-and-exit
         describe-key
         emms-pause
         execute-rust
