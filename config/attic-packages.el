@@ -13,11 +13,6 @@
 
 (require 'use-package)
 
-(defvar attic-mode-map (make-keymap) "attic-mode keymap.")
-(define-minor-mode attic-mode
-  "A minor mode for key mapping."
-  t " attic" 'attic-mode-map)
-
 (use-package ac-cider
   :ensure t)
 
@@ -372,11 +367,11 @@
 (use-package evil
   :ensure t
   :config
+  (add-hook 'minibuffer-setup-hook #'turn-off-evil-mode)
+  (evil-set-initial-state 'magit-popup-mode 'emacs)
+  (evil-set-initial-state 'magit-status-mode 'emacs)
   (define-key evil-normal-state-map (kbd "<SPC>") 'attic-main/body)
   (define-key evil-visual-state-map (kbd "<SPC>") 'attic-main/body)
-  (define-key evil-normal-state-map (kbd "C-/") 'attic/comment)
-  (define-key evil-insert-state-map (kbd "C-/") 'attic/comment)
-  (define-key evil-visual-state-map (kbd "C-/") 'attic/comment)
   (define-key evil-normal-state-map (kbd "TAB") 'evil-bracket-open)
   (defun evil-bracket-open ()
     (interactive)
@@ -403,7 +398,7 @@
 (use-package expand-region
   :ensure t
   :init
-  (bind-key "M-@" 'er/expand-region attic-mode-map))
+  (bind-key* "M-@" 'er/expand-region))
 
 (use-package flycheck-rust
   :ensure t)
@@ -412,6 +407,16 @@
   :ensure t
   :config
   (setq geiser-popup--no-jump t)
+  (defun helm-geiser ()
+    (interactive)
+    (unless (geiser-doc--manual-available-p)
+      (error "No manual available"))
+    (let ((symbol (helm :sources (helm-build-sync-source "Geiser"
+                                   :candidates (geiser-completion--symbol-list ""))
+                        :buffer "*helm Geiser")))
+      (geiser-doc--external-help geiser-impl--implementation
+                                 symbol
+                                 (geiser-eval--get-module))))
   (defun evil-geiser-eval-last-sexp ()
     (interactive)
     (save-excursion
@@ -542,8 +547,8 @@
     '(progn
        (define-key helm-map (kbd "<RET>") 'my/helm-exit-minibuffer)))
 
-  (define-key attic-mode-map (kbd "M-[") 'helm-resume)
-  (define-key attic-mode-map (kbd "M-x") 'helm-M-x)
+  (bind-key* "M-[" 'helm-resume)
+  (bind-key* "M-x" 'helm-M-x)
   (define-key helm-map (kbd "C-b") 'nil)
   (define-key helm-map (kbd "C-f") 'nil)
   (define-key helm-map (kbd "M-b") 'nil)
@@ -579,7 +584,7 @@
 (use-package helm-dash
   :ensure t
   :init
-  (bind-key "C-c C-s C-d" 'helm-dash attic-mode-map))
+  (bind-key* "C-c C-s C-d" 'helm-dash))
 
 (use-package helm-descbinds
   :ensure t)
@@ -596,8 +601,8 @@
   :config
   (define-key helm-swoop-map (kbd "M-e") 'helm-swoop-edit)
   :init
-  (bind-key "C-c C-s C-s" 'helm-multi-swoop attic-mode-map)
-  (bind-key "C-c C-s C-f" 'helm-swoop-find-files-recursively attic-mode-map))
+  (bind-key* "C-c C-s C-s" 'helm-multi-swoop)
+  (bind-key* "C-c C-s C-f" 'helm-swoop-find-files-recursively))
 
 (use-package highlight-numbers
   :ensure t
@@ -658,7 +663,9 @@
 
   (key-chord-define helm-map ";j" 'helm-keyboard-quit)
   (key-chord-define-global ";j" 'evil-force-normal-state)
-  (key-chord-define attic-mode-map ";j" 'evil-force-normal-state)
+  (key-chord-define evil-normal-state-map ";j" 'evil-force-normal-state)
+  (key-chord-define evil-insert-state-map ";j" 'evil-force-normal-state)
+  (key-chord-define evil-visual-state-map ";j" 'evil-force-normal-state)
   (key-chord-define isearch-mode-map ";j" 'isearch-abort))
 
 (use-package linum
@@ -858,18 +865,10 @@
     (paredit-mode 1))
   (add-hook 'racket-mode-hook 'attic-racket-hook))
 
-(use-package rainbow-delimiters
-  :ensure t
-  :config
-  (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'scheme-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'racket-mode-hook #'rainbow-delimiters-mode))
-
 (use-package redo+
   :ensure t
   :init
-  (bind-key "M-_" 'redo attic-mode-map))
+  (bind-key* "M-_" 'redo))
 
 (use-package ruby-mode
   :config
@@ -922,9 +921,6 @@
               (setq eldoc-documentation-function 'scheme-get-current-symbol-info)
               (eldoc-mode))))
 
-(use-package swiper
-  :ensure t)
-
 (use-package string-edit
   :ensure t)
 
@@ -938,7 +934,7 @@
 (use-package tiny
   :ensure t
   :config
-  (define-key attic-mode-map (kbd "C-;") 'tiny-expand))
+  (bind-key "C-;" 'tiny-expand))
 
 (use-package toml-mode
   :ensure t
