@@ -418,6 +418,7 @@
 (use-package geiser
   :ensure t
   :config
+  (setq geiser-popup--no-jump t)
   (defun evil-geiser-eval-last-sexp ()
     (interactive)
     (save-excursion
@@ -682,7 +683,7 @@
   (defun attic/lispy--eval ()
     (interactive)
     (if (equal major-mode 'scheme-mode)
-        (geiser-eval-definition)
+        (geiser-eval-next-sexp)
       (special-lispy-eval)))
   :config
   (defun lispy-left-no-mark ()

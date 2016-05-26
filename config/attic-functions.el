@@ -492,4 +492,19 @@ makes)."
   (rotate-windows-helper (window-list) (window-buffer (car (window-list))))
   (select-window (car (last (window-list)))))
 
+(defun geiser-eval-next-sexp (print-to-buffer-p)
+  "Eval the next sexp in the Geiser REPL.
+
+With a prefix, print the result of the evaluation to the buffer."
+  (interactive "P")
+  (let* ((ret (geiser-eval-region (save-excursion (forward-sexp) (point))
+                                  (point)
+                                  nil
+                                  t
+                                  print-to-buffer-p))
+         (str (geiser-eval--retort-result-str ret (when print-to-buffer-p ""))))
+    (when (and print-to-buffer-p (not (string= "" str)))
+      (push-mark)
+      (insert str))))
+
 (provide 'attic-functions)
