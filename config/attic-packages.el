@@ -24,14 +24,6 @@
 (use-package ace-jump-mode
   :ensure t)
 
-(use-package adjust-parens
-  :ensure t
-  :config
-  (add-hook 'emacs-lisp-mode-hook #'adjust-parens-mode)
-  (add-hook 'clojure-mode-hook #'adjust-parens-mode)
-  (add-hook 'scheme-mode-hook #'adjust-parens-mode)
-  (add-hook 'racket-mode-hook #'adjust-parens-mode))
-
 (use-package aggressive-indent
   :ensure t)
 
@@ -381,6 +373,7 @@
   :ensure t
   :config
   (define-key evil-normal-state-map (kbd "<SPC>") 'attic-main/body)
+  (define-key evil-visual-state-map (kbd "<SPC>") 'attic-main/body)
   (define-key evil-normal-state-map (kbd "C-/") 'attic/comment)
   (define-key evil-insert-state-map (kbd "C-/") 'attic/comment)
   (define-key evil-visual-state-map (kbd "C-/") 'attic/comment)
@@ -683,7 +676,7 @@
   (defun attic/lispy--eval ()
     (interactive)
     (if (equal major-mode 'scheme-mode)
-        (geiser-eval-next-sexp)
+        (geiser-eval-next-sexp nil)
       (special-lispy-eval)))
   :config
   (defun lispy-left-no-mark ()

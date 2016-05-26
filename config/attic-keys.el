@@ -36,7 +36,7 @@
           ("M-C" capitalize-previous-word)
           ("M-i" tab-to-tab-stop-line-or-region)
           ("M-I" tab-to-tab-stop-line-or-region-backward)
-          ("M-y" yank-pop-or-kill-ring)))
+          ("M-p" yank-pop-or-kill-ring)))
 
 (defhydra attic-main (:color blue :columns 7)
   "Attic"
@@ -56,7 +56,8 @@
   ("8" elscreen-goto-8 nil)
   ("9" elscreen-goto-9 nil)
   (";" elscreen-toggle nil)
-  ("<SPC>" pop-to-mark-command "Pop Mark" :color red)
+  ("<SPC>" evil-jump-backward "Jump backward" :color red)
+  ("C-<SPC>" evil-jump-forward "Jump forward" :color red)
   ("M-d" swiper nil)
   ("s" async-shell-command "ASync Shell")
   ("b" helm-buffers-list "Buffers")

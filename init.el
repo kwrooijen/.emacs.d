@@ -1,6 +1,5 @@
-(setq gc-cons-threshold 100000000)
-
-(let ((file-name-handler-alist nil))
+(let ((file-name-handler-alist nil)
+      (gc-cons-threshold 100000000))
   (unless (file-exists-p "~/.emacs.d/multiple-cursors.el/multiple-cursors.el")
     (shell-command "cd ~/.emacs.d && git submodule init && git submodule update"))
   (add-to-list 'load-path "~/.emacs.d/multiple-cursors.el")
@@ -24,5 +23,3 @@
   (bind-key "M-P" 'mc/mark-previous-like-this attic-mode-map)
   (bind-key "M-N" 'mc/mark-next-like-this attic-mode-map)
   (multiple-cursors-mode t))
-
-(setq gc-cons-threshold 800000)
