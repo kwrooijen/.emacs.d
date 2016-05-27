@@ -56,16 +56,8 @@
 (set-face-attribute 'ac-selection-face nil :inherit 'company-tooltip-common-selection)
 
 (require 'whitespace)
-(sfb '(
-       (highlight-symbol-face       "#fff" "gray20" )
-       (ac-completion-face           unspecified unspecified)
-       ))
-
-(defun daytime ()
-  (interactive)
-  (load-theme 'sanityinc-tomorrow-day t)
-  (set-face-background 'hl-line nil)
-  (set-face-attribute 'highlight-symbol-face nil :inherit 'highlight))
+(sfb '((highlight-symbol-face "#fff" "gray20" )
+       (ac-completion-face unspecified unspecified)))
 
 (set-face-attribute 'whitespace-space nil
                     :foreground "#505050"
@@ -77,55 +69,6 @@
              space-before-tab indentation
              space-after-tab space-mark tab-mark))
 
-;; Modeline
-
-(defun modeline-region-counter ()
-  (if (region-active-p)
-      (format "%sC|%sW|%sL "
-              (- (region-end) (region-beginning))
-              (count-words (region-beginning) (region-end))
-              (count-lines (region-beginning) (region-end)))
-    ""))
-
-(defun set-theme-white ()
-  (interactive)
-  (fringe-mode 0)
-  (setq-default global-font-lock-mode nil)
-  (setq-default mode-line-format nil)
-  (setq mode-line-format nil)
-  (set-face-background 'default "#fff")
-  (set-face-foreground 'default "#000"))
-
-(defun set-theme-black ()
-  (interactive)
-  (fringe-mode 0)
-  (setq-default global-font-lock-mode nil)
-  (setq-default mode-line-format nil)
-  (setq mode-line-format nil)
-  (set-face-background 'default "#000")
-  (set-face-foreground 'default "#fff"))
-
-(defun set-theme-hackergreen ()
-  (interactive)
-  (fringe-mode 0)
-  (setq-default global-font-lock-mode nil)
-  (setq-default mode-line-format nil)
-  (setq mode-line-format nil)
-  (global-font-lock-mode -1)
-  (font-lock-mode -1)
-  (set-face-background 'default "#000")
-  (set-face-foreground 'default "#0DB804"))
-
-(defun set-theme-default ()
-  (interactive)
-  (fringe-mode)
-  (setq-default global-font-lock-mode t)
-  (setq-default mode-line-format attic-mode-line-format)
-  (setq mode-line-format attic-mode-line-format)
-  (global-font-lock-mode t)
-  (font-lock-mode t)
-  (load-file "~/.emacs.d/config/attic-colors.el"))
-
 (set-face-attribute 'mode-line-buffer-id nil :foreground "#cd853f")
 (set-face-attribute 'mode-line-inactive nil :foreground "grey")
 (set-face-attribute 'vertical-border     nil :foreground "#25201b" :inherit 'fringe)
@@ -133,55 +76,3 @@
 (set-face-attribute 'elscreen-tab-current-screen-face nil :foreground nil :background nil :inherit 'fringe)
 (set-face-attribute 'elscreen-tab-current-screen-face nil :background "#2f2922" :foreground "#c6a57b")
 (set-face-attribute 'elscreen-tab-other-screen-face   nil :background "#4b4238" :foreground "#25201b")
-
-(setq attic-mode-line-format
-      '("%e"
-        (:eval
-         (let* ((active (powerline-selected-window-active))
-                (mode-line (if active (quote mode-line) (quote mode-line-inactive)))
-                (face1 (if active (quote powerline-active1) (quote powerline-inactive1)))
-                (face2 (if active (quote powerline-active2) (quote powerline-inactive2)))
-                (separator-left (intern (format "powerline-%s-%s"
-                                                (powerline-current-separator)
-                                                (car powerline-default-separator-dir))))
-                (separator-right (intern (format "powerline-%s-%s"
-                                                 (powerline-current-separator)
-                                                 (cdr powerline-default-separator-dir))))
-                (lhs (list (powerline-raw "%*" nil (quote l))
-                           (powerline-raw " ")
-                           (powerline-buffer-size nil (quote l))
-                           (powerline-buffer-id nil (quote l))
-                           (powerline-raw " ")
-                           (powerline-raw (modeline-region-counter))
-                           (funcall separator-left mode-line face1)
-                           (powerline-narrow face1 (quote l))
-                           (powerline-vc face1)))
-                (rhs (list
-                      (powerline-raw global-mode-string face1 (quote r))
-                      (powerline-raw "%4l" face1 (quote r))
-                      (powerline-raw ":" face1)
-                      (powerline-raw "%3c" face1 (quote r))
-                      (funcall separator-right face1 mode-line)
-                      (powerline-raw " ")
-                      (powerline-raw "%6p" nil (quote r))
-                      (format-time-string "%-I:%M%p")
-                      (powerline-raw " ")
-                      (powerline-hud face2 face1)))
-                (center (list (powerline-raw " " face1)
-                              (funcall separator-left face1 face2)
-                              (when (and (boundp (quote erc-track-minor-mode))
-                                         erc-track-minor-mode)
-                                (powerline-raw erc-modified-channels-object face2 (quote l)))
-                              (powerline-major-mode face2 (quote l))
-                              (powerline-process face2)
-                              (powerline-raw " " face2)
-                              (funcall separator-right face2 face1))))
-           (concat (powerline-render lhs)
-                   (powerline-fill-center face1 (/ (powerline-width center) 2.0))
-                   (powerline-render center)
-                   (powerline-fill face1 (powerline-width rhs))
-                   (powerline-render rhs))))))
-
-(setq-default mode-line-format attic-mode-line-format)
-
-(provide 'attic-colors)

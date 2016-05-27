@@ -34,6 +34,11 @@
   (bind-key "M-n" 'alchemist-goto-jump-to-next-def-symbol alchemist-mode-map)
   (bind-key "M-p" 'alchemist-goto-jump-to-previous-def-symbol alchemist-mode-map))
 
+(use-package anzu
+  :ensure t
+  :init
+  (global-anzu-mode))
+
 (use-package auto-complete
   :ensure t
   :init
@@ -399,6 +404,11 @@
   :ensure t
   :init
   (bind-key* "M-@" 'er/expand-region))
+
+(use-package fancy-battery
+  :ensure t
+  :init
+  (fancy-battery-mode))
 
 (use-package flycheck-rust
   :ensure t)
@@ -1024,6 +1034,17 @@
   (add-hook 'snippet-mode-hook
             (lambda ()
               (setq-local require-final-newline nil))))
+
+(use-package spaceline-config
+  ;; Needs to be loaded last
+  :ensure spaceline
+  :init
+  (setq powerline-default-separator 'bar)
+  :config
+  (spaceline-spacemacs-theme)
+  (spaceline-toggle-minor-modes-off)
+  (spaceline-toggle-anzu-off)
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state))
 
 (if window-system
     (require 'git-gutter-fringe+)
