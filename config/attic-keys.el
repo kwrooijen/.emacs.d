@@ -26,7 +26,7 @@
 (bind-key* "C-x C-k" 'kill-this-buffer)
 (bind-key* "C-c C-p" 'copy-line-up)
 (bind-key* "C-c C-n" 'copy-line-down)
-(bind-key* "M-p" 'yank-pop-or-kill-ring)
+(bind-key* "M-p" 'attic-M-p)
 (bind-key* "M-+" 'align-regexp)
 (bind-key* "M-C" 'capitalize-previous-word)
 (bind-key* "M-i" 'tab-to-tab-stop-line-or-region)

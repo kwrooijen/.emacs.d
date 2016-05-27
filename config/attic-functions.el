@@ -507,4 +507,10 @@ With a prefix, print the result of the evaluation to the buffer."
       (push-mark)
       (insert str))))
 
+(defun attic-M-p ()
+  (interactive)
+  (if (active-minibuffer-window)
+      (previous-history-element 1)
+    (yank-pop-or-kill-ring)))
+
 (provide 'attic-functions)

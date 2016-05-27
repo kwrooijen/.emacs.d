@@ -155,6 +155,11 @@
 (use-package dash
   :ensure t)
 
+(use-package display-time
+  :config
+  (setq display-time-default-load-average nil)
+  (display-time-mode 1))
+
 (use-package doc-view
   :config
   (define-key doc-view-mode-map (kbd "j") 'doc-view-next-line-or-next-page)
@@ -314,7 +319,8 @@
           (flymake-erlang-init)
           (flymake-mode 1)))
     (electric-pair-mode)
-    (fix-tabs 4)
+    (indy-mode t)
+    (setq-local tab-width 4)
     (auto-complete-mode 1)
     (setq-local helm-dash-docsets '("Erlang")))
   (add-hook 'erlang-mode-hook 'attic-erlang-hook))

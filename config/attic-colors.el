@@ -76,3 +76,5 @@
 (set-face-attribute 'elscreen-tab-current-screen-face nil :foreground nil :background nil :inherit 'fringe)
 (set-face-attribute 'elscreen-tab-current-screen-face nil :background "#2f2922" :foreground "#c6a57b")
 (set-face-attribute 'elscreen-tab-other-screen-face   nil :background "#4b4238" :foreground "#25201b")
+
+(provide 'attic-colors)

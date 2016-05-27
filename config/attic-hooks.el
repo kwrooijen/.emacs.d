@@ -3,10 +3,6 @@
 (defun enable-key-chord ()
   (key-chord-mode 1))
 
-(defun fix-tabs (x)
-  (indy-mode t)
-  (setq-local tab-width x))
-
 (add-hook 'fundamental-mode-hook (lambda ()
                                    (setq-local require-final-newline nil)))
 
