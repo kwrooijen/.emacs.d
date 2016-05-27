@@ -156,7 +156,7 @@
   :ensure t)
 
 (use-package display-time
-  :config
+  :init
   (setq display-time-default-load-average nil)
   (display-time-mode 1))
 
