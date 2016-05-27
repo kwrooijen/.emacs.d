@@ -1,8 +1,3 @@
-(defun new-shell (buffer)
-  "Create a new shell."
-  (interactive "sShell Name: ")
-  (eshell (concat "*" buffer "*")))
-
 (defun sudo-edit (&optional arg)
   "Edit currently visited file as root.
 With a prefix ARG prompt for a file to visit.
@@ -14,10 +9,6 @@ buffer is not visiting a file."
        (concat "/sudo:root@localhost:"
                (ido-read-file-name "Find file(as root): ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
-
-(defun ssh-add ()
-  (interactive)
-  (async-shell-command "ssh-add ~/.ssh/id_rsa"))
 
 (defun tab-to-tab-stop-line-or-region (&optional left)
   (interactive)
@@ -136,9 +127,6 @@ If file is found then return t else nil."
   "Converts STR, which is a word using underscores, to camel case."
   (interactive "S")
   (apply 'concat (mapcar 'capitalize (split-string str "_"))))
-
-(defun get-return-code (s)
-  (nth 1 (reverse (split-string s "\n"))))
 
 (defun copy-line (arg)
   "Copy lines (as many as prefix argument) in the kill ring"
@@ -293,28 +281,6 @@ makes)."
   (setq-local split-width-threshold 2000)
   (setq-local split-height-threshold 2000))
 
-(defun move-line-up ()
-  (interactive)
-  (transpose-lines 1)
-  (previous-line 2))
-
-(defun move-line-down ()
-  (interactive)
-  (next-line 1)
-  (transpose-lines 1)
-  (previous-line 1))
-
-(defun mc-active ()
-  (and (boundp 'multiple-cursors-mode) multiple-cursors-mode))
-
-(defadvice keyboard-escape-quit (around attic-ad/my-keyboard-escape-quit-around activate)
-  (let (orig-one-window-p)
-    (fset 'orig-one-window-p (symbol-function 'one-window-p))
-    (fset 'one-window-p (lambda (&optional nomini all-frames) t))
-    (unwind-protect
-        ad-do-it
-      (fset 'one-window-p (symbol-function 'orig-one-window-p)))))
-
 (defun remove-newline-space ()
   (interactive)
   (cl-flet ((point-is-blank () (member (thing-at-point 'char t) '("\n" "\s"))))
@@ -417,22 +383,6 @@ makes)."
 (defun insert! (value)
   (insert (format "%s" value)))
 
-(defun line-only-spaces? ()
-  (save-excursion
-    (beginning-of-line)
-    (looking-at "[ \t]*$")))
-
-(defun what-line-int (&optional p)
-  "Get the current line number as an int"
-  (interactive)
-  (save-restriction
-    (widen)
-    (save-excursion
-      (beginning-of-line)
-      (if p
-          (1+ (count-lines 1 p))
-        (1+ (count-lines 1 (point)))))))
-
 (defmacro defsafe (normal par &optional args)
   `(defun ,(intern (format "safe-%s" normal)) ,args
      (interactive)
@@ -443,20 +393,6 @@ makes)."
 (defsafe kill-line paredit-kill)
 (defsafe kill-region paredit-kill-region (beg end))
 (defsafe delete-char paredit-forward-delete (num))
-
-(defun mp/store-lot-position ()
-  (unless(active-minibuffer-window)
-    (point-to-register ?z)))
-
-(defun mp/goto-lot-position ()
-  (interactive)
-  (if (equal (copy-marker (point)) (get-register ?z))
-      (jump-to-register ?x)
-    (progn
-      (point-to-register ?x)
-      (jump-to-register ?z))))
-
-(add-hook 'post-self-insert-hook 'mp/store-lot-position)
 
 (defun toggle-window-split ()
   (interactive)

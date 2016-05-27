@@ -573,7 +573,7 @@
   (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
   (define-key helm-map (kbd "M-?") 'helm-help)
   (defhydra helm-like-unite ()
-    ("q" keyboard-escape-quit "exit")
+    ("q" nil "Quit" :color blue)
     ("<spc>" helm-toggle-visible-mark "mark")
     ("a" helm-toggle-all-marks "(un)mark all")
     ("v" helm-execute-persistent-action)
