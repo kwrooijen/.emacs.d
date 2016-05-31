@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:cond
+# key: cond
+# binding: direct-keybinding
+# --
+(cond
+  [$0])

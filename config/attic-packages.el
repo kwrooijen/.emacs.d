@@ -11,7 +11,9 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(require 'use-package)
+(eval-when-compile
+  (require 'use-package))
+(require 'bind-key)
 
 (use-package ac-cider
   :ensure t)
@@ -20,15 +22,20 @@
   :ensure t)
 
 (use-package aggressive-indent
-  :ensure t)
+  :ensure t
+  :config
+  (add-hook 'scheme-mode-hook 'aggressive-indent-mode)
+  (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode)
+  (add-hook 'clojure-mode-hook 'aggressive-indent-mode)
+  (add-hook 'racket-mode-hook 'aggressive-indent-mode))
 
 (use-package alchemist
   :ensure t
-  :config
+  :init
   (setq alchemist-hooks-compile-on-save t
         alchemist-hooks-test-on-save t)
-
-  (add-hook 'alchemist-iex-mode-hook #'company-mode)
+  :config
+  (add-hook 'elixir-mode-hook 'alchemist-mode)
   (bind-key "M-N" 'mc/mark-next-like-this alchemist-mode-map)
   (bind-key "M-P" 'mc/mark-previous-like-this alchemist-mode-map)
   (bind-key "M-n" 'alchemist-goto-jump-to-next-def-symbol alchemist-mode-map)
@@ -42,11 +49,10 @@
 (use-package auto-complete
   :ensure t
   :init
-  (global-auto-complete-mode)
-  :config
   (setq ac-auto-show-menu 0.3
         ac-candidate-limit 15
         ac-delay 0.3)
+  :config
   (bind-key "<return>" (lambda() (interactive) (ac-stop) (call-interactively (key-binding (kbd "C-m")))) ac-complete-mode-map)
   (bind-key "SPC" (lambda() (interactive) (ac-stop) (insert " ")) ac-complete-mode-map)
   (bind-key "C-m" (lambda() (interactive) (ac-stop) (newline)) ac-complete-mode-map)
@@ -65,19 +71,15 @@
   (add-to-list 'beacon-dont-blink-major-modes 'mu4e-main-mode))
 
 (use-package cargo
-  :ensure t)
+  :ensure t
+  :config
+  (add-hook 'rust-mode-hook 'cargo-minor-mode)
+  (add-hook 'toml-mode-hook 'cargo-minor-mode))
 
 (use-package clojure-mode
   :ensure t
   :config
-  (bind-key "C-x C-e" 'cider-eval-last-sexp clojure-mode-map)
-  (defun attic-clojure-hook ()
-    (paredit-mode 1)
-    (electric-pair-mode -1)
-    (aggressive-indent-mode 1)
-    (cider-mode 1)
-    (setq-local helm-dash-docsets '("Clojure")))
-  (add-hook 'clojure-mode-hook 'attic-clojure-hook))
+  (bind-key "C-x C-e" 'cider-eval-last-sexp clojure-mode-map))
 
 (use-package clj-refactor
   :ensure t
@@ -100,14 +102,40 @@
   (define-key clojure-mode-map (kbd "C-c C-l") 'cljr-helm))
 
 
+(use-package company
+  :ensure t
+  :init
+  (setq company-idle-delay 0.3
+        company-minimum-prefix-length 1)
+  :config
+  (add-hook 'alchemist-iex-mode-hook 'company-mode)
+  (add-hook 'rust-mode-hook 'company-mode)
+  (add-hook 'scheme-mode-hook 'company-mode)
+  (add-hook 'erlang-mode-hook 'company-mode)
+  (add-hook 'elixir-mode-hook 'company-mode)
+  (add-hook 'elm-mode-hook 'company-mode)
+  (add-hook 'emacs-lisp-mode-hook 'company-mode)
+  (add-to-list 'company-backends 'company-elm)
+  (bind-key "M-f" 'company-complete-selection company-active-map)
+  (bind-key "<return>" (lambda() (interactive) (company-abort) (newline)) company-active-map)
+  (bind-key "SPC" (lambda() (interactive) (company-abort) (insert " ")) company-active-map)
+  (bind-key "C-m" (lambda() (interactive) (company-abort) (newline)) company-active-map)
+  (bind-key ":" (lambda() (interactive) (company-abort) (insert ":")) company-active-map)
+  (bind-key "." (lambda() (interactive) (company-abort) (insert ".")) company-active-map)
+  (bind-key "M-h" 'helm-company company-active-map)
+  (bind-key "M-j" 'yas/expand company-active-map)
+  (bind-key "C-n" 'company-select-next company-active-map)
+  (bind-key "C-p" 'company-select-previous company-active-map))
+
 (use-package cider
   :ensure t
+  :init
+  (setq cider-auto-jump-to-error nil)
   :config
-  (add-hook 'cider-repl-mode-hook #'paredit-mode)
-  (setq cider-auto-jump-to-error nil))
+  (add-hook 'clojure-mode-hook 'cider-mode))
 
 (use-package comint
-  :config
+  :init
   (setq tramp-default-method "ssh"          ; uses ControlMaster
         comint-scroll-to-bottom-on-input t  ; always insert at the bottom
         comint-scroll-to-bottom-on-output nil ; always add output at the bottom
@@ -129,25 +157,9 @@
         (let ((inhibit-read-only t)
               (output-end (process-mark (get-buffer-process (current-buffer)))))
           (put-text-property comint-last-output-start output-end 'read-only t))))
+  :config
   (add-hook 'comint-output-filter-functions 'make-my-shell-output-read-only)
   (add-hook 'comint-output-filter-functions 'comint-truncate-buffer))
-
-(use-package company
-  :ensure t
-  :config
-  (setq company-idle-delay 0.3)
-  (setq company-minimum-prefix-length 1)
-  (add-to-list 'company-backends 'company-elm)
-  (bind-key "M-f" 'company-complete-selection company-active-map)
-  (bind-key "<return>" (lambda() (interactive) (company-abort) (newline)) company-active-map)
-  (bind-key "SPC" (lambda() (interactive) (company-abort) (insert " ")) company-active-map)
-  (bind-key "C-m" (lambda() (interactive) (company-abort) (newline)) company-active-map)
-  (bind-key ":" (lambda() (interactive) (company-abort) (insert ":")) company-active-map)
-  (bind-key "." (lambda() (interactive) (company-abort) (insert ".")) company-active-map)
-  (bind-key "M-h" 'helm-company company-active-map)
-  (bind-key "M-j" 'yas/expand company-active-map)
-  (bind-key "C-n" 'company-select-next company-active-map)
-  (bind-key "C-p" 'company-select-previous company-active-map))
 
 (use-package company-racer
   :ensure t)
@@ -155,9 +167,24 @@
 (use-package dash
   :ensure t)
 
-(use-package display-time
+(use-package delsel
+  :init
+  ;; Delete seleted text when typing
+  (delete-selection-mode 1))
+
+(use-package dired
+  :config
+  (defun ensure-buffer-name-begins-with-exl ()
+    "change buffer name to end with slash"
+    (let ((name (buffer-name)))
+      (if (not (string-match "/$" name))
+          (rename-buffer (concat "!" name) t))))
+  (add-hook 'dired-mode-hook 'ensure-buffer-name-begins-with-exl))
+
+(use-package time
   :init
   (setq display-time-default-load-average nil)
+  :config
   (display-time-mode 1))
 
 (use-package doc-view
@@ -170,18 +197,22 @@
 (use-package dockerfile-mode
   :ensure t)
 
+(use-package elec-pair
+  :config
+  (electric-pair-mode t)
+  (add-hook* 'message-mode-hook (electric-pair-mode -1))
+  (add-hook* 'clojure-mode-hook (electric-pair-mode -1))
+  (add-hook 'prog-mode-hook 'electric-pair-mode))
+
 (use-package elfeed
   :ensure t
-  :config
-  (setq elfeed-search-filter "@12-months-ago")
-  (setq elfeed-feeds
+  :init
+  (setq elfeed-search-filter "@12-months-ago"
+        elfeed-feeds
         '("http://feeds.5by5.tv/changelog"
           "http://feeds.twit.tv/floss.xml"
           "http://thecommandline.net/cmdln"
           "http://cloudevangelist.jellycast.com/podcast/feed/123"))
-  (bind-key "j" 'elfeed-open-in-emms elfeed-show-mode-map)
-  (bind-key "z" 'helm-M-x elfeed-show-mode-map)
-  (bind-key "z" 'helm-M-x elfeed-search-mode-map)
   (defun url-copy-file-to-path (url path)
     (let* ((file-name (car (last (split-string  url "/"))))
            (full-path (expand-file-name file-name path)))
@@ -202,21 +233,12 @@
             (let* ((url (string-remove-prefix  "Copied " (shr-copy-url)))
                    (full-path (url-copy-file-to-path url "~/Podcasts/")))
               (emms-play-file full-path)
-              (setq done t))))))))
+              (setq done t)))))))
+  :config
+  (bind-key "j" 'elfeed-open-in-emms elfeed-show-mode-map))
 
 (use-package elixir-mode
-  :ensure t
-  :config
-  (defun attic-elixir-hook ()
-    (electric-pair-mode)
-    (auto-complete-mode 0)
-    (paredit-mode 1)
-    (setq tab-stop-list tab-stop-list-2)
-    (company-mode)
-    (alchemist-mode)
-    (evil-normal-state 1)
-    (setq-local helm-dash-docsets '("Elixir")))
-  (add-hook 'elixir-mode-hook 'attic-elixir-hook))
+  :ensure t)
 
 (use-package elm-mode
   :ensure t
@@ -224,16 +246,16 @@
   (defun elm-reactor ()
     (interactive)
     (async-shell-command "elm-reactor" "*elm-reactor*"))
-  (defun attic-elm-hook ()
-    (add-hook 'elm-mode-hook #'elm-oracle-setup-completion)
-    (company-mode)
-    (electric-pair-mode))
-  (add-hook 'elm-mode-hook 'attic-elm-hook))
+  (add-hook 'elm-mode-hook #'elm-oracle-setup-completion))
 
 (use-package elscreen
   :ensure t
   :init
   (elscreen-start)
+  (setq elscreen-display-screen-number nil
+        elscreen-prefix-key nil
+        elscreen-tab-display-control nil
+        elscreen-tab-display-kill-screen nil)
   (defun elscreen-create-initial-5-screens ()
     (interactive)
     (elscreen-kill-others)
@@ -247,20 +269,16 @@
        ,(concat "Go to elscreen workspace " (number-to-string num) ".")
        (interactive)
        (elscreen-goto ,num)))
-
   (defmacro elscreen-goto-workspace-list (&rest nums)
     (let ((forms (mapcar 'elscreen-goto-template nums)))
       `(progn ,@forms)))
-
-  (elscreen-goto-workspace-list 1 2 3 4 5 6 7 8 9)
-  (setq elscreen-display-screen-number nil
-        elscreen-prefix-key nil
-        elscreen-tab-display-control nil
-        elscreen-tab-display-kill-screen nil))
+  (elscreen-goto-workspace-list 1 2 3 4 5 6 7 8 9))
 
 (use-package emms
   :ensure t
   :init
+  (setq emms-setup-default-player-list '(emms-player-vlc)
+        emms-volume-change-amount 5)
   (when (and (file-exists-p "~/Music/")
              (>  (length (directory-files "~/Music/")) 2))
     (emms-standard)
@@ -268,19 +286,17 @@
     (emms-add-directory-tree "~/Music/")
     (emms-toggle-repeat-playlist)
     (emms-shuffle)
-    (emms-playing-time-enable-display))
-  :config
-  (setq emms-setup-default-player-list '(emms-player-vlc)
-        emms-volume-change-amount 5))
+    (emms-playing-time-enable-display)))
 
 (use-package erc
+  :init
+  (setq erc-scrolltobottom-mode 1
+        erc-nick "kwrooijen"
+        erc-prompt-for-password nil
+        erc-ignore-list '("*Flowdock*" "Flowdock" "-Flowdock-")
+        erc-hide-list '("JOIN" "PART" "QUIT"))
   :config
   (erc-truncate-mode 1)
-  (erc-scrolltobottom-mode 1)
-  (setq erc-nick "kwrooijen")
-  (setq erc-prompt-for-password nil)
-  (setq erc-ignore-list '("*Flowdock*" "Flowdock" "-Flowdock-"))
-  (setq erc-hide-list '("JOIN" "PART" "QUIT"))
   (bind-key "" 'function erc-mode-map)
   (bind-key "C-M-m" 'erc-send-current-line erc-mode-map)
   (bind-key "RET" (lambda() (interactive) (message "Use C-M-m to send")) erc-mode-map)
@@ -288,117 +304,51 @@
 
 (use-package erlang
   :ensure t
-  :config
-  (setq inferior-erlang-machine-options '("-sname" "emacs"))
-  (bind-key "M-/" 'erlang-get-error erlang-mode-map)
-  (bind-key "C-c C-k"
-            (lambda() (interactive)
-              (inferior-erlang)
-              (split-window)
-              (other-window 1)
-              (other-window -1)) erlang-mode-map)
-  (bind-key "M-n" 'highlight-symbol-next erlang-mode-map)
-  (bind-key "M-p" 'highlight-symbol-prev erlang-mode-map)
-  (bind-key "M-n" 'highlight-symbol-next erlang-mode-map)
-  (bind-key "M-p" 'highlight-symbol-prev erlang-mode-map)
-  (bind-key ">"   (lambda() (interactive) (insert ">")) erlang-mode-map)
-
-  (defun flymake-erlang-init ()
-    (let* ((temp-file (flymake-init-create-temp-buffer-copy 'flymake-create-temp-intemp))
-           (local-file (file-relative-name temp-file (file-name-directory buffer-file-name))))
-      (list "~/.emacs.d/scripts/erlang/erlang-flymake" (list local-file))))
-
-  (defun erlang-get-error ()
-    (interactive)
-    (async-shell-command
-     (format "~/.emacs.d/scripts/erlang/erlang-flymake %s" buffer-file-name) "[Erlang Errors]"))
-
-  (defun attic-erlang-hook ()
-    (if (not (is-tramp-mode))
-        (progn
-          (flymake-erlang-init)
-          (flymake-mode 1)))
-    (electric-pair-mode)
-    (indy-mode t)
-    (setq-local tab-width 4)
-    (auto-complete-mode 1)
-    (setq-local helm-dash-docsets '("Erlang")))
-  (add-hook 'erlang-mode-hook 'attic-erlang-hook))
-
-(use-package eshell
+  :commands erlang-mode
   :init
-  (defun eshell-broadcast(&optional yank-eshell-input)
-    (interactive)
-    (if (or eshell-mode (equal major-mode 'shell-mode))
-        (let ((buff (get-buffer-window))
-              (col (current-column)))
-          (eshell-bol)
-          (setq eshell-indentation-column (point))
-          (move-end-of-line 1)
-          (setq eshell-oel-column (point))
-          (kill-ring-save eshell-indentation-column eshell-oel-column)
-          (move-to-column col)
-          (if eshell-mode (unless yank-eshell-input (eshell-send-input))
-            (unless yank-eshell-input (comint-send-input)))
-          (other-window 1)
-          (while (not (eq (get-buffer-window) buff))
-            (if (or eshell-mode (equal major-mode 'shell-mode))
-                (progn
-                  (end-of-buffer)
-                  (yank)
-                  (if eshell-mode (unless yank-eshell-input (eshell-send-input))
-                    (unless yank-eshell-input (comint-send-input)))))
-            (other-window 1)))))
-
-  (defun eshell-broadcast-diff()
-    (interactive)
-    (let ((buff-win (get-buffer-window))
-          (buff (current-buffer)))
-      (other-window 1)
-      (while (not (eq (get-buffer-window) buff-win))
-        (if (or eshell-mode (equal major-mode 'shell-mode))
-            (progn
-              (highlight-changes-mode -1)
-              (highlight-compare-buffers buff (current-buffer))))
-        (sleep-for 0.1)
-        (end-of-buffer)
-        (recenter-top-bottom (window-height))
-        (other-window 1))
-      (highlight-changes-mode -1)
-      (recenter-top-bottom (window-height))))
-
-  (defun attic-eshell-hook ()
-    (bind-key "M-p" 'eshell-previous-input eshell-mode-map)
-    (bind-key "M-n" 'eshell-next-input eshell-mode-map)
-    (bind-key "C-i" 'helm-esh-pcomplete eshell-mode-map)
-    (bind-key "M-m" 'eshell-bol eshell-mode-map)
-    (bind-key "C-M-m" 'eshell-broadcast eshell-mode-map))
-  (add-hook 'eshell-mode-hook 'attic-eshell-hook))
+  (setq inferior-erlang-machine-options '("-sname" "emacs"))
+  :config
+  (setq-mode-local erlang-mode tab-width 4)
+  (bind-key "M-/" 'erlang-get-error erlang-mode-map)
+  (bind-key "M-n" 'highlight-symbol-next erlang-mode-map)
+  (bind-key "M-p" 'highlight-symbol-prev erlang-mode-map)
+  (bind-key "M-n" 'highlight-symbol-next erlang-mode-map)
+  (bind-key "M-p" 'highlight-symbol-prev erlang-mode-map))
 
 (use-package evil
   :ensure t
   :config
   (add-hook 'minibuffer-setup-hook #'turn-off-evil-mode)
+  (add-hook 'elixir-mode-hook #'turn-on-evil-mode)
   (evil-set-initial-state 'magit-popup-mode 'emacs)
   (evil-set-initial-state 'magit-status-mode 'emacs)
+  (define-key evil-normal-state-map (kbd "C-d") 'delete-char)
   (define-key evil-normal-state-map (kbd "<SPC>") 'attic-main/body)
   (define-key evil-visual-state-map (kbd "<SPC>") 'attic-main/body)
   (define-key evil-normal-state-map (kbd "TAB") 'evil-bracket-open)
+  ;; TODO fix properly
   (defun evil-bracket-open ()
     (interactive)
     (if (member major-mode '(lisp-interaction-mode scheme-mode emacs-lisp-mode))
-        (evil-lispy/enter-state-left))))
+        (evil-lispy/enter-state-left))
+    (indent-for-tab-command))
+  (defun evil-normal-state-and-save ()
+    (interactive)
+    (evil-normal-state)
+    (save-buffer)))
 
 (use-package evil-paredit
   :ensure t
   :config
-  (evil-paredit-mode))
+  (add-hook 'paredit-mode-hook 'evil-paredit-mode))
 
 (use-package evil-lispy
   :ensure t
   :config
   (add-hook 'scheme-mode-hook 'evil-lispy-mode)
-  (add-hook 'emacs-lisp-mode-hook 'evil-lispy-mode))
+  (add-hook 'emacs-lisp-mode-hook 'evil-lispy-mode)
+  (add-hook 'clojure-mode-hook 'evil-lispy-mode)
+  (add-hook 'racket-mode-hook 'evil-lispy-mode))
 
 (use-package eww
   :config
@@ -421,8 +371,9 @@
 
 (use-package geiser
   :ensure t
-  :config
+  :init
   (setq geiser-popup--no-jump t)
+  :config
   (defun helm-geiser ()
     (interactive)
     (unless (geiser-doc--manual-available-p)
@@ -437,23 +388,19 @@
     (interactive)
     (save-excursion
       (forward-char 1)
-      (geiser-eval-last-sexp nil)))
-  (defun attic-geiser-hook ()
-    (define-key geiser-mode-map (kbd "M-.") 'find-tag)
-    (define-key geiser-mode-map (kbd "C-x C-e") 'evil-geiser-eval-last-sexp)
-    (paredit-mode 1))
-  (add-hook 'geiser-mode-hook 'attic-geiser-hook)
-  (add-hook 'geiser-repl-mode-hook 'attic-geiser-hook))
+      (geiser-eval-last-sexp nil))))
 
 (use-package gist
   :ensure t)
 
 (use-package git-gutter+
+  :if (not window-system)
   :ensure t
   :config
   (global-git-gutter+-mode t))
 
 (use-package git-gutter-fringe+
+  :if window-system
   :ensure t
   :config
   (global-git-gutter+-mode t))
@@ -472,10 +419,6 @@
 (use-package haskell-mode
   :ensure t
   :config
-  (defun run-haskell-test ()
-    (interactive)
-    (my-up-to-script "*.cabal" "cabal build ; cabal test --log=/dev/stdout" "[Haskell Tests]"))
-
   (defun hoogle-search (query)
     "Search with hoogle commandline"
     (interactive "sHoogle query: ")
@@ -493,17 +436,12 @@
     (rename-buffer "*Hoogle*")
     (haskell-mode)
     (previous-buffer))
-
-  (defun attic-haskell-hook ()
-    (electric-pair-mode)
-    (turn-on-haskell-doc-mode)
-    (turn-on-haskell-indentation)
-    (setq-local helm-dash-docsets '("Haskell")))
-  (add-hook 'haskell-mode-hook 'attic-haskell-hook))
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
 
 (use-package helm
   :ensure t
-  :config
+  :init
   (setq
    ;; truncate long lines in helm completion
    helm-truncate-lines t
@@ -552,6 +490,7 @@
    helm-bookmark-show-location t
    helm-always-two-windows t
    helm-imenu-execute-action-at-once-if-one nil)
+  :config
   ;; Try to hide source header as much as possible
   (set-face-attribute 'helm-source-header nil :height 0.1 :background "#000"  :foreground "#000")
 
@@ -600,6 +539,13 @@
 (use-package helm-dash
   :ensure t
   :init
+  (setq-mode-local clojure-mode helm-dash-docsets '("Clojure"))
+  (setq-mode-local elixir-mode helm-dash-docsets '("Elixir"))
+  (setq-mode-local emacs-lisp-mode helm-dash-docsets '("Emacs Lisp"))
+  (setq-mode-local erlang-mode helm-dash-docsets '("Erlang"))
+  (setq-mode-local haskell-mode helm-dash-docsets '("Haskell"))
+  (setq-mode-local ruby-mode helm-dash-docsets '("Ruby"))
+  (setq-mode-local rust-mode helm-dash-docsets '("Rust"))
   (bind-key* "C-c C-s C-d" 'helm-dash))
 
 (use-package helm-descbinds
@@ -607,9 +553,9 @@
 
 (use-package helm-projectile
   :ensure t
-  :config
-  (setq projectile-use-git-grep t)
   :init
+  (setq projectile-use-git-grep t)
+  :config
   (projectile-global-mode 1))
 
 (use-package helm-swoop
@@ -627,18 +573,18 @@
 
 (use-package highlight-symbol
   :ensure t
-  :config
-  ;; Highlight delay for multiple occurences
+  :init
   (setq highlight-symbol-idle-delay 0))
 
 (use-package hl-defined
   :ensure t
+  :init
+  (setq hdefd-highlight-type 'functions)
   :config
   (add-hook 'emacs-lisp-mode-hook 'hdefd-highlight-mode)
   (add-hook 'scheme-mode-hook 'hdefd-highlight-mode)
   (add-hook 'clojure-mode-hook 'hdefd-highlight-mode)
-  (setq hdefd-highlight-type 'functions)
-  (set-face-attribute 'hdefd-functions nil :inherit 'font-lock-function-name-face))
+  (set-face-attribute 'hdefd-functions nil :foreground nil :inherit 'font-lock-function-name-face))
 
 (use-package hydra
   :ensure t
@@ -656,10 +602,26 @@
     ("q" nil "Quit" :color blue)))
 
 (use-package indy
-  :ensure t)
+  :ensure t
+  :init
+  (setq indy-rules
+        '((erlang-mode
+           .
+           (((indy--prev 'indy--ends-on "->" "fun" "of" "begin") (indy--prev-tab 1))
+            ((indy--prev 'indy--ends-on ";") (indy--prev-tab -1))
+            ((and (indy--prev 'indy--ends-on "end") (indy--current 'indy--starts-with "end")) (indy--prev-tab -1))
+            ((indy--current 'indy--ends-on "end") (indy--prev-tab -1))
+            ((and (indy--prev 'indy--ends-on "[") (indy--current 'indy--starts-with "]")) (indy--prev-tab))
+            ((and (indy--prev 'indy--ends-on "{") (indy--current 'indy--starts-with "}")) (indy--prev-tab))
+            ((and (indy--prev 'indy--ends-on "(") (indy--current 'indy--starts-with ")")) (indy--prev-tab))
+            ((indy--current 'indy--starts-with "]" "}" ")") (indy--prev-tab -1))
+            ((indy--prev 'indy--ends-on "[" "{" "(") (indy--prev-tab 1))
+            ((indy--prev 'indy--ends-on ",") (indy--prev-tab))))))
+  :config
+  (add-hook 'erlang-mode-hook 'indy-mode))
 
-(use-package iy-go-to-char
-  :ensure t)
+(define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
+(define-key isearch-mode-map (kbd "TAB") 'isearch-exit)
 
 (use-package jazz-theme
   :ensure t)
@@ -669,26 +631,18 @@
 
 (use-package key-chord
   :ensure t
-  :init
-  (key-chord-mode t)
   :config
-  (key-chord-define-global "xs" '(lambda ()
-                                   (interactive)
-                                   (evil-normal-state)
-                                   (save-buffer)))
-
-  (key-chord-define helm-map ";j" 'helm-keyboard-quit)
+  (add-hook* 'prog-mode-hook (key-chord-mode 1))
+  (add-hook* 'isearch-mode-hook (key-chord-mode 1))
+  (key-chord-define-global "xs" 'evil-normal-state-and-save)
   (key-chord-define-global ";j" 'evil-force-normal-state)
-  (key-chord-define evil-normal-state-map ";j" 'evil-force-normal-state)
-  (key-chord-define evil-insert-state-map ";j" 'evil-force-normal-state)
-  (key-chord-define evil-visual-state-map ";j" 'evil-force-normal-state)
+  (key-chord-define helm-map ";j" 'helm-keyboard-quit)
   (key-chord-define isearch-mode-map ";j" 'isearch-abort))
 
 (use-package linum
-  :config
-  ;; Always display 2 columns in linum mode (no stuttering)
-  (setq linum-format (quote "%3d"))
-  (setq linum-disabled-modes-list
+  :init
+  (setq linum-format (quote "%3d")
+        linum-disabled-modes-list
         '(mu4e-compose-mode
           mu4e-headers-mode
           mu4e-main-mode)))
@@ -721,21 +675,13 @@
 
 (use-package magit
   :ensure t
+  :init
+  (setq magit-last-seen-setup-instructions "1.4.0")
   :config
-  (bind-key "g" 'magit-refresh magit-status-mode-map)
-  (setq magit-last-seen-setup-instructions "1.4.0"))
+  (bind-key "g" 'magit-refresh magit-status-mode-map))
 
 (use-package mu4e
-  :config
-  (require 'smtpmail)
-  (define-key mu4e-main-mode-map (kbd "p") 'previous-line)
-  (define-key mu4e-main-mode-map (kbd "n") 'next-line)
-  (define-key mu4e-main-mode-map (kbd "z") 'helm-buffers-list)
-  (define-key mu4e-main-mode-map (kbd "v") 'scroll-up-command)
-  (define-key mu4e-headers-mode-map (kbd "v") 'scroll-up-command)
-  (define-key mu4e-view-mode-map (kbd "f") 'epa-mail-verify)
-  (define-key mu4e-view-mode-map (kbd "v") 'scroll-up-command)
-  (define-key mu4e-compose-mode-map (kbd "M-s") 'mml-secure-sign-pgp)
+  :init
   (setq message-send-mail-function 'smtpmail-send-it
         mu4e-get-mail-command "offlineimap"
         mu4e-maildir (expand-file-name "~/Mail")
@@ -750,7 +696,17 @@
         mu4e-hide-index-messages t
         ;; Requires html2text package
         mu4e-html2text-command "html2text -utf8 -width 72"
-        mu4e-view-show-images t))
+        mu4e-view-show-images t)
+  :config
+  (require 'smtpmail)
+  (define-key mu4e-main-mode-map (kbd "p") 'previous-line)
+  (define-key mu4e-main-mode-map (kbd "n") 'next-line)
+  (define-key mu4e-main-mode-map (kbd "z") 'helm-buffers-list)
+  (define-key mu4e-main-mode-map (kbd "v") 'scroll-up-command)
+  (define-key mu4e-headers-mode-map (kbd "v") 'scroll-up-command)
+  (define-key mu4e-view-mode-map (kbd "f") 'epa-mail-verify)
+  (define-key mu4e-view-mode-map (kbd "v") 'scroll-up-command)
+  (define-key mu4e-compose-mode-map (kbd "M-s") 'mml-secure-sign-pgp))
 
 (use-package mu4e-alert
   :ensure t
@@ -767,17 +723,16 @@
   (when (file-exists-p "~/Documents/notes/Org")
     (setq org-log-done 'time
           org-capture-templates '()
-          org-src-fontify-natively t)
-    (setq org-capture-templates
-          '(("1" "Done" entry
-             (file+headline "~/Documents/notes/Org/Done.org" "Done")
-             (file "~/.emacs.d/Templates/Done.orgtpl"))
-            ("2" "Retro" entry
-             (file+headline "~/Documents/notes/Org/Retro.org" "Done")
-             (file "~/.emacs.d/Templates/Retro.orgtpl"))
-            ("3" "Todo" entry
-             (file+headline "~/Documents/notes/Org/Todo.org" "Todo")
-             (file "~/.emacs.d/Templates/Todo.orgtpl"))))
+          org-src-fontify-natively t
+          org-capture-templates '(("1" "Done" entry
+                                   (file+headline "~/Documents/notes/Org/Done.org" "Done")
+                                   (file "~/.emacs.d/Templates/Done.orgtpl"))
+                                  ("2" "Retro" entry
+                                   (file+headline "~/Documents/notes/Org/Retro.org" "Done")
+                                   (file "~/.emacs.d/Templates/Retro.orgtpl"))
+                                  ("3" "Todo" entry
+                                   (file+headline "~/Documents/notes/Org/Todo.org" "Todo")
+                                   (file "~/.emacs.d/Templates/Todo.orgtpl"))))
     (defun add-my-todos-to-org (list)
       "Adds All the files in Todo directory to my list of todo subjects."
       (let ((c 0)
@@ -790,32 +745,33 @@
                                 (file+headline ,(concat "~/Documents/notes/Org/Todo/" val) ,val)
                                 (file "~/.emacs.d/Templates/GenericTodo.orgtpl")))
             (setq c (+ c 1))))))
-
-    (defun org-keys-hook ()
-      (define-prefix-command 'org-mode-custom-map)
-      (define-key org-mode-map (kbd "C-c C-o") 'org-mode-custom-map)
-      (define-key org-mode-custom-map (kbd "C-l") 'browse-url-at-point)
-      (define-key org-mode-custom-map (kbd "C-t") 'org-todo))
     (add-my-todos-to-org
      (directory-files
       (expand-file-name "~/Documents/notes/Org/Todo")
       nil
-      "^\\([^#|^.]\\|\\.[^.]\\|\\.\\..\\)"))
-    (add-hook 'org-mode-hook 'org-keys-hook)))
+      "^\\([^#|^.]\\|\\.[^.]\\|\\.\\..\\)"))))
 
 (use-package paredit
   :ensure t
+  :init
+  (setq ignore-paredit-copy '(elixir-mode erlang-mode))
   :config
+  (add-hook 'cider-repl-mode-hook 'paredit-mode)
+  (add-hook 'clojure-mode-hook 'paredit-mode)
+  (add-hook 'elixir-mode-hook 'paredit-mode)
+  (add-hook 'geiser-mode-hook 'paredit-mode)
+  (add-hook 'racket-mode-hook 'paredit-mode)
+  (add-hook 'scheme-mode-hook 'paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook 'paredit-mode)
   (define-key paredit-mode-map (kbd "C-w") 'paredit-kill-region)
   (define-key paredit-mode-map (kbd "M-R") 'paredit-splice-sexp-killing-backward)
-  (define-key paredit-mode-map (kbd "C-j") 'iy-go-up-to-char)
   (define-key paredit-mode-map (kbd "C-c C-r") 'paredit-reindent-defun)
+  (define-key paredit-mode-map (kbd "M-j") 'paredit-join-sexps)
   (define-key paredit-mode-map (kbd "C-q") 'paredit-backward-delete)
   (define-key paredit-mode-map (kbd "M-q") 'paredit-backward-kill-word)
   (define-key paredit-mode-map (kbd "C-c C-p") 'maybe-paredit-copy-sexp-up)
   (define-key paredit-mode-map (kbd "C-c C-n") 'maybe-paredit-copy-sexp-down)
-
-  (setq ignore-paredit-copy '(elixir-mode erlang-mode))
 
   (defun maybe-paredit-copy-sexp-down ()
     (interactive)
@@ -828,8 +784,6 @@
     (if (member major-mode ignore-paredit-copy)
         (copy-line-up)
       (paredit-copy-sexp-up)))
-
-  (add-hook 'paredit-mode-hook 'evil-paredit-mode)
 
   (defun paredit-copy-sexp-down ()
     (interactive)
@@ -861,25 +815,22 @@
         (paredit-backward)
         (move-to-column prev-column)))))
 
-(use-package powerline
-  :ensure t
+(use-package paren
   :config
-  (setq powerline-default-separator 'wave))
+  (show-paren-mode t))
 
 (use-package racer
   :ensure t
+  :init
+  (setq racer-cmd "/usr/local/bin/racer"
+        racer-rust-src-path "/usr/local/src/rust/src/")
+  (setq-mode-local rust-mode company-backends '(company-racer))
   :config
-  ;; Set path to racer binary
-  (setq racer-cmd "/usr/local/bin/racer")
-  ;; Set path to rust src directory
-  (setq racer-rust-src-path "/usr/local/src/rust/src/"))
+  (add-hook 'rust-mode-hook 'racer-mode)
+  (add-hook 'rust-mode-hook 'racer-turn-on-eldoc))
 
 (use-package racket-mode
-  :ensure t
-  :config
-  (defun attic-racket-hook ()
-    (paredit-mode 1))
-  (add-hook 'racket-mode-hook 'attic-racket-hook))
+  :ensure t)
 
 (use-package redo+
   :ensure t
@@ -887,65 +838,31 @@
   (bind-key* "M-_" 'redo))
 
 (use-package ruby-mode
-  :config
-  ;; Don't use deep indent in Ruby
-  (setq ruby-deep-indent-paren nil)
-
-  (defun attic-ruby-hook ()
-    (electric-pair-mode)
-    (setq-local helm-dash-docsets '("Ruby")))
-  (add-hook 'ruby-mode-hook 'attic-ruby-hook))
+  :init
+  (setq ruby-deep-indent-paren nil))
 
 (use-package rust-mode
   :ensure t
+  :bind (("M-." . racer-find-definition))
   :config
-  (add-hook 'rust-mode-hook 'cargo-minor-mode)
-  (defun attic-rust-hook ()
-    (racer-mode)
-    ;; Hook in racer with eldoc to provide documentation
-    (racer-turn-on-eldoc)
-    ;; Use company-racer in rust mode
-    (set (make-local-variable 'company-backends) '(company-racer))
-    ;; Key binding to jump to method definition
-    (local-set-key (kbd "M-.") #'racer-find-definition)
-    (electric-pair-mode)
-    (setq-local tab-width 4)
-    (setq-local helm-dash-docsets '("Rust"))
-    (company-mode)
-    (auto-complete-mode -1))
-  (add-hook 'rust-mode-hook 'attic-rust-hook))
+  (setq-mode-local rust-mode tab-width 4))
 
 (use-package s
   :ensure t)
 
-(use-package scheme
-  :config
-  (defun attic-scheme-mode-hook ()
-    (paredit-mode 1)
-    (company-mode t)
-    (auto-complete-mode -1)
-    (aggressive-indent-mode))
-  (add-hook 'scheme-mode-hook 'attic-scheme-mode-hook))
-
 (use-package scheme-complete
   :ensure t
   :config
+  (setq-mode-local scheme-mode eldoc-documentation-function 'scheme-get-current-symbol-info)
   (autoload 'scheme-get-current-symbol-info "scheme-complete" nil t)
-  (add-hook 'scheme-mode-hook
-            (lambda ()
-              (make-local-variable 'eldoc-documentation-function)
-              (setq eldoc-documentation-function 'scheme-get-current-symbol-info)
-              (eldoc-mode))))
+  (add-hook 'scheme-mode-hook 'eldoc-mode))
 
 (use-package string-edit
   :ensure t)
 
 (use-package term
   :config
-  (defun attic-term-hook ()
-    (setq yas-dont-activate t))
-  (add-hook 'term-mode-hook 'attic-term-hook)
-  (add-hook 'ansi-term-mode-hook 'attic-term-hook))
+  (setq-mode-local term-mode yas-dont-activate t))
 
 (use-package tiny
   :ensure t
@@ -953,21 +870,20 @@
   (bind-key "C-;" 'tiny-expand))
 
 (use-package toml-mode
-  :ensure t
-  :config
-  (add-hook 'toml-mode-hook 'cargo-minor-mode))
+  :ensure t)
 
 (use-package transpose-mark
   :ensure t)
 
 (use-package twittering-mode
   :ensure t
-  :config
+  :init
   (setq twittering-icon-mode t
         ;; Use master password for twitter instead of authenticating every time
         twittering-cert-file "/etc/ssl/certs/ca-bundle.crt"
         twittering-use-master-password t
         twittering-convert-fix-size 24)
+  :config
   (bind-key "s" 'twittering-search twittering-mode-map)
   (bind-key "q" (lambda () (interactive) (switch-to-buffer nil)) twittering-mode-map)
   (bind-key "w" 'delete-window twittering-mode-map)
@@ -983,20 +899,18 @@
 
 (use-package web-mode
   :ensure t
-  :config
-  (setq web-mode-markup-indent-offset 4)
-  (setq web-mode-css-indent-offset 4)
-  (setq web-mode-code-indent-offset 4))
+  :init
+  (setq web-mode-markup-indent-offset 4
+        web-mode-css-indent-offset 4
+        web-mode-code-indent-offset 4))
 
 (use-package window-numbering
   :ensure t
-  :init
+  :config
   (window-numbering-mode t))
 
 (use-package winner
-  :config
-  (winner-mode t)
-  ;; Buffers to be ignored by Winner
+  :init
   (setq winner-boring-buffers
         '("*Completions*"
           "*Compile-Log*"
@@ -1007,16 +921,9 @@
           "*Help*"
           "*cvs*"
           "*Buffer List*"
-          "*Ibuffer*")))
-
-(use-package wisp-mode
-  :ensure t
+          "*Ibuffer*"))
   :config
-  (defun attic-wisp-hook ()
-    (paredit-mode 1)
-    (electric-pair-mode -1)
-    (aggressive-indent-mode -1))
-  (add-hook 'wisp-mode-hook 'attic-wisp-hook))
+  (winner-mode t))
 
 (use-package wrap-region
   :ensure t)
@@ -1037,37 +944,30 @@
   :init
   (yas-global-mode t)
   (add-hook 'prog-mode-hook 'yas-minor-mode)
-  (add-hook 'snippet-mode-hook
-            (lambda ()
-              (setq-local require-final-newline nil))))
+  :config
+  (setq-mode-local snippet-mode require-final-newline nil))
+
+(use-package simple
+  :config
+  (setq-mode-local fundamental-mode require-final-newline nil)
+  ;; Kill buffer on remote machine
+  (defadvice async-shell-command (before attic-ad/async-shell-command activate)
+    (when (get-buffer "*Async Shell Command*")
+      (kill-buffer "*Async Shell Command*"))))
+
+(use-package wrap-region
+  :config
+  (wrap-region-global-mode t))
 
 (use-package spaceline-config
   ;; Needs to be loaded last
   :ensure spaceline
   :init
-  (setq powerline-default-separator 'bar)
+  (setq powerline-default-separator 'bar
+        spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
   :config
   (spaceline-spacemacs-theme)
   (spaceline-toggle-minor-modes-off)
-  (spaceline-toggle-anzu-off)
-  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state))
-
-(if window-system
-    (require 'git-gutter-fringe+)
-  (require 'git-gutter+))
-
-;;; TODO require emacs lisp?
-(defun attic-emacs-lisp-hook ()
-  (aggressive-indent-mode)
-  (paredit-mode 1)
-  (setq-local helm-dash-docsets '("Emacs Lisp")))
-
-(add-hook 'emacs-lisp-mode-hook 'attic-emacs-lisp-hook)
-
-;; Modes
-(display-battery-mode t)
-(show-paren-mode t)
-(wrap-region-global-mode t)
-(electric-pair-mode t)
+  (spaceline-toggle-anzu-off))
 
 (provide 'attic-packages)

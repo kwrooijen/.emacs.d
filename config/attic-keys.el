@@ -1,28 +1,24 @@
 (require 'flyspell)
 (require 'bind-key)
 
+(global-unset-key "\C-x\C-z")
+(global-unset-key "\C-z")
+
 (bind-key* "C-c C-o" 'switch-to-minibuffer)
 (bind-key* "C-c C-=" 'increment-decimal)
 (bind-key* "C-c C--" 'decrement-decimal)
-(bind-key* "C-u" 'undo)
 (bind-key* "M-u" 'redo)
-(bind-key* "C-_" 'universal-argument)
-(bind-key* "C-'" 'helm-M-x)
-(bind-key* "C-j" 'iy-go-to-char)
 (bind-key* "C-/" 'attic/comment)
-(bind-key* "M-j" 'iy-go-to-char-backward)
 (bind-key* "C-q" 'backward-delete-char)
 (bind-key* "M-q" 'backward-kill-word)
 (bind-key* "C-S-V" 'x-clipboard-yank)
 (bind-key* "C-S-C" 'clipboard-kill-ring-save)
 (bind-key* "C-M-q" 'backward-kill-sexp)
-(bind-key* "C-x C-f" 'helm-find-files)
 (bind-key* "C-x C-1" 'delete-other-windows)
 (bind-key* "C-x C-2" 'split-window-below)
 (bind-key* "C-x C-3" 'split-window-right)
 (bind-key* "C-x C-4" 'delete-window)
 (bind-key* "C-x C-8" 'fill-paragraph)
-(bind-key* "C-x C-b" 'helm-buffers-list)
 (bind-key* "C-x C-k" 'kill-this-buffer)
 (bind-key* "C-c C-p" 'copy-line-up)
 (bind-key* "C-c C-n" 'copy-line-down)
@@ -31,6 +27,24 @@
 (bind-key* "M-C" 'capitalize-previous-word)
 (bind-key* "M-i" 'tab-to-tab-stop-line-or-region)
 (bind-key* "M-I" 'tab-to-tab-stop-line-or-region-backward)
+(bind-key* [f1] 'get-current-buffer-major-mode)
+(bind-key* [f3] 'describe-key)
+
+(define-key messages-buffer-mode-map (kbd "<SPC>") 'attic-main/body)
+(define-key help-mode-map (kbd "<SPC>") 'attic-main/body)
+(define-key doc-view-mode-map (kbd "<SPC>") 'attic-main/body)
+(define-key package-menu-mode-map (kbd "<SPC>") 'attic-main/body)
+(define-key dired-mode-map (kbd "<SPC>") 'attic-main/body)
+(define-key elfeed-show-mode-map (kbd "<SPC>") 'attic-main/body)
+(define-key elfeed-search-mode-map (kbd "<SPC>") 'attic-main/body)
+(define-key grep-mode-map (kbd "<SPC>") 'attic-main/body)
+(define-key magit-status-mode-map (kbd "<SPC>") 'attic-main/body)
+(define-key magit-revision-mode-map (kbd "<SPC>") 'attic-main/body)
+(define-key twittering-mode-map (kbd "<SPC>") 'attic-main/body)
+(define-key flyspell-mode-map (kbd "<SPC>") 'attic-main/body)
+(define-key mu4e-main-mode-map (kbd "<SPC>") 'attic-main/body)
+(define-key mu4e-headers-mode-map (kbd "<SPC>") 'attic-main/body)
+(define-key mu4e-view-mode-map (kbd "<SPC>") 'attic-main/body)
 
 (defhydra attic-main (:color blue :columns 7)
   "Attic"
@@ -49,7 +63,7 @@
   ("7" elscreen-goto-7 nil)
   ("8" elscreen-goto-8 nil)
   ("9" elscreen-goto-9 nil)
-  (";" elscreen-toggle nil)
+  (";" helm-M-x nil)
   ("<SPC>" evil-jump-backward "Jump backward" :color red)
   ("C-<SPC>" evil-jump-forward "Jump forward" :color red)
   ("M-d" helm-swoop nil)
@@ -227,48 +241,4 @@
   "Helm Help"
   ("g" helm-geiser "helm-geiser"))
 
-;; Make keys
-(define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
-(define-key isearch-mode-map (kbd "M-g") 'isearch-abort)
-(define-key isearch-mode-map (kbd "TAB") 'isearch-exit)
-
-;; Other Keys
-(global-set-key [f3] 'describe-key)
-(global-set-key [f4] 'send-to-gist)
-(global-set-key [f6] 'describe-mode)
-(global-set-key [f7] 'get-current-buffer-major-mode)
-(global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
-(global-set-key [f10] 'kmacro-end-or-call-macro-repeat)
-(global-set-key [f11] 'screenshot-frame)
-
-;; C Keys
-(defun c-keys-hook ()
-  (define-key c-mode-base-map (kbd "C-/") 'attic/comment))
-
-(defun macro-add-key (m)
-  `(progn (define-key ,m (kbd "<SPC>") 'attic-main/body)))
-
-(defmacro add-attic-main-to-modes (&rest modes)
-  (let ((forms (mapcar 'macro-add-key modes)))
-    `(progn ,@forms)))
-
-(add-attic-main-to-modes messages-buffer-mode-map
-                         help-mode-map
-                         doc-view-mode-map
-                         package-menu-mode-map
-                         dired-mode-map
-                         elfeed-show-mode-map
-                         elfeed-search-mode-map
-                         grep-mode-map
-                         magit-status-mode-map
-                         magit-revision-mode-map
-                         twittering-mode-map
-                         flyspell-mode-map
-                         mu4e-main-mode-map
-                         mu4e-headers-mode-map
-                         mu4e-view-mode-map)
-
-;; Other unset keys
-(global-unset-key "\C-x\C-z")
-(global-unset-key "\C-z")
 (provide 'attic-keys)

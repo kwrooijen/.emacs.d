@@ -56,12 +56,6 @@ buffer is not visiting a file."
   (interactive)
   (message "%s" major-mode))
 
-(defun ensure-buffer-name-begins-with-exl ()
-  "change buffer name to end with slash"
-  (let ((name (buffer-name)))
-    (if (not (string-match "/$" name))
-        (rename-buffer (concat "!" name) t))))
-
 (defun cd-up-to-file (file)
   "Go up a directory until you find FILE or enter the root directory.
 If file is found then return t else nil."
@@ -448,5 +442,8 @@ With a prefix, print the result of the evaluation to the buffer."
   (if (active-minibuffer-window)
       (previous-history-element 1)
     (yank-pop-or-kill-ring)))
+
+(defmacro add-hook* (mode fn)
+  `(add-hook ,mode (lambda () ,fn)))
 
 (provide 'attic-functions)

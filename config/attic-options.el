@@ -62,9 +62,6 @@ PGP 4096R: A0A9 0D06 A754 6D4E EAD4  E6B8 A006 B0B1 CD62 28AB
 ;; Emacs temp directory
 (setq temporary-file-directory "~/.emacs.d/tmp/")
 
-;; Delete seleted text when typing
-(delete-selection-mode 1)
-
 ;; Allow upcase-region and downcase-region functions
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -160,19 +157,24 @@ PGP 4096R: A0A9 0D06 A754 6D4E EAD4  E6B8 A006 B0B1 CD62 28AB
 ;; Scroll on in the *compilation* buffer
 (setq compilation-scroll-output t)
 
-;; TODO create a toggle function for this
-;; ;; Disable Mouse when Emacs has focus
-;; (defun turn-off-mouse (&optional frame)
-;;   (interactive)
-;;   (shell-command "xinput --disable \"ETPS/2 Elantech Touchpad\""))
-
-;; (defun turn-on-mouse (&optional frame)
-;;   (interactive)
-;;   (shell-command "xinput --enable \"ETPS/2 Elantech Touchpad\""))
-
-;; (add-hook 'focus-in-hook #'turn-off-mouse)
-;; (add-hook 'focus-out-hook #'turn-on-mouse)
-;; (add-hook 'delete-frame-functions #'turn-on-mouse)
+;; Load mode on certain file extensions
+(setq auto-mode-alist
+      (append '(("\\.less\\'"    . css-mode)
+                ("\\.scss\\'"    . css-mode)
+                ("Gemfile$"      . ruby-mode)
+                ("Rakefile$"     . ruby-mode)
+                ("\\.gemspec$"   . ruby-mode)
+                ("\\.rake$"      . ruby-mode)
+                ("\\.rb$"        . ruby-mode)
+                ("\\.ru$"        . ruby-mode)
+                ("\\.app.src\\'" . erlang-mode)
+                ("rebar.config"  . erlang-mode)
+                ("\\.js\\'"      . js2-mode)
+                ("\\.dtl\\'"     . web-mode)
+                ("\\.eex\\'"     . web-mode)
+                ("\\.erb\\'"     . web-mode)
+                ("\\.tpl\\'"     . web-mode)
+                ("\\.rkt\\'"     . racket-mode))
+              auto-mode-alist))
 
 (provide 'attic-options)
-

@@ -58,7 +58,9 @@
         evil-paredit-delete-line
         evil-paste-after
         evil-previous-line
+        evil-repeat-find-char
         evil-replace-state
+        evil-shift-left-line
         evil-substitute
         evil-visual-char
         forward-sentence
@@ -88,6 +90,7 @@
         lisp-indent-adjust-parens
         lispy-braces
         lispy-brackets
+        lispy-comment
         lispy-delete
         lispy-delete-backward
         lispy-kill
