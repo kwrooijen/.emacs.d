@@ -374,6 +374,13 @@
   :config
   (setq-mode-local erlang-mode tab-width 4))
 
+(use-package etags
+  :init
+  ;; Ctags location
+  (setq tags-file-name "~/.ctags")
+  ;; Reread a TAGS table without querying, if it has changed.
+  (setq tags-revert-without-query t))
+
 (use-package evil
   :ensure t
   :bind (:map evil-normal-state-map
@@ -419,6 +426,16 @@
   :ensure t
   :init
   (fancy-battery-mode))
+
+(use-package files
+  :init
+  (setq remote-file-name-inhibit-cache nil)
+  ;; Make sure the file ends with a newline
+  (setq require-final-newline t)
+  ;; Backup ~ files in seperate directory
+  (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+  ;; No confirmation when creating new buffer
+  (setq confirm-nonexistent-file-or-buffer nil))
 
 (use-package flycheck-rust
   :ensure t)
@@ -707,10 +724,6 @@
   :config
   (add-hook 'erlang-mode-hook 'indy-mode))
 
-(use-package js2-mode
-  :ensure t
-  :mode ("\\.js\\'"))
-
 (use-package key-chord
   :ensure t
   :config
@@ -874,8 +887,7 @@
   (add-hook 'rust-mode-hook 'racer-turn-on-eldoc))
 
 (use-package racket-mode
-  :ensure t
-  :mode ("\\.rkt\\'"))
+  :ensure t)
 
 (use-package redo+
   :ensure t
@@ -908,6 +920,17 @@
   (autoload 'scheme-get-current-symbol-info "scheme-complete" nil t)
   (add-hook 'scheme-mode-hook 'eldoc-mode))
 
+(use-package simple
+  :init
+  ;; C-u C-SPC will repeat if C-SPC is pressed again
+  (setq set-mark-command-repeat-pop t)
+  :config
+  (setq-mode-local fundamental-mode require-final-newline nil)
+  ;; Kill buffer on remote machine
+  (defadvice async-shell-command (before attic-ad/async-shell-command activate)
+    (when (get-buffer "*Async Shell Command*")
+      (kill-buffer "*Async Shell Command*"))))
+
 (use-package string-edit
   :ensure t)
 
@@ -921,6 +944,13 @@
 
 (use-package toml-mode
   :ensure t)
+
+(use-package tramp
+  :init
+  ;; Immediately reread remote directories
+  (setq tramp-completion-reread-directory-timeout nil)
+  ;; Set Tramp backup file location
+  (setq tramp-backup-directory-alist backup-directory-alist))
 
 (use-package transpose-mark
   :ensure t)
@@ -944,6 +974,16 @@
 (use-package uuidgen
   :ensure t)
 
+(use-package vc-hooks
+  :init
+  ;; follow symlinks and don't ask
+  (setq vc-follow-symlinks t)
+  ;; Don't use version control for all files
+  (setq vc-ignore-dir-regexp
+        (format "\\(%s\\)\\|\\(%s\\)"
+                vc-ignore-dir-regexp
+                tramp-file-name-regexp)))
+
 (use-package vi-tilde-fringe
   :ensure t
   :init
@@ -959,6 +999,13 @@
   (setq web-mode-markup-indent-offset 4
         web-mode-css-indent-offset 4
         web-mode-code-indent-offset 4))
+
+(use-package whitespace
+  :config
+  (setq whitespace-style
+        '(face tabs spaces trailing
+               space-before-tab indentation
+               space-after-tab space-mark tab-mark)))
 
 (use-package window-numbering
   :ensure t
@@ -982,7 +1029,9 @@
   (winner-mode t))
 
 (use-package wrap-region
-  :ensure t)
+  :ensure t
+  :config
+  (wrap-region-global-mode t))
 
 (use-package ws-butler
   :ensure t
@@ -1002,25 +1051,6 @@
   (add-hook 'prog-mode-hook 'yas-minor-mode)
   :config
   (setq-mode-local snippet-mode require-final-newline nil))
-
-(use-package simple
-  :config
-  (setq-mode-local fundamental-mode require-final-newline nil)
-  ;; Kill buffer on remote machine
-  (defadvice async-shell-command (before attic-ad/async-shell-command activate)
-    (when (get-buffer "*Async Shell Command*")
-      (kill-buffer "*Async Shell Command*"))))
-
-(use-package whitespace
-  :config
-  (setq whitespace-style
-        '(face tabs spaces trailing
-               space-before-tab indentation
-               space-after-tab space-mark tab-mark)))
-
-(use-package wrap-region
-  :config
-  (wrap-region-global-mode t))
 
 (use-package spaceline-config
   ;; Needs to be loaded last
