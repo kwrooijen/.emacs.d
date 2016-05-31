@@ -59,20 +59,14 @@
   (global-anzu-mode))
 
 (use-package auto-complete
-  :ensure t
   :init
   (setq ac-auto-show-menu 0.3
         ac-candidate-limit 15
         ac-delay 0.3)
   :config
-  (bind-key "<return>" (lambda() (interactive) (ac-stop) (call-interactively (key-binding (kbd "C-m")))) ac-complete-mode-map)
-  (bind-key "SPC" (lambda() (interactive) (ac-stop) (insert " ")) ac-complete-mode-map)
-  (bind-key "C-m" (lambda() (interactive) (ac-stop) (newline)) ac-complete-mode-map)
-  (bind-key ":" (lambda() (interactive) (ac-stop) (insert ":")) ac-complete-mode-map)
-  (bind-key "." (lambda() (interactive) (ac-stop) (insert ".")) ac-complete-mode-map)
-  (bind-key "C-p" 'ac-previous ac-complete-mode-map)
-  (bind-key "M-j" 'yas/expand ac-complete-mode-map)
-  (bind-key "C-n" 'ac-next ac-complete-mode-map))
+  (set-face-attribute 'ac-candidate-face nil :inherit 'company-tooltip-common)
+  (set-face-attribute 'ac-completion-face nil :inherit 'company-preview-common :background nil :foreground nil)
+  (set-face-attribute 'ac-selection-face nil :inherit 'company-tooltip-common-selection))
 
 (use-package beacon
   :ensure t
@@ -81,6 +75,37 @@
   (add-to-list 'beacon-dont-blink-major-modes 'mu4e-compose-mode)
   (add-to-list 'beacon-dont-blink-major-modes 'mu4e-headers-mode)
   (add-to-list 'beacon-dont-blink-major-modes 'mu4e-main-mode))
+
+(use-package bind-key
+  :ensure t
+  :bind* (("C-c C-o" . switch-to-minibuffer)
+          ("C-c C-=" . increment-decimal)
+          ("C-c C--" . decrement-decimal)
+          ("M-u" . redo)
+          ("C-/" . attic/comment)
+          ("C-q" . backward-delete-char)
+          ("M-q" . backward-kill-word)
+          ("C-S-V" . x-clipboard-yank)
+          ("C-S-C" . clipboard-kill-ring-save)
+          ("C-M-q" . backward-kill-sexp)
+          ("C-x C-1" . delete-other-windows)
+          ("C-x C-2" . split-window-below)
+          ("C-x C-3" . split-window-right)
+          ("C-x C-4" . delete-window)
+          ("C-x C-8" . fill-paragraph)
+          ("C-x C-k" . kill-this-buffer)
+          ("C-c C-p" . copy-line-up)
+          ("C-c C-n" . copy-line-down)
+          ("M-p" . attic-M-p)
+          ("M-+" . align-regexp)
+          ("M-C" . capitalize-previous-word)
+          ("M-i" . tab-to-tab-stop-line-or-region)
+          ("M-I" . tab-to-tab-stop-line-or-region-backward)
+          ([f1] . get-current-buffer-major-mode)
+          ([f3] . describe-key))
+  :config
+  (global-unset-key "\C-x\C-z")
+  (global-unset-key "\C-z"))
 
 (use-package cargo
   :ensure t
@@ -381,6 +406,12 @@
 (use-package flycheck-rust
   :ensure t)
 
+(use-package flyspell)
+
+(use-package fringe
+  :config
+  (set-fringe-mode '(1 . 0)))
+
 (use-package geiser
   :ensure t
   :init
@@ -503,6 +534,33 @@
    helm-always-two-windows t
    helm-imenu-execute-action-at-once-if-one nil)
   :config
+  (use-package helm-files
+    :config
+    (set-face-attribute 'helm-ff-directory nil
+                        :foreground 'unspecified
+                        :background 'unspecified
+                        :inherit 'dired-directory)
+    (set-face-attribute 'helm-ff-file nil
+                        :foreground 'unspecified
+                        :background 'unspecified
+                        :inherit 'default)
+    (set-face-attribute 'helm-ff-symlink nil
+                        :foreground 'unspecified
+                        :background 'unspecified
+                        :inherit 'dired-symlink))
+  (use-package helm-buffer
+    :config
+    (set-face-attribute 'helm-buffer-directory nil
+                        :foreground 'unspecified
+                        :background 'unspecified
+                        :inherit 'dired-directory)
+    (set-face-attribute 'helm-buffer-file nil
+                        :foreground 'unspecified
+                        :background 'unspecified
+                        :inherit 'default)
+    (set-face-attribute 'helm-buffer-process nil
+                        :foreground "#cd8500"
+                        :background 'unspecified))
   ;; Try to hide source header as much as possible
   (set-face-attribute 'helm-source-header nil :height 0.1 :background "#000"  :foreground "#000")
 
@@ -635,9 +693,6 @@
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
 (define-key isearch-mode-map (kbd "TAB") 'isearch-exit)
 
-(use-package jazz-theme
-  :ensure t)
-
 (use-package js2-mode
   :ensure t)
 
@@ -657,7 +712,9 @@
         linum-disabled-modes-list
         '(mu4e-compose-mode
           mu4e-headers-mode
-          mu4e-main-mode)))
+          mu4e-main-mode))
+  :config
+  (set-face-attribute 'linum nil :inherit 'default :background nil))
 
 (use-package lispy
   :ensure t
@@ -968,6 +1025,13 @@
     (when (get-buffer "*Async Shell Command*")
       (kill-buffer "*Async Shell Command*"))))
 
+(use-package whitespace
+  :config
+  (setq whitespace-style
+        '(face tabs spaces trailing
+               space-before-tab indentation
+               space-after-tab space-mark tab-mark)))
+
 (use-package wrap-region
   :config
   (wrap-region-global-mode t))
@@ -982,5 +1046,23 @@
   (spaceline-spacemacs-theme)
   (spaceline-toggle-minor-modes-off)
   (spaceline-toggle-anzu-off))
+
+(use-package jazz-theme
+  :ensure t
+  :config
+  (set-face-attribute 'default nil :background "#2f2922")
+  (set-face-attribute 'elscreen-tab-background-face     nil :background "#25201b" :inherit 'fringe)
+  (set-face-attribute 'elscreen-tab-current-screen-face nil :inherit 'fringe :background "#2f2922" :foreground "#c6a57b")
+  (set-face-attribute 'elscreen-tab-other-screen-face   nil :background "#4b4238" :foreground "#25201b")
+  (set-face-attribute 'font-lock-comment-delimiter-face nil :background "#2a251e")
+  (set-face-attribute 'font-lock-comment-face nil :background "#2a251e")
+  (set-face-attribute 'fringe nil :background "#25201b" :foreground "#c6a57b")
+  (set-face-attribute 'highlight-numbers-number nil :foreground "#ff7f00")
+  (set-face-attribute 'highlight-symbol-face nil :inherit 'default :background "#fff" :foreground "gray20")
+  (set-face-attribute 'mode-line-buffer-id nil :foreground "#cd853f")
+  (set-face-attribute 'mode-line-inactive nil :foreground "grey")
+  (set-face-attribute 'term-color-blue nil :background "#385e6b" :foreground "#385e6b")
+  (set-face-attribute 'vertical-border nil :foreground "#25201b" :inherit 'fringe)
+  (set-face-attribute 'whitespace-space nil :foreground "#505050" :background 'unspecified :inherit 'default))
 
 (provide 'attic-packages)
