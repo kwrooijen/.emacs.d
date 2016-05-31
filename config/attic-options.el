@@ -120,61 +120,23 @@ PGP 4096R: A0A9 0D06 A754 6D4E EAD4  E6B8 A006 B0B1 CD62 28AB
 
 ;; Don't use version control for all files
 (setq vc-ignore-dir-regexp
-    (format "\\(%s\\)\\|\\(%s\\)"
-        vc-ignore-dir-regexp
-        tramp-file-name-regexp))
+      (format "\\(%s\\)\\|\\(%s\\)"
+              vc-ignore-dir-regexp
+              tramp-file-name-regexp))
 
 (setq remote-file-name-inhibit-cache nil)
+
 (setq tramp-completion-reread-directory-timeout nil)
 
 ;; Smooth Scrolling
 (setq redisplay-dont-pause t
-    scroll-margin 1
-    scroll-conservatively 10000)
-
-;; Keyboard scroll one line at a time
-(setq scroll-step 1)
+      scroll-margin 1
+      scroll-conservatively 10000
+      scroll-step 1)
 
 (setq auto-window-vscroll nil)
 
-;; Default scheme to use is Guile
-(setq scheme-program-name "guile")
-
 ;; Ctags location
 (setq tags-file-name "~/.ctags")
-
-;; Electric pair
-(setq electric-pair-pairs
-      '((?\" . ?\")
-        (?\{ . ?\})))
-
-;; Don't warn on redefinitions
-(setq ad-redefinition-action 'accept)
-
-;; Battery display format
-(setq battery-mode-line-format " [%b%p%\\] ")
-
-;; Scroll on in the *compilation* buffer
-(setq compilation-scroll-output t)
-
-;; Load mode on certain file extensions
-(setq auto-mode-alist
-      (append '(("\\.less\\'"    . css-mode)
-                ("\\.scss\\'"    . css-mode)
-                ("Gemfile$"      . ruby-mode)
-                ("Rakefile$"     . ruby-mode)
-                ("\\.gemspec$"   . ruby-mode)
-                ("\\.rake$"      . ruby-mode)
-                ("\\.rb$"        . ruby-mode)
-                ("\\.ru$"        . ruby-mode)
-                ("\\.app.src\\'" . erlang-mode)
-                ("rebar.config"  . erlang-mode)
-                ("\\.js\\'"      . js2-mode)
-                ("\\.dtl\\'"     . web-mode)
-                ("\\.eex\\'"     . web-mode)
-                ("\\.erb\\'"     . web-mode)
-                ("\\.tpl\\'"     . web-mode)
-                ("\\.rkt\\'"     . racket-mode))
-              auto-mode-alist))
 
 (provide 'attic-options)

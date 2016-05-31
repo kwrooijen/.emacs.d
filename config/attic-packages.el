@@ -140,33 +140,6 @@
   :ensure t
   :bind (:map cljr-helm  ("C-c C-l" . cljr-helm)))
 
-(use-package company
-  :ensure t
-  :bind (:map company-active-map
-              ("M-f" . company-complete-selection)
-              ("<return>" . company-abort-and-newline)
-              ("C-m" . company-abort-and-newline)
-              ("M-h" . helm-company)
-              ("M-j" . yas/expand)
-              ("C-n" . company-select-next)
-              ("C-p" . company-select-previous))
-  :init
-  (setq company-idle-delay 0.3
-        company-minimum-prefix-length 1)
-  (defun company-abort-and-newline ()
-    (interactive)
-    (company-abort)
-    (newline))
-  :config
-  (add-hook 'alchemist-iex-mode-hook 'company-mode)
-  (add-hook 'rust-mode-hook 'company-mode)
-  (add-hook 'scheme-mode-hook 'company-mode)
-  (add-hook 'erlang-mode-hook 'company-mode)
-  (add-hook 'elixir-mode-hook 'company-mode)
-  (add-hook 'elm-mode-hook 'company-mode)
-  (add-hook 'emacs-lisp-mode-hook 'company-mode)
-  (add-to-list 'company-backends 'company-elm))
-
 (use-package cider
   :ensure t
   :init
@@ -201,8 +174,44 @@
   (add-hook 'comint-output-filter-functions 'make-my-shell-output-read-only)
   (add-hook 'comint-output-filter-functions 'comint-truncate-buffer))
 
+(use-package company
+  :ensure t
+  :bind (:map company-active-map
+              ("M-f" . company-complete-selection)
+              ("<return>" . company-abort-and-newline)
+              ("C-m" . company-abort-and-newline)
+              ("M-h" . helm-company)
+              ("M-j" . yas/expand)
+              ("C-n" . company-select-next)
+              ("C-p" . company-select-previous))
+  :init
+  (setq company-idle-delay 0.3
+        company-minimum-prefix-length 1)
+  (defun company-abort-and-newline ()
+    (interactive)
+    (company-abort)
+    (newline))
+  :config
+  (add-hook 'alchemist-iex-mode-hook 'company-mode)
+  (add-hook 'rust-mode-hook 'company-mode)
+  (add-hook 'scheme-mode-hook 'company-mode)
+  (add-hook 'erlang-mode-hook 'company-mode)
+  (add-hook 'elixir-mode-hook 'company-mode)
+  (add-hook 'elm-mode-hook 'company-mode)
+  (add-hook 'emacs-lisp-mode-hook 'company-mode)
+  (add-to-list 'company-backends 'company-elm))
+
 (use-package company-racer
   :ensure t)
+
+(use-package compile
+  :init
+  ;; Scroll on in the *compilation* buffer
+  (setq compilation-scroll-output t))
+
+(use-package css-mode
+  :mode ("\\.less\\'"
+         "\\.scss\\'"))
 
 (use-package dash
   :ensure t)
@@ -238,6 +247,10 @@
   :ensure t)
 
 (use-package elec-pair
+  :init
+  (setq electric-pair-pairs
+        '((?\" . ?\")
+          (?\{ . ?\})))
   :config
   (electric-pair-mode t)
   (add-hook* 'message-mode-hook (electric-pair-mode -1))
@@ -347,6 +360,9 @@
 
 (use-package erlang
   :ensure t
+  :mode ("\\.app.src\\'"
+         "rebar.config")
+
   :commands erlang-mode
   :bind (:map erlang-mode-map
               ("M-n" . highlight-symbol-next)
@@ -692,7 +708,8 @@
   (add-hook 'erlang-mode-hook 'indy-mode))
 
 (use-package js2-mode
-  :ensure t)
+  :ensure t
+  :mode ("\\.js\\'"))
 
 (use-package key-chord
   :ensure t
@@ -857,13 +874,20 @@
   (add-hook 'rust-mode-hook 'racer-turn-on-eldoc))
 
 (use-package racket-mode
-  :ensure t)
+  :ensure t
+  :mode ("\\.rkt\\'"))
 
 (use-package redo+
   :ensure t
   :bind* (("M-_" . redo)))
 
 (use-package ruby-mode
+  :mode ("Gemfile$"
+         "Rakefile$"
+         "\\.gemspec$"
+         "\\.rake$"
+         "\\.rb$"
+         "\\.ru$")
   :init
   (setq ruby-deep-indent-paren nil))
 
@@ -927,6 +951,10 @@
 
 (use-package web-mode
   :ensure t
+  :mode ("\\.dtl\\'"
+         "\\.eex\\'"
+         "\\.erb\\'"
+         "\\.tpl\\'")
   :init
   (setq web-mode-markup-indent-offset 4
         web-mode-css-indent-offset 4
