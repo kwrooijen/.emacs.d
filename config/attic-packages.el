@@ -15,6 +15,18 @@
   (require 'use-package))
 (require 'bind-key)
 
+;; Multiple Cursors to be loaded first to use the correct path
+(use-package multiple-cursors
+  :load-path "~/.emacs.d/multiple-cursors.el/"
+  :init
+  (unless (file-exists-p "~/.emacs.d/multiple-cursors.el/multiple-cursors.el")
+    (shell-command "cd ~/.emacs.d && git submodule init && git submodule update"))
+  :config
+  (bind-key "<return>" 'newline mc/keymap)
+  (bind-key* "M-K" 'mc/mark-previous-like-this)
+  (bind-key* "M-J" 'mc/mark-next-like-this)
+  (multiple-cursors-mode t))
+
 (use-package ac-cider
   :ensure t)
 
@@ -681,6 +693,7 @@
   (bind-key "g" 'magit-refresh magit-status-mode-map))
 
 (use-package mu4e
+  :load-path "/usr/local/share/emacs/site-lisp/mu4e"
   :init
   (setq message-send-mail-function 'smtpmail-send-it
         mu4e-get-mail-command "offlineimap"
