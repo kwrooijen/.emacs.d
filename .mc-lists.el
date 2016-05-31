@@ -59,6 +59,7 @@
         evil-paste-after
         evil-previous-line
         evil-repeat-find-char
+        evil-replace
         evil-replace-state
         evil-shift-left-line
         evil-substitute
@@ -249,6 +250,7 @@
         attic-mc/nil
         describe-key
         emms-pause
+        evil-record-macro
         evil-scroll-down
         evil-scroll-line-down
         execute-rust

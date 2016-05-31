@@ -18,13 +18,14 @@
 ;; Multiple Cursors to be loaded first to use the correct path
 (use-package multiple-cursors
   :load-path "~/.emacs.d/multiple-cursors.el/"
+  :bind* (("M-K" . mc/mark-previous-like-this)
+          ("M-J" . mc/mark-next-like-this))
+  :bind (:map mc/keymap
+              ("<return>" . newline))
   :init
   (unless (file-exists-p "~/.emacs.d/multiple-cursors.el/multiple-cursors.el")
     (shell-command "cd ~/.emacs.d && git submodule init && git submodule update"))
   :config
-  (bind-key "<return>" 'newline mc/keymap)
-  (bind-key* "M-K" 'mc/mark-previous-like-this)
-  (bind-key* "M-J" 'mc/mark-next-like-this)
   (multiple-cursors-mode t))
 
 (use-package ac-cider
@@ -43,15 +44,16 @@
 
 (use-package alchemist
   :ensure t
+  :bind (:map alchemist-mode-map
+              ("M-N" . mc/mark-next-like-this)
+              ("M-P" . mc/mark-previous-like-this)
+              ("M-n" . alchemist-goto-jump-to-next-def-symbol)
+              ("M-p" . alchemist-goto-jump-to-previous-def-symbol))
   :init
   (setq alchemist-hooks-compile-on-save t
         alchemist-hooks-test-on-save t)
   :config
-  (add-hook 'elixir-mode-hook 'alchemist-mode)
-  (bind-key "M-N" 'mc/mark-next-like-this alchemist-mode-map)
-  (bind-key "M-P" 'mc/mark-previous-like-this alchemist-mode-map)
-  (bind-key "M-n" 'alchemist-goto-jump-to-next-def-symbol alchemist-mode-map)
-  (bind-key "M-p" 'alchemist-goto-jump-to-previous-def-symbol alchemist-mode-map))
+  (add-hook 'elixir-mode-hook 'alchemist-mode))
 
 (use-package anzu
   :ensure t
@@ -115,11 +117,13 @@
 
 (use-package clojure-mode
   :ensure t
-  :config
-  (bind-key "C-x C-e" 'cider-eval-last-sexp clojure-mode-map))
+  :bind (:map clojure-mode-map
+              ("C-x C-e" . cider-eval-last-sexp)))
 
 (use-package clj-refactor
   :ensure t
+  :bind (:map clojure-mode-map
+              ("C-c C-a" . cljr-refactor-all/body))
   :config
   (defhydra cljr-refactor-all (:color blue)
     "[Clojure refactor]"
@@ -130,20 +134,29 @@
     ("p"  hydra-cljr-project-menu/body "project-menu")
     ("t"  hydra-cljr-toplevel-form-menu/body "toplevel-form-menu"))
   (cljr-add-keybindings-with-prefix "C-c C-m")
-  (define-key clojure-mode-map (kbd "C-c C-a") 'cljr-refactor-all/body)
   (add-hook 'clojure-mode-hook #'clj-refactor-mode))
 
 (use-package cljr-helm
   :ensure t
-  :config
-  (define-key clojure-mode-map (kbd "C-c C-l") 'cljr-helm))
-
+  :bind (:map cljr-helm  ("C-c C-l" . cljr-helm)))
 
 (use-package company
   :ensure t
+  :bind (:map company-active-map
+              ("M-f" . company-complete-selection)
+              ("<return>" . company-abort-and-newline)
+              ("C-m" . company-abort-and-newline)
+              ("M-h" . helm-company)
+              ("M-j" . yas/expand)
+              ("C-n" . company-select-next)
+              ("C-p" . company-select-previous))
   :init
   (setq company-idle-delay 0.3
         company-minimum-prefix-length 1)
+  (defun company-abort-and-newline ()
+    (interactive)
+    (company-abort)
+    (newline))
   :config
   (add-hook 'alchemist-iex-mode-hook 'company-mode)
   (add-hook 'rust-mode-hook 'company-mode)
@@ -152,17 +165,7 @@
   (add-hook 'elixir-mode-hook 'company-mode)
   (add-hook 'elm-mode-hook 'company-mode)
   (add-hook 'emacs-lisp-mode-hook 'company-mode)
-  (add-to-list 'company-backends 'company-elm)
-  (bind-key "M-f" 'company-complete-selection company-active-map)
-  (bind-key "<return>" (lambda() (interactive) (company-abort) (newline)) company-active-map)
-  (bind-key "SPC" (lambda() (interactive) (company-abort) (insert " ")) company-active-map)
-  (bind-key "C-m" (lambda() (interactive) (company-abort) (newline)) company-active-map)
-  (bind-key ":" (lambda() (interactive) (company-abort) (insert ":")) company-active-map)
-  (bind-key "." (lambda() (interactive) (company-abort) (insert ".")) company-active-map)
-  (bind-key "M-h" 'helm-company company-active-map)
-  (bind-key "M-j" 'yas/expand company-active-map)
-  (bind-key "C-n" 'company-select-next company-active-map)
-  (bind-key "C-p" 'company-select-previous company-active-map))
+  (add-to-list 'company-backends 'company-elm))
 
 (use-package cider
   :ensure t
@@ -225,11 +228,11 @@
   (display-time-mode 1))
 
 (use-package doc-view
-  :config
-  (define-key doc-view-mode-map (kbd "j") 'doc-view-next-line-or-next-page)
-  (define-key doc-view-mode-map (kbd "k") 'doc-view-previous-line-or-previous-page)
-  (define-key doc-view-mode-map (kbd "l") 'image-forward-hscroll)
-  (define-key doc-view-mode-map (kbd "h") 'image-backward-hscroll))
+  :bind (:map doc-view-mode-map
+              ("j" . doc-view-next-line-or-next-page)
+              ("k" . doc-view-previous-line-or-previous-page)
+              ("l" . image-forward-hscroll)
+              ("h" . image-backward-hscroll)))
 
 (use-package dockerfile-mode
   :ensure t)
@@ -326,7 +329,13 @@
     (emms-playing-time-enable-display)))
 
 (use-package erc
+  :bind (:map erc-mode-map
+              ("C-M-m" . erc-send-current-line)
+              ("RET" . erc-no-return))
   :init
+  (defun erc-no-return ()
+    (interactive)
+    (message "Use C-M-m to send"))
   (setq erc-scrolltobottom-mode 1
         erc-nick "kwrooijen"
         erc-prompt-for-password nil
@@ -334,35 +343,34 @@
         erc-hide-list '("JOIN" "PART" "QUIT"))
   :config
   (erc-truncate-mode 1)
-  (bind-key "" 'function erc-mode-map)
-  (bind-key "C-M-m" 'erc-send-current-line erc-mode-map)
-  (bind-key "RET" (lambda() (interactive) (message "Use C-M-m to send")) erc-mode-map)
   (add-hook 'erc-mode-hook 'toggle-modeline))
 
 (use-package erlang
   :ensure t
   :commands erlang-mode
+  :bind (:map erlang-mode-map
+              ("M-n" . highlight-symbol-next)
+              ("M-p" . highlight-symbol-prev)
+              ("M-n" . highlight-symbol-next)
+              ("M-p" . highlight-symbol-prev))
   :init
   (setq inferior-erlang-machine-options '("-sname" "emacs"))
   :config
-  (setq-mode-local erlang-mode tab-width 4)
-  (bind-key "M-/" 'erlang-get-error erlang-mode-map)
-  (bind-key "M-n" 'highlight-symbol-next erlang-mode-map)
-  (bind-key "M-p" 'highlight-symbol-prev erlang-mode-map)
-  (bind-key "M-n" 'highlight-symbol-next erlang-mode-map)
-  (bind-key "M-p" 'highlight-symbol-prev erlang-mode-map))
+  (setq-mode-local erlang-mode tab-width 4))
 
 (use-package evil
   :ensure t
+  :bind (:map evil-normal-state-map
+              ("C-d" . delete-char)
+              ("<SPC>" . attic-main/body)
+              ("TAB" . evil-bracket-open)
+              :map evil-visual-state-map
+              ("<SPC>" . attic-main/body))
   :config
   (add-hook 'minibuffer-setup-hook #'turn-off-evil-mode)
   (add-hook 'elixir-mode-hook #'turn-on-evil-mode)
   (evil-set-initial-state 'magit-popup-mode 'emacs)
   (evil-set-initial-state 'magit-status-mode 'emacs)
-  (define-key evil-normal-state-map (kbd "C-d") 'delete-char)
-  (define-key evil-normal-state-map (kbd "<SPC>") 'attic-main/body)
-  (define-key evil-visual-state-map (kbd "<SPC>") 'attic-main/body)
-  (define-key evil-normal-state-map (kbd "TAB") 'evil-bracket-open)
   ;; TODO fix properly
   (defun evil-bracket-open ()
     (interactive)
@@ -387,16 +395,9 @@
   (add-hook 'clojure-mode-hook 'evil-lispy-mode)
   (add-hook 'racket-mode-hook 'evil-lispy-mode))
 
-(use-package eww
-  :config
-  (bind-key "n" (lambda() (interactive) (scroll-up 1)) eww-mode-map)
-  (bind-key "p" (lambda() (interactive) (scroll-down 1)) eww-mode-map)
-  (bind-key "v" 'scroll-up-command eww-mode-map))
-
 (use-package expand-region
   :ensure t
-  :init
-  (bind-key* "M-@" 'er/expand-region))
+  :bind* (("M-@" . er/expand-region)))
 
 (use-package fancy-battery
   :ensure t
@@ -449,12 +450,16 @@
   (global-git-gutter+-mode t))
 
 (use-package grep
-  :config
-  (bind-key "n" 'next-line grep-mode-map)
-  (bind-key "p" 'previous-line grep-mode-map)
-  (bind-key "TAB" (lambda() (interactive) (error-preview "*grep*")) grep-mode-map)
-  (bind-key "v" 'scroll-up-command grep-mode-map)
-  (bind-key "z" 'helm-buffers-list grep-mode-map))
+  :bind (:map grep-mode-map
+              ("n" . next-line)
+              ("p" . previous-line)
+              ("TAB" . grep-error-preview)
+              ("v" . scroll-up-command)
+              ("z" . helm-buffers-list))
+  :init
+  (defun grep-error-preview ()
+    (interactive)
+    (error-preview "*grep*")))
 
 (use-package hackernews
   :ensure t)
@@ -484,6 +489,17 @@
 
 (use-package helm
   :ensure t
+  :bind* (("M-[" . helm-resume)
+          ("M-x" . helm-M-x))
+  :bind (:map helm-map
+              ("C-b" . nil)
+              ("C-f" . nil)
+              ("M-b" . nil)
+              ("M-f" . forward-word)
+              ("M-s" . helm-select-action)
+              ("TAB" . helm-execute-persistent-action)
+              ("M-?" . helm-help)
+              ("<RET>" . my/helm-exit-minibuffer))
   :init
   (setq
    ;; truncate long lines in helm completion
@@ -548,7 +564,7 @@
                         :foreground 'unspecified
                         :background 'unspecified
                         :inherit 'dired-symlink))
-  (use-package helm-buffer
+  (use-package helm-buffers
     :config
     (set-face-attribute 'helm-buffer-directory nil
                         :foreground 'unspecified
@@ -568,19 +584,6 @@
   (defun my/helm-exit-minibuffer ()
     (interactive)
     (helm-exit-minibuffer))
-  (eval-after-load "helm"
-    '(progn
-       (define-key helm-map (kbd "<RET>") 'my/helm-exit-minibuffer)))
-
-  (bind-key* "M-[" 'helm-resume)
-  (bind-key* "M-x" 'helm-M-x)
-  (define-key helm-map (kbd "C-b") 'nil)
-  (define-key helm-map (kbd "C-f") 'nil)
-  (define-key helm-map (kbd "M-b") 'nil)
-  (define-key helm-map (kbd "M-f") 'forward-word)
-  (define-key helm-map (kbd "M-s") 'helm-select-action)
-  (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
-  (define-key helm-map (kbd "M-?") 'helm-help)
   (defhydra helm-like-unite ()
     ("q" nil "Quit" :color blue)
     ("<spc>" helm-toggle-visible-mark "mark")
@@ -608,6 +611,7 @@
 
 (use-package helm-dash
   :ensure t
+  :bind* (("C-c C-s C-d" . helm-dash))
   :init
   (setq-mode-local clojure-mode helm-dash-docsets '("Clojure"))
   (setq-mode-local elixir-mode helm-dash-docsets '("Elixir"))
@@ -615,8 +619,7 @@
   (setq-mode-local erlang-mode helm-dash-docsets '("Erlang"))
   (setq-mode-local haskell-mode helm-dash-docsets '("Haskell"))
   (setq-mode-local ruby-mode helm-dash-docsets '("Ruby"))
-  (setq-mode-local rust-mode helm-dash-docsets '("Rust"))
-  (bind-key* "C-c C-s C-d" 'helm-dash))
+  (setq-mode-local rust-mode helm-dash-docsets '("Rust")))
 
 (use-package helm-descbinds
   :ensure t)
@@ -630,11 +633,9 @@
 
 (use-package helm-swoop
   :ensure t
-  :config
-  (define-key helm-swoop-map (kbd "M-e") 'helm-swoop-edit)
-  :init
-  (bind-key* "C-c C-s C-s" 'helm-multi-swoop)
-  (bind-key* "C-c C-s C-f" 'helm-swoop-find-files-recursively))
+  :bind* (("C-c C-s C-s" . helm-multi-swoop))
+  :bind (:map helm-swoop-map
+              ("M-e" . helm-swoop-edit)))
 
 (use-package highlight-numbers
   :ensure t
@@ -690,9 +691,6 @@
   :config
   (add-hook 'erlang-mode-hook 'indy-mode))
 
-(define-key isearch-mode-map (kbd "<escape>") 'isearch-abort)
-(define-key isearch-mode-map (kbd "TAB") 'isearch-exit)
-
 (use-package js2-mode
   :ensure t)
 
@@ -718,6 +716,13 @@
 
 (use-package lispy
   :ensure t
+  :bind (:map lispy-mode-map
+              ("TAB" . lispy-left-no-mark)
+              ("d" . lispy-different)
+              ("o" . lispy-other-mode)
+              ("f" . lispy-flow)
+              ("i" . evil-insert)
+              ("e" . attic/lispy--eval))
   :init
   (defun attic/lispy--eval ()
     (interactive)
@@ -728,13 +733,7 @@
   (defun lispy-left-no-mark ()
     (interactive)
     (deactivate-mark)
-    (lispy-left 1))
-  (define-key lispy-mode-map (kbd "TAB") 'lispy-left-no-mark)
-  (define-key lispy-mode-map (kbd "d") 'lispy-different)
-  (define-key lispy-mode-map (kbd "o") 'lispy-other-mode)
-  (define-key lispy-mode-map (kbd "f") 'lispy-flow)
-  (define-key lispy-mode-map (kbd "i") 'evil-insert)
-  (define-key lispy-mode-map (kbd "e") 'attic/lispy--eval))
+    (lispy-left 1)))
 
 (use-package macrostep
   :ensure t)
@@ -751,6 +750,19 @@
 
 (use-package mu4e
   :load-path "/usr/local/share/emacs/site-lisp/mu4e"
+  :bind (:map mu4e-main-mode-map
+              :map mu4e-main-mode-map
+              ("p" . previous-line)
+              ("n" . next-line)
+              ("z" . helm-buffers-list)
+              ("v" . scroll-up-command)
+              :map mu4e-compose-mode-map
+              ("M-s" . mml-secure-sign-pgp)
+              :map mu4e-headers-mode-map
+              ("v" . scroll-up-command)
+              :map mu4e-view-mode-map
+              ("f" . epa-mail-verify)
+              ("v" . scroll-up-command))
   :init
   (setq message-send-mail-function 'smtpmail-send-it
         mu4e-get-mail-command "offlineimap"
@@ -766,17 +778,7 @@
         mu4e-hide-index-messages t
         ;; Requires html2text package
         mu4e-html2text-command "html2text -utf8 -width 72"
-        mu4e-view-show-images t)
-  :config
-  (require 'smtpmail)
-  (define-key mu4e-main-mode-map (kbd "p") 'previous-line)
-  (define-key mu4e-main-mode-map (kbd "n") 'next-line)
-  (define-key mu4e-main-mode-map (kbd "z") 'helm-buffers-list)
-  (define-key mu4e-main-mode-map (kbd "v") 'scroll-up-command)
-  (define-key mu4e-headers-mode-map (kbd "v") 'scroll-up-command)
-  (define-key mu4e-view-mode-map (kbd "f") 'epa-mail-verify)
-  (define-key mu4e-view-mode-map (kbd "v") 'scroll-up-command)
-  (define-key mu4e-compose-mode-map (kbd "M-s") 'mml-secure-sign-pgp))
+        mu4e-view-show-images t))
 
 (use-package mu4e-alert
   :ensure t
@@ -823,8 +825,13 @@
 
 (use-package paredit
   :ensure t
-  :init
-  (setq ignore-paredit-copy '(elixir-mode erlang-mode))
+  :bind (:map paredit-mode-map
+              ("C-w" . paredit-kill-region)
+              ("M-R" . paredit-splice-sexp-killing-backward)
+              ("C-c C-r" . paredit-reindent-defun)
+              ("M-j" . paredit-join-sexps)
+              ("C-q" . paredit-backward-delete)
+              ("M-q" . paredit-backward-kill-word))
   :config
   (add-hook 'cider-repl-mode-hook 'paredit-mode)
   (add-hook 'clojure-mode-hook 'paredit-mode)
@@ -833,57 +840,7 @@
   (add-hook 'racket-mode-hook 'paredit-mode)
   (add-hook 'scheme-mode-hook 'paredit-mode)
   (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
-  (add-hook 'lisp-interaction-mode-hook 'paredit-mode)
-  (define-key paredit-mode-map (kbd "C-w") 'paredit-kill-region)
-  (define-key paredit-mode-map (kbd "M-R") 'paredit-splice-sexp-killing-backward)
-  (define-key paredit-mode-map (kbd "C-c C-r") 'paredit-reindent-defun)
-  (define-key paredit-mode-map (kbd "M-j") 'paredit-join-sexps)
-  (define-key paredit-mode-map (kbd "C-q") 'paredit-backward-delete)
-  (define-key paredit-mode-map (kbd "M-q") 'paredit-backward-kill-word)
-  (define-key paredit-mode-map (kbd "C-c C-p") 'maybe-paredit-copy-sexp-up)
-  (define-key paredit-mode-map (kbd "C-c C-n") 'maybe-paredit-copy-sexp-down)
-
-  (defun maybe-paredit-copy-sexp-down ()
-    (interactive)
-    (if (member major-mode ignore-paredit-copy)
-        (copy-line-down)
-      (paredit-copy-sexp-down)))
-
-  (defun maybe-paredit-copy-sexp-up ()
-    (interactive)
-    (if (member major-mode ignore-paredit-copy)
-        (copy-line-up)
-      (paredit-copy-sexp-up)))
-
-  (defun paredit-copy-sexp-down ()
-    (interactive)
-    (let ((prev-column (current-column)))
-      (paredit-forward)
-      (paredit-backward)
-      (kill-sexp)
-      (yank)
-      (paredit-newline)
-      (yank)
-      (paredit-reindent-defun)
-      (paredit-backward)
-      (move-to-column prev-column)))
-
-  (defun paredit-copy-sexp-up ()
-    (interactive)
-    (let ((prev-column (current-column)))
-      (paredit-forward)
-      (paredit-backward)
-      (kill-sexp)
-      (yank)
-      (paredit-backward)
-      (let ((copy-indent (current-column)))
-        (beginning-of-line)
-        (open-line 1)
-        (insert (make-string copy-indent 32))
-        (yank)
-        (paredit-reindent-defun)
-        (paredit-backward)
-        (move-to-column prev-column)))))
+  (add-hook 'lisp-interaction-mode-hook 'paredit-mode))
 
 (use-package paren
   :config
@@ -904,8 +861,7 @@
 
 (use-package redo+
   :ensure t
-  :init
-  (bind-key* "M-_" 'redo))
+  :bind* (("M-_" . redo)))
 
 (use-package ruby-mode
   :init
@@ -913,7 +869,8 @@
 
 (use-package rust-mode
   :ensure t
-  :bind (("M-." . racer-find-definition))
+  :bind (:map rust-mode-map
+              ("C-c C-c C-z" . racer-find-definition))
   :config
   (setq-mode-local rust-mode tab-width 4))
 
@@ -936,8 +893,7 @@
 
 (use-package tiny
   :ensure t
-  :config
-  (bind-key "C-;" 'tiny-expand))
+  :bind* (("C-;" . tiny-expand)))
 
 (use-package toml-mode
   :ensure t)
@@ -947,16 +903,18 @@
 
 (use-package twittering-mode
   :ensure t
+  :bind (:map twittering-mode-map
+              ("s" . twittering-search)
+              ("q" . previous-buffer)
+              ("w" . delete-window))
   :init
+  (defvar twittering-mode-map (make-sparse-keymap))
   (setq twittering-icon-mode t
         ;; Use master password for twitter instead of authenticating every time
         twittering-cert-file "/etc/ssl/certs/ca-bundle.crt"
         twittering-use-master-password t
         twittering-convert-fix-size 24)
   :config
-  (bind-key "s" 'twittering-search twittering-mode-map)
-  (bind-key "q" (lambda () (interactive) (switch-to-buffer nil)) twittering-mode-map)
-  (bind-key "w" 'delete-window twittering-mode-map)
   (add-hook 'twittering-mode-hook 'toggle-modeline))
 
 (use-package uuidgen
