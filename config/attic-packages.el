@@ -72,7 +72,7 @@
 
 (use-package beacon
   :ensure t
-  :init
+  :config
   (beacon-mode t)
   (add-to-list 'beacon-dont-blink-major-modes 'mu4e-compose-mode)
   (add-to-list 'beacon-dont-blink-major-modes 'mu4e-headers-mode)
@@ -217,7 +217,7 @@
   :ensure t)
 
 (use-package delsel
-  :init
+  :config
   ;; Delete seleted text when typing
   (delete-selection-mode 1))
 
@@ -257,6 +257,10 @@
   (add-hook* 'clojure-mode-hook (electric-pair-mode -1))
   (add-hook 'prog-mode-hook 'electric-pair-mode))
 
+(use-package eldoc
+  :config
+  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
+
 (use-package elfeed
   :ensure t
   :init
@@ -272,7 +276,6 @@
       (unless (file-exists-p full-path)
         (url-copy-file url full-path))
       full-path))
-
   (defun elfeed-open-in-emms ()
     (interactive)
     (save-excursion
@@ -332,8 +335,9 @@
   :init
   (setq emms-setup-default-player-list '(emms-player-vlc)
         emms-volume-change-amount 5)
+  :config
   (when (and (file-exists-p "~/Music/")
-             (>  (length (directory-files "~/Music/")) 2))
+             (> (length (directory-files "~/Music/")) 2))
     (emms-standard)
     (emms-default-players)
     (emms-add-directory-tree "~/Music/")
@@ -500,23 +504,6 @@
 (use-package haskell-mode
   :ensure t
   :config
-  (defun hoogle-search (query)
-    "Search with hoogle commandline"
-    (interactive "sHoogle query: ")
-    (if (get-buffer "*Hoogle*") (kill-buffer "*Hoogle*"))
-                                        ; get the version of hoogle so
-                                        ; I don't have to manually
-                                        ; adjust it for each update
-    (shell-command
-     (format "version=`hoogle --version | head -n 1
-        | awk '{print $2}' | cut -c 2- | rev | cut -c 2- | rev`;
-        data=\"/databases\"; two=$version$data; hoogle \"%s\"
-        --data=$HOME/.lazyVault/sandboxes/hoogle/cabal/share/hoogle-$two"
-             query))
-    (switch-to-buffer "*Shell Command Output*")
-    (rename-buffer "*Hoogle*")
-    (haskell-mode)
-    (previous-buffer))
   (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
 
@@ -632,7 +619,6 @@
     ("k" helm-previous-line "up")
     ("i" nil "cancel"))
   (key-chord-define helm-map "jh" 'helm-like-unite/body)
-
   (defun helm-hide-minibuffer-maybe ()
     (when (with-helm-buffer helm-echo-input-in-header-line)
       (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
@@ -645,7 +631,7 @@
 (use-package helm-dash
   :ensure t
   :bind* (("C-c C-s C-d" . helm-dash))
-  :init
+  :config
   (setq-mode-local clojure-mode helm-dash-docsets '("Clojure"))
   (setq-mode-local elixir-mode helm-dash-docsets '("Elixir"))
   (setq-mode-local emacs-lisp-mode helm-dash-docsets '("Emacs Lisp"))
@@ -737,10 +723,9 @@
 (use-package linum
   :init
   (setq linum-format (quote "%3d")
-        linum-disabled-modes-list
-        '(mu4e-compose-mode
-          mu4e-headers-mode
-          mu4e-main-mode))
+        linum-disabled-modes-list '(mu4e-compose-mode
+                                    mu4e-headers-mode
+                                    mu4e-main-mode))
   :config
   (set-face-attribute 'linum nil :inherit 'default :background nil))
 
@@ -752,7 +737,8 @@
               ("o" . lispy-other-mode)
               ("f" . lispy-flow)
               ("i" . evil-insert)
-              ("e" . attic/lispy--eval))
+              ("e" . attic/lispy--eval)
+              ("J" . evil-join))
   :init
   (defun attic/lispy--eval ()
     (interactive)
@@ -812,12 +798,12 @@
 
 (use-package mu4e-alert
   :ensure t
-  :init
+  :config
   (mu4e-alert-enable-mode-line-display))
 
 (use-package mu4e-maildirs-extension
   :ensure t
-  :init
+  :config
   (mu4e-maildirs-extension))
 
 (use-package org
@@ -881,8 +867,8 @@
   :init
   (setq racer-cmd "/usr/local/bin/racer"
         racer-rust-src-path "/usr/local/src/rust/src/")
-  (setq-mode-local rust-mode company-backends '(company-racer))
   :config
+  (setq-mode-local rust-mode company-backends '(company-racer))
   (add-hook 'rust-mode-hook 'racer-mode)
   (add-hook 'rust-mode-hook 'racer-turn-on-eldoc))
 
@@ -916,9 +902,7 @@
 (use-package scheme-complete
   :ensure t
   :config
-  (setq-mode-local scheme-mode eldoc-documentation-function 'scheme-get-current-symbol-info)
-  (autoload 'scheme-get-current-symbol-info "scheme-complete" nil t)
-  (add-hook 'scheme-mode-hook 'eldoc-mode))
+  (autoload 'scheme-get-current-symbol-info "scheme-complete" nil t))
 
 (use-package simple
   :init
@@ -986,7 +970,7 @@
 
 (use-package vi-tilde-fringe
   :ensure t
-  :init
+  :config
   (global-vi-tilde-fringe-mode 1))
 
 (use-package web-mode
@@ -1035,9 +1019,8 @@
 
 (use-package ws-butler
   :ensure t
-  :init
-  (ws-butler-global-mode)
   :config
+  (ws-butler-global-mode)
   ;; Disable aftersave
   (defun ws-butler-after-save ()))
 
@@ -1046,10 +1029,9 @@
 
 (use-package yasnippet
   :ensure t
-  :init
+  :config
   (yas-global-mode t)
   (add-hook 'prog-mode-hook 'yas-minor-mode)
-  :config
   (setq-mode-local snippet-mode require-final-newline nil))
 
 (use-package spaceline-config
