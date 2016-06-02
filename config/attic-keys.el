@@ -59,6 +59,7 @@
   "Attic Window"
   ("q" nil "Quit" :color blue)
   ("RET" nil :color blue)
+  ("e" zoom-window-zoom "Zoom" :color blue)
   ("[" winner-undo "Winner Undo")
   ("]" winner-redo "Winner Redo")
   ("h" shrink-window-horizontally "Shrink Horizontally")

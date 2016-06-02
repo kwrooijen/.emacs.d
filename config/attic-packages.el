@@ -52,7 +52,6 @@
   :init
   (setq alchemist-hooks-compile-on-save t
         alchemist-hooks-test-on-save t)
-  :config
   (add-hook 'elixir-mode-hook 'alchemist-mode))
 
 (use-package anzu
@@ -90,7 +89,6 @@
           ("C-S-V" . x-clipboard-yank)
           ("C-S-C" . clipboard-kill-ring-save)
           ("C-M-q" . backward-kill-sexp)
-          ("C-x C-1" . delete-other-windows)
           ("C-x C-2" . split-window-below)
           ("C-x C-3" . split-window-right)
           ("C-x C-4" . delete-window)
@@ -1033,6 +1031,10 @@
   (yas-global-mode t)
   (add-hook 'prog-mode-hook 'yas-minor-mode)
   (setq-mode-local snippet-mode require-final-newline nil))
+
+(use-package zoom-window
+  :ensure t
+  :bind* ("C-x C-1" . zoom-window-zoom))
 
 (use-package spaceline-config
   ;; Needs to be loaded last

@@ -21,6 +21,8 @@ session.*
 /speed-type
 /request
 /newsticker
+/semanticdb
+notes
 .cache/
 .litable-lists.el
 projectile-bookmarks.eld
