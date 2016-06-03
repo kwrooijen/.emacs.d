@@ -80,10 +80,7 @@
 (use-package bind-key
   :ensure t
   :bind* (("C-c C-o" . switch-to-minibuffer)
-          ("C-c C-=" . increment-decimal)
-          ("C-c C--" . decrement-decimal)
           ("M-u" . redo)
-          ("C-/" . attic/comment)
           ("C-q" . backward-delete-char)
           ("M-q" . backward-kill-word)
           ("C-S-V" . x-clipboard-yank)
@@ -94,9 +91,7 @@
           ("C-x C-4" . delete-window)
           ("C-x C-8" . fill-paragraph)
           ("C-x C-k" . kill-this-buffer)
-          ("C-c C-p" . copy-line-up)
-          ("C-c C-n" . copy-line-down)
-          ("M-p" . attic-M-p)
+          ("M-P" . evil-paste-pop-or-kill-ring)
           ("M-+" . align-regexp)
           ("M-C" . capitalize-previous-word)
           ("M-i" . tab-to-tab-stop-line-or-region)
@@ -106,6 +101,9 @@
   :config
   (global-unset-key "\C-x\C-z")
   (global-unset-key "\C-z"))
+
+(use-package buffer-move
+  :ensure t)
 
 (use-package cargo
   :ensure t
@@ -348,6 +346,15 @@
               ("C-M-m" . erc-send-current-line)
               ("RET" . erc-no-return))
   :init
+  (defadvice attic/erc (after attic-ad/attic/erc-after activate)
+    (setq erc-password nil))
+  (defun attic/erc ()
+    (interactive)
+    (load "~/.erc.gpg")
+    (erc :server "irc.freenode.net"
+         :port 6667
+         :nick erc-nick
+         :password erc-password))
   (defun erc-no-return ()
     (interactive)
     (message "Use C-M-m to send"))
@@ -390,8 +397,13 @@
               ("<SPC>" . attic-main/body)
               ("TAB" . evil-bracket-open)
               :map evil-visual-state-map
-              ("<SPC>" . attic-main/body))
+              ("<SPC>" . attic-main/body)
+              :map evil-insert-state-map
+              ("[" . insert-open-bracket))
   :config
+  (defun insert-open-bracket ()
+    (interactive)
+    (insert "["))
   (add-hook 'minibuffer-setup-hook #'turn-off-evil-mode)
   (add-hook 'elixir-mode-hook #'turn-on-evil-mode)
   (evil-set-initial-state 'magit-popup-mode 'emacs)
@@ -407,18 +419,22 @@
     (evil-normal-state)
     (save-buffer)))
 
+(use-package evil-nerd-commenter
+  :ensure t
+  :bind* (("C-/" . evilnc-comment-or-uncomment-lines)))
+
+(use-package evil-numbers
+  :ensure t
+  :bind* (("C-c C-=" . evil-numbers/inc-at-pt)
+          ("C-c C--" . evil-numbers/dec-at-pt)))
+
 (use-package evil-paredit
   :ensure t
   :config
   (add-hook 'paredit-mode-hook 'evil-paredit-mode))
 
 (use-package evil-lispy
-  :ensure t
-  :config
-  (add-hook 'scheme-mode-hook 'evil-lispy-mode)
-  (add-hook 'emacs-lisp-mode-hook 'evil-lispy-mode)
-  (add-hook 'clojure-mode-hook 'evil-lispy-mode)
-  (add-hook 'racket-mode-hook 'evil-lispy-mode))
+  :ensure t)
 
 (use-package expand-region
   :ensure t
@@ -470,7 +486,11 @@
       (geiser-eval-last-sexp nil))))
 
 (use-package gist
-  :ensure t)
+  :ensure t
+  :init
+  (defun send-to-gist (answer)
+    (interactive "cSend region to Gist?: (y/n) ")
+    (if (equal answer ?\y) (gist-region (region-beginning) (region-end)))))
 
 (use-package git-gutter+
   :if (not window-system)
@@ -494,7 +514,8 @@
   :init
   (defun grep-error-preview ()
     (interactive)
-    (error-preview "*grep*")))
+    (compile-goto-error)
+    (switch-to-buffer-other-window "*grep*")))
 
 (use-package hackernews
   :ensure t)
@@ -929,6 +950,8 @@
 
 (use-package tramp
   :init
+  (defun is-tramp-mode ()
+    (file-remote-p default-directory))
   ;; Immediately reread remote directories
   (setq tramp-completion-reread-directory-timeout nil)
   ;; Set Tramp backup file location

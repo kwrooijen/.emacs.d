@@ -116,6 +116,7 @@
         paredit-backward
         paredit-backward-barf-sexp
         paredit-backward-kill-word
+        paredit-close-round
         paredit-close-round-and-newline
         paredit-close-square
         paredit-forward

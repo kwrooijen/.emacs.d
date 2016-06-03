@@ -29,10 +29,10 @@ buffer is not visiting a file."
   (interactive)
   (tab-to-tab-stop-line-or-region t))
 
-(defun yank-pop-or-kill-ring ()
+(defun evil-paste-pop-or-kill-ring ()
   (interactive)
-  (if (or (equal last-command 'yank) (equal last-command 'yank-pop))
-      (yank-pop)
+  (if (or (equal last-command 'evil-paste-after) (equal last-command 'evil-paste-pop))
+      (evil-paste-pop 1)
     (helm-show-kill-ring)))
 
 (defun switch-to-minibuffer ()
@@ -41,20 +41,6 @@ buffer is not visiting a file."
   (if (active-minibuffer-window)
       (select-window (active-minibuffer-window))
     (error "Minibuffer is not active")))
-
-(defun error-preview (buff)
-  (interactive)
-  (compile-goto-error)
-  (switch-to-buffer-other-window buff))
-
-(defun send-to-gist (answer)
-  ""
-  (interactive "cSend region to Gist?: (y/n) ")
-  (if (equal answer ?\y) (gist-region (region-beginning) (region-end))))
-
-(defun get-current-buffer-major-mode ()
-  (interactive)
-  (message "%s" major-mode))
 
 (defun cd-up-to-file (file)
   "Go up a directory until you find FILE or enter the root directory.
@@ -68,6 +54,7 @@ If file is found then return t else nil."
   (if (get-buffer buffer)
       (kill-buffer buffer)))
 
+;;TODO: Create Make package
 (defun reset-buffer (buffer)
   (kill-buffer-if-exists buffer)
   (generate-new-buffer buffer))
@@ -121,70 +108,6 @@ If file is found then return t else nil."
   "Converts STR, which is a word using underscores, to camel case."
   (interactive "S")
   (apply 'concat (mapcar 'capitalize (split-string str "_"))))
-
-(defun copy-line (arg)
-  "Copy lines (as many as prefix argument) in the kill ring"
-  (interactive "p")
-  (kill-ring-save (line-beginning-position)
-                  (line-beginning-position (+ 1 arg))))
-
-(defun copy-line-fun (up)
-  (let ((current (current-column)))
-    (if (region-active-p)
-        (progn
-          (copy-region-as-kill (region-beginning) (region-end))
-          (goto-char (if up (region-beginning) (region-end)))
-          (if up (open-line 1) (newline 1))
-          (yank))
-      (progn
-        (copy-line 1)
-        (beginning-of-line)
-        (yank)
-        (if up (previous-line))
-        (move-to-column current)))))
-
-(defun copy-line-up ()
-  (interactive)
-  (copy-line-fun t))
-
-(defun copy-line-down ()
-  (interactive)
-  (copy-line-fun nil))
-
-(defun attic/comment ()
-  (interactive)
-  (if (region-active-p)
-      (comment-or-uncomment-region (region-beginning) (region-end))
-    (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
-
-(defun is-tramp-mode ()
-  (file-remote-p default-directory))
-
-(defun flymake-create-temp-intemp (file-name prefix)
-  "Return file name in temporary directory for checking FILE-NAME.
-This is a replacement for `flymake-create-temp-inplace'. The
-difference is that it gives a file name in
-`temporary-file-directory' instead of the same directory as
-FILE-NAME.
-
-For the use of PREFIX see that function.
-
-Note that not making the temporary file in another directory
-\(like here) will not if the file you are checking depends on
-relative paths to other files \(for the type of checks flymake
-makes)."
-  (unless (stringp file-name)
-    (error "Invalid file-name"))
-  (or prefix
-      (setq prefix "flymake"))
-  (let* ((name (concat
-                (file-name-nondirectory
-                 (file-name-sans-extension file-name))
-                "_" prefix))
-         (ext  (concat "." (file-name-extension file-name)))
-         (temp-name (make-temp-file name nil ext)))
-    (flymake-log 3 "create-temp-intemp: file=%s temp=%s" file-name temp-name)
-    temp-name))
 
 (defun capitalize-previous-word ()
   (interactive)
@@ -296,39 +219,6 @@ makes)."
   (shell-command
    (format "ctags -f %s -e -R %s" tags-file-name (directory-file-name dir-name))))
 
-(defun increment-decimal (&optional arg)
-  "Increment the number forward at point by 'arg'."
-  (interactive "p*")
-  (let ((last-col (current-column)))
-    (save-match-data
-      (let ((inc-by (if arg arg 1))
-            (field-width (- (match-end 0) (match-beginning 0)))
-            answer)
-        (skip-chars-backward "0123456789")
-        (when (re-search-forward "[0-9]+" nil t)
-          (setq answer (+ (string-to-number (match-string 0) 10) inc-by))
-          (when (< answer 0)
-            (setq answer (+ (expt 10 field-width) answer)))
-          (replace-match (format (concat "%0" (int-to-string field-width) "d")
-                                 answer)))))
-    (move-to-column last-col)))
-
-(defun decrement-decimal (&optional arg)
-  "Decrement the number forward at point by 'arg'."
-  (interactive "p*")
-  (increment-decimal (if arg (- arg) -1)))
-
-(defadvice attic/erc (after attic-ad/attic/erc-after activate)
-  (setq erc-password nil))
-
-(defun attic/erc ()
-  (interactive)
-  (load "~/.erc.gpg")
-  (erc :server "irc.freenode.net"
-       :port 6667
-       :nick erc-nick
-       :password erc-password))
-
 (defun frame-name (frame)
   (frame-parameter frame 'name))
 
@@ -377,17 +267,6 @@ makes)."
 (defun insert! (value)
   (insert (format "%s" value)))
 
-(defmacro defsafe (normal par &optional args)
-  `(defun ,(intern (format "safe-%s" normal)) ,args
-     (interactive)
-     (if (and ,(boundp 'paredit-mode) paredit-mode)
-         (apply ',par ,(cons 'list args))
-       (apply ',normal ,(cons 'list args)))))
-
-(defsafe kill-line paredit-kill)
-(defsafe kill-region paredit-kill-region (beg end))
-(defsafe delete-char paredit-forward-delete (num))
-
 (defun toggle-window-split ()
   (interactive)
   (if (= (count-windows) 2)
@@ -413,15 +292,6 @@ makes)."
           (select-window first-win)
           (if this-win-2nd (other-window 1))))))
 
-(defun rotate-windows-helper (x d)
-  (if (equal (cdr x) nil) (set-window-buffer (car x) d)
-    (set-window-buffer (car x) (window-buffer (cadr x))) (rotate-windows-helper (cdr x) d)))
-
-(defun rotate-windows ()
-  (interactive)
-  (rotate-windows-helper (window-list) (window-buffer (car (window-list))))
-  (select-window (car (last (window-list)))))
-
 (defun geiser-eval-next-sexp (print-to-buffer-p)
   "Eval the next sexp in the Geiser REPL.
 
@@ -436,12 +306,6 @@ With a prefix, print the result of the evaluation to the buffer."
     (when (and print-to-buffer-p (not (string= "" str)))
       (push-mark)
       (insert str))))
-
-(defun attic-M-p ()
-  (interactive)
-  (if (active-minibuffer-window)
-      (previous-history-element 1)
-    (yank-pop-or-kill-ring)))
 
 (defmacro add-hook* (mode fn)
   `(add-hook ,mode (lambda () ,fn)))
