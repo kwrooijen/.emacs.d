@@ -15,6 +15,9 @@
   (require 'use-package))
 (require 'bind-key)
 
+(unless (file-exists-p "~/.emacs.d/tmp")
+  (make-directory "~/.emacs.d/tmp"))
+
 ;; Multiple Cursors to be loaded first to use the correct path
 (use-package multiple-cursors
   :load-path "~/.emacs.d/multiple-cursors.el/"

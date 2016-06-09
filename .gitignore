@@ -13,6 +13,7 @@ session.*
 /emms
 /backups
 /tramp
+/tmp
 /eshell
 *_flymake*
 /config/my-requires.el
