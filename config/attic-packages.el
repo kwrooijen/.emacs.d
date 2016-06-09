@@ -931,6 +931,9 @@
 (use-package string-edit
   :ensure t)
 
+(use-package sudo-edit
+  :ensure t)
+
 (use-package term
   :init
   (defun term-toggle-mode ()
