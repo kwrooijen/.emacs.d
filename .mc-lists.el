@@ -52,8 +52,11 @@
         evil-forward-word-begin
         evil-forward-word-end
         evil-insert
+        evil-join
         evil-next-line
         evil-normal-state
+        evil-open-above
+        evil-open-below
         evil-paredit-delete
         evil-paredit-delete-line
         evil-paste-after
@@ -61,6 +64,7 @@
         evil-repeat-find-char
         evil-replace
         evil-replace-state
+        evil-ret
         evil-shift-left-line
         evil-substitute
         evil-visual-char
@@ -116,6 +120,7 @@
         paredit-backward
         paredit-backward-barf-sexp
         paredit-backward-kill-word
+        paredit-backward-slurp-sexp
         paredit-close-round
         paredit-close-round-and-newline
         paredit-close-square
@@ -262,6 +267,7 @@
         markdown-next-link
         mouse-appearance-menu
         my/grep
+        paredit-semicolon
         special-lispy-other-mode
         switch-to-minibuffer
         wdired-finish-edit

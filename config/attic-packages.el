@@ -50,8 +50,8 @@
               ("M-n" . alchemist-goto-jump-to-next-def-symbol)
               ("M-p" . alchemist-goto-jump-to-previous-def-symbol))
   :init
-  (setq alchemist-hooks-compile-on-save t
-        alchemist-hooks-test-on-save t)
+  (setq alchemist-hooks-compile-on-save nil
+        alchemist-hooks-test-on-save nil)
   (add-hook 'elixir-mode-hook 'alchemist-mode))
 
 (use-package anzu
@@ -69,23 +69,19 @@
   (set-face-attribute 'ac-completion-face nil :inherit 'company-preview-common :background nil :foreground nil)
   (set-face-attribute 'ac-selection-face nil :inherit 'company-tooltip-common-selection))
 
-(use-package beacon
+(use-package back-button
   :ensure t
-  :config
-  (beacon-mode t)
-  (add-to-list 'beacon-dont-blink-major-modes 'mu4e-compose-mode)
-  (add-to-list 'beacon-dont-blink-major-modes 'mu4e-headers-mode)
-  (add-to-list 'beacon-dont-blink-major-modes 'mu4e-main-mode))
+  :init
+  (back-button-mode 1))
 
 (use-package bind-key
   :ensure t
   :bind* (("C-c C-o" . switch-to-minibuffer)
+          ("C-SPC" . attic-main/body)
           ("M-u" . redo)
           ("C-q" . backward-delete-char)
-          ("M-q" . backward-kill-word)
           ("C-S-V" . x-clipboard-yank)
           ("C-S-C" . clipboard-kill-ring-save)
-          ("C-M-q" . backward-kill-sexp)
           ("C-x C-2" . split-window-below)
           ("C-x C-3" . split-window-right)
           ("C-x C-4" . delete-window)
@@ -201,6 +197,8 @@
   :ensure t)
 
 (use-package compile
+  :bind (:map compilation-mode-map
+              ("<SPC>" . attic-main/body))
   :init
   ;; Scroll on in the *compilation* buffer
   (setq compilation-scroll-output t))
@@ -324,7 +322,7 @@
   (defmacro elscreen-goto-workspace-list (&rest nums)
     (let ((forms (mapcar 'elscreen-goto-template nums)))
       `(progn ,@forms)))
-  (elscreen-goto-workspace-list 1 2 3 4 5 6 7 8 9))
+  (elscreen-goto-workspace-list 1 2 3 4 5))
 
 (use-package emms
   :ensure t
@@ -365,19 +363,14 @@
         erc-hide-list '("JOIN" "PART" "QUIT"))
   :config
   (erc-truncate-mode 1)
+  (set-face-attribute 'erc-nick-default-face nil :foreground "#528B8B")
   (add-hook 'erc-mode-hook 'toggle-modeline))
 
 (use-package erlang
   :ensure t
   :mode ("\\.app.src\\'"
          "rebar.config")
-
   :commands erlang-mode
-  :bind (:map erlang-mode-map
-              ("M-n" . highlight-symbol-next)
-              ("M-p" . highlight-symbol-prev)
-              ("M-n" . highlight-symbol-next)
-              ("M-p" . highlight-symbol-prev))
   :init
   (setq inferior-erlang-machine-options '("-sname" "emacs"))
   :config
@@ -397,15 +390,12 @@
               ("<SPC>" . attic-main/body)
               ("TAB" . evil-bracket-open)
               :map evil-visual-state-map
-              ("<SPC>" . attic-main/body)
-              :map evil-insert-state-map
-              ("[" . insert-open-bracket))
+              ("<SPC>" . attic-main/body))
+  :bind* (("M-q" . evil-normal-state))
   :config
-  (defun insert-open-bracket ()
-    (interactive)
-    (insert "["))
   (add-hook 'minibuffer-setup-hook #'turn-off-evil-mode)
-  (add-hook 'elixir-mode-hook #'turn-on-evil-mode)
+  (add-hook 'prog-mode-hook #'turn-on-evil-mode)
+  (add-hook 'org-mode-hook #'turn-on-evil-mode)
   (evil-set-initial-state 'magit-popup-mode 'emacs)
   (evil-set-initial-state 'magit-status-mode 'emacs)
   ;; TODO fix properly
@@ -454,6 +444,11 @@
   (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
   ;; No confirmation when creating new buffer
   (setq confirm-nonexistent-file-or-buffer nil))
+
+(use-package flyspell
+  :init
+  (add-hook 'org-mode-hook 'flyspell-mode)
+  (add-hook 'org-mode-hook 'flyspell-buffer))
 
 (use-package flycheck-rust
   :ensure t)
@@ -637,7 +632,6 @@
     ("K" helm-prev-source "up source")
     ("k" helm-previous-line "up")
     ("i" nil "cancel"))
-  (key-chord-define helm-map "jh" 'helm-like-unite/body)
   (defun helm-hide-minibuffer-maybe ()
     (when (with-helm-buffer helm-echo-input-in-header-line)
       (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
@@ -682,7 +676,16 @@
 
 (use-package highlight-symbol
   :ensure t
+  :bind  (:map prog-mode-map
+               ("M-j" . highlight-symbol-next)
+               ("M-k" . highlight-symbol-prev))
   :init
+  (setq highlight-symbol-ignore-list
+        '("def" "defun" "define" "defmacro"
+          "use-package" "defmodule" "do"
+          "require" "alias" "use" "let" "="
+          "-" "+" "/"))
+  (add-hook 'prog-mode-hook 'highlight-symbol-mode)
   (setq highlight-symbol-idle-delay 0))
 
 (use-package hl-defined
@@ -694,6 +697,10 @@
   (add-hook 'scheme-mode-hook 'hdefd-highlight-mode)
   (add-hook 'clojure-mode-hook 'hdefd-highlight-mode)
   (set-face-attribute 'hdefd-functions nil :foreground nil :inherit 'font-lock-function-name-face))
+
+(use-package hl-line
+  :init
+  (add-hook 'prog-mode-hook 'hl-line-mode))
 
 (use-package hydra
   :ensure t
@@ -734,10 +741,7 @@
   :config
   (add-hook* 'prog-mode-hook (key-chord-mode 1))
   (add-hook* 'isearch-mode-hook (key-chord-mode 1))
-  (key-chord-define-global "xs" 'evil-normal-state-and-save)
-  (key-chord-define-global ";j" 'evil-force-normal-state)
-  (key-chord-define helm-map ";j" 'helm-keyboard-quit)
-  (key-chord-define isearch-mode-map ";j" 'isearch-abort))
+  (key-chord-define-global "xs" 'evil-normal-state-and-save))
 
 (use-package linum
   :init
@@ -826,37 +830,17 @@
   (mu4e-maildirs-extension))
 
 (use-package org
-  :config
-  (when (file-exists-p "~/Documents/notes/Org")
-    (setq org-log-done 'time
-          org-capture-templates '()
-          org-src-fontify-natively t
-          org-capture-templates '(("1" "Done" entry
-                                   (file+headline "~/Documents/notes/Org/Done.org" "Done")
-                                   (file "~/.emacs.d/Templates/Done.orgtpl"))
-                                  ("2" "Retro" entry
-                                   (file+headline "~/Documents/notes/Org/Retro.org" "Done")
-                                   (file "~/.emacs.d/Templates/Retro.orgtpl"))
-                                  ("3" "Todo" entry
-                                   (file+headline "~/Documents/notes/Org/Todo.org" "Todo")
-                                   (file "~/.emacs.d/Templates/Todo.orgtpl"))))
-    (defun add-my-todos-to-org (list)
-      "Adds All the files in Todo directory to my list of todo subjects."
-      (let ((c 0)
-            (r '()))
-        (while (nth c list)
-          (let ((key (char-to-string (+ c 97)))
-                (val (nth c list)))
-            (add-to-list 'org-capture-templates
-                         `(,key ,val entry
-                                (file+headline ,(concat "~/Documents/notes/Org/Todo/" val) ,val)
-                                (file "~/.emacs.d/Templates/GenericTodo.orgtpl")))
-            (setq c (+ c 1))))))
-    (add-my-todos-to-org
-     (directory-files
-      (expand-file-name "~/Documents/notes/Org/Todo")
-      nil
-      "^\\([^#|^.]\\|\\.[^.]\\|\\.\\..\\)"))))
+  :init
+  (setq org-log-done 'time
+        org-capture-templates '()
+        org-src-fontify-natively t
+        org-ellipsis " ⤵"))
+
+(use-package org-bullets
+  :ensure t
+  :init
+  (setq org-bullets-bullet-list '("◉"))
+  (add-hook 'org-mode-hook 'org-bullets-mode))
 
 (use-package paredit
   :ensure t
@@ -864,9 +848,7 @@
               ("C-w" . paredit-kill-region)
               ("M-R" . paredit-splice-sexp-killing-backward)
               ("C-c C-r" . paredit-reindent-defun)
-              ("M-j" . paredit-join-sexps)
-              ("C-q" . paredit-backward-delete)
-              ("M-q" . paredit-backward-kill-word))
+              ("M-j" . paredit-join-sexps))
   :config
   (add-hook 'cider-repl-mode-hook 'paredit-mode)
   (add-hook 'clojure-mode-hook 'paredit-mode)
@@ -880,6 +862,18 @@
 (use-package paren
   :config
   (show-paren-mode t))
+
+(use-package prog-mode
+  :init
+  (setq prettify-lisp-alist '(("lambda" . 955)))
+  (add-hook 'scheme-mode-hook 'prettify-symbols-mode)
+  (add-hook 'emacs-lisp-mode-hook 'prettify-symbols-mode)
+  (add-hook 'clojure-mode-hook 'prettify-symbols-mode)
+  (add-hook 'racket-mode-hook 'prettify-symbols-mode)
+  (add-hook* 'scheme-mode-hook (setq-local prettify-symbols-alist prettify-lisp-alist))
+  (add-hook* 'emacs-lisp-mode-hook (setq-local prettify-symbols-alist prettify-lisp-alist))
+  (add-hook* 'clojure-mode-hook (setq-local prettify-symbols-alist prettify-lisp-alist))
+  (add-hook* 'racket-mode-hook (setq-local prettify-symbols-alist prettify-lisp-alist)))
 
 (use-package racer
   :ensure t
@@ -938,7 +932,14 @@
   :ensure t)
 
 (use-package term
+  :init
+  (defun term-toggle-mode ()
+    (interactive)
+    (if (term-in-line-mode)
+        (term-char-mode)
+      (term-line-mode)))
   :config
+  (evil-set-initial-state 'term-mode 'emacs)
   (setq-mode-local term-mode yas-dont-activate t))
 
 (use-package tiny
@@ -1070,22 +1071,9 @@
   (spaceline-toggle-minor-modes-off)
   (spaceline-toggle-anzu-off))
 
-(use-package jazz-theme
+(use-package darktooth-theme
   :ensure t
   :config
-  (set-face-attribute 'default nil :background "#2f2922")
-  (set-face-attribute 'elscreen-tab-background-face     nil :background "#25201b" :inherit 'fringe)
-  (set-face-attribute 'elscreen-tab-current-screen-face nil :inherit 'fringe :background "#2f2922" :foreground "#c6a57b")
-  (set-face-attribute 'elscreen-tab-other-screen-face   nil :background "#4b4238" :foreground "#25201b")
-  (set-face-attribute 'font-lock-comment-delimiter-face nil :background "#2a251e")
-  (set-face-attribute 'font-lock-comment-face nil :background "#2a251e")
-  (set-face-attribute 'fringe nil :background "#25201b" :foreground "#c6a57b")
-  (set-face-attribute 'highlight-numbers-number nil :foreground "#ff7f00")
-  (set-face-attribute 'highlight-symbol-face nil :inherit 'default :background "#fff" :foreground "gray20")
-  (set-face-attribute 'mode-line-buffer-id nil :foreground "#cd853f")
-  (set-face-attribute 'mode-line-inactive nil :foreground "grey")
-  (set-face-attribute 'term-color-blue nil :background "#385e6b" :foreground "#385e6b")
-  (set-face-attribute 'vertical-border nil :foreground "#25201b" :inherit 'fringe)
-  (set-face-attribute 'whitespace-space nil :foreground "#505050" :background 'unspecified :inherit 'default))
+  (set-face-attribute 'default nil :foreground "#c6a57b"))
 
 (provide 'attic-packages)
