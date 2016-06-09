@@ -87,7 +87,6 @@
           ("C-x C-4" . delete-window)
           ("C-x C-8" . fill-paragraph)
           ("C-x C-k" . kill-this-buffer)
-          ("M-P" . evil-paste-pop-or-kill-ring)
           ("M-+" . align-regexp)
           ("M-C" . capitalize-previous-word)
           ("M-i" . tab-to-tab-stop-line-or-region)
@@ -97,9 +96,6 @@
   :config
   (global-unset-key "\C-x\C-z")
   (global-unset-key "\C-z"))
-
-(use-package buffer-move
-  :ensure t)
 
 (use-package cargo
   :ensure t
@@ -324,6 +320,9 @@
       `(progn ,@forms)))
   (elscreen-goto-workspace-list 1 2 3 4 5))
 
+(use-package elwm
+  :ensure t)
+
 (use-package emms
   :ensure t
   :init
@@ -389,9 +388,16 @@
               ("C-d" . delete-char)
               ("<SPC>" . attic-main/body)
               ("TAB" . evil-bracket-open)
+              ("C-M-P" . evil-paste-pop-or-kill-ring)
               :map evil-visual-state-map
               ("<SPC>" . attic-main/body))
   :bind* (("M-q" . evil-normal-state))
+  :init
+  (defun evil-paste-pop-or-kill-ring ()
+    (interactive)
+    (if (or (equal last-command 'evil-paste-after) (equal last-command 'evil-paste-pop))
+        (evil-paste-pop 1)
+      (helm-show-kill-ring)))
   :config
   (add-hook 'minibuffer-setup-hook #'turn-off-evil-mode)
   (add-hook 'prog-mode-hook #'turn-on-evil-mode)
@@ -463,6 +469,20 @@
   :ensure t
   :init
   (setq geiser-popup--no-jump t)
+  (defun geiser-eval-next-sexp (print-to-buffer-p)
+    "Eval the next sexp in the Geiser REPL.
+
+With a prefix, print the result of the evaluation to the buffer."
+    (interactive "P")
+    (let* ((ret (geiser-eval-region (save-excursion (forward-sexp) (point))
+                                    (point)
+                                    nil
+                                    t
+                                    print-to-buffer-p))
+           (str (geiser-eval--retort-result-str ret (when print-to-buffer-p ""))))
+      (when (and print-to-buffer-p (not (string= "" str)))
+        (push-mark)
+        (insert str))))
   :config
   (defun helm-geiser ()
     (interactive)

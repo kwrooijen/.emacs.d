@@ -268,6 +268,7 @@
         mouse-appearance-menu
         my/grep
         paredit-semicolon
+        smart-region
         special-lispy-other-mode
         switch-to-minibuffer
         wdired-finish-edit

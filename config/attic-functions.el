@@ -17,12 +17,6 @@
   (interactive)
   (tab-to-tab-stop-line-or-region t))
 
-(defun evil-paste-pop-or-kill-ring ()
-  (interactive)
-  (if (or (equal last-command 'evil-paste-after) (equal last-command 'evil-paste-pop))
-      (evil-paste-pop 1)
-    (helm-show-kill-ring)))
-
 (defun switch-to-minibuffer ()
   "Switch to minibuffer window."
   (interactive)
@@ -92,66 +86,11 @@ If file is found then return t else nil."
   (interactive "sMake: ")
   (run-make input "[Custom Make]"))
 
-(defun underscores-to-camel-case (str)
-  "Converts STR, which is a word using underscores, to camel case."
-  (interactive "S")
-  (apply 'concat (mapcar 'capitalize (split-string str "_"))))
-
 (defun capitalize-previous-word ()
   (interactive)
   (save-excursion
     (backward-word)
     (capitalize-word 1)))
-
-(defun camelcase-region (start end)
-  "Changes region from snake_case to camelCase"
-  (interactive "r")
-  (save-restriction
-    (narrow-to-region start end)
-    (goto-char (point-min))
-    (while (re-search-forward "_\\(.\\)" nil t)
-      (replace-match (upcase (match-string 1))))))
-
-(defun camelcase-word-or-region ()
-  "Changes word or region from snake_case to camelCase"
-  (interactive)
-  (let (pos1 pos2 bds)
-    (if (and transient-mark-mode mark-active)
-        (setq pos1 (region-beginning) pos2 (region-end))
-      (progn
-        (setq bds (bounds-of-thing-at-point 'symbol))
-        (setq pos1 (car bds) pos2 (cdr bds))))
-    (camelcase-region pos1 pos2)))
-
-(defun camelcase-region+ (start end)
-  "Changes region from snake_case to camelCase"
-  (interactive "r")
-  (save-restriction
-    (narrow-to-region start end)
-    (capitalize-region start end)
-    (goto-char (point-min))
-    (while (re-search-forward "_\\(.\\)" nil t)
-      (replace-match (upcase (match-string 1))))))
-
-(defun camelcase-word-or-region+ ()
-  "Changes word or region from snake_case to camelCase"
-  (interactive)
-  (let (pos1 pos2 bds)
-    (if (and transient-mark-mode mark-active)
-        (setq pos1 (region-beginning) pos2 (region-end))
-      (progn
-        (setq bds (bounds-of-thing-at-point 'symbol))
-        (setq pos1 (car bds) pos2 (cdr bds))))
-    (camelcase-region+ pos1 pos2)))
-
-(defun snakecase-word-or-region ()
-  (interactive)
-  (if mark-active (message "Don't have snakecase-region yet")
-    (save-excursion
-      (let ((bounds (bounds-of-thing-at-point 'word)))
-        (replace-regexp "\\([A-Z]\\)" "_\\1" nil
-                        (1+ (car bounds)) (cdr bounds))
-        (downcase-region (car bounds) (cdr bounds))))))
 
 (defun set-window-width (args)
   (shrink-window-horizontally (window-body-width))
@@ -200,12 +139,6 @@ If file is found then return t else nil."
     (newline-and-indent)
     (unless (member major-mode '(scheme-mode))
       (newline-and-indent))))
-
-(defun create-tags (dir-name)
-  "Create tags file."
-  (interactive "DDirectory: ")
-  (shell-command
-   (format "ctags -f %s -e -R %s" tags-file-name (directory-file-name dir-name))))
 
 (defun frame-name (frame)
   (frame-parameter frame 'name))
@@ -279,21 +212,6 @@ If file is found then return t else nil."
           (set-window-buffer (next-window) next-win-buffer)
           (select-window first-win)
           (if this-win-2nd (other-window 1))))))
-
-(defun geiser-eval-next-sexp (print-to-buffer-p)
-  "Eval the next sexp in the Geiser REPL.
-
-With a prefix, print the result of the evaluation to the buffer."
-  (interactive "P")
-  (let* ((ret (geiser-eval-region (save-excursion (forward-sexp) (point))
-                                  (point)
-                                  nil
-                                  t
-                                  print-to-buffer-p))
-         (str (geiser-eval--retort-result-str ret (when print-to-buffer-p ""))))
-    (when (and print-to-buffer-p (not (string= "" str)))
-      (push-mark)
-      (insert str))))
 
 (defmacro add-hook* (mode fn)
   `(add-hook ,mode (lambda () ,fn)))
