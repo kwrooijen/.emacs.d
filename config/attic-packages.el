@@ -326,6 +326,8 @@
 (use-package emms
   :ensure t
   :init
+  (unless (file-exists-p "~/.emacs.d/emms")
+    (make-directory "~/.emacs.d/emms"))
   (setq emms-setup-default-player-list '(emms-player-vlc)
         emms-volume-change-amount 5)
   :config
@@ -402,6 +404,7 @@
   (add-hook 'minibuffer-setup-hook #'turn-off-evil-mode)
   (add-hook 'prog-mode-hook #'turn-on-evil-mode)
   (add-hook 'org-mode-hook #'turn-on-evil-mode)
+  (add-hook 'gitignore-mode-hook #'turn-on-evil-mode)
   (evil-set-initial-state 'magit-popup-mode 'emacs)
   (evil-set-initial-state 'magit-status-mode 'emacs)
   ;; TODO fix properly
@@ -518,6 +521,9 @@ With a prefix, print the result of the evaluation to the buffer."
   :ensure t
   :config
   (global-git-gutter+-mode t))
+
+(use-package gitignore-mode
+  :ensure t)
 
 (use-package grep
   :bind (:map grep-mode-map
