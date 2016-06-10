@@ -234,7 +234,7 @@ This has to be loaded first to use the correct version.
     :bind* (("C-c C-o" . switch-to-minibuffer)
             ("C-SPC" . attic-main/body)
             ("M-u" . redo)
-                   ("C-S-V" . x-clipboard-yank)
+            ("C-S-V" . x-clipboard-yank)
             ("C-S-C" . clipboard-kill-ring-save)
             ("C-x C-2" . split-window-below)
             ("C-x C-3" . split-window-right)
@@ -837,6 +837,7 @@ This has to be loaded first to use the correct version.
                 ("M-f" . forward-word)
                 ("M-s" . helm-select-action)
                 ("TAB" . helm-execute-persistent-action)
+                ("<RET>" . my/helm-exit-minibuffer)
                 ("M-?" . helm-help))
     :init
     (setq
@@ -918,6 +919,10 @@ This has to be loaded first to use the correct version.
     ;; Try to hide source header as much as possible
     (set-face-attribute 'helm-source-header nil :height 0.1 :background "#000"  :foreground "#000")
 
+    ;; Work around for the [Display not ready] error when typing too awesomely fast
+    (defun my/helm-exit-minibuffer ()
+      (interactive)
+      (helm-exit-minibuffer))
     (defhydra helm-like-unite ()
       ("q" nil "Quit" :color blue)
       ("<spc>" helm-toggle-visible-mark "mark")
