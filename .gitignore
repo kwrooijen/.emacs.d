@@ -4,12 +4,12 @@
 .*.swp
 *.elc
 session.*
+emacs.el
 /dist
 /auto-save-list
 /elim
 /ac-comphist.dat
 /elpa
-/emm
 /emms
 /backups
 /tramp
@@ -19,7 +19,6 @@ session.*
 /config/my-requires.el
 /var
 /url
-/speed-type
 /speed-type
 /request
 /newsticker
