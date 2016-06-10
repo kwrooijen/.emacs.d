@@ -618,7 +618,6 @@ This has to be loaded first to use the correct version.
     :bind (:map evil-normal-state-map
                 ("C-d" . delete-char)
                 ("<SPC>" . attic-main/body)
-                ("TAB" . evil-bracket-open)
                 ("C-M-P" . evil-paste-pop-or-kill-ring)
                 :map evil-visual-state-map
                 ("<SPC>" . attic-main/body))
@@ -634,14 +633,9 @@ This has to be loaded first to use the correct version.
     (add-hook 'prog-mode-hook #'turn-on-evil-mode)
     (add-hook 'org-mode-hook #'turn-on-evil-mode)
     (add-hook 'gitignore-mode-hook #'turn-on-evil-mode)
+    (evil-set-initial-state 'term-mode 'emacs)
     (evil-set-initial-state 'magit-popup-mode 'emacs)
     (evil-set-initial-state 'magit-status-mode 'emacs)
-    ;; TODO fix properly
-    (defun evil-bracket-open ()
-      (interactive)
-      (if (member major-mode '(lisp-interaction-mode scheme-mode emacs-lisp-mode))
-          (evil-lispy/enter-state-left))
-      (indent-for-tab-command))
     (defun evil-normal-state-and-save ()
       (interactive)
       (evil-normal-state)
@@ -651,7 +645,13 @@ This has to be loaded first to use the correct version.
 *** Evil Lispy
 #+BEGIN_SRC emacs-lisp
   (use-package evil-lispy
-    :ensure t)
+    :ensure t
+    :config
+    (evil-define-key 'normal emacs-lisp-mode-map (kbd "TAB") 'evil-lispy/enter-state-left)
+    (evil-define-key 'normal lisp-interaction-mode-map (kbd "TAB") 'evil-lispy/enter-state-left)
+    (evil-define-key 'normal scheme-mode-map (kbd "TAB") 'evil-lispy/enter-state-left)
+    (evil-define-key 'normal clojure-mode-map (kbd "TAB") 'evil-lispy/enter-state-left)
+    (evil-define-key 'normal racket-mode-map (kbd "TAB") 'evil-lispy/enter-state-left))
 #+END_SRC
 
 *** Evil Nerd Commenter
@@ -756,12 +756,7 @@ This has to be loaded first to use the correct version.
                           :buffer "*helm Geiser")))
         (geiser-doc--external-help geiser-impl--implementation
                                    symbol
-                                   (geiser-eval--get-module))))
-    (defun evil-geiser-eval-last-sexp ()
-      (interactive)
-      (save-excursion
-        (forward-char 1)
-        (geiser-eval-last-sexp nil))))
+                                   (geiser-eval--get-module)))))
 #+END_SRC
 
 *** Gist
@@ -842,8 +837,7 @@ This has to be loaded first to use the correct version.
                 ("M-f" . forward-word)
                 ("M-s" . helm-select-action)
                 ("TAB" . helm-execute-persistent-action)
-                ("M-?" . helm-help)
-                ("<RET>" . my/helm-exit-minibuffer))
+                ("M-?" . helm-help))
     :init
     (setq
      ;; truncate long lines in helm completion
@@ -924,10 +918,6 @@ This has to be loaded first to use the correct version.
     ;; Try to hide source header as much as possible
     (set-face-attribute 'helm-source-header nil :height 0.1 :background "#000"  :foreground "#000")
 
-    ;; Work around for the [Display not ready] error when typing too awesomely fast
-    (defun my/helm-exit-minibuffer ()
-      (interactive)
-      (helm-exit-minibuffer))
     (defhydra helm-like-unite ()
       ("q" nil "Quit" :color blue)
       ("<spc>" helm-toggle-visible-mark "mark")
@@ -942,6 +932,8 @@ This has to be loaded first to use the correct version.
       ("K" helm-prev-source "up source")
       ("k" helm-previous-line "up")
       ("i" nil "cancel"))
+    ;; Hide the minibuffer when in Helm mode. We don't need it since we use
+    ;; `helm-echo-input-in-header-line t`
     (defun helm-hide-minibuffer-maybe ()
       (when (with-helm-buffer helm-echo-input-in-header-line)
         (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
@@ -1200,6 +1192,8 @@ This has to be loaded first to use the correct version.
 *** Org
 #+BEGIN_SRC emacs-lisp
   (use-package org
+    :bind (:map org-mode-map
+                ("C-c e" . org-edit-src-code))
     :init
     (setq org-log-done 'time
           org-capture-templates '()
@@ -1358,7 +1352,6 @@ This has to be loaded first to use the correct version.
           (term-char-mode)
         (term-line-mode)))
     :config
-    (evil-set-initial-state 'term-mode 'emacs)
     (setq-mode-local term-mode yas-dont-activate t))
 #+END_SRC
 
@@ -1780,7 +1773,6 @@ Define the Hydra Space key
   (define-key doc-view-mode-map        (kbd "<SPC>") 'attic-main/body)
   (define-key elfeed-search-mode-map   (kbd "<SPC>") 'attic-main/body)
   (define-key elfeed-show-mode-map     (kbd "<SPC>") 'attic-main/body)
-  (define-key flyspell-mode-map        (kbd "<SPC>") 'attic-main/body)
   (define-key grep-mode-map            (kbd "<SPC>") 'attic-main/body)
   (define-key help-mode-map            (kbd "<SPC>") 'attic-main/body)
   (define-key magit-revision-mode-map  (kbd "<SPC>") 'attic-main/body)
