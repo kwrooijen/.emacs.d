@@ -889,6 +889,8 @@ This has to be loaded first to use the correct version.
      helm-always-two-windows t
      helm-imenu-execute-action-at-once-if-one nil)
     :config
+    (defadvice helm-org-in-buffer-headings (after attic-ad/helm-org-in-buffer-headings activate)
+      (recenter-top-bottom (/ (window-height) 5)))
     (use-package helm-files
       :config
       (set-face-attribute 'helm-ff-directory nil
@@ -1198,7 +1200,8 @@ This has to be loaded first to use the correct version.
 #+BEGIN_SRC emacs-lisp
   (use-package org
     :bind (:map org-mode-map
-                ("C-c e" . org-edit-src-code))
+                ("C-c e" . org-edit-src-code)
+                ("C-c d" . helm-org-in-buffer-headings))
     :init
     (setq org-log-done 'time
           org-capture-templates '()
