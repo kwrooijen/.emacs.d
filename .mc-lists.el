@@ -41,6 +41,7 @@
         evil-backward-char
         evil-backward-word-begin
         evil-delete
+        evil-delete-backward-char
         evil-delete-char
         evil-digit-argument-or-evil-beginning-of-line
         evil-end-of-line
@@ -238,6 +239,7 @@
         vim-O
         vim-o
         x-clipboard-yank
+        yaml-electric-backspace
         yank-pop-or-kill-ring
         yas-expand
         ))

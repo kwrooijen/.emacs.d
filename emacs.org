@@ -838,6 +838,7 @@ This has to be loaded first to use the correct version.
                 ("M-s" . helm-select-action)
                 ("TAB" . helm-execute-persistent-action)
                 ("<RET>" . my/helm-exit-minibuffer)
+                ("<escape>" . evil-force-normal-state)
                 ("M-?" . helm-help))
     :init
     (setq
@@ -889,6 +890,7 @@ This has to be loaded first to use the correct version.
      helm-always-two-windows t
      helm-imenu-execute-action-at-once-if-one nil)
     :config
+    (evil-define-key 'normal helm-map (kbd "<RET>") 'my/helm-exit-minibuffer)
     (defadvice helm-org-in-buffer-headings (after attic-ad/helm-org-in-buffer-headings activate)
       (recenter-top-bottom (/ (window-height) 5)))
     (use-package helm-files
@@ -1615,6 +1617,18 @@ This has to be loaded first to use the correct version.
 
 *** Buffer
 #+BEGIN_SRC emacs-lisp
+  (defun toggle-eshell ()
+    (interactive)
+    (if (and (boundp 'toggle-eshell--last-buffer) toggle-eshell--last-buffer)
+        (progn
+          (switch-to-buffer toggle-eshell--last-buffer)
+          (setq toggle-eshell--last-buffer nil))
+      (progn
+        (setq toggle-eshell--last-buffer (current-buffer))
+        (eshell))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
   (defun switch-to-minibuffer ()
     "Switch to minibuffer window."
     (interactive)
@@ -1831,7 +1845,8 @@ Define the Hydra Space key
     ("x" helm-M-x "M-x")
     ("r" rgrep "RGrep")
     ("t" transpose-mark nil)
-    ("c" attic-macro/body "Macro"))
+    ("c" attic-macro/body "Macro")
+    ("e" toggle-eshell "Eshell"))
 #+END_SRC
 
 *** Window
