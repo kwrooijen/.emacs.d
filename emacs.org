@@ -619,6 +619,8 @@ This has to be loaded first to use the correct version.
                 ("C-d" . delete-char)
                 ("<SPC>" . attic-main/body)
                 ("C-M-P" . evil-paste-pop-or-kill-ring)
+                ("u" . undo)
+                ("M-u" . redo)
                 :map evil-visual-state-map
                 ("<SPC>" . attic-main/body))
     :bind* (("M-q" . evil-normal-state))
@@ -629,6 +631,7 @@ This has to be loaded first to use the correct version.
           (evil-paste-pop 1)
         (helm-show-kill-ring)))
     :config
+    (global-undo-tree-mode -1)
     (add-hook 'minibuffer-setup-hook #'turn-off-evil-mode)
     (add-hook 'prog-mode-hook #'turn-on-evil-mode)
     (add-hook 'org-mode-hook #'turn-on-evil-mode)
@@ -731,7 +734,7 @@ This has to be loaded first to use the correct version.
   (use-package geiser
     :ensure t
     :init
-    (setq geiser-popup--no-jump t)
+    (setq geiser-debug-jump-to-debug-p nil)
     (defun geiser-eval-next-sexp (print-to-buffer-p)
       "Eval the next sexp in the Geiser REPL.
 
@@ -1284,8 +1287,7 @@ This has to be loaded first to use the correct version.
 *** Redo+
 #+BEGIN_SRC emacs-lisp
   (use-package redo+
-    :ensure t
-    :bind* (("M-_" . redo)))
+    :ensure t)
 #+END_SRC
 
 *** Ruby Mode
