@@ -1109,6 +1109,7 @@ This has to be loaded first to use the correct version.
     :ensure t
     :bind (:map lispy-mode-map
                 ("TAB" . lispy-left-no-mark)
+                ("SPC" . attic-main/body)
                 ("d" . lispy-different)
                 ("o" . lispy-other-mode)
                 ("f" . lispy-flow)
@@ -1621,7 +1622,9 @@ This has to be loaded first to use the correct version.
 #+BEGIN_SRC emacs-lisp
   (defun toggle-eshell ()
     (interactive)
-    (if (and (boundp 'toggle-eshell--last-buffer) toggle-eshell--last-buffer)
+    (if (and (boundp 'toggle-eshell--last-buffer)
+             toggle-eshell--last-buffer
+             (equal major-mode 'eshell-mode))
         (progn
           (switch-to-buffer toggle-eshell--last-buffer)
           (setq toggle-eshell--last-buffer nil))
