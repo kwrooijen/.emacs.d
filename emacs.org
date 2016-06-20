@@ -1038,7 +1038,7 @@ This has to be loaded first to use the correct version.
             "require" "alias" "use" "let" "="
             "-" "+" "/"))
     (add-hook 'prog-mode-hook 'highlight-symbol-mode)
-    (setq highlight-symbol-idle-delay 0))
+    (setq highlight-symbol-idle-delay 0.3))
 #+END_SRC
 
 *** Hydra
@@ -1792,6 +1792,28 @@ This has to be loaded first to use the correct version.
     (run-make input "[Custom Make]"))
 #+END_SRC
 
+*** Utils
+#+BEGIN_SRC emacs-lisp
+(defun point-to-hex ()
+  (interactive)
+  (let ((last (point))
+        (is-int (lambda (x) (numberp (string-to-int x)))))
+    (insert (format "0x%x" (string-to-int (word-at-point is-int))))
+    (goto-char last)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun word-at-point (&optional kill-if)
+  (let (beg word)
+    (save-excursion
+      (skip-syntax-backward "w_")
+      (setq beg (point))
+      (skip-syntax-forward "w_")
+      (setq word (buffer-substring-no-properties beg (point)))
+      (if (and kill-if (funcall kill-if word))
+          (kill-region beg (point)))
+      word)))
+#+END_SRC
 ** Hydras
 *** Keys
 Define the Hydra Space key
@@ -1863,10 +1885,10 @@ Define the Hydra Space key
     ("e" zoom-window-zoom "Zoom" :color blue)
     ("u" winner-undo "Winner Undo")
     ("U" winner-redo "Winner Redo")
-    ("w" enlarge-window-horizontally "Enlarge Horizontally")
-    ("s" shrink-window-horizontally "Shrink Horizontally")
-    ("d" enlarge-window "Enlarge")
-    ("a" shrink-window "Shrink")
+    ("d" enlarge-window-horizontally "Enlarge Horizontally")
+    ("a" shrink-window-horizontally "Shrink Horizontally")
+    ("w" enlarge-window "Enlarge")
+    ("s" shrink-window "Shrink")
     ("<tab>" toggle-window-split "Toggle")
     ("p" previous-buffer "Previous")
     ("t" elwm-transpose-window "Transpose")
@@ -2059,5 +2081,6 @@ Define the Hydra Space key
 #+BEGIN_SRC emacs-lisp
   (defhydra attic-help (:color blue :columns 2)
     "Helm Help"
-    ("g" helm-geiser "helm-geiser"))
+    ("g" helm-geiser "helm-geiser")
+    ("w" helm-man-woman "helm-man-woman"))
 #+END_SRC
