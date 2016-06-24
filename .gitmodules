@@ -1,4 +1,0 @@
-[submodule "multiple-cursors.el"]
-	path = multiple-cursors.el
-	url = https://github.com/myrjola/multiple-cursors.el.git
-	branch = evil-compat

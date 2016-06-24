@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: iop
+# key: iop
+# binding: direct-keybinding
+# --
+(display (format "$1 ~A" $1))$0

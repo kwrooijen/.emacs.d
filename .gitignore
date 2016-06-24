@@ -28,3 +28,5 @@ notes
 .litable-lists.el
 projectile-bookmarks.eld
 recentf
+multiple-cursors.el/
+lispyville/

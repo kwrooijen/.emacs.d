@@ -117,6 +117,11 @@
     `(insert ,(format "%s" value)))
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+  (defmacro ensure-clone (user project)
+    (unless (file-exists-p (format "~/.emacs.d/%s" project))
+      (shell-command (format "cd ~/.emacs.d && git clone git@github.com:%s/%s" user project))))
+#+END_SRC
 ** Packages
 *** Setup
 #+BEGIN_SRC emacs-lisp
@@ -154,8 +159,7 @@ This has to be loaded first to use the correct version.
     :bind (:map mc/keymap
                 ("<return>" . newline))
     :init
-    (unless (file-exists-p "~/.emacs.d/multiple-cursors.el/multiple-cursors.el")
-      (shell-command "cd ~/.emacs.d && git submodule init && git submodule update"))
+    (ensure-clone "magnars" "multiple-cursors.el")
     :config
     (multiple-cursors-mode t))
 #+END_SRC
@@ -170,17 +174,6 @@ This has to be loaded first to use the correct version.
 #+BEGIN_SRC emacs-lisp
   (use-package ace-jump-mode
     :ensure t)
-#+END_SRC
-
-*** Aggressive Indent
-#+BEGIN_SRC emacs-lisp
-  (use-package aggressive-indent
-    :ensure t
-    :config
-    (add-hook 'scheme-mode-hook 'aggressive-indent-mode)
-    (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode)
-    (add-hook 'clojure-mode-hook 'aggressive-indent-mode)
-    (add-hook 'racket-mode-hook 'aggressive-indent-mode))
 #+END_SRC
 
 *** Alchemist
@@ -618,8 +611,6 @@ This has to be loaded first to use the correct version.
                 ("C-d" . delete-char)
                 ("<SPC>" . attic-main/body)
                 ("C-M-P" . evil-paste-pop-or-kill-ring)
-                ("u" . undo)
-                ("M-u" . redo)
                 :map evil-visual-state-map
                 ("<SPC>" . attic-main/body))
     :bind* (("M-q" . evil-normal-state))
@@ -639,22 +630,11 @@ This has to be loaded first to use the correct version.
     (evil-set-initial-state 'term-mode 'emacs)
     (evil-set-initial-state 'magit-popup-mode 'emacs)
     (evil-set-initial-state 'magit-status-mode 'emacs)
+    (evil-define-key 'normal helm-map (kbd "<RET>") 'my/helm-exit-minibuffer)
     (defun evil-normal-state-and-save ()
       (interactive)
       (evil-normal-state)
       (save-buffer)))
-#+END_SRC
-
-*** Evil Lispy
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-lispy
-    :ensure t
-    :config
-    (evil-define-key 'normal emacs-lisp-mode-map (kbd "TAB") 'evil-lispy/enter-state-left)
-    (evil-define-key 'normal lisp-interaction-mode-map (kbd "TAB") 'evil-lispy/enter-state-left)
-    (evil-define-key 'normal scheme-mode-map (kbd "TAB") 'evil-lispy/enter-state-left)
-    (evil-define-key 'normal clojure-mode-map (kbd "TAB") 'evil-lispy/enter-state-left)
-    (evil-define-key 'normal racket-mode-map (kbd "TAB") 'evil-lispy/enter-state-left))
 #+END_SRC
 
 *** Evil Nerd Commenter
@@ -670,14 +650,6 @@ This has to be loaded first to use the correct version.
     :ensure t
     :bind* (("C-c C-=" . evil-numbers/inc-at-pt)
             ("C-c C--" . evil-numbers/dec-at-pt)))
-#+END_SRC
-
-*** Evil Paredit
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-paredit
-    :ensure t
-    :config
-    (add-hook 'paredit-mode-hook 'evil-paredit-mode))
 #+END_SRC
 
 *** Expand Region
@@ -893,7 +865,6 @@ This has to be loaded first to use the correct version.
      helm-always-two-windows t
      helm-imenu-execute-action-at-once-if-one nil)
     :config
-    (evil-define-key 'normal helm-map (kbd "<RET>") 'my/helm-exit-minibuffer)
     (defadvice helm-org-in-buffer-headings (after attic-ad/helm-org-in-buffer-headings activate)
       (recenter-top-bottom (/ (window-height) 5)))
     (use-package helm-files
@@ -1109,15 +1080,8 @@ This has to be loaded first to use the correct version.
     :ensure t
     :bind (:map lispy-mode-map
                 ("TAB" . lispy-left-no-mark)
-                ("SPC" . attic-main/body)
-                ("d" . lispy-different)
-                ("o" . lispy-other-mode)
-                ("f" . lispy-flow)
-                ("i" . evil-insert)
-                ("e" . attic/lispy--eval)
-                ("A" . lispy-barf)
-                ("D" . lispy-slurp)
-                ("J" . evil-join))
+                ("C-s" . special-lispy-slurp)
+                ("M-s" . special-lispy-barf))
     :init
     (defun attic/lispy--eval ()
       (interactive)
@@ -1125,10 +1089,27 @@ This has to be loaded first to use the correct version.
           (geiser-eval-next-sexp nil)
         (special-lispy-eval)))
     :config
+    (add-hook 'clojure-mode-hook 'lispy-mode)
+    (add-hook 'racket-mode-hook 'lispy-mode)
+    (add-hook 'scheme-mode-hook 'lispy-mode)
+    (add-hook 'emacs-lisp-mode-hook 'lispy-mode)
     (defun lispy-left-no-mark ()
       (interactive)
       (deactivate-mark)
       (lispy-left 1)))
+#+END_SRC
+
+*** LispyVille
+#+BEGIN_SRC emacs-lisp
+(use-package lispyville
+  :load-path "~/.emacs.d/lispyville/"
+  :init
+  (ensure-clone "noctuid" "lispyville")
+  :config
+  (add-hook 'clojure-mode-hook 'lispyville-mode)
+  (add-hook 'racket-mode-hook 'lispyville-mode)
+  (add-hook 'scheme-mode-hook 'lispyville-mode)
+  (add-hook 'emacs-lisp-mode-hook 'lispyville-mode))
 #+END_SRC
 
 *** Macrostep
@@ -1224,26 +1205,6 @@ This has to be loaded first to use the correct version.
     :init
     (setq org-bullets-bullet-list '("◉"))
     (add-hook 'org-mode-hook 'org-bullets-mode))
-#+END_SRC
-
-*** Paredit
-#+BEGIN_SRC emacs-lisp
-  (use-package paredit
-    :ensure t
-    :bind (:map paredit-mode-map
-                ("C-w" . paredit-kill-region)
-                ("M-R" . paredit-splice-sexp-killing-backward)
-                ("C-c C-r" . paredit-reindent-defun)
-                ("M-j" . paredit-join-sexps))
-    :config
-    (add-hook 'cider-repl-mode-hook 'paredit-mode)
-    (add-hook 'clojure-mode-hook 'paredit-mode)
-    (add-hook 'elixir-mode-hook 'paredit-mode)
-    (add-hook 'geiser-mode-hook 'paredit-mode)
-    (add-hook 'racket-mode-hook 'paredit-mode)
-    (add-hook 'scheme-mode-hook 'paredit-mode)
-    (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
-    (add-hook 'lisp-interaction-mode-hook 'paredit-mode))
 #+END_SRC
 
 *** Paren
