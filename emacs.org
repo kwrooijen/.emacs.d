@@ -232,7 +232,6 @@ This has to be loaded first to use the correct version.
   (use-package bind-key
     :ensure t
     :bind* (("C-c C-o" . switch-to-minibuffer)
-            ("C-SPC" . attic-main/body)
             ("M-u" . redo)
             ("C-S-V" . x-clipboard-yank)
             ("C-S-C" . clipboard-kill-ring-save)
@@ -632,6 +631,7 @@ This has to be loaded first to use the correct version.
         (helm-show-kill-ring)))
     :config
     (global-undo-tree-mode -1)
+    (evil-mode 1)
     (add-hook 'minibuffer-setup-hook #'turn-off-evil-mode)
     (add-hook 'prog-mode-hook #'turn-on-evil-mode)
     (add-hook 'org-mode-hook #'turn-on-evil-mode)
@@ -1115,6 +1115,8 @@ This has to be loaded first to use the correct version.
                 ("f" . lispy-flow)
                 ("i" . evil-insert)
                 ("e" . attic/lispy--eval)
+                ("A" . lispy-barf)
+                ("D" . lispy-slurp)
                 ("J" . evil-join))
     :init
     (defun attic/lispy--eval ()

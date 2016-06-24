@@ -94,15 +94,18 @@
         kill-sentence
         kill-sexp
         lisp-indent-adjust-parens
+        lispy-barf
         lispy-braces
         lispy-brackets
         lispy-comment
         lispy-delete
         lispy-delete-backward
         lispy-kill
+        lispy-mark-symbol
         lispy-move-down
         lispy-parens
         lispy-quotes
+        lispy-slurp
         magit-stage-item
         markdown-exdent-or-delete
         maybe-paredit-copy-sexp-down
@@ -258,6 +261,7 @@
         attic-mc/nil
         describe-key
         emms-pause
+        evil-normal-state-and-save
         evil-record-macro
         evil-scroll-down
         evil-scroll-line-down
