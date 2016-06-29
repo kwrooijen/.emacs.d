@@ -4,7 +4,7 @@
    Settings for X Window
 #+BEGIN_SRC emacs-lisp
   (setq default-frame-alist
-        '((font . "-CTDB-Fira Mono-bold-normal-normal-*-14-*-*-*-m-0-iso10646-1")
+        '((font . "-CTDB-Fira Mono-bold-normal-normal-*-12-*-*-*-m-0-iso10646-1")
           (vertical-scroll-bars . nil)
           (line-spacing . 0)))
 #+END_SRC
@@ -610,6 +610,7 @@ This has to be loaded first to use the correct version.
     :bind (:map evil-normal-state-map
                 ("C-d" . delete-char)
                 ("<SPC>" . attic-main/body)
+                ("TAB" . indent-for-tab-command)
                 ("C-M-P" . evil-paste-pop-or-kill-ring)
                 :map evil-visual-state-map
                 ("<SPC>" . attic-main/body))
@@ -707,6 +708,12 @@ This has to be loaded first to use the correct version.
     :ensure t
     :init
     (setq geiser-debug-jump-to-debug-p nil)
+    (defun load-nash ()
+      (interactive)
+      (unless (get-buffer "* Guile REPL *")
+        (run-geiser 'guile))
+      (with-current-buffer "* Guile REPL *"
+        (geiser-repl--send "(use-modules (nash setup))")))
     (defun geiser-eval-next-sexp (print-to-buffer-p)
       "Eval the next sexp in the Geiser REPL.
 
@@ -1757,12 +1764,34 @@ This has to be loaded first to use the correct version.
 
 *** Utils
 #+BEGIN_SRC emacs-lisp
-(defun point-to-hex ()
+(defun point-to-base (base format)
+  (let ((number (string-to-number (word-at-point 'stringp) base)))
+    (insert (format format number))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun decimal-to-hex ()
   (interactive)
-  (let ((last (point))
-        (is-int (lambda (x) (numberp (string-to-int x)))))
-    (insert (format "0x%x" (string-to-int (word-at-point is-int))))
-    (goto-char last)))
+  (point-to-base 10 "0x%x"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun hex-to-decimal ()
+  (interactive)
+  (point-to-base 16 "%s"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun binary-to-decimal ()
+  (interactive)
+  (point-to-base 2 "%s"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun binary-to-hex ()
+  (interactive)
+  (binary-to-decimal)
+  (decimal-to-hex))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -1777,6 +1806,20 @@ This has to be loaded first to use the correct version.
           (kill-region beg (point)))
       word)))
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (defun http-status-codes ()
+    (interactive)
+    (find-file-other-window "~/.emacs.d/files/http-status-codes")
+    (org-mode)
+    (read-only-mode t))
+
+  (defun http-status-codes-find-code ()
+     (interactive)
+     (http-status-codes)
+     (helm-org-in-buffer-headings))
+#+END_SRC
+
 ** Hydras
 *** Keys
 Define the Hydra Space key
