@@ -1096,6 +1096,7 @@ This has to be loaded first to use the correct version.
           (geiser-eval-next-sexp nil)
         (special-lispy-eval)))
     :config
+    (lispy-define-key lispy-mode-map-special "e" 'attic/lispy--eval)
     (add-hook 'clojure-mode-hook 'lispy-mode)
     (add-hook 'racket-mode-hook 'lispy-mode)
     (add-hook 'scheme-mode-hook 'lispy-mode)
