@@ -1,3 +1,4 @@
+# -*- mode: snippet -*-
 #name : hcast
 # --
 def handle_cast($1, state) do

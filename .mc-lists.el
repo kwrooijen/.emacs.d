@@ -40,13 +40,16 @@
         evil-append-line
         evil-backward-char
         evil-backward-word-begin
+        evil-change-line
         evil-delete
         evil-delete-backward-char
         evil-delete-char
+        evil-delete-line
         evil-digit-argument-or-evil-beginning-of-line
         evil-end-of-line
         evil-exit-visual-state
         evil-find-char
+        evil-find-char-backward
         evil-force-normal-state
         evil-forward-char
         evil-forward-sentence
@@ -61,6 +64,7 @@
         evil-paredit-delete
         evil-paredit-delete-line
         evil-paste-after
+        evil-paste-before
         evil-previous-line
         evil-repeat-find-char
         evil-replace
@@ -69,6 +73,7 @@
         evil-shift-left-line
         evil-substitute
         evil-visual-char
+        evil-yank
         forward-sentence
         forward-sexp
         geiser-eval-last-sexp
@@ -77,6 +82,7 @@
         haskell-indentation-delete-char
         haskell-newline-and-indent
         helm-buffers-list
+        hydra-lispy-x/lispy-to-defun-and-exit
         increment-decimal
         indent-new-comment-line
         indent-of-doom
@@ -97,15 +103,23 @@
         lispy-barf
         lispy-braces
         lispy-brackets
+        lispy-colon
         lispy-comment
         lispy-delete
         lispy-delete-backward
+        lispy-hash
         lispy-kill
+        lispy-kill-word
         lispy-mark-symbol
         lispy-move-down
         lispy-parens
         lispy-quotes
         lispy-slurp
+        lispy-space
+        lispyville-delete
+        lispyville-delete-char-or-splice
+        lispyville-delete-char-or-splice-backwards
+        lispyville-delete-line
         magit-stage-item
         markdown-exdent-or-delete
         maybe-paredit-copy-sexp-down
@@ -155,6 +169,7 @@
         shrink-window-if-larger-than-buffer
         simpleclip-paste
         sp--self-insert-command
+        special-attic/lispy--eval
         special-digit-argument
         special-lh-knight/body
         special-lispy-ace-char
@@ -229,6 +244,7 @@
         special-lispy-visit
         special-lispy-widen
         special-lispy-x
+        special-lispyville-delete-char-or-splice
         special-pop-tag-mark
         special-swiper
         tab-to-tab-stop

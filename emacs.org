@@ -684,7 +684,9 @@ This has to be loaded first to use the correct version.
 *** Flycheck
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck-rust
-    :ensure t)
+    :ensure t
+    :config
+    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 #+END_SRC
 
 *** Flyspell
@@ -1069,6 +1071,11 @@ This has to be loaded first to use the correct version.
     (key-chord-define-global "xs" 'evil-normal-state-and-save))
 #+END_SRC
 
+*** Legalese
+#+BEGIN_SRC emacs-lisp
+  (use-package legalese
+    :ensure t)
+#+END_SRC
 *** Linum
 #+BEGIN_SRC emacs-lisp
   (use-package linum
@@ -1114,6 +1121,7 @@ This has to be loaded first to use the correct version.
   :init
   (ensure-clone "noctuid" "lispyville")
   :config
+  (lispy-define-key lispy-mode-map-special "x" 'lispyville-delete-char-or-splice)
   (add-hook 'clojure-mode-hook 'lispyville-mode)
   (add-hook 'racket-mode-hook 'lispyville-mode)
   (add-hook 'scheme-mode-hook 'lispyville-mode)
@@ -1242,12 +1250,12 @@ This has to be loaded first to use the correct version.
   (use-package racer
     :ensure t
     :init
-    (setq racer-cmd "/usr/local/bin/racer"
-          racer-rust-src-path "/usr/local/src/rust/src/")
+    (setq racer-cmd "~/.cargo/bin/racer"
+          racer-rust-src-path "/opt/rust/src/")
     :config
-    (setq-mode-local rust-mode company-backends '(company-racer))
-    (add-hook 'rust-mode-hook 'racer-mode)
-    (add-hook 'rust-mode-hook 'racer-turn-on-eldoc))
+    (add-hook 'rust-mode-hook #'racer-mode)
+    (add-hook 'racer-mode-hook #'eldoc-mode)
+    (add-hook 'racer-mode-hook #'company-mode))
 #+END_SRC
 
 *** Racket Mode
