@@ -1,4 +1,0 @@
-# -*- mode: snippet -*-
-#name : cast
-# --
-GenServer.cast(__MODULE__, $0)

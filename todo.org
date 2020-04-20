@@ -1,3 +1,0 @@
-* TODO
-** Make Command
-   Create a package to run make tasks

@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: df
-# key: df
-# binding: direct-keybinding
-# --
-(define ($1)
-   "$2"
-   $0)

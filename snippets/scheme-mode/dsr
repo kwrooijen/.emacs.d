@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: dsr
-# key: dsr
-# binding: direct-keybinding
-# --
-(define-syntax-rule ($1)
-  $0)

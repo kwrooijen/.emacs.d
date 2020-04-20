@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: dme
-# key: dme
-# binding: direct-keybinding
-# --
-(define-method ($1)
-  $0)

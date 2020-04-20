@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: l
-# key: l
-# binding: direct-keybinding
-# --
-(let ([$1])
-  $0)

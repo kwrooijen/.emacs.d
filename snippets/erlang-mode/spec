@@ -1,5 +1,0 @@
-# -*- mode: erlang-mode -*-
-# name: spec
-# key: spec
-# --
--spec $1($2) -> ${3:ok}.$0

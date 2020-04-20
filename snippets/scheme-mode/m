@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: m
-# key: m
-# binding: direct-keybinding
-# --
-(match ${1:match}
-  [$0])

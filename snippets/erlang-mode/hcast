@@ -1,7 +1,0 @@
-#name : hcast
-#group : gen_server
-# --
-handle_cast($1, State) ->
-    $0
-    {noreply, State};
-

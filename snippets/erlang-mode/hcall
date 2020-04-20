@@ -1,7 +1,0 @@
-#name : hcall
-#group : gen_server
-# --
-handle_call($1, _From, State) ->
-    Reply = $0,
-    {reply, Reply, State};
-

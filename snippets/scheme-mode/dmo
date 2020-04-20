@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: dmo
-# key: dmo
-# binding: direct-keybinding
-# --
-(define-module ($1)
-  #:use-module ($2)
-  #:export ($3))$0
