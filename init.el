@@ -46,11 +46,6 @@
   (advice-add 'evil-search-previous :after #'evil-recenter)
   (evil-mode 1))
 
-(use-package evil-leader
-  :straight t
-  :config
-  (global-evil-leader-mode))
-
 (use-package evil-collection
   :straight t
   :after evil
@@ -60,21 +55,22 @@
 (use-package vi-tilde-fringe
   :straight t
   :config
-  (global-vi-tilde-fringe-mode t))
+  (add-hook 'text-mode-hook #'vi-tilde-fringe-mode)
+  (add-hook 'prog-mode-hook #'vi-tilde-fringe-mode))
 
 (use-package which-key
   :straight t
   :config
   (which-key-mode))
 
+(use-package evil-magit
+  :straight t)
+
 (use-package magit
   :straight t
   :config
-  (evil-collection-init 'magit))
-
-(use-package evil-magit
-  :straight t
-  :after magit)
+  (evil-collection-init 'magit)
+  (require 'evil-magit))
 
 (use-package flycheck
   :straight t
@@ -98,6 +94,8 @@
   (add-hook 'clojure-mode-hook #'lispy-mode)
   (add-hook 'clojure-mode-hook #'flycheck-mode))
 
+(use-package clj-refactor
+  :straight t)
 
 (use-package cider
   :straight t
@@ -185,6 +183,15 @@
   :config
   (projectile-mode))
 
+(use-package solaire-mode
+  :straight t
+  :hook
+  ((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode)
+  (minibuffer-setup . solaire-mode-in-minibuffer)
+  :config
+  (solaire-global-mode +1)
+  (solaire-mode-swap-bg))
+
 (use-package helm-projectile
   :after projectile
   :straight t)
@@ -228,6 +235,9 @@
   :straight t)
 
 (use-package lispyville
+  :straight t)
+
+(use-package general
   :straight t)
 
 (use-package lispy
@@ -314,17 +324,11 @@
  (when (active-minibuffer-window)
    (select-window (active-minibuffer-window))))
 
-
-;;
-;; Key bindings
-;;
-
-(bind-key* "M-+" 'align-regexp)
-(bind-key* "M-C" 'capitalize-previous-word)
-
 ;;
 ;; Configuration
 ;;
+
+(set-frame-font "-*-Fira Mono-*-*-*-*-10-*-*-*-*-*-*-*" nil t)
 
 (tool-bar-mode 0)
 (menu-bar-mode 0)
@@ -348,45 +352,65 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 
-(set-frame-font "-*-Fira Mono-*-*-*-*-10-*-*-*-*-*-*-*" nil t)
+;; Prompt for y/n innstead of yes/no
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Scroll all the way to the bottom with C-v
+(setq scroll-error-top-bottom t)
+
+;; Default line wrapping should be 80
+(setq fill-column 80)
+
+
+;; Emacs temp directory
+(setq temporary-file-directory "~/.emacs.d/tmp/")
+
+(unless (file-exists-p "~/.emacs.d/tmp")
+  (make-directory "~/.emacs.d/tmp"))
 
 ;;
-;; Keybindings
+;; Key bindings
 ;;
 
-(evil-leader/set-key
+(bind-key* "M-+" 'align-regexp)
+(bind-key* "M-C" 'capitalize-previous-word)
+
+(general-define-key
+ :keymaps '(normal visual emacs motion)
+ :prefix "SPC"
+ :non-normal-prefix "C-SPC"
+ "" nil
 
  ;; Buffers
- "b b" 'helm-mini
+ "bb" 'helm-mini
 
  ;; Files
- "f f" 'helm-find-files
+ "ff" 'helm-find-files
+ "fs" 'save-buffer
 
  ;; Git
- "g g" 'magit-status
+ "gg" 'magit-status
 
  ;; Project
- "p p" 'helm-projectile-switch-project
- "p f" 'helm-projectile-find-file
+ "pp" 'helm-projectile-switch-project
+ "pf" 'helm-projectile-find-file
 
  ;; Search
- "s s" 'helm-swoop-without-pre-input
- "s p" 'helm-projectile-ag
+ "ss" 'helm-swoop-without-pre-input
+ "sp" 'helm-projectile-ag
 
  ;; Window
- "w s" 'evil-window-split
+ "ws" 'evil-window-split
 
  ;; Resume
- "r r" 'helm-resume
- "r y" 'helm-show-kill-ring
- "r b" 'select-minibuffer)
-
-(evil-leader/set-leader "SPC")
+ "rr" 'helm-resume
+ "ry" 'helm-show-kill-ring
+ "rb" 'select-minibuffer)
 
 
-;; TODO check these
-;; company-mode
-;; solaire-mode
-;; clj-refactor-mode
-;; superword-mode ???????????? Maybe
-;; yas-minor-mode
+;; ;; TODO check these
+;; ;; company-mode
+;; ;; solaire-mode
+;; ;; clj-refactor-mode
+;; ;; superword-mode ???????????? Maybe
+;; ;; yas-minor-mode
