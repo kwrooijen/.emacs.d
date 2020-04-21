@@ -18,6 +18,13 @@
 (straight-use-package 'use-package)
 
 ;;
+;; Helpers
+;;
+
+(defmacro add-hook* (mode fn)
+  `(add-hook ,mode (lambda () ,fn)))
+
+;;
 ;; Packages
 ;;
 
@@ -41,26 +48,31 @@
   (global-evil-leader-mode))
 
 (use-package evil-collection
+  :straight t
   :after evil
   :ensure t
-  :straight t
   :config
   (evil-collection-init))
 
 (use-package vi-tilde-fringe
-  :ensure t
   :straight t
+  :ensure t
   :config
   (global-vi-tilde-fringe-mode t))
 
 (use-package which-key
   :straight t
-  ;; :init
-  ;; (setq which-key-show-early-on-C-h t)
-  ;; (setq which-key-idle-delay 10000)
-  ;; (setq which-key-idle-secondary-delay 0.05)
   :config
   (which-key-mode))
+
+(use-package magit
+  :straight t
+  :config
+  (evil-collection-init 'magit))
+
+(use-package evil-magit
+  :straight t
+  :after magit)
 
 (use-package clojure-mode
   :straight t)
@@ -88,13 +100,33 @@
   :straight t
   :ensure t
   :config
+  (evil-collection-init 'helm)
+  (define-key global-map (kbd "M-x") #'helm-M-x)
+  (define-key helm-map (kbd "C-j") #'helm-next-line)
+  (define-key helm-map (kbd "C-k") #'helm-previous-line)
   (define-key helm-map (kbd "TAB") #'helm-execute-persistent-action)
   (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
-  (define-key helm-map (kbd "C-z") #'helm-select-action))
+  (define-key helm-map (kbd "C-z") #'helm-select-action)
+  (define-key helm-map (kbd "<escape>") #'helm-keyboard-quit))
+
+(use-package helm-ag
+  :straight t
+  :config
+  (define-key helm-ag-map (kbd "C-j")
+    (lambda ()
+      (interactive)
+      (helm-next-line)
+      (helm-execute-persistent-action)))
+  (define-key helm-ag-map (kbd "C-k")
+    (lambda ()
+      (interactive)
+      (helm-previous-line)
+      (helm-execute-persistent-action))))
 
 (use-package helm-swoop
   :straight t
-  :ensure t)
+  :ensure t
+  :config)
 
 (use-package helm-ag
   :straight t
@@ -103,6 +135,38 @@
 (use-package helm-projectile
   :straight t
   :ensure t)
+
+(use-package anzu
+  :straight t
+  :init
+  (global-anzu-mode))
+
+(use-package key-chord
+  :straight t
+  :ensure t
+  :config
+  (add-hook* 'prog-mode-hook (key-chord-mode 1))
+  (add-hook* 'isearch-mode-hook (key-chord-mode 1))
+  (key-chord-define-global "xs" (lambda () (interactive)
+                                  (evil-normal-state)
+                                  (save-buffer))))
+
+(use-package multiple-cursors
+  :straight (mc :host github
+                :repo "kwrooijen/mc"
+                :files (:defaults (:exclude "*.el.in")))
+  :bind* (("M-K" . mc/mark-previous-like-this)
+          ("M-J" . mc/mark-next-like-this))
+  :config
+  (multiple-cursors-mode t))
+
+(use-package ws-butler
+  :straight t
+  :ensure t
+  :config
+  (ws-butler-global-mode)
+  ;; Disable aftersave
+  (defun ws-butler-after-save ()))
 
 ;;
 ;; Configuration
@@ -120,14 +184,15 @@
       scroll-step 1
       auto-window-vscroll nil)
 
+;; Don’t use tabs
+(setq-default indent-tabs-mode nil)
+
 
 (set-frame-font "-*-Fira Mono-*-*-*-*-10-*-*-*-*-*-*-*" nil t)
 
 ;;
 ;; Keybindings
 ;;
-
-(evil-leader/set-key "e" 'find-file)
 
 (evil-leader/set-key
 
@@ -145,7 +210,7 @@
  "p f" 'helm-projectile-find-file
 
  ;; Search
- "s s" 'helm-swoop
+ "s s" 'helm-swoop-without-pre-input
  "s p" 'helm-projectile-ag
 
  ;; Window
