@@ -217,9 +217,64 @@
   :straight t
   :bind (("M-u" . undo-tree-redo)))
 
+(use-package paredit
+  :straight t)
+
+(use-package lispyville
+  :straight t)
+
 (use-package lispy
   :straight t
   :config
+  (defun lispy--mode-p ()
+    (or (lispy-left-p)
+        (lispy-right-p)))
+
+  (defun lispy-brackets-or-barf (arg)
+    (interactive "P")
+    (if (lispy--mode-p)
+        (lispy-barf 1)
+      (lispy-brackets arg)))
+
+  (defun lispy-left-insert ()
+    (interactive)
+    (when (not (lispy--mode-p))
+      (lispy-left 1))
+    (when (not (lispy--mode-p))
+      (beginning-of-defun))
+    (evil-insert-state 1))
+
+  (defun lispy-left-insert ()
+    (interactive)
+    (when (not (lispy--mode-p))
+      (lispy-left 1))
+    (when (not (lispy--mode-p))
+      (beginning-of-defun))
+    (evil-insert-state 1))
+
+  (defun lispy-o ()
+    (interactive)
+    (when (lispy-left-p)
+      (lispy-different))
+    (lispy-newline-and-indent-plain))
+
+  (evil-define-key 'insert lispy-mode-map "]" #'lispy-slurp)
+  (evil-define-key 'insert lispy-mode-map "[" #'lispy-brackets-or-barf)
+  (evil-define-key 'insert lispy-mode-map "{" #'lispy-braces)
+  (evil-define-key 'insert lispy-mode-map "o" 'lispy-o)
+  (evil-define-key 'insert lispy-mode-map "d" 'lispy-different)
+  (evil-define-key 'insert lispy-mode-map "i" 'indent-sexp)
+  (evil-define-key 'insert lispy-mode-map "x" 'lispy-delete)
+  (evil-define-key 'insert lispy-mode-map "A" 'lispy-ace-symbol-replace)
+  (evil-define-key 'insert lispy-mode-map "H" 'special-lispy-move-left)
+  (evil-define-key 'insert lispy-mode-map "J" 'special-lispy-down-slurp)
+  (evil-define-key 'insert lispy-mode-map "K" 'special-lispy-up-slurp)
+  (evil-define-key 'insert lispy-mode-map "L" 'special-lispy-move-right)
+  (evil-define-key 'insert lispy-mode-map "I" 'evil-insert-state)
+  (evil-define-key 'insert lispy-mode-map "T" 'lispy-global-teleport)
+
+  (define-key lispy-mode-map (kbd "M-a") 'lispy-left-insert)
+
   (defface paren-face
     '((((class color) (background dark))
        (:foreground "gray20"))
@@ -232,10 +287,9 @@
              (font-lock-add-keywords nil '(("}" . 'paren-face)))
              (font-lock-add-keywords nil '(("]" . 'paren-face))))
 
+  (add-hook 'lispy-mode-hook #'show-paren-mode)
+  (add-hook 'lispy-mode-hook #'paredit-mode)
   (add-hook 'lispy-mode-hook #'lispyville-mode))
-
-(use-package lispyville
-  :straight t)
 
 ;;
 ;; Functions
@@ -273,7 +327,12 @@
 ;; Don’t use tabs
 (setq-default indent-tabs-mode nil)
 
+;; Map mac's command key to meta (Alt / Option)
 (setq mac-command-modifier 'meta)
+
+;;disable splash screen and startup message
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
 
 (set-frame-font "-*-Fira Mono-*-*-*-*-10-*-*-*-*-*-*-*" nil t)
 
@@ -320,7 +379,6 @@
 ;; whitespace-mode
 ;; highlight-parentheses-mode
 ;; highlight-quoted-mode
-;; rainbow-delimiters-mode
 ;; vi-tilde-fringe-mode
 ;; goto-address-prog-mode
 ;; goto-address-mode
