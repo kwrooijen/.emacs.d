@@ -1,6 +1,8 @@
 ;;
 ;; Init
 ;;
+
+(setq gc-cons-threshold most-positive-fixnum)
 (defvar bootstrap-version)
 
 (let ((bootstrap-file
@@ -33,24 +35,27 @@
   :config
   (load-theme 'doom-one t))
 
-(use-package evil
-  :straight t
-  :init
-  (defun evil-recenter (&rest x)
-    (evil-scroll-line-to-center (line-number-at-pos)))
-  (setq evil-want-keybinding nil)
-  :config
-  (advice-add 'evil-scroll-page-down :after #'evil-recenter)
-  (advice-add 'evil-scroll-page-up :after #'evil-recenter)
-  (advice-add 'evil-search-next :after #'evil-recenter)
-  (advice-add 'evil-search-previous :after #'evil-recenter)
-  (evil-mode 1))
-
 (use-package evil-collection
   :straight t
   :after evil
   :config
   (evil-collection-init))
+
+(use-package evil
+  :straight t
+  :init
+  (setq evil-want-keybinding nil)
+  :config
+  (require 'evil-collection)
+  ;; This breaks company mode
+  (define-key evil-insert-state-map (kbd "C-k") nil)
+  (defun evil-recenter (&rest x)
+    (evil-scroll-line-to-center (line-number-at-pos)))
+  (advice-add 'evil-scroll-page-down :after #'evil-recenter)
+  (advice-add 'evil-scroll-page-up :after #'evil-recenter)
+  (advice-add 'evil-search-next :after #'evil-recenter)
+  (advice-add 'evil-search-previous :after #'evil-recenter)
+  (evil-mode 1))
 
 (use-package vi-tilde-fringe
   :straight t
@@ -75,32 +80,6 @@
 (use-package flycheck
   :straight t
   :init (global-flycheck-mode))
-
-(use-package flycheck-clj-kondo
-  :straight t
-  :ensure t)
-
-(use-package clojure-mode
-  :straight t
-  :config
-  (require 'flycheck-clj-kondo)
-  (define-clojure-indent
-    (render 1)
-    (match 1)
-    (s/fdef 1)
-    (dom/div 1)
-    (let-if 1))
-  (add-hook 'clojure-mode-hook #'cider-mode)
-  (add-hook 'clojure-mode-hook #'lispy-mode)
-  (add-hook 'clojure-mode-hook #'flycheck-mode))
-
-(use-package clj-refactor
-  :straight t)
-
-(use-package cider
-  :straight t
-  :init
-  (setq cider-auto-jump-to-error nil))
 
 (use-package wrap-region
   :straight t
@@ -183,6 +162,11 @@
   :config
   (projectile-mode))
 
+(use-package winner
+  :straight t
+  :config
+  (winner-mode 1))
+
 (use-package solaire-mode
   :straight t
   :hook
@@ -243,6 +227,9 @@
 (use-package general
   :straight t)
 
+(use-package company
+  :straight t)
+
 (use-package lispy
   :straight t
   :config
@@ -278,21 +265,23 @@
       (lispy-different))
     (lispy-newline-and-indent-plain))
 
+  ;; This breaks company mode
+  (define-key lispy-mode-map (kbd "C-k") nil)
+
   (evil-define-key 'insert lispy-mode-map "]" #'lispy-slurp)
   (evil-define-key 'insert lispy-mode-map "[" #'lispy-brackets-or-barf)
   (evil-define-key 'insert lispy-mode-map "{" #'lispy-braces)
-  (evil-define-key 'insert lispy-mode-map "o" 'lispy-o)
-  (evil-define-key 'insert lispy-mode-map "d" 'lispy-different)
-  (evil-define-key 'insert lispy-mode-map "i" 'indent-sexp)
-  (evil-define-key 'insert lispy-mode-map "x" 'lispy-delete)
-  (evil-define-key 'insert lispy-mode-map "A" 'lispy-ace-symbol-replace)
-  (evil-define-key 'insert lispy-mode-map "H" 'special-lispy-move-left)
-  (evil-define-key 'insert lispy-mode-map "J" 'special-lispy-down-slurp)
-  (evil-define-key 'insert lispy-mode-map "K" 'special-lispy-up-slurp)
-  (evil-define-key 'insert lispy-mode-map "L" 'special-lispy-move-right)
-  (evil-define-key 'insert lispy-mode-map "I" 'evil-insert-state)
-  (evil-define-key 'insert lispy-mode-map "T" 'lispy-global-teleport)
-
+  (define-key lispy-mode-map "o" 'lispy-o)
+  (define-key lispy-mode-map "d" 'lispy-different)
+  (define-key lispy-mode-map "i" 'indent-sexp)
+  (define-key lispy-mode-map "x" 'lispy-delete)
+  (define-key lispy-mode-map "A" 'lispy-ace-symbol-replace)
+  (define-key lispy-mode-map "H" 'special-lispy-move-left)
+  (define-key lispy-mode-map "J" 'special-lispy-down-slurp)
+  (define-key lispy-mode-map "K" 'special-lispy-up-slurp)
+  (define-key lispy-mode-map "L" 'special-lispy-move-right)
+  (define-key lispy-mode-map "I" 'evil-insert-state)
+  (define-key lispy-mode-map "T" 'lispy-global-teleport)
   (define-key lispy-mode-map (kbd "M-a") 'lispy-left-insert)
 
   (defface paren-face
@@ -310,6 +299,18 @@
   (add-hook 'lispy-mode-hook #'show-paren-mode)
   (add-hook 'lispy-mode-hook #'paredit-mode)
   (add-hook 'lispy-mode-hook #'lispyville-mode))
+
+
+(defconst mode-leader "'")
+
+(general-create-definer mode-leader-def
+  ;; :prefix my-leader
+  ;; or without a variable
+ :keymaps '(normal visual emacs motion)
+  :prefix "'")
+
+(add-to-list 'load-path (expand-file-name "lang" "~/.emacs.d"))
+(require 'lang-clojure)
 
 ;;
 ;; Functions
@@ -379,40 +380,42 @@
 (bind-key* "M-C" 'capitalize-previous-word)
 
 (general-define-key
- :keymaps '(normal visual emacs motion)
+ :keymaps '(normal visual emacs motion dired-mode-map)
  :prefix "SPC"
  :non-normal-prefix "C-SPC"
  "" nil
 
- ;; Buffers
+ "b" '(:ignore t :which-key "Buffers")
  "bb" 'helm-mini
 
- ;; Files
+ "f" '(:ignore t :which-key "Files")
  "ff" 'helm-find-files
  "fs" 'save-buffer
 
- ;; Git
+ "g" '(:ignore t :which-key "Git")
  "gg" 'magit-status
 
- ;; Project
+ "p" '(:ignore t :which-key "Project")
  "pp" 'helm-projectile-switch-project
  "pf" 'helm-projectile-find-file
 
- ;; Search
+ "s" '(:ignore t :which-key "Search")
  "ss" 'helm-swoop-without-pre-input
  "sp" 'helm-projectile-ag
 
- ;; Window
+ "w" '(:ignore t :which-key "Window")
  "ws" 'evil-window-split
+ "wu" 'winner-undo
+ "wu" 'winner-redo
 
- ;; Resume
+ "r" '(:ignore t :which-key "Resume")
  "rr" 'helm-resume
  "ry" 'helm-show-kill-ring
  "rb" 'select-minibuffer)
 
 
 ;; ;; TODO check these
-;; ;; company-mode
-;; ;; clj-refactor-mode
 ;; ;; superword-mode ???????????? Maybe
 ;; ;; yas-minor-mode
+
+(setq gc-cons-threshold 800000)
