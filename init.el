@@ -74,7 +74,12 @@
 (use-package magit
   :straight t
   :config
+  (add-hook* 'magit-status-mode-hook (set-window-fringes (selected-window) 0 0 nil))
   (evil-collection-init 'magit)
+  (define-key magit-status-mode-map (kbd "M-1") nil)
+  (define-key magit-status-mode-map (kbd "M-2") nil)
+  (define-key magit-status-mode-map (kbd "M-3") nil)
+  (define-key magit-status-mode-map (kbd "M-4") nil)
   (require 'evil-magit))
 
 (use-package flycheck
@@ -225,10 +230,25 @@
   (lispyville--define-key 'normal (kbd "M-K") #'mc/mark-previous-like-this))
 
 (use-package general
-  :straight t)
+  :straight t
+  :config
+  (general-override-mode))
 
 (use-package company
+  :straight t
+  :config
+  (define-key company-active-map (kbd "<return>") nil))
+
+(use-package yasnippet-snippets
   :straight t)
+
+(use-package yasnippet
+  :straight t
+  :config
+  (require 'yasnippet-snippets)
+  (setq yas-verbosity 1
+        yas-wrap-around-region t)
+  (yas-reload-all))
 
 (use-package lispy
   :straight t
@@ -265,23 +285,28 @@
       (lispy-different))
     (lispy-newline-and-indent-plain))
 
+  (defun lispy-global-teleport (arg)
+    (interactive "p")
+    (let ((lispy-teleport-global t))
+      (lispy-teleport arg)))
+
   ;; This breaks company mode
   (define-key lispy-mode-map (kbd "C-k") nil)
 
   (evil-define-key 'insert lispy-mode-map "]" #'lispy-slurp)
   (evil-define-key 'insert lispy-mode-map "[" #'lispy-brackets-or-barf)
   (evil-define-key 'insert lispy-mode-map "{" #'lispy-braces)
-  (define-key lispy-mode-map "o" 'lispy-o)
-  (define-key lispy-mode-map "d" 'lispy-different)
-  (define-key lispy-mode-map "i" 'indent-sexp)
-  (define-key lispy-mode-map "x" 'lispy-delete)
-  (define-key lispy-mode-map "A" 'lispy-ace-symbol-replace)
-  (define-key lispy-mode-map "H" 'special-lispy-move-left)
-  (define-key lispy-mode-map "J" 'special-lispy-down-slurp)
-  (define-key lispy-mode-map "K" 'special-lispy-up-slurp)
-  (define-key lispy-mode-map "L" 'special-lispy-move-right)
-  (define-key lispy-mode-map "I" 'evil-insert-state)
-  (define-key lispy-mode-map "T" 'lispy-global-teleport)
+  (lispy-define-key lispy-mode-map "o" 'lispy-o)
+  (lispy-define-key lispy-mode-map "d" 'lispy-different)
+  (lispy-define-key lispy-mode-map "i" 'indent-sexp)
+  (lispy-define-key lispy-mode-map "x" 'lispy-delete)
+  (lispy-define-key lispy-mode-map "A" 'lispy-ace-symbol-replace)
+  (lispy-define-key lispy-mode-map "H" 'special-lispy-move-left)
+  (lispy-define-key lispy-mode-map "J" 'special-lispy-down-slurp)
+  (lispy-define-key lispy-mode-map "K" 'special-lispy-up-slurp)
+  (lispy-define-key lispy-mode-map "L" 'special-lispy-move-right)
+  (lispy-define-key lispy-mode-map "I" 'evil-insert-state)
+  (lispy-define-key lispy-mode-map "T" 'lispy-global-teleport)
   (define-key lispy-mode-map (kbd "M-a") 'lispy-left-insert)
 
   (defface paren-face
@@ -372,6 +397,9 @@
 (unless (file-exists-p "~/.emacs.d/tmp")
   (make-directory "~/.emacs.d/tmp"))
 
+;; Disable error bell
+(setq ring-bell-function 'ignore)
+
 ;;
 ;; Key bindings
 ;;
@@ -380,7 +408,8 @@
 (bind-key* "M-C" 'capitalize-previous-word)
 
 (general-define-key
- :keymaps '(normal visual emacs motion dired-mode-map)
+ :states '(normal visual)
+ :keymaps '(override)
  :prefix "SPC"
  :non-normal-prefix "C-SPC"
  "" nil

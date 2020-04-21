@@ -26,6 +26,7 @@
     (s/fdef 1)
     (dom/div 1)
     (let-if 1))
+  (add-hook 'clojure-mode-hook #'yas-minor-mode)
   (add-hook 'clojure-mode-hook #'cider-mode)
   (add-hook 'clojure-mode-hook #'lispy-mode)
   (add-hook 'clojure-mode-hook #'flycheck-mode)
