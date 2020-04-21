@@ -235,7 +235,10 @@
   :straight t)
 
 (use-package lispyville
-  :straight t)
+  :straight t
+  :config
+  (lispyville--define-key 'normal (kbd "M-J") #'mc/mark-next-like-this)
+  (lispyville--define-key 'normal (kbd "M-K") #'mc/mark-previous-like-this))
 
 (use-package general
   :straight t)
@@ -410,7 +413,6 @@
 
 ;; ;; TODO check these
 ;; ;; company-mode
-;; ;; solaire-mode
 ;; ;; clj-refactor-mode
 ;; ;; superword-mode ???????????? Maybe
 ;; ;; yas-minor-mode
