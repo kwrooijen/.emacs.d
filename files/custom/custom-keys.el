@@ -23,6 +23,7 @@
  "p" '(:ignore t :which-key "Project")
  "pp" 'helm-projectile-switch-project
  "pf" 'helm-projectile-find-file
+ "pi" 'projectile-invalidate-cache
 
  "s" '(:ignore t :which-key "Search")
  "ss" 'helm-swoop-without-pre-input

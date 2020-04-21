@@ -87,7 +87,6 @@
   :straight t
   :config
   (add-hook* 'magit-status-mode-hook (set-window-fringes (selected-window) 0 0 nil))
-  ;; (evil-collection-init 'magit)
   (define-key magit-status-mode-map (kbd "M-1") nil)
   (define-key magit-status-mode-map (kbd "M-2") nil)
   (define-key magit-status-mode-map (kbd "M-3") nil)
@@ -95,6 +94,8 @@
 
 (use-package projectile
   :straight t
+  :init
+  (setq projectile-enable-caching t)
   :config
   (projectile-mode))
 

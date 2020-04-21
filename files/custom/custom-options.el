@@ -41,6 +41,12 @@
 (unless (file-exists-p "~/.emacs.d/tmp")
   (make-directory "~/.emacs.d/tmp"))
 
+;; Backup ~ files in seperate directory
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+
+;; No confirmation when creating new buffer
+(setq confirm-nonexistent-file-or-buffer nil)
+
 ;; Disable error bell
 (setq ring-bell-function 'ignore)
 

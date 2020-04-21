@@ -21,6 +21,19 @@
 (add-to-list 'load-path (expand-file-name "files/collection" "~/.emacs.d"))
 (add-to-list 'load-path (expand-file-name "files/lang" "~/.emacs.d"))
 (add-to-list 'load-path (expand-file-name "files/custom" "~/.emacs.d"))
+(add-to-list 'exec-path "usr/local/bin")
+
+(use-package path-helper
+  :straight t
+  :if (memq window-system '(mac ns))
+  :ensure t
+  :config
+  (path-helper-setenv-all))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; set path correctly on MacOS, based on /etc/paths
+(if (memq window-system '(ns mac))
+  (path-helper-setenv "PATH"))
 
 ;; Setup mode leader key. This will be used by any lang/ directory
 (use-package general :straight t :config (general-override-mode))
