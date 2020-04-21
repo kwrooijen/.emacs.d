@@ -35,28 +35,30 @@
 
 (use-package evil
   :straight t
-  :ensure t
   :init
+  (defun evil-recenter (&rest x)
+    (evil-scroll-line-to-center (line-number-at-pos)))
   (setq evil-want-keybinding nil)
   :config
+  (advice-add 'evil-scroll-page-down :after #'evil-recenter)
+  (advice-add 'evil-scroll-page-up :after #'evil-recenter)
+  (advice-add 'evil-search-next :after #'evil-recenter)
+  (advice-add 'evil-search-previous :after #'evil-recenter)
   (evil-mode 1))
 
 (use-package evil-leader
   :straight t
-  :ensure t
   :config
   (global-evil-leader-mode))
 
 (use-package evil-collection
   :straight t
   :after evil
-  :ensure t
   :config
   (evil-collection-init))
 
 (use-package vi-tilde-fringe
   :straight t
-  :ensure t
   :config
   (global-vi-tilde-fringe-mode t))
 
@@ -75,11 +77,17 @@
   :after magit)
 
 (use-package clojure-mode
-  :straight t)
+  :straight t
+  :config
+  (add-hook 'clojure-mode-hook #'lispy-mode))
+
+(use-package cider
+  :straight t
+  :init
+  (setq cider-auto-jump-to-error nil))
 
 (use-package wrap-region
   :straight t
-  :ensure t
   :config
   (wrap-region-global-mode))
 
@@ -99,8 +107,22 @@
   (diff-hl-margin-delete ((t (:foreground "#e85555" :inherit nil))) )
   (diff-hl-margin-change ((t (:foreground "#fcb75d" :inherit nil))) )
   :config
-  (global-diff-hl-mode 1)
+  ;; (global-diff-hl-mode 1)
   (diff-hl-margin-mode 1))
+
+(use-package winum
+  :straight t
+  :bind* (("M-1" . winum-select-window-1)
+          ("M-2" . winum-select-window-2)
+          ("M-3" . winum-select-window-3)
+          ("M-4" . winum-select-window-4)
+          ("M-5" . winum-select-window-5)
+          ("M-6" . winum-select-window-6)
+          ("M-7" . winum-select-window-7)
+          ("M-8" . winum-select-window-8)
+          ("M-9" . winum-select-window-9))
+  :config
+  (winum-mode))
 
 (use-package doom-modeline
   :straight t
@@ -109,7 +131,6 @@
 
 (use-package helm
   :straight t
-  :ensure t
   :config
   (evil-collection-init 'helm)
   (define-key global-map (kbd "M-x") #'helm-M-x)
@@ -135,26 +156,22 @@
       (helm-execute-persistent-action))))
 
 (use-package helm-swoop
-  :straight t
-  :ensure t
-  :config)
+  :straight t)
 
 (use-package helm-ag
-  :straight t
-  :ensure t)
+  :straight t)
 
 (use-package helm-projectile
-  :straight t
-  :ensure t)
+  :straight t)
 
 (use-package anzu
   :straight t
+  :bind* (("M-%" . anzu-query-replace))
   :init
   (global-anzu-mode))
 
 (use-package key-chord
   :straight t
-  :ensure t
   :config
   (add-hook* 'prog-mode-hook (key-chord-mode 1))
   (add-hook* 'isearch-mode-hook (key-chord-mode 1))
@@ -173,7 +190,6 @@
 
 (use-package ws-butler
   :straight t
-  :ensure t
   :config
   (ws-butler-global-mode)
   ;; Disable aftersave
@@ -182,6 +198,31 @@
 (use-package undo-tree
   :straight t
   :bind (("M-u" . undo-tree-redo)))
+
+(use-package lispy
+  :straight t
+  :config
+  (add-hook 'lispy-mode-hook #'lispyville-mode))
+
+(use-package lispyville
+  :straight t)
+
+;;
+;; Functions
+;;
+
+(defun capitalize-previous-word ()
+  (interactive)
+  (save-excursion
+    (backward-word)
+    (capitalize-word 1)))
+
+;;
+;; Key bindings
+;;
+
+(bind-key* "M-+" 'align-regexp)
+(bind-key* "M-C" 'capitalize-previous-word)
 
 ;;
 ;; Configuration
@@ -202,6 +243,7 @@
 ;; Don’t use tabs
 (setq-default indent-tabs-mode nil)
 
+(setq mac-command-modifier 'meta)
 
 (set-frame-font "-*-Fira Mono-*-*-*-*-10-*-*-*-*-*-*-*" nil t)
 
