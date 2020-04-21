@@ -77,11 +77,22 @@
 (use-package clojure-mode
   :straight t)
 
+(use-package wrap-region
+  :straight t
+  :ensure t
+  :config
+  (wrap-region-global-mode))
+
+(use-package expand-region
+  :straight t
+  :bind* (("M-@" . er/expand-region)))
+
 (use-package diff-hl
   :straight t
   :init
   (setq diff-hl-margin-symbols-alist
-   '((insert . "▐") (delete . "▐") (change . "▐") (unknown . "▐") (ignored . "▐")))
+        '((insert . "▐") (delete . "▐") (change . "▐")
+          (unknown . "▐") (ignored . "▐")))
 
   :custom-face
   (diff-hl-margin-insert ((t (:foreground "#5be56b" :inherit nil))) )
