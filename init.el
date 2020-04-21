@@ -21,8 +21,8 @@
 ;; Helpers
 ;;
 
-(defmacro add-hook* (mode fn)
-  `(add-hook ,mode (lambda () ,fn)))
+(defmacro add-hook* (mode &rest body)
+  `(add-hook ,mode (lambda () ,@body)))
 
 ;;
 ;; Packages
@@ -76,10 +76,28 @@
   :straight t
   :after magit)
 
+(use-package flycheck
+  :straight t
+  :init (global-flycheck-mode))
+
+(use-package flycheck-clj-kondo
+  :straight t
+  :ensure t)
+
 (use-package clojure-mode
   :straight t
   :config
-  (add-hook 'clojure-mode-hook #'lispy-mode))
+  (require 'flycheck-clj-kondo)
+  (define-clojure-indent
+    (render 1)
+    (match 1)
+    (s/fdef 1)
+    (dom/div 1)
+    (let-if 1))
+  (add-hook 'clojure-mode-hook #'cider-mode)
+  (add-hook 'clojure-mode-hook #'lispy-mode)
+  (add-hook 'clojure-mode-hook #'flycheck-mode))
+
 
 (use-package cider
   :straight t
@@ -202,6 +220,18 @@
 (use-package lispy
   :straight t
   :config
+  (defface paren-face
+    '((((class color) (background dark))
+       (:foreground "gray20"))
+      (((class color) (background light))
+       (:foreground "gray80")))
+    "Face used to dim parentheses.")
+
+  (add-hook* 'lispy-mode-hook
+             (font-lock-add-keywords nil '((")" . 'paren-face)))
+             (font-lock-add-keywords nil '(("}" . 'paren-face)))
+             (font-lock-add-keywords nil '(("]" . 'paren-face))))
+
   (add-hook 'lispy-mode-hook #'lispyville-mode))
 
 (use-package lispyville
