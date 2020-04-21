@@ -168,6 +168,10 @@
   ;; Disable aftersave
   (defun ws-butler-after-save ()))
 
+(use-package undo-tree
+  :straight t
+  :bind (("M-u" . undo-tree-redo)))
+
 ;;
 ;; Configuration
 ;;
@@ -197,7 +201,7 @@
 (evil-leader/set-key
 
  ;; Buffers
- "b b" 'helm-buffers-list
+ "b b" 'helm-mini
 
  ;; Files
  "f f" 'helm-find-files
@@ -214,7 +218,11 @@
  "s p" 'helm-projectile-ag
 
  ;; Window
- "w s" 'evil-window-split)
+ "w s" 'evil-window-split
+
+ ;; Resume
+ "r r" 'helm-resume
+ "r y" 'helm-show-kill-ring)
 
 (evil-leader/set-leader "SPC")
 
