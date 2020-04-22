@@ -3,6 +3,15 @@
 (use-package doom-themes
   :straight t
   :config
+  (setq dark-theme? t)
+  (defun toggle-theme ()
+    (interactive)
+    (if dark-theme?
+        (load-theme 'doom-one-light t)
+      (load-theme 'doom-one t))
+    (solaire-mode-swap-bg)
+    (setq dark-theme? (not dark-theme?)))
+
   (load-theme 'doom-one t))
 
 (use-package vi-tilde-fringe

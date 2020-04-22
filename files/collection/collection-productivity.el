@@ -61,7 +61,45 @@
 
 (use-package flycheck
   :straight t
-  :init (global-flycheck-mode))
+  :config
+  ;; TODO Make this smaller
+  (define-fringe-bitmap 'flycheck-fringe-bitmap-point-left
+    (vector #b00000000
+            #b00000001
+            #b00000011
+            #b00000111
+            #b00001111
+            #b00011111
+            #b00111111
+            #b01111111
+            #b11111111
+            #b01111111
+            #b00111111
+            #b00011111
+            #b00001111
+            #b00000111
+            #b00000011
+            #b00000001
+            #b00000000))
+
+  (flycheck-define-error-level 'warning
+    :severity 100
+    :compilation-level 2
+    :overlay-category 'flycheck-warning-overlay
+    :fringe-bitmap 'flycheck-fringe-bitmap-point-left
+    :fringe-face 'flycheck-fringe-warning
+    :error-list-face 'flycheck-error-list-error)
+
+  (flycheck-define-error-level 'error
+    :severity 100
+    :compilation-level 2
+    :overlay-category 'flycheck-error-overlay
+    :fringe-bitmap 'flycheck-fringe-bitmap-point-left
+    :fringe-face 'flycheck-fringe-error
+    :error-list-face 'flycheck-error-list-error)
+
+  (global-flycheck-mode)
+  (setq flycheck-indication-mode 'right-fringe))
 
 (use-package diff-hl
   :straight t
@@ -98,5 +136,16 @@
   (setq projectile-enable-caching t)
   :config
   (projectile-mode))
+
+(use-package markdown-mode
+  :straight t)
+
+(use-package simpleclip
+  :straight t
+  :bind* (("M-c" . simpleclip-copy)
+          ("M-v" . simpleclip-paste))
+  :init
+  (simpleclip-mode 1))
+
 
 (provide 'collection-productivity)

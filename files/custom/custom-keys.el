@@ -2,6 +2,7 @@
 
 (bind-key* "M-+" 'align-regexp)
 (bind-key* "M-C" 'capitalize-previous-word)
+(bind-key* "M-/" 'comment-or-uncomment-region)
 
 (general-define-key
  :states '(normal visual)
@@ -32,7 +33,14 @@
  "w" '(:ignore t :which-key "Window")
  "ws" 'evil-window-split
  "wu" 'winner-undo
- "wu" 'winner-redo
+ "wU" 'winner-redo
+
+ "wh" 'evil-window-left
+ "wl" 'evil-window-right
+ "wj" 'evil-window-down
+ "wk" 'evil-window-up
+ "wL" 'split-window-right
+ "wJ" 'split-window-below
 
  "r" '(:ignore t :which-key "Resume")
  "rr" 'helm-resume

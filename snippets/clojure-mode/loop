@@ -1,0 +1,4 @@
+# name: loop
+# key: loop
+# --
+(loop [$0])
