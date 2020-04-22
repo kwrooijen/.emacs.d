@@ -31,4 +31,8 @@
   :straight t
   :after magit)
 
+(use-package evil-nerd-commenter
+  :straight t
+  :bind* (("M-/" . evilnc-comment-or-uncomment-lines)))
+
 (provide 'collection-evil)

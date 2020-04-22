@@ -10,9 +10,10 @@
   :bind* (("M-@" . er/expand-region)))
 
 (use-package multiple-cursors
-  :straight (mc :host github
-                :repo "kwrooijen/mc"
-                :files (:defaults (:exclude "*.el.in")))
+  :straight (multiple-cursors
+             :host github
+             :repo "kwrooijen/mc"
+             :files (:defaults (:exclude "*.el.in")))
   :bind* (("M-K" . mc/mark-previous-like-this)
           ("M-J" . mc/mark-next-like-this))
   :config

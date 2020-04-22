@@ -124,7 +124,6 @@
 (use-package magit
   :straight t
   :config
-  (add-hook* 'magit-status-mode-hook (set-window-fringes (selected-window) 0 0 nil))
   (define-key magit-status-mode-map (kbd "M-1") nil)
   (define-key magit-status-mode-map (kbd "M-2") nil)
   (define-key magit-status-mode-map (kbd "M-3") nil)
@@ -137,8 +136,12 @@
   :config
   (projectile-mode))
 
-(use-package markdown-mode
-  :straight t)
+(use-package web-mode
+  :straight t
+  :init
+  (setq web-mode-markup-indent-offset 4
+        web-mode-css-indent-offset 4
+        web-mode-code-indent-offset 4))
 
 (use-package simpleclip
   :straight t
@@ -147,5 +150,25 @@
   :init
   (simpleclip-mode 1))
 
+(use-package vc-hooks
+  :init
+  ;; follow symlinks and don't ask
+  (setq vc-follow-symlinks t)
+  ;; Don't use version control for all files
+  (setq vc-ignore-dir-regexp
+        (format "\\(%s\\)\\|\\(%s\\)"
+                vc-ignore-dir-regexp
+                tramp-file-name-regexp)))
+
+(use-package highlight-numbers
+  :straight t
+  :init
+  (add-hook 'prog-mode-hook 'highlight-numbers-mode))
+
+(use-package markdown-mode :straight t)
+(use-package yaml-mode :straight t)
+(use-package yaml-mode :straight t)
+(use-package dockerfile-mode :straight t)
+(use-package gitignore-mode :straight t)
 
 (provide 'collection-productivity)

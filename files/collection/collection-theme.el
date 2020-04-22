@@ -17,8 +17,12 @@
 (use-package vi-tilde-fringe
   :straight t
   :config
+
   (add-hook 'text-mode-hook #'vi-tilde-fringe-mode)
-  (add-hook 'prog-mode-hook #'vi-tilde-fringe-mode))
+  (add-hook 'prog-mode-hook #'vi-tilde-fringe-mode)
+  (add-hook* 'vi-tilde-fringe-mode-hook
+             (setq left-fringe-width 8
+                   right-fringe-width 8)))
 
 (use-package doom-modeline
   :straight t

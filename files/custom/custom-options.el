@@ -8,6 +8,11 @@
 (scroll-bar-mode 0)
 (blink-cursor-mode 0)
 (global-hl-line-mode 1)
+(column-number-mode 1)
+(set-fringe-mode 0)
+
+(setq left-fringe-width 0)
+(setq right-fringe-width 0)
 
 ;; Smooth Scrolling
 (setq scroll-margin 1

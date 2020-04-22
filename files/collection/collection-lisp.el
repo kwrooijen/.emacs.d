@@ -55,6 +55,8 @@
   (evil-define-key 'insert lispy-mode-map "]" #'lispy-slurp)
   (evil-define-key 'insert lispy-mode-map "[" #'lispy-brackets-or-barf)
   (evil-define-key 'insert lispy-mode-map "{" #'lispy-braces)
+  (evil-collection-define-key 'normal 'evil-collection-lispy-mode-map
+     (kbd "M-d")  #'lispy-kill-word)
   (lispy-define-key lispy-mode-map "o" 'lispy-o)
   (lispy-define-key lispy-mode-map "d" 'lispy-different)
   (lispy-define-key lispy-mode-map "i" 'indent-sexp)

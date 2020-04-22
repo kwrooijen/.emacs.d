@@ -44,4 +44,7 @@
   :keymaps '(normal visual)
   :prefix "'")
 
+;; For some reason Evil Collection breaks at initial boot unless this is set here
+(setq evil-want-keybinding nil)
+
 (provide 'bootstrap)

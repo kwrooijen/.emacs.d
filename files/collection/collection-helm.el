@@ -90,4 +90,7 @@
   :init
   (setq projectile-use-git-grep t))
 
+(use-package helm-descbinds
+  :straight t)
+
 (provide 'collection-helm)
