@@ -61,6 +61,10 @@
 
 (use-package flycheck
   :straight t
+  :custom-face
+  (flycheck-error ((t (:underline "#ff6c6b"))))
+  (flycheck-info ((t (:underline "#98be65"))))
+  (flycheck-warning ((t (:underline "#ECBE7B"))))
   :config
   (define-fringe-bitmap 'flycheck-fringe-bitmap-point-left
     (vector #b000000000

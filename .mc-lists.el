@@ -83,6 +83,7 @@
         lispyville-yank
         mark-word
         markdown-outdent-or-delete
+        paredit-backward-kill-word
         paredit-close-round
         simpleclip-copy
         simpleclip-paste
@@ -177,11 +178,13 @@
 
 (setq mc/cmds-to-run-once
       '(
+        describe-key
         evil-indent-plus-i-indent
         helm-confirm-and-exit-minibuffer
         helm-show-kill-ring
         helpful-key
         iedit-switch-to-mc-mode
         lispy-cursor-down
+        text-scale-adjust
         yaml-electric-dash-and-dot
         ))
