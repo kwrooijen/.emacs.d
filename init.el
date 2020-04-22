@@ -11,6 +11,7 @@
 (require 'collection-editing)
 
 (require 'lang-clojure)
+(require 'lang-elisp)
 
 (require 'custom-options)
 (require 'custom-keys)
