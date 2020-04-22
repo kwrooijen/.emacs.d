@@ -62,25 +62,24 @@
 (use-package flycheck
   :straight t
   :config
-  ;; TODO Make this smaller
   (define-fringe-bitmap 'flycheck-fringe-bitmap-point-left
-    (vector #b00000000
-            #b00000001
-            #b00000011
-            #b00000111
-            #b00001111
-            #b00011111
-            #b00111111
-            #b01111111
-            #b11111111
-            #b01111111
-            #b00111111
-            #b00011111
-            #b00001111
-            #b00000111
-            #b00000011
-            #b00000001
-            #b00000000))
+    (vector #b000000000
+            #b000000000
+            #b000000000
+            #b000000000
+            #b000000010
+            #b000000110
+            #b000001110
+            #b000011110
+            #b000111110
+            #b000011110
+            #b000001110
+            #b000000110
+            #b000000010
+            #b000000000
+            #b000000000
+            #b000000000
+            #b000000000))
 
   (flycheck-define-error-level 'warning
     :severity 100

@@ -83,6 +83,7 @@
         lispyville-yank
         mark-word
         markdown-outdent-or-delete
+        paredit-close-round
         simpleclip-copy
         simpleclip-paste
         sp-remove-active-pair-overlay
@@ -102,6 +103,7 @@
         special-lispy-clone
         special-lispy-convolute
         special-lispy-convolute-left
+        special-lispy-delete
         special-lispy-different
         special-lispy-down
         special-lispy-down-slurp

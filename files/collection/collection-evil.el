@@ -1,7 +1,5 @@
 ;;; collection/collection-evil.el -*- lexical-binding: t; -*-
 
-;; TODO Check if it is possible to set evil state globally
-
 (use-package evil-collection
   :straight t
   :after evil
