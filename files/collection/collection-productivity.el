@@ -175,6 +175,16 @@
               ("C-j" . ivy-next-line)
               ("C-k" . ivy-previous-line)))
 
+(use-package highlight-symbol
+  :straight t
+  :init
+  (setq highlight-symbol-idle-delay 0.1)
+  :config
+  (add-hook* 'prog-mode-hook (highlight-symbol-mode 1)))
+
+(use-package rainbow-mode
+  :straight t)
+
 (use-package markdown-mode :straight t)
 (use-package yaml-mode :straight t)
 (use-package yaml-mode :straight t)
