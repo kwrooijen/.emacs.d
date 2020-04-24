@@ -4,6 +4,8 @@
   :straight t
   :after evil
   :config
+  (setq evil-collection-mode-list
+        (remove 'lispy evil-collection-mode-list))
   (evil-collection-init))
 
 (use-package evil

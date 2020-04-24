@@ -15,4 +15,10 @@
  (when (active-minibuffer-window)
    (select-window (active-minibuffer-window))))
 
+(defun change-language ()
+  (interactive)
+  (save-excursion
+    (call-interactively 'ispell-change-dictionary)
+    (flyspell-buffer)))
+
 (provide 'custom-functions)

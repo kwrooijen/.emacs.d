@@ -48,176 +48,177 @@
               ("mru" . "unwind/update")))
 
   (mode-leader-def
-   'normal clojure-mode-map
+    'normal clojure-mode-map
 
-   "'" 'cider-jack-in-clj
-   "\"" 'cider-jack-in-cljs
+    "'" 'cider-jack-in-clj
+    "\"" 'cider-jack-in-cljs
 
-   "h" '(:ignore t :which-key "Help")
-   "ha" 'cider-apropos
-   "hc" 'cider-cheatsheet
-   "hd" 'cider-clojuredocs
-   "hh" 'cider-doc
-   "hj" 'cider-javadoc
-   "hn" 'cider-browse-ns
-   "hN" 'cider-browse-ns-all
-   "hs" 'cider-browse-spec
-   "hS" 'cider-browse-spec-all
+    "h" '(:ignore t :which-key "Help")
+    "ha" 'cider-apropos
+    "hc" 'cider-cheatsheet
+    "hd" 'cider-clojuredocs
+    "hh" 'cider-doc
+    "hj" 'cider-javadoc
+    "hn" 'cider-browse-ns
+    "hN" 'cider-browse-ns-all
+    "hs" 'cider-browse-spec
+    "hS" 'cider-browse-spec-all
 
-   "e" '(:ignore t :which-key "Evaluate")
-   "e;" 'cider-eval-defun-to-comment
-   "eb" 'cider-eval-buffer
-   "ee" 'cider-eval-last-sexp
-   "ef" 'cider-eval-defun-at-point
-   "ei" 'cider-interrupt
-   "em" 'cider-macroexpand-1
-   "eM" 'cider-macroexpand-all
-   "en" 'cider-ns-refresh
-   "eN" 'cider-ns-reload
-   "er" 'cider-eval-region
-   "eu" 'cider-undef
-   "ev" 'cider-eval-sexp-at-point
-   "eV" 'cider-eval-sexp-up-to-point
-   "ew" 'cider-eval-last-sexp-and-replace
+    "e" '(:ignore t :which-key "Evaluate")
+    "e;" 'cider-eval-defun-to-comment
+    "eb" 'cider-eval-buffer
+    "ee" 'cider-eval-last-sexp
+    "ef" 'cider-eval-defun-at-point
+    "ei" 'cider-interrupt
+    "em" 'cider-macroexpand-1
+    "eM" 'cider-macroexpand-all
+    "en" 'cider-ns-refresh
+    "eN" 'cider-ns-reload
+    "er" 'cider-eval-region
+    "eu" 'cider-undef
+    "ev" 'cider-eval-sexp-at-point
+    "eV" 'cider-eval-sexp-up-to-point
+    "ew" 'cider-eval-last-sexp-and-replace
 
-   "ep" '(:ignore t :which-key "pprint")
-   "ep;" 'cider-pprint-eval-defun-to-comment
-   "ep:" 'cider-pprint-eval-last-sexp-to-comment
-   "epf" 'cider-pprint-eval-defun-at-point
-   "epe" 'cider-pprint-eval-last-sexp
+    "ep" '(:ignore t :which-key "pprint")
+    "ep;" 'cider-pprint-eval-defun-to-comment
+    "ep:" 'cider-pprint-eval-last-sexp-to-comment
+    "epf" 'cider-pprint-eval-defun-at-point
+    "epe" 'cider-pprint-eval-last-sexp
 
-   "=" '(:ignore t :which-key "Format")
-   "==" 'cider-format-buffer
-   "=f" 'cider-format-defun
-   "=r" 'cider-format-region
+    "=" '(:ignore t :which-key "Format")
+    "==" 'cider-format-buffer
+    "=f" 'cider-format-defun
+    "=r" 'cider-format-region
 
-   "=e" '(:ignore t :which-key "Edn")
-   "=eb" 'cider-format-edn-buffer
-   "=ee" 'cider-format-edn-last-sexp
-   "=er" 'cider-format-edn-region
+    "=e" '(:ignore t :which-key "Edn")
+    "=eb" 'cider-format-edn-buffer
+    "=ee" 'cider-format-edn-last-sexp
+    "=er" 'cider-format-edn-region
 
-   "g" '(:ignore t :which-key "Goto")
-   "gb" 'cider-pop-back
-   "gc" 'cider-classpath
-   "ge" 'cider-jump-to-compilation-error
-   "gn" 'cider-find-ns
-   "gr" 'cider-find-resource
-   "gs" 'cider-browse-spec
-   "gS" 'cider-browse-spec-all
+    "g" '(:ignore t :which-key "Goto")
+    "gb" 'cider-pop-back
+    "gc" 'cider-classpath
+    "ge" 'cider-jump-to-compilation-error
+    "gn" 'cider-find-ns
+    "gr" 'cider-find-resource
+    "gs" 'cider-browse-spec
+    "gS" 'cider-browse-spec-all
 
-   "m" '(:ignore t :which-key "Manage Cider")
-   "mj" 'cider-connect-sibling-clj
-   "ms" 'cider-connect-sibling-cljs
+    "m" '(:ignore t :which-key "Manage Cider")
+    "mj" 'cider-connect-sibling-clj
+    "ms" 'cider-connect-sibling-cljs
 
-   "s" '(:ignore t :which-key "Send Code")
-   "sb" 'cider-load-buffer
-   "sL" 'cider-find-and-clear-repl-output
-   "so" 'cider-repl-switch-to-other
-   "su" 'cider-repl-require-repl-utils
-
-
-   "sc" '(:ignore t :which-key "Connect")
-   "scj" 'cider-connect-clj
-   "scm" 'cider-connect-clj&cljs
-   "scs" 'cider-connect-cljs
+    "s" '(:ignore t :which-key "Send Code")
+    "sb" 'cider-load-buffer
+    "sL" 'cider-find-and-clear-repl-output
+    "so" 'cider-repl-switch-to-other
+    "su" 'cider-repl-require-repl-utils
 
 
-   "sj" '(:ignore t :which-key "Jack in")
-   "sjj" 'cider-jack-in-clj
-   "sjm" 'cider-jack-in-clj&cljs
-   "sjs" 'cider-jack-in-cljs
+    "sc" '(:ignore t :which-key "Connect")
+    "scj" 'cider-connect-clj
+    "scm" 'cider-connect-clj&cljs
+    "scs" 'cider-connect-cljs
 
-   "sq" '(:ignore t :which-key "Quit / Reload")
-   "sqq" 'cider-quit
-   "sqr" 'cider-restart
-   "sqn" 'cider-ns-reload
-   "sqN" 'cider-ns-reload-all
 
-   "T" '(:ignore t :which-key "Toggle")
-   "Te" 'cider-enlighten-mode
-   "Tt" 'cider-auto-test-mode
+    "sj" '(:ignore t :which-key "Jack in")
+    "sjj" 'cider-jack-in-clj
+    "sjm" 'cider-jack-in-clj&cljs
+    "sjs" 'cider-jack-in-cljs
 
-   "t" '(:ignore t :which-key "Cider Tests")
-   "tb" 'cider-test-show-report
+    "sq" '(:ignore t :which-key "Quit / Reload")
+    "sqq" 'cider-quit
+    "sqr" 'cider-restart
+    "sqn" 'cider-ns-reload
+    "sqN" 'cider-ns-reload-all
 
-   "d" '(:ignore t :which-key "Cider Debug")
-   "db" 'cider-debug-defun-at-point
-   "dv" 'cider-inspect
+    "T" '(:ignore t :which-key "Toggle")
+    "Te" 'cider-enlighten-mode
+    "Tt" 'cider-auto-test-mode
 
-   "p" '(:ignore t :which-key "Cider Profile")
-   "p+" 'cider-profile-samples
-   "pc" 'cider-profile-clear
-   "pn" 'cider-profile-ns-toggle
-   "ps" 'cider-profile-var-summary
-   "pS" 'cider-profile-summary
-   "pt" 'cider-profile-toggle
-   "pv" 'cider-profile-var-profiled-p
+    "t" '(:ignore t :which-key "Cider Tests")
+    "tb" 'cider-test-show-report
 
-   "r" '(:ignore t :which-key "Refactor")
-   "r?"  #'cljr-describe-refactoring
+    "d" '(:ignore t :which-key "Cider Debug")
+    "db" 'cider-debug-defun-at-point
+    "dv" 'cider-inspect
 
-   "ra" '(:ignore t :which-key "Add")
-   "rad"  #'cljr-add-declaration
-   "rai"  #'cljr-add-import-to-ns
-   "ram"  #'cljr-add-missing-libspec
-   "rap"  #'cljr-add-project-dependency
-   "rar"  #'cljr-add-require-to-ns
-   "ras"  #'cljr-add-stubs
-   "rau"  #'cljr-add-use-to-ns
+    "p" '(:ignore t :which-key "Cider Profile")
+    "p+" 'cider-profile-samples
+    "pc" 'cider-profile-clear
+    "pn" 'cider-profile-ns-toggle
+    "ps" 'cider-profile-var-summary
+    "pS" 'cider-profile-summary
+    "pt" 'cider-profile-toggle
+    "pv" 'cider-profile-var-profiled-p
 
-   "rc" '(:ignore t :which-key "Cycle")
-   "rci"  #'clojure-cycle-if
-   "rcn"  #'cljr-clean-ns
-   "rcp"  #'clojure-cycle-privacy
-   "rcs"  #'cljr-change-function-signature
-   "rct"  #'cljr-cycle-thread
+    "r" '(:ignore t :which-key "Refactor")
+    "r?"  #'cljr-describe-refactoring
 
-   "rdk"  #'cljr-destructure-keys
+    "ra" '(:ignore t :which-key "Add")
+    "rad"  #'cljr-add-declaration
+    "rai"  #'cljr-add-import-to-ns
+    "ram"  #'cljr-add-missing-libspec
+    "rap"  #'cljr-add-project-dependency
+    "rar"  #'cljr-add-require-to-ns
+    "ras"  #'cljr-add-stubs
+    "rau"  #'cljr-add-use-to-ns
 
-   "re" '(:ignore t :which-key "Add")
-   "rec"  #'cljr-extract-constant
-   "red"  #'cljr-extract-def
-   "ref"  #'cljr-extract-function
-   "rel"  #'cljr-expand-let
+    "rc" '(:ignore t :which-key "Cycle")
+    "rci"  #'clojure-cycle-if
+    "rcn"  #'cljr-clean-ns
+    "rcp"  #'clojure-cycle-privacy
+    "rcs"  #'cljr-change-function-signature
+    "rct"  #'cljr-cycle-thread
 
-   "rf" '(:ignore t :which-key "Fn")
-   "rfe"  #'cljr-create-fn-from-example
-   "rfu"  #'cljr-find-usages
+    "rdk"  #'cljr-destructure-keys
 
-   "rhd"  #'cljr-hotload-dependency
+    "re" '(:ignore t :which-key "Add")
+    "rec"  #'cljr-extract-constant
+    "red"  #'cljr-extract-def
+    "ref"  #'cljr-extract-function
+    "rel"  #'cljr-expand-let
 
-   "ri" '(:ignore t :which-key "Inline")
-   "ril"  #'cljr-introduce-let
-   "ris"  #'cljr-inline-symbol
+    "rf" '(:ignore t :which-key "Fn")
+    "rfe"  #'cljr-create-fn-from-example
+    "rfu"  #'cljr-find-usages
 
-   "rm" '(:ignore t :which-key "Move")
-   "rmf"  #'cljr-move-form
-   "rml"  #'cljr-move-to-let
+    "rhd"  #'cljr-hotload-dependency
 
-   "rp" '(:ignore t :which-key "Project")
-   "rpc"  #'cljr-project-clean
-   "rpf"  #'cljr-promote-function
+    "ri" '(:ignore t :which-key "Inline")
+    "ril"  #'cljr-introduce-let
+    "ris"  #'cljr-inline-symbol
 
-   "rr" '(:ignore t :which-key "Rename")
-   "rrf"  #'cljr-rename-file-or-dir
-   "rrl"  #'cljr-remove-let
-   "rrm"  #'cljr-require-macro
-   "rrs"  #'cljr-rename-symbol
+    "rm" '(:ignore t :which-key "Move")
+    "rmf"  #'cljr-move-form
+    "rml"  #'cljr-move-to-let
 
-   "rs" '(:ignore t :which-key "Show")
-   "rsc"  #'cljr-show-changelog
-   "rsp"  #'cljr-sort-project-dependencies
-   "rsr"  #'cljr-stop-referring
+    "rp" '(:ignore t :which-key "Project")
+    "rpc"  #'cljr-project-clean
+    "rpf"  #'cljr-promote-function
 
-   "rt" '(:ignore t :which-key "Thread")
-   "rtf"  #'clojure-thread-first-all
-   "rth"  #'clojure-thread
-   "rtl"  #'clojure-thread-last-all
+    "rr" '(:ignore t :which-key "Rename")
+    "rrf"  #'cljr-rename-file-or-dir
+    "rrl"  #'cljr-remove-let
+    "rrm"  #'cljr-require-macro
+    "rrs"  #'cljr-rename-symbol
 
-   "ru" '(:ignore t :which-key "Unwind")
-   "rua"  #'clojure-unwind-all
-   "rup"  #'cljr-update-project-dependencies
-   "ruw"  #'clojure-unwind))
+    "rs" '(:ignore t :which-key "Show")
+    "rsc"  #'cljr-show-changelog
+    "rsp"  #'cljr-sort-project-dependencies
+    "rsr"  #'cljr-stop-referring
+
+    "rt" '(:ignore t :which-key "Thread")
+    "rtf"  #'clojure-thread-first-all
+    "rth"  #'clojure-thread
+    "rtl"  #'clojure-thread-last-all
+
+    "ru" '(:ignore t :which-key "Unwind")
+    "rua"  #'clojure-unwind-all
+    "rup"  #'cljr-update-project-dependencies
+    "ruw"  #'clojure-unwind
+    "bb" #'cider-switch-to-repl-buffer))
 
 
 (provide 'lang-clojure)
