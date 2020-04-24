@@ -82,6 +82,8 @@
              (font-lock-add-keywords nil '(("}" . 'paren-face)))
              (font-lock-add-keywords nil '(("]" . 'paren-face))))
 
+  (advice-add 'special-lispy-down :after #'kwrooijen/recenter)
+  (advice-add 'special-lispy-up :after #'kwrooijen/recenter)
   (add-hook 'lispy-mode-hook #'show-paren-mode)
   (add-hook 'lispy-mode-hook #'paredit-mode)
   (add-hook 'lispy-mode-hook #'lispyville-mode))

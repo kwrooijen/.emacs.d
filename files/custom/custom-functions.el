@@ -21,4 +21,7 @@
     (call-interactively 'ispell-change-dictionary)
     (flyspell-buffer)))
 
+(defun kwrooijen/recenter (&rest x)
+  (evil-scroll-line-to-center (line-number-at-pos)))
+
 (provide 'custom-functions)

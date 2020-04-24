@@ -18,14 +18,12 @@
   (define-key evil-insert-state-map (kbd "C-k") nil)
   (define-key evil-visual-state-map (kbd "TAB") #'indent-region)
 
-  (defun evil-recenter (&rest x)
-    (evil-scroll-line-to-center (line-number-at-pos)))
-
-  (advice-add 'evil-scroll-page-down :after #'evil-recenter)
+  (setq scroll-preserve-screen-position t)
   ;; This prevents the screen from completely scrolling up
-  ;; (advice-add 'evil-scroll-page-up :after #'evil-recenter)
-  (advice-add 'evil-search-next :after #'evil-recenter)
-  (advice-add 'evil-search-previous :after #'evil-recenter)
+  ;; (advice-add 'evil-scroll-page-up :after #'kwrooijen/recenter)
+  (advice-add 'evil-scroll-page-down :after #'kwrooijen/recenter)
+  (advice-add 'evil-search-next :after #'kwrooijen/recenter)
+  (advice-add 'evil-search-previous :after #'kwrooijen/recenter)
   (evil-mode 1))
 
 (use-package evil-magit

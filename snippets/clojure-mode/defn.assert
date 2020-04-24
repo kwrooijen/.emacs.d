@@ -1,5 +1,5 @@
 # name: defn assert
-# key: defn
+# key: defna
 # --
 (defn $1
   "$2"$>

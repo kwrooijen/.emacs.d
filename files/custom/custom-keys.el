@@ -2,7 +2,6 @@
 
 (bind-key* "M-+" 'align-regexp)
 (bind-key* "M-C" 'capitalize-previous-word)
-(bind-key* "M-/" 'comment-or-uncomment-region)
 
 (general-define-key
  :states '(normal visual)
