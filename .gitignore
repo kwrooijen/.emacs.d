@@ -7,4 +7,7 @@ projectile-bookmarks.eld
 projectile.cache
 recentf
 transient/
-straight/
+straight/build
+straight/build-cache.el
+straight/repos
+elpa/
