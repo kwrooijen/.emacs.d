@@ -17,6 +17,7 @@
   ;; This breaks company mode
   (define-key evil-insert-state-map (kbd "C-k") nil)
   (define-key evil-visual-state-map (kbd "TAB") #'indent-region)
+  (define-key evil-visual-state-map (kbd "ii") #'evil-insert)
 
   (setq scroll-preserve-screen-position t)
   ;; This prevents the screen from completely scrolling up
