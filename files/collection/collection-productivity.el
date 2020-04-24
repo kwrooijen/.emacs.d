@@ -188,7 +188,6 @@
 
 (use-package markdown-mode :straight t)
 (use-package yaml-mode :straight t)
-(use-package yaml-mode :straight t)
 (use-package dockerfile-mode :straight t)
 (use-package gitignore-mode :straight t)
 
