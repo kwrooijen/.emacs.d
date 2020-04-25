@@ -169,13 +169,6 @@
   :init
   (add-hook 'prog-mode-hook 'highlight-numbers-mode))
 
-(use-package counsel
-  :straight t
-  :bind* (("M-x" . counsel-M-x))
-  :bind (:map ivy-minibuffer-map
-              ("C-j" . ivy-next-line)
-              ("C-k" . ivy-previous-line)))
-
 (use-package highlight-symbol
   :straight t
   :init

@@ -48,3 +48,5 @@
   :straight t
   :config
   (doom-modeline-mode 1))
+
+(provide 'collection-theme)
