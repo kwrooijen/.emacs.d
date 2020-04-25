@@ -186,6 +186,13 @@
 (use-package rainbow-mode
   :straight t)
 
+(use-package pop-eshell-mode
+  :straight (pop-eshell-mode
+             :host github
+             :repo "stanhe/pop-eshell"
+             :files (:defaults (:exclude "*.el.in")))
+  :bind* (("C-'" . eshell-pop-toggle)))
+
 (use-package markdown-mode :straight t)
 (use-package yaml-mode :straight t)
 (use-package dockerfile-mode :straight t)

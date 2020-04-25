@@ -11,3 +11,5 @@ straight/build
 straight/build-cache.el
 straight/repos
 elpa/
+semanticdb/
+eshell/
