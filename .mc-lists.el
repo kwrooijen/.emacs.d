@@ -47,6 +47,7 @@
         evil-snipe-s
         evil-visual-char
         forward-sexp
+        ignore
         indent-region
         kill-sexp
         lispy-at

@@ -24,4 +24,16 @@
 (defun kwrooijen/recenter (&rest x)
   (evil-scroll-line-to-center (line-number-at-pos)))
 
+(defun get-beginning-of-line ()
+  (interactive)
+  (save-excursion
+    (beginning-of-line)
+    (point)))
+
+(defun get-end-of-line ()
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (point)))
+
 (provide 'custom-functions)
