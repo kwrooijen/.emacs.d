@@ -50,6 +50,7 @@
         indent-region
         kill-sexp
         lispy-at
+        lispy-backward-kill-word
         lispy-braces
         lispy-brackets
         lispy-brackets-or-barf

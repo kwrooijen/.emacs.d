@@ -58,6 +58,14 @@
     (helm-exit-minibuffer))
   (define-key helm-find-files-map (kbd "<backspace>") 'helm-find-files-up-one-level)
   (define-key helm-find-files-map (kbd "C-l") nil)
+
+  (define-key helm-map (kbd "C-f") #'helm-next-page)
+  (define-key helm-map (kbd "C-b") #'helm-previous-page)
+  (define-key helm-map (kbd "C-h") #'backward-char)
+  (define-key helm-map (kbd "C-l") #'forward-char)
+  (define-key helm-map (kbd "M-h") #'backward-word)
+  (define-key helm-map (kbd "M-l") #'forward-word)
+
   (define-key helm-map (kbd "C-j") #'helm-next-line)
   (define-key helm-map (kbd "C-k") #'helm-previous-line)
   (define-key helm-map (kbd "TAB") #'helm-execute-persistent-action)
