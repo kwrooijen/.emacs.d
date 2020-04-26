@@ -7,8 +7,8 @@
 (require 'collection-helm)
 (require 'collection-productivity)
 (require 'collection-theme)
-(require 'collection-lisp)
 (require 'collection-editing)
+(require 'collection-lisp)
 
 (require 'lang-clojure)
 (require 'lang-elisp)

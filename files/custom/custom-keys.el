@@ -24,6 +24,7 @@
  "pp" 'helm-projectile-switch-project
  "pf" 'helm-projectile-find-file
  "pi" 'projectile-invalidate-cache
+ "pr" 'projectile-replace
 
  "s" '(:ignore t :which-key "Search")
  "ss" 'helm-swoop-without-pre-input

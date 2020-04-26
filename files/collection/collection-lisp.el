@@ -68,7 +68,7 @@
   (evil-define-key 'insert lispy-mode-map (kbd "C-e") #'lispy-arglist-inline)
   (evil-collection-define-key 'normal 'lispy-mode-map (kbd "M-d") #'lispy-kill-word)
   (evil-collection-define-key 'normal 'lispy-mode-map (kbd "D") #'paredit-kill)
-  (lispy-define-key lispy-mode-map "v" 'er/expand-region)
+  (lispy-define-key lispy-mode-map "v" #'er/expand-region)
   (lispy-define-key lispy-mode-map "o" 'lispy-o)
   (lispy-define-key lispy-mode-map "x" 'kwrooijen/lispy-delete-line)
   (lispy-define-key lispy-mode-map "d" 'lispy-different)
