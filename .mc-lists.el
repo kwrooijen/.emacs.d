@@ -28,6 +28,7 @@
         evil-exit-visual-state
         evil-find-char-backward
         evil-force-normal-state
+        evil-forward-WORD-end
         evil-forward-char
         evil-forward-sentence-begin
         evil-forward-word-begin
@@ -48,6 +49,7 @@
         evil-visual-char
         forward-sexp
         ignore
+        indent-for-tab-command
         indent-region
         kill-sexp
         lispy-at
@@ -66,6 +68,7 @@
         lispy-kill
         lispy-kill-word
         lispy-left-insert
+        lispy-newline-and-indent-plain
         lispy-parens
         lispy-quotes
         lispy-raise-sexp
@@ -74,6 +77,8 @@
         lispy-space
         lispy-split
         lispy-tick
+        lispy-wrap-braces
+        lispy-wrap-brackets
         lispyville-delete
         lispyville-delete-char-or-splice
         lispyville-delete-char-or-splice-backwards
@@ -87,10 +92,12 @@
         markdown-outdent-or-delete
         paredit-backward-kill-word
         paredit-close-round
+        paredit-kill
         simpleclip-copy
         simpleclip-paste
         sp-remove-active-pair-overlay
         special-digit-argument
+        special-er/expand-region
         special-evil-insert-state
         special-indent-sexp
         special-lh-knight/body
@@ -174,6 +181,7 @@
         special-special-lispy-up-slurp
         tab-to-tab-stop
         transpose-words
+        winum-select-window-1
         winum-select-window-9
         yaml-electric-backspace
         ))
