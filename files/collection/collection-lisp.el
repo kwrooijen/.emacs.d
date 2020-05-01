@@ -58,7 +58,12 @@
     (let ((lispy-teleport-global t))
       (lispy-teleport arg)))
 
-  ;; This breaks company mode
+  ;; This breaks company mode if not set to nil
+  (define-key lispy-mode-map (kbd "C-k") nil)
+
+  (define-key lispy-mode-map (kbd "M-[") #'lispy-wrap-brackets)
+  (define-key lispy-mode-map (kbd "M-{") #'lispy-wrap-braces)
+  (define-key lispy-mode-map (kbd "M-(") #'lispy-wrap-round)
   (define-key lispy-mode-map (kbd "C-k") nil)
 
   (evil-define-key 'insert lispy-mode-map "]" #'lispy-slurp)

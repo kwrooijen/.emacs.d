@@ -139,6 +139,7 @@
 
     "t" '(:ignore t :which-key "Cider Tests")
     "tb" 'cider-test-show-report
+    "tt" 'cider-test-run-project-tests
 
     "d" '(:ignore t :which-key "Cider Debug")
     "db" 'cider-debug-defun-at-point

@@ -171,6 +171,8 @@
 
 (use-package highlight-symbol
   :straight t
+  :bind* (("C-n" . highlight-symbol-next)
+          ("C-p" . highlight-symbol-previous))
   :init
   (setq highlight-symbol-idle-delay 0.1)
   :config

@@ -19,6 +19,9 @@
 
  "g" '(:ignore t :which-key "Git")
  "gg" 'magit-status
+ "gu" 'smerge-keep-upper
+ "gl" 'smerge-keep-lower
+ "ga" 'smerge-keep-all
 
  "p" '(:ignore t :which-key "Project")
  "pp" 'helm-projectile-switch-project
@@ -34,6 +37,7 @@
  "ws" 'evil-window-split
  "wu" 'winner-undo
  "wU" 'winner-redo
+ "wq" 'kill-this-buffer
 
  "wh" 'evil-window-left
  "wl" 'evil-window-right
