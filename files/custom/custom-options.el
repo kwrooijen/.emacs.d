@@ -1,7 +1,7 @@
 ;;; custom/custom-options.el -*- lexical-binding: t; -*-
 
 
-(set-frame-font "-*-Fira Mono-*-*-*-*-10-*-*-*-*-*-*-*" nil t)
+(set-frame-font "-*-Fira Mono-*-*-*-*-11-*-*-*-*-*-*-*" nil t)
 
 (tool-bar-mode 0)
 (menu-bar-mode 0)

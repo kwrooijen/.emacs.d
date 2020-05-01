@@ -16,5 +16,4 @@
 (require 'custom-options)
 (require 'custom-keys)
 
-;; Reset gc-cons-threshold back
-(setq gc-cons-threshold 800000)
+(setq gc-cons-threshold  (* 1024 1024 10))
