@@ -37,8 +37,7 @@
 (setq scroll-error-top-bottom t)
 
 ;; Default line wrapping should be 80
-(setq fill-column 80)
-
+(setq-default fill-column 80)
 
 ;; Emacs temp directory
 (setq temporary-file-directory "~/.emacs.d/tmp/")
