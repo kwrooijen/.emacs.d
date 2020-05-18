@@ -1,7 +1,10 @@
 ;;; collection/collection-lisp.el -*- lexical-binding: t; -*-
 
 (use-package paredit
-  :straight t)
+  :straight t
+  :config
+  (define-key paredit-mode-map (kbd "M-C-p") nil)
+  (define-key paredit-mode-map (kbd "M-C-n") nil))
 
 (use-package lispyville
   :straight t
@@ -12,6 +15,17 @@
 (use-package lispy
   :straight t
   :config
+
+  (defun sexp-at-point ()
+    (interactive)
+    (let ((current (point))
+          (end (save-excursion (lispy-different) (point))))
+      (buffer-substring current end)))
+
+  (defun cider-tap-sexp ()
+    (interactive)
+    (cider-interactive-eval (format "(tap> %s)" (cider-eval-sexp-at-point))))
+
   (defun lispy--mode-p ()
     (or (lispy-left-p)
         (lispy-right-p)))

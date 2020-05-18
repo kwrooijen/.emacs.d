@@ -188,9 +188,26 @@
              :files (:defaults (:exclude "*.el.in")))
   :bind* (("C-'" . eshell-pop-toggle)))
 
+(use-package popwin
+  :straight t
+  :config
+  (popwin-mode 1)
+  (push '("*cider-test-report*" :height 20 :position bottom :noselect t) popwin:special-display-config)
+  (push '(cider-repl-mode :height 20 :position bottom :noselect t) popwin:special-display-config))
+
+(use-package bufshow
+  :straight t
+  :config
+  (define-key bufshow-mode-map (kbd "M-C-p") 'bufshow-prev)
+  (define-key bufshow-mode-map (kbd "M-C-n") 'bufshow-next)
+  (advice-add 'bufshow-mode :after (lambda () (read-only-mode -1)))
+  (advice-add 'bufshow-next :after (lambda () (read-only-mode -1)))
+  (advice-add 'bufshow-prev :after (lambda () (read-only-mode -1))))
+
 (use-package markdown-mode :straight t)
 (use-package yaml-mode :straight t)
 (use-package dockerfile-mode :straight t)
 (use-package gitignore-mode :straight t)
+(use-package edit-indirect :straight t)
 
 (provide 'collection-productivity)
