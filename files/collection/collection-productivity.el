@@ -147,13 +147,6 @@
         web-mode-css-indent-offset 4
         web-mode-code-indent-offset 4))
 
-(use-package simpleclip
-  :straight t
-  :bind* (("M-c" . simpleclip-copy)
-          ("M-v" . simpleclip-paste))
-  :init
-  (simpleclip-mode 1))
-
 (use-package vc-hooks
   :init
   ;; follow symlinks and don't ask

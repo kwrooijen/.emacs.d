@@ -181,6 +181,7 @@
         special-special-lispy-up-slurp
         tab-to-tab-stop
         transpose-words
+        wdired-finish-edit
         winum-select-window-1
         winum-select-window-9
         yaml-electric-backspace

@@ -2,6 +2,8 @@
 
 (bind-key* "M-+" 'align-regexp)
 (bind-key* "M-C" 'capitalize-previous-word)
+(bind-key* "C-S-V" 'x-clipboard-yank)
+(bind-key* "C-S-C" 'clipboard-kill-ring-save)
 
 (general-define-key
  :states '(normal visual)

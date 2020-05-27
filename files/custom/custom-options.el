@@ -61,4 +61,6 @@
 (setq frame-title-format "%b")
 (setq icon-title-format "%b")
 
+(setq x-select-enable-clipboard nil)
+
 (provide 'custom-options)

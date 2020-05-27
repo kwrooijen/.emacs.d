@@ -56,7 +56,6 @@
   (defun kwrooijen/helm-exit-minibuffer ()
     (interactive)
     (helm-exit-minibuffer))
-  (define-key helm-find-files-map (kbd "<backspace>") 'helm-find-files-up-one-level)
   (define-key helm-find-files-map (kbd "C-l") nil)
 
   (define-key helm-map (kbd "C-f") #'helm-next-page)
