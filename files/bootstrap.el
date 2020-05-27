@@ -30,11 +30,6 @@
   :config
   (path-helper-setenv-all))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; set path correctly on MacOS, based on /etc/paths
-(if (memq window-system '(ns mac))
-  (path-helper-setenv "PATH"))
-
 ;; Setup mode leader key. This will be used by any lang/ directory
 (use-package general :straight t :config (general-override-mode))
 
