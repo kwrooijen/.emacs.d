@@ -93,6 +93,7 @@
         paredit-backward-kill-word
         paredit-close-round
         paredit-kill
+        sgml-slash
         simpleclip-copy
         simpleclip-paste
         sp-remove-active-pair-overlay
