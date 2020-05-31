@@ -1,7 +1,10 @@
 ;;; custom/custom-options.el -*- lexical-binding: t; -*-
 
 
-(set-frame-font "-*-Fira Mono-*-*-*-*-11-*-*-*-*-*-*-*" nil t)
+(set-frame-font "-*-Fira Mono-*-*-*-*-13-*-*-*-*-*-*-*" nil t)
+
+(set-frame-parameter (selected-frame) 'alpha '(95 75))
+(add-to-list 'default-frame-alist '(alpha 95 75))
 
 (tool-bar-mode 0)
 (menu-bar-mode 0)
