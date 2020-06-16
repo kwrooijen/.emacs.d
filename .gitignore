@@ -13,3 +13,4 @@ straight/repos
 elpa/
 semanticdb/
 eshell/
+session.*
