@@ -3,8 +3,8 @@
 
 (set-frame-font "-*-Fira Mono-*-*-*-*-13-*-*-*-*-*-*-*" nil t)
 
-(set-frame-parameter (selected-frame) 'alpha '(95 75))
-(add-to-list 'default-frame-alist '(alpha 95 75))
+(set-frame-parameter (selected-frame) 'alpha '(100 100))
+(add-to-list 'default-frame-alist '(alpha 100 100))
 
 (tool-bar-mode 0)
 (menu-bar-mode 0)
@@ -65,5 +65,8 @@
 (setq icon-title-format "%b")
 
 (setq x-select-enable-clipboard nil)
+(setenv "PATH" (concat (getenv "PATH") ":/home/linuxbrew/.linuxbrew/bin/"))
+(add-to-list 'exec-path "/home/linuxbrew/.linuxbrew/bin/")
+
 
 (provide 'custom-options)
