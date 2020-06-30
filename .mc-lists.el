@@ -4,6 +4,7 @@
 (setq mc/cmds-to-run-for-all
       '(
         abbrev-prefix-mark
+        backward-sentence
         cljr-slash
         completion-at-point
         counsel-M-x
@@ -16,6 +17,7 @@
         evil-backward-paragraph
         evil-backward-sentence-begin
         evil-backward-word-begin
+        evil-complete-previous
         evil-delete
         evil-delete-backward-char
         evil-delete-backward-char-and-join
@@ -41,6 +43,7 @@
         evil-paste-after
         evil-paste-before
         evil-previous-line
+        evil-previous-line-first-non-blank
         evil-shift-right-line
         evil-snipe-F
         evil-snipe-f
@@ -51,6 +54,7 @@
         ignore
         indent-for-tab-command
         indent-region
+        isearch-printing-char
         kill-sexp
         lispy-at
         lispy-backward-kill-word
@@ -79,6 +83,7 @@
         lispy-tick
         lispy-wrap-braces
         lispy-wrap-brackets
+        lispy-wrap-round
         lispyville-delete
         lispyville-delete-char-or-splice
         lispyville-delete-char-or-splice-backwards
@@ -93,6 +98,7 @@
         paredit-backward-kill-word
         paredit-close-round
         paredit-kill
+        replace-last-sexp
         sgml-slash
         simpleclip-copy
         simpleclip-paste
@@ -192,6 +198,7 @@
       '(
         describe-key
         evil-indent-plus-i-indent
+        evil-search-forward
         helm-confirm-and-exit-minibuffer
         helm-show-kill-ring
         helpful-key

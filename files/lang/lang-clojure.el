@@ -10,7 +10,6 @@
   :init
   (setq cider-auto-jump-to-error nil)
   :config
-
   (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
   (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
   (add-hook 'cider-repl-mode-hook #'company-mode)
@@ -18,6 +17,7 @@
 
 (use-package clojure-mode
   :straight t
+  :bind (("C-x e" . cider-pprint-eval-last-sexp-to-comment))
   :config
   (require 'flycheck-clj-kondo)
   (define-clojure-indent
@@ -32,20 +32,20 @@
   (add-hook 'clojure-mode-hook #'flycheck-mode)
 
   (setq clj-refactor--key-binding-prefixes
-            '(("mr" . "refactor")
-              ("mra" . "add")
-              ("mrc" . "cycle/clean/convert")
-              ("mrd" . "destructure")
-              ("mre" . "extract/expand")
-              ("mrf" . "find/function")
-              ("mrh" . "hotload")
-              ("mri" . "introduce/inline")
-              ("mrm" . "move")
-              ("mrp" . "project/promote")
-              ("mrr" . "remove/rename/replace")
-              ("mrs" . "show/sort/stop")
-              ("mrt" . "thread")
-              ("mru" . "unwind/update")))
+        '(("mr" . "refactor")
+          ("mra" . "add")
+          ("mrc" . "cycle/clean/convert")
+          ("mrd" . "destructure")
+          ("mre" . "extract/expand")
+          ("mrf" . "find/function")
+          ("mrh" . "hotload")
+          ("mri" . "introduce/inline")
+          ("mrm" . "move")
+          ("mrp" . "project/promote")
+          ("mrr" . "remove/rename/replace")
+          ("mrs" . "show/sort/stop")
+          ("mrt" . "thread")
+          ("mru" . "unwind/update")))
 
   (mode-leader-def
     'normal clojure-mode-map
@@ -220,6 +220,5 @@
     "rup"  #'cljr-update-project-dependencies
     "ruw"  #'clojure-unwind
     "bb" #'cider-switch-to-repl-buffer))
-
 
 (provide 'lang-clojure)

@@ -11,7 +11,7 @@
   ;; bar wil stay dark. So instead we reverse the `solaire-mode-real-buffer-fn`
   ;; function. (solaire-mode-reset-fringe-face nil) needs to be run
 
-  (setq solaire-mode-real-buffer-fn (lambda () (not (buffer-file-name))))
+  ;; (setq solaire-mode-real-buffer-fn (lambda () (not (buffer-file-name))))
   (solaire-global-mode +1)
   (solaire-mode-swap-bg))
 
@@ -24,15 +24,14 @@
     (interactive)
     (mapc 'disable-theme custom-enabled-themes)
     (if dark-theme?
-        (load-theme 'doom-one-light t)
-      (progn
-        (load-theme 'doom-moonlight t)
-        (set-face-background 'region "#603693")))
-    (setq dark-theme? (not dark-theme?))
-    (solaire-mode-reset-fringe-face nil))
+        (progn
+          (load-theme 'doom-moonlight t)
+          (set-face-background 'region "#603693"))
+      (load-theme 'doom-one-light t))
+    (setq dark-theme? (not dark-theme?)))
   (load-theme 'doom-moonlight t)
-  (solaire-mode-reset-fringe-face nil)
-  (set-face-background 'region "#603693"))
+  (set-face-background 'region "#603693")
+  (solaire-mode-swap-bg))
 
 (use-package vi-tilde-fringe
   :straight t

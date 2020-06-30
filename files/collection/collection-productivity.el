@@ -185,8 +185,9 @@
   :straight t
   :config
   (popwin-mode 1)
-  (push '("*cider-test-report*" :height 20 :position bottom :noselect t) popwin:special-display-config)
-  (push '(cider-repl-mode :height 20 :position bottom :noselect t) popwin:special-display-config))
+  ;; (push '("*cider-test-report*" :height 20 :position bottom :noselect t) popwin:special-display-config)
+  ;; (push '(cider-repl-mode :height 20 :position bottom :noselect t) popwin:special-display-config)
+  )
 
 (use-package bufshow
   :straight t
