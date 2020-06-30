@@ -8,7 +8,8 @@
 (use-package cider
   :straight t
   :init
-  (setq cider-auto-jump-to-error nil)
+  (setq cider-auto-jump-to-error nil
+        cider-enhanced-cljs-completion-p nil)
   :config
   (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
   (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
