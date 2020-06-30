@@ -26,6 +26,8 @@
  "gl" 'smerge-keep-lower
  "ga" 'smerge-keep-all
 
+ "mm" 'helm-make
+
  "p" '(:ignore t :which-key "Project")
  "pp" 'helm-projectile-switch-project
  "pf" 'helm-projectile-find-file

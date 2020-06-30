@@ -103,4 +103,7 @@
 (use-package helm-descbinds
   :straight t)
 
+(use-package helm-make
+  :straight t)
+
 (provide 'collection-helm)
