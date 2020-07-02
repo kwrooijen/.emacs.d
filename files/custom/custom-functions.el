@@ -42,4 +42,15 @@
     (kill-sexp -1)
     (insert (format "%S" value))))
 
+(defun upgrade-packages ()
+  "Upgrades all packages to their latest version (using Straight.el) and updates the lockfile."
+  (interactive)
+  (straight-pull-all)
+  (straight-freeze-versions))
+
+(defun rollback-packages ()
+  "Drops all changes to the lockfile, resulting in a rollback of all packages."
+  (interactive)
+  (shell-command "git -C $HOME/.emacs.d checkout -- emacs/straight/versions/default.el"))
+
 (provide 'custom-functions)
