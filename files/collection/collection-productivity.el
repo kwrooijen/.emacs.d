@@ -203,5 +203,10 @@
 (use-package dockerfile-mode :straight t)
 (use-package gitignore-mode :straight t)
 (use-package edit-indirect :straight t)
+(use-package beacon :straight t
+  :config
+  (setq beacon-color "#5a3497"
+        beacon-size 25
+        beacon-blink-duration 0.2))
 
 (provide 'collection-productivity)

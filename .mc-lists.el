@@ -37,6 +37,7 @@
         evil-forward-word-end
         evil-goto-column
         evil-insert
+        evil-join
         evil-next-line
         evil-normal-state
         evil-normal-state-and-save
