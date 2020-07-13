@@ -204,6 +204,8 @@
 (use-package gitignore-mode :straight t)
 (use-package edit-indirect :straight t)
 (use-package beacon :straight t
+  :init
+  (beacon-mode t)
   :config
   (setq beacon-color "#5a3497"
         beacon-size 25
