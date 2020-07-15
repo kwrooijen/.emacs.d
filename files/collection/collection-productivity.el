@@ -219,13 +219,13 @@
   :config
   ;; add paths to your local installation of project mgmt tools, like lein
   (setenv "PATH" (concat
-                   "/usr/local/bin" path-separator
-                   (getenv "PATH")))
+                  "/usr/local/bin" path-separator
+                  (getenv "PATH")))
   (dolist (m '(clojure-mode
                clojurec-mode
                clojurescript-mode
                clojurex-mode))
-     (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
+    (add-to-list 'lsp-language-id-configuration `(,m . "clojure")))
   (setq lsp-enable-indentation nil
         lsp-file-watch-threshold 4000
         lsp-clojure-server-command '("bash" "-c" "clojure-lsp")))
