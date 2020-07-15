@@ -161,7 +161,7 @@
     "ra" '(:ignore t :which-key "Add")
     "rad"  #'cljr-add-declaration
     "rai"  #'cljr-add-import-to-ns
-    "ram"  #'cljr-add-missing-libspec
+    "ram"  #'lsp-clojure-add-missing-libspec
     "rap"  #'cljr-add-project-dependency
     "rar"  #'cljr-add-require-to-ns
     "ras"  #'cljr-add-stubs
@@ -169,7 +169,7 @@
 
     "rc" '(:ignore t :which-key "Cycle")
     "rci"  #'clojure-cycle-if
-    "rcn"  #'cljr-clean-ns
+    "rcn"  #'lsp-clojure-clean-ns
     "rcp"  #'clojure-cycle-privacy
     "rcs"  #'cljr-change-function-signature
     "rct"  #'cljr-cycle-thread
@@ -180,7 +180,7 @@
     "rec"  #'cljr-extract-constant
     "red"  #'cljr-extract-def
     "ref"  #'cljr-extract-function
-    "rel"  #'cljr-expand-let
+    "rel"  #'lsp-clojure-expand-let
 
     "rf" '(:ignore t :which-key "Fn")
     "rfe"  #'cljr-create-fn-from-example
@@ -194,7 +194,7 @@
 
     "rm" '(:ignore t :which-key "Move")
     "rmf"  #'cljr-move-form
-    "rml"  #'cljr-move-to-let
+    "rml"  #'lsp-clojure-move-to-let
 
     "rp" '(:ignore t :which-key "Project")
     "rpc"  #'cljr-project-clean
@@ -217,7 +217,7 @@
     "rtl"  #'clojure-thread-last-all
 
     "ru" '(:ignore t :which-key "Unwind")
-    "rua"  #'clojure-unwind-all
+    "rua"  #'lsp-clojure-unwind-all
     "rup"  #'cljr-update-project-dependencies
     "ruw"  #'clojure-unwind
     "bb" #'cider-switch-to-repl-buffer))
