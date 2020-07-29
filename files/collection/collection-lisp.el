@@ -15,7 +15,7 @@
 (use-package lispy
   :straight t
   :config
-
+  (defun lispy--clojure-middleware-load ())
   (defun sexp-at-point ()
     (interactive)
     (let ((current (point))
