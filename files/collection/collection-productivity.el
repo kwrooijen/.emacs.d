@@ -218,4 +218,16 @@
                :host github
                :repo "GDQuest/emacs-gdscript-mode"))
 
+(use-package lsp-mode
+  :straight t
+  :commands lsp
+  :config (require 'lsp-clients))
+
+(use-package lsp-ui
+  :straight t)
+
+(use-package helm-lsp
+  :straight t
+  :commands helm-lsp-workspace-symbol)
+
 (provide 'collection-productivity)

@@ -3,7 +3,9 @@
   :ensure t)
 
 (use-package clj-refactor
-  :straight t)
+  :straight t
+  :config
+  (setq cljr-warn-on-eval nil))
 
 (use-package cider
   :straight t
