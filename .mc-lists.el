@@ -96,9 +96,11 @@
         lispyville-yank
         mark-word
         markdown-outdent-or-delete
+        paredit-backslash
         paredit-backward-kill-word
         paredit-close-round
         paredit-kill
+        paredit-split-sexp
         replace-last-sexp
         sgml-slash
         simpleclip-copy
@@ -189,9 +191,11 @@
         special-special-lispy-up-slurp
         tab-to-tab-stop
         transpose-words
+        upcase-region
         wdired-finish-edit
         winum-select-window-1
         winum-select-window-9
+        x-clipboard-yank
         yaml-electric-backspace
         ))
 

@@ -25,6 +25,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(lispy-clojure-middleware-tests nil)
+ '(gdscript-use-tab-indents nil)
  '(safe-local-variable-values (quote ((cider-shadow-cljs-default-options . "app")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

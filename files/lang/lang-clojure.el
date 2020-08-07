@@ -18,6 +18,7 @@
 
 (use-package clojure-mode
   :straight t
+  :mode ("\\.cljg\\'")
   :bind (("C-x e" . cider-pprint-eval-last-sexp-to-comment))
   :config
   (require 'flycheck-clj-kondo)

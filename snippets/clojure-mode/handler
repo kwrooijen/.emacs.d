@@ -5,5 +5,5 @@
 (defmethod ig/init-key :$1 [_ opts]
   (fn handler-${1:$(replace-regexp-in-string "\\\\/" "--"
                     (replace-regexp-in-string "\\\\." "-" yas-text))}
-    [context event state]
+    [time event state]
     state$0))

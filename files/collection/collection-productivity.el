@@ -212,4 +212,10 @@
         beacon-size 25
         beacon-blink-duration 0.2))
 
+(use-package gdscript-mode
+    :straight (gdscript-mode
+               :type git
+               :host github
+               :repo "GDQuest/emacs-gdscript-mode"))
+
 (provide 'collection-productivity)
