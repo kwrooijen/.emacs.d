@@ -4,8 +4,8 @@
   :straight t
   :after evil
   :config
-  (setq evil-collection-mode-list
-        (remove 'lispy evil-collection-mode-list))
+  (setq evil-collection-mode-list (remove 'lispy evil-collection-mode-list)
+        evil-regexp-search nil)
   (evil-collection-init))
 
 (use-package evil

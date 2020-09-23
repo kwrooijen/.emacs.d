@@ -13,6 +13,7 @@
 (require 'lang-clojure)
 (require 'lang-elisp)
 (require 'lang-rust)
+(require 'lang-ruby)
 
 (require 'custom-options)
 (require 'custom-keys)
