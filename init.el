@@ -1,3 +1,4 @@
+(setq comp-deferred-compilation t)
 (add-to-list 'load-path (expand-file-name "files" "~/.emacs.d"))
 (require 'bootstrap)
 
@@ -10,6 +11,7 @@
 (require 'collection-editing)
 (require 'collection-lisp)
 
+(require 'lang-c)
 (require 'lang-clojure)
 (require 'lang-elisp)
 (require 'lang-rust)
@@ -27,7 +29,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(lispy-clojure-middleware-tests nil)
- '(gdscript-use-tab-indents nil)
  '(safe-local-variable-values (quote ((cider-shadow-cljs-default-options . "app")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -40,3 +41,9 @@
  '(flycheck-error ((t (:underline "#ff6c6b"))))
  '(flycheck-info ((t (:underline "#98be65"))))
  '(flycheck-warning ((t (:underline "#ECBE7B")))))
+
+(defun my-first-helm-command ()
+  (interactive)
+  (helm :sources (helm-build-sync-source "test??"
+                   :candidates '(("Hoi" . 123) ))
+        :buffer "*helm my command*"))

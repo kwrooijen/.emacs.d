@@ -1,6 +1,7 @@
 ;;; collection/collection-productivity.el -*- lexical-binding: t; -*-
 
 (use-package company
+  :hook (prog-mode . company-mode)
   :straight t
   :config
   (define-key company-active-map (kbd "<return>") nil)
@@ -10,6 +11,7 @@
   :straight t)
 
 (use-package yasnippet
+  :hook (prog-mode . yas-minor-mode)
   :straight t
   :config
   (require 'yasnippet-snippets)
@@ -169,6 +171,7 @@
   :init
   (setq highlight-symbol-idle-delay 0.1)
   :config
+  (add-hook* 'clojure-mode-hook (highlight-symbol-mode 1))
   (add-hook* 'prog-mode-hook (highlight-symbol-mode 1)))
 
 (use-package rainbow-mode
@@ -221,7 +224,8 @@
 (use-package lsp-mode
   :straight t
   :commands lsp
-  :config (require 'lsp-clients))
+  ;; :config (require 'lsp-clients)
+  )
 
 (use-package lsp-ui
   :straight t)
@@ -229,5 +233,8 @@
 (use-package helm-lsp
   :straight t
   :commands helm-lsp-workspace-symbol)
+
+(use-package solidity-mode
+  :straight t)
 
 (provide 'collection-productivity)

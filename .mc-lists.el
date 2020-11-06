@@ -5,7 +5,12 @@
       '(
         abbrev-prefix-mark
         backward-sentence
+        c-electric-colon
+        c-electric-paren
+        c-electric-semi&comma
+        c-electric-star
         cljr-slash
+        clojure-thread-first-all
         completion-at-point
         counsel-M-x
         cycle-spacing
@@ -52,6 +57,7 @@
         evil-snipe-s
         evil-visual-char
         forward-sexp
+        gdscript-indent-dedent-line-backspace
         ignore
         indent-for-tab-command
         indent-region
@@ -95,10 +101,12 @@
         lispyville-wrap-brackets
         lispyville-yank
         mark-word
+        markdown-enter-key
         markdown-outdent-or-delete
         paredit-backslash
         paredit-backward-kill-word
         paredit-close-round
+        paredit-forward
         paredit-kill
         paredit-split-sexp
         replace-last-sexp
@@ -197,18 +205,21 @@
         winum-select-window-9
         x-clipboard-yank
         yaml-electric-backspace
+        yas-expand
         ))
 
 (setq mc/cmds-to-run-once
       '(
         describe-key
         evil-indent-plus-i-indent
+        evil-mouse-drag-region
         evil-search-forward
         helm-confirm-and-exit-minibuffer
         helm-show-kill-ring
         helpful-key
         iedit-switch-to-mc-mode
         lispy-cursor-down
+        nxml-electric-slash
         text-scale-adjust
         yaml-electric-dash-and-dot
         ))

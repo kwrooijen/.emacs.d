@@ -11,7 +11,8 @@
 (use-package evil
   :straight t
   :init
-  (setq evil-want-keybinding nil)
+  (setq evil-want-keybinding nil
+        evil-regexp-search nil)
   :config
   (require 'evil-collection)
   ;; This breaks company mode
