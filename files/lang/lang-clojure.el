@@ -164,7 +164,7 @@
     "ra" '(:ignore t :which-key "Add")
     "rad"  #'cljr-add-declaration
     "rai"  #'cljr-add-import-to-ns
-    "ram"  #'lsp-clojure-add-missing-libspec
+    "ram"  #'cljr-add-missing-libspec
     "rap"  #'cljr-add-project-dependency
     "rar"  #'cljr-add-require-to-ns
     "ras"  #'cljr-add-stubs
