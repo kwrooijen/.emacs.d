@@ -17,6 +17,9 @@
   (require 'yasnippet-snippets)
   (setq yas-verbosity 1
         yas-wrap-around-region t)
+  (add-to-list 'yas-snippet-dirs "~/.emacs.d/straight/build/yasnippet-snippets/snippets/")
+  (add-to-list 'auto-mode-alist '("LICENSE" . yas-minor-mode))
+  (add-hook 'markdown-mode-hook 'yas-minor-mode)
   (yas-reload-all))
 
 (use-package ws-butler
