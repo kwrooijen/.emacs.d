@@ -30,7 +30,6 @@
     (s/fdef 1)
     (dom/div 1)
     (let-if 1))
-  (add-hook 'clojure-mode-hook #'yas-minor-mode)
   (add-hook 'clojure-mode-hook #'cider-mode)
   (add-hook 'clojure-mode-hook #'lispy-mode)
   (add-hook 'clojure-mode-hook #'flycheck-mode)
@@ -55,6 +54,7 @@
     'normal clojure-mode-map
 
     "'" 'cider-jack-in-clj
+    ";" 'cider-jack-in-bb
     "\"" 'cider-jack-in-cljs
 
     "h" '(:ignore t :which-key "Help")
@@ -224,5 +224,25 @@
     "rup"  #'cljr-update-project-dependencies
     "ruw"  #'clojure-unwind
     "bb" #'cider-switch-to-repl-buffer))
+
+;; Babashka
+
+(defvar bb-repl nil)
+
+(defun bb-repl-sentinel (process event)
+  (when (equal event "hangup\n")
+    (setq bb-repl nil)))
+
+(defun cider-jack-in-bb ()
+  "Test."
+  (interactive)
+  (when (not bb-repl)
+    (let* ((deps-location (locate-dominating-file default-directory "deps.edn"))
+           (default-directory (or deps-location default-directory))
+           (proc (start-process "BB Repl" "*bb-repl*" "bb" "--nrepl-server" "--classpath" (shell-command-to-string "clojure -Spath"))))
+      (set-process-sentinel proc 'bb-repl-sentinel)
+      (setq bb-repl proc)))
+  (cider-connect-clj '(:host "127.0.0.1" :port 1667)))
+
 
 (provide 'lang-clojure)
