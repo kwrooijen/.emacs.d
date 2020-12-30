@@ -3,18 +3,19 @@
 
 (use-package racer
   :straight t
-  :hook ((rust-mode . racer-mode)
-         (rust-mode . eldoc-mode)))
+  :hook ((rustic-mode . racer-mode)
+         (rustic-mode . eldoc-mode)))
 
-(use-package rust-mode
+;; rustup component add rls rust-analysis rust-src clippy
+(use-package rustic
   :straight t
   :init
   (setq rust-format-on-save t)
   :config
-  (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
-  (define-key rust-mode-map (kbd "M-i") 'iedit-mode)
+  (define-key rustic-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+  (define-key rustic-mode-map (kbd "M-i") 'iedit-mode)
   (mode-leader-def
-    'normal rust-mode-map
+    'normal rustic-mode-map
     "'" 'cargo-process-repeat
     "cB" 'cargo-process-bench
     "cb" 'cargo-process-build
@@ -41,7 +42,7 @@
 
 (use-package cargo
   :straight t
-  :hook ((rust-mode . cargo-minor-mode)))
+  :hook ((rustic-mode . cargo-minor-mode)))
 
 (use-package flycheck-rust
   :straight t
