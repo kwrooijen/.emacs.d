@@ -3,12 +3,12 @@
 
 (use-package rust-mode
   :straight t
-  :hook (rust-mode . lsp))
+  :config
+  (define-key rust-mode-map (kbd "M-i") 'iedit-mode))
 
 (use-package cargo
   :straight t
-  :hook ((rust-mode . cargo-minor-mode)
-         (toml-mode . cargo-minor-mode)))
+  :hook ((rust-mode . cargo-minor-mode)))
 
 (use-package flycheck-rust
   :straight t
