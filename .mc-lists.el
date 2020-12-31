@@ -9,6 +9,7 @@
         c-electric-paren
         c-electric-semi&comma
         c-electric-star
+        capitalize-previous-word
         cljr-slash
         clojure-thread-first-all
         completion-at-point

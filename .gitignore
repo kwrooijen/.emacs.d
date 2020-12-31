@@ -14,3 +14,5 @@ elpa/
 semanticdb/
 eshell/
 session.*
+/tmp
+.lsp-session-*
