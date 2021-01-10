@@ -12,6 +12,7 @@
         capitalize-previous-word
         cljr-slash
         clojure-thread-first-all
+        clojure-thread-last-all
         completion-at-point
         counsel-M-x
         cycle-spacing
@@ -65,6 +66,7 @@
         isearch-printing-char
         kill-sexp
         lispy-at
+        lispy-backtick
         lispy-backward-kill-word
         lispy-braces
         lispy-brackets
@@ -74,6 +76,7 @@
         lispy-cursor-down
         lispy-delete
         lispy-delete-backward
+        lispy-fill
         lispy-hash
         lispy-hat
         lispy-join

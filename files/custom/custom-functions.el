@@ -53,4 +53,21 @@
   (interactive)
   (shell-command "git -C $HOME/.emacs.d checkout -- emacs/straight/versions/default.el"))
 
+(defun remove-duplicate-lines (beg end)
+  (interactive "r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region beg end)
+      (goto-char (point-min))
+      (while (not (eobp))
+        (kill-line 1)
+        (yank)
+        (let ((next-line (point)))
+          (while
+              (re-search-forward
+               (format "^%s" (regexp-quote (car kill-ring))) nil t)
+            (replace-match "" nil nil))
+          (goto-char next-line))))))
+
+
 (provide 'custom-functions)
