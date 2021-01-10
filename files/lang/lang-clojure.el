@@ -68,6 +68,8 @@
     "hs" 'cider-browse-spec
     "hS" 'cider-browse-spec-all
 
+    "hp" 'hiccup-paste--paste-as-hiccup
+
     "e" '(:ignore t :which-key "Evaluate")
     "e;" 'cider-eval-defun-to-comment
     "eb" 'cider-eval-buffer
@@ -258,6 +260,7 @@
   (save-excursion
     (insert
      (shell-command-to-string
-      (format "hiccup-cli --html '%s'" (hiccup-paste--clipboard-string))))))
+      (format "hiccup-cli --html '%s'"
+              (hiccup-paste--clipboard-string))))))
 
 (provide 'lang-clojure)
