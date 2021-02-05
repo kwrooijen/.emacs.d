@@ -47,3 +47,4 @@
   (helm :sources (helm-build-sync-source "test??"
                    :candidates '(("Hoi" . 123) ))
         :buffer "*helm my command*"))
+(put 'upcase-region 'disabled nil)

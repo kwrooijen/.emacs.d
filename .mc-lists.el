@@ -63,7 +63,9 @@
         ignore
         indent-for-tab-command
         indent-region
+        isearch-exit
         isearch-printing-char
+        isearch-yank-kill
         kill-sexp
         lispy-at
         lispy-backtick
