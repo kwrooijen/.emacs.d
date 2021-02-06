@@ -11,7 +11,26 @@
   :straight t
   :init
   (setq cider-auto-jump-to-error nil
-        cider-enhanced-cljs-completion-p nil)
+        cider-auto-select-error-buffer nil
+        cider-enhanced-cljs-completion-p nil
+        nrepl-hide-special-buffers t
+        nrepl-log-messages nil
+        cider-font-lock-dynamically '(macro core function var deprecated)
+        cider-overlays-use-font-lock t
+        cider-prompt-for-symbol nil
+        cider-repl-history-display-duplicates nil
+        cider-repl-history-display-style 'one-line
+        cider-repl-history-highlight-current-entry t
+        cider-repl-history-quit-action 'delete-and-restore
+        cider-repl-history-highlight-inserted-item t
+        cider-repl-history-size 1000
+        cider-repl-result-prefix ";; => "
+        cider-repl-print-length 100
+        cider-repl-use-clojure-font-lock t
+        cider-repl-use-pretty-printing t
+        cider-repl-wrap-history nil
+        cider-stacktrace-default-filters '(tooling dup)
+        cider-repl-pop-to-buffer-on-connect 'display-only)
   :config
   (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
   (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
@@ -210,6 +229,11 @@
     "rrl"  #'cljr-remove-let
     "rrm"  #'cljr-require-macro
     "rrs"  #'cljr-rename-symbol
+
+    "l" '(:ignore t :which-key "Lsp")
+    "ld" #'lsp-find-definition
+    "lr" #'lsp-find-references
+    "lr" #'lsp-ui-peek-find-references
 
     "rs" '(:ignore t :which-key "Show")
     "rsc"  #'cljr-show-changelog

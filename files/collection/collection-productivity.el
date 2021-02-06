@@ -226,9 +226,28 @@
 
 (use-package lsp-mode
   :straight t
-  :commands lsp
-  ;; :config (require 'lsp-clients)
-  )
+  :hook ((clojure-mode . lsp)
+         (clojurescript-mode . lsp)
+         (clojure-mode . lsp))
+  :config
+  (push "[/\\\\]\\.shadow-cljs$" lsp-file-watch-ignored)
+  (push "[/\\\\]\\cljs-runtime" lsp-file-watch-ignored)
+  (push "[/\\\\]\\target$" lsp-file-watch-ignored)
+  :init
+  (setq lsp-signature-auto-activate nil
+        lsp-lens-enable t
+
+        ;; uncomment to use cider indentation instead of lsp
+        ;; lsp-enable-indentation nil
+        ;; uncomment to use cider completion instead of lsp
+        ;; lsp-enable-completion-at-point nil
+        ))
+
+(use-package lsp-treemacs
+  :straight t
+  :init
+  (setq treemacs-space-between-root-nodes nil))
+
 
 (use-package lsp-ui
   :straight t)
