@@ -32,6 +32,7 @@
         cider-stacktrace-default-filters '(tooling dup)
         cider-repl-pop-to-buffer-on-connect 'display-only)
   :config
+  (add-hook 'cider-repl-mode-hook #'electric-pair-mode)
   (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
   (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
   (add-hook 'cider-repl-mode-hook #'company-mode)

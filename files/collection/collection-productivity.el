@@ -235,7 +235,6 @@
   (push "[/\\\\]\\target$" lsp-file-watch-ignored)
   :init
   (setq lsp-signature-auto-activate nil
-        lsp-lens-enable t
 
         ;; uncomment to use cider indentation instead of lsp
         ;; lsp-enable-indentation nil
