@@ -120,4 +120,7 @@
   (add-hook 'lispy-mode-hook #'paredit-mode)
   (add-hook 'lispy-mode-hook #'lispyville-mode))
 
+(use-package package-lint
+  :straight t)
+
 (provide 'collection-lisp)
