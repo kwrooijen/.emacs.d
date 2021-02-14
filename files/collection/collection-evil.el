@@ -29,10 +29,6 @@
   (advice-add 'evil-search-previous :after #'kwrooijen/recenter)
   (evil-mode 1))
 
-(use-package evil-magit
-  :straight t
-  :after magit)
-
 (use-package evil-nerd-commenter
   :straight t
   :bind* (("M-/" . evilnc-comment-or-uncomment-lines)))

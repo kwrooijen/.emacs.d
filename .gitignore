@@ -8,6 +8,7 @@ projectile.cache
 recentf
 transient/
 straight/build
+straight/modified
 straight/build-cache.el
 straight/repos
 elpa/

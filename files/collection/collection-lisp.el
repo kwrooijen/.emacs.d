@@ -92,7 +92,7 @@
   (lispy-define-key lispy-mode-map "x" 'kwrooijen/lispy-delete-line)
   (lispy-define-key lispy-mode-map "d" 'lispy-different)
   (lispy-define-key lispy-mode-map "i" 'indent-sexp)
-  (lispy-define-key lispy-mode-map "x" 'lispy-delete)
+  (lispy-define-key lispy-mode-map "x" 'lispyville-delete)
   (lispy-define-key lispy-mode-map "A" 'lispy-ace-symbol-replace)
   (lispy-define-key lispy-mode-map "H" 'special-lispy-move-left)
   (lispy-define-key lispy-mode-map "J" 'special-lispy-down-slurp)
