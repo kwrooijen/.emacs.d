@@ -247,9 +247,10 @@
   :init
   (setq treemacs-space-between-root-nodes nil))
 
-
 (use-package lsp-ui
-  :straight t)
+  :straight t
+  :init
+  (setq lsp-ui-sideline-enable nil))
 
 (use-package helm-lsp
   :straight t
