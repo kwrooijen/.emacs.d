@@ -5,6 +5,7 @@
 (bind-key* "C-S-V" 'x-clipboard-yank)
 (bind-key* "C-S-C" 'clipboard-kill-ring-save)
 (bind-key* "C-x M-e" 'replace-last-sexp)
+(bind-key* "M-;" 'evil-repeat-find-char-reverse)
 
 (general-define-key
  :states '(normal visual)
