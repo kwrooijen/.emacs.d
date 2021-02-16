@@ -20,8 +20,6 @@
 (require 'custom-options)
 (require 'custom-keys)
 
-;; (system-packages-ensure "clojure leiningen borkdude/brew/clj-kondo borkdude/brew/babashka clojure-lsp")
-
 (setq gc-cons-threshold  (* 1024 1024 10))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
