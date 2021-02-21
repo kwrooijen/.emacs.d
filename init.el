@@ -21,6 +21,10 @@
 (require 'custom-keys)
 
 (setq gc-cons-threshold  (* 1024 1024 10))
+(set-frame-parameter (selected-frame) 'alpha '(85 . 85))
+(add-to-list 'default-frame-alist '(alpha . (85 . 85)))
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

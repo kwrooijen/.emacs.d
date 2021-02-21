@@ -51,6 +51,9 @@
  "wk" 'evil-window-up
  "wL" 'split-window-right
  "wJ" 'split-window-below
+ "wn" 'text-scale-decrease
+ "wp" 'text-scale-increase
+ "wo" (lambda () (interactive) (text-scale-set 0))
 
  "r" '(:ignore t :which-key "Resume")
  "rr" 'helm-resume

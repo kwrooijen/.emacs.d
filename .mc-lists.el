@@ -57,6 +57,7 @@
         evil-snipe-f
         evil-snipe-repeat
         evil-snipe-s
+        evil-undo
         evil-visual-char
         forward-sexp
         gdscript-indent-dedent-line-backspace
@@ -198,6 +199,7 @@
         special-lispy-visit
         special-lispy-widen
         special-lispy-x
+        special-lispyville-delete
         special-pop-tag-mark
         special-special-lispy-down-slurp
         special-special-lispy-move-left
