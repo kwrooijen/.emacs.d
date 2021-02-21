@@ -13,6 +13,7 @@
 
 (require 'lang-c)
 (require 'lang-clojure)
+(require 'lang-hy)
 (require 'lang-elisp)
 (require 'lang-rust)
 (require 'lang-ruby)
