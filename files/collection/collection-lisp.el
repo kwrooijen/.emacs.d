@@ -45,6 +45,15 @@
     (when (lispy--mode-p)
       (evil-insert-state 1)))
 
+  (defun lispy-right-insert ()
+    (interactive)
+    (when (not (lispy--mode-p))
+      (lispy-right 1))
+    (when (not (lispy--mode-p))
+      (end-of-defun))
+    (when (lispy--mode-p)
+      (evil-insert-state 1)))
+
   (defun lispy-o ()
     (interactive)
     (when (lispy-left-p)
@@ -101,6 +110,7 @@
   (lispy-define-key lispy-mode-map "I" 'evil-insert-state)
   (lispy-define-key lispy-mode-map "T" 'lispy-global-teleport)
   (define-key lispy-mode-map (kbd "M-a") 'lispy-left-insert)
+  (define-key lispy-mode-map (kbd "M-e") 'lispy-right-insert)
 
   (defface paren-face
     '((((class color) (background dark))
