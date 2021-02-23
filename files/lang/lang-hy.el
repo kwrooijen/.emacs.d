@@ -5,9 +5,11 @@
   (add-hook 'hy-mode-hook #'lispy-mode)
   (add-hook 'hy-mode-hook #'flycheck-mode)
   (mode-leader-def
+    'visual hy-mode-map
+    "er" 'hy-shell-eval-region-stay)
+  (mode-leader-def
     'normal hy-mode-map
     "eb" 'hy-shell-eval-buffer-stay
-    "er" 'hy-shell-eval-region-stay
     "'" 'run-hy))
 
 (defun hy-shell-eval-buffer-stay ()
