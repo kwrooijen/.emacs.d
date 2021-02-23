@@ -6,11 +6,18 @@
   (add-hook 'hy-mode-hook #'flycheck-mode)
   (mode-leader-def
     'normal hy-mode-map
-    "eb" 'hy-shell-eval-buffer
+    "eb" 'hy-shell-eval-buffer-stay
     "'" 'run-hy))
 
+(defun hy-shell-eval-last-buffer-stay ()
+  "Eval Hy buffer but don't jump to REPL."
+  (interactive)
+  (save-window-excursion
+    (hy-shell-eval-last-buffer)))
+
+
 (defun hy-shell-eval-last-sexp-stay ()
-  "Eval last Hy expression but don't jump to buffer"
+  "Eval last Hy expression but don't jump to REPL."
   (interactive)
   (save-window-excursion
     (hy-shell-eval-last-sexp)))
