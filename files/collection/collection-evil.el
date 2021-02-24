@@ -16,6 +16,7 @@
   :config
   (require 'evil-collection)
   ;; This breaks company mode
+  (define-key evil-normal-state-map (kbd "u") 'undo-tree-undo)
   (define-key evil-insert-state-map (kbd "C-k") nil)
   (define-key evil-insert-state-map (kbd "C-v") (lambda () (interactive)))
   (define-key evil-visual-state-map (kbd "TAB") #'indent-region)

@@ -21,6 +21,8 @@
 
 (use-package undo-tree
   :straight t
-  :bind (("M-u" . undo-tree-redo)))
+  :bind (("M-u" . undo-tree-redo))
+  :config
+  (add-hook* 'prog-mode-hook (undo-tree-mode 1)))
 
 (provide 'collection-editing)
