@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: send
+# key: send
+# --
+(${1:client}.send (.encode ${2:"$3"}))$0

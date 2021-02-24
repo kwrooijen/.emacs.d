@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
 # name: socket
-# key: sock
+# key: socket
 # --
 (socket.socket socket.${1:AF_INET} ${2:socket.SOCK_STREAM})$0

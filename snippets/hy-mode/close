@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: close
+# key: close
+# --
+(${1:client}.close)$0

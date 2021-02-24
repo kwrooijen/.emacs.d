@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: rf
+# key: rf
+# --
+(${1:client}.recvfrom ${2:4096})$0
