@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: wn
+# key: wn
+# --
+(when (not $1)
+  $0)

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: listen
+# key: listen
+# --
+(${1:server}.listen ${2:5})$0

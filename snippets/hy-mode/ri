@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ri
+# key: ri
+# --
+(raw-input ${1:"$2"})$0

@@ -10,7 +10,13 @@
   (mode-leader-def
     'normal hy-mode-map
     "eb" 'hy-shell-eval-buffer-stay
-    "'" 'run-hy))
+    "bb" 'run-hy
+    "'" 'run-hy
+
+    "rt" '(:ignore t :which-key "Thread")
+    "rtf"  #'clojure-thread-first-all
+    "rth"  #'clojure-thread
+    "rtl"  #'clojure-thread-last-all))
 
 (defun hy-shell-eval-buffer-stay ()
   "Eval Hy buffer but don't jump to REPL."

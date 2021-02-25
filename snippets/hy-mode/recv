@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: recv
+# key: recv
+# --
+(${1:client}.recv ${2:4096})$0
