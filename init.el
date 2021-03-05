@@ -17,6 +17,7 @@
 (require 'lang-elisp)
 (require 'lang-rust)
 (require 'lang-ruby)
+(require 'lang-python)
 
 (require 'custom-options)
 (require 'custom-keys)
