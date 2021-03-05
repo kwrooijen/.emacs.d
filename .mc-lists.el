@@ -4,6 +4,7 @@
 (setq mc/cmds-to-run-for-all
       '(
         abbrev-prefix-mark
+        asm-comment
         backward-sentence
         c-electric-colon
         c-electric-paren
@@ -18,6 +19,7 @@
         cycle-spacing
         doom/forward-to-last-non-comment-or-eol
         eros-eval-last-sexp
+        eval-last-sexp
         evil-append
         evil-append-line
         evil-backward-char
@@ -45,6 +47,7 @@
         evil-goto-column
         evil-insert
         evil-join
+        evil-jump-forward
         evil-next-line
         evil-normal-state
         evil-normal-state-and-save
@@ -116,6 +119,7 @@
         paredit-forward
         paredit-kill
         paredit-split-sexp
+        py-electric-colon
         replace-last-sexp
         sgml-slash
         simpleclip-copy

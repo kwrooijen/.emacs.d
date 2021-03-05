@@ -23,6 +23,7 @@
   :straight t
   :bind (("M-u" . undo-tree-redo))
   :config
+  (global-undo-tree-mode)
   (add-hook* 'prog-mode-hook (undo-tree-mode 1)))
 
 (provide 'collection-editing)
