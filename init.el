@@ -21,6 +21,7 @@
 
 (require 'custom-options)
 (require 'custom-keys)
+(require 'undo-tree)
 
 (setq gc-cons-threshold  (* 1024 1024 10))
 (set-frame-parameter (selected-frame) 'alpha '(85 . 85))
@@ -52,3 +53,4 @@
                    :candidates '(("Hoi" . 123) ))
         :buffer "*helm my command*"))
 (put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
