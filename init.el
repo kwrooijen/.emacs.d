@@ -24,8 +24,8 @@
 (require 'undo-tree)
 
 (setq gc-cons-threshold  (* 1024 1024 10))
-(set-frame-parameter (selected-frame) 'alpha '(85 . 85))
-(add-to-list 'default-frame-alist '(alpha . (85 . 85)))
+(set-frame-parameter (selected-frame) 'alpha '(100 . 100))
+(add-to-list 'default-frame-alist '(alpha . (100 . 100)))
 
 
 (custom-set-variables
