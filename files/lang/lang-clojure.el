@@ -76,7 +76,10 @@
 
   (defun cider-restart-godot ()
     (interactive)
-    (cider-interactive-eval "(-> (Godot.Engine/GetMainLoop) .Root .GetTree .ReloadCurrentScene)"))
+    (cider-interactive-eval "(-> (Godot.Engine/GetMainLoop) .Root .GetTree .ReloadCurrentScene)")
+    (cider-interactive-eval "(arcadia.internal.variables/set-variables-edn!)")
+    (cider-interactive-eval "(arcadia.internal.variables/generate-variables!)")
+    (cider-interactive-eval "(arcadia.internal.variables/connect-variables!)"))
 
   (mode-leader-def
     'normal clojure-mode-map
