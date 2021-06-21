@@ -70,6 +70,14 @@
           ("mrt" . "thread")
           ("mru" . "unwind/update")))
 
+  (defun cider-connect-godot ()
+    (interactive)
+    (cider-connect '(:host "localhost" :port 3722)))
+
+  (defun cider-restart-godot ()
+    (interactive)
+    (cider-interactive-eval "(-> (Godot.Engine/GetMainLoop) .Root .GetTree .ReloadCurrentScene)"))
+
   (mode-leader-def
     'normal clojure-mode-map
 
@@ -127,9 +135,10 @@
     "gc" 'cider-classpath
     "ge" 'cider-jump-to-compilation-error
     "gn" 'cider-find-ns
-    "gr" 'cider-find-resource
     "gs" 'cider-browse-spec
     "gS" 'cider-browse-spec-all
+    "gr" 'cider-restart-godot
+    "gg" 'cider-connect-godot
 
     "m" '(:ignore t :which-key "Manage Cider")
     "mj" 'cider-connect-sibling-clj

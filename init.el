@@ -13,11 +13,13 @@
 
 (require 'lang-c)
 (require 'lang-clojure)
+(require 'lang-gdscript)
 (require 'lang-hy)
 (require 'lang-elisp)
 (require 'lang-rust)
 (require 'lang-ruby)
 (require 'lang-python)
+(require 'lang-csharp)
 
 (require 'custom-options)
 (require 'custom-keys)
