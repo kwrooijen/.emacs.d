@@ -81,6 +81,12 @@
     (cider-interactive-eval "(arcadia.internal.variables/generate-variables!)")
     (cider-interactive-eval "(arcadia.internal.variables/connect-variables!)"))
 
+  (defun cider-toggle-pause-godot ()
+    (interactive)
+    (cider-interactive-eval
+     "(set! (.-Paused (Godot.Engine/GetMainLoop))
+        (not (.-Paused (Godot.Engine/GetMainLoop))))"))
+
   (mode-leader-def
     'normal clojure-mode-map
 
@@ -142,6 +148,7 @@
     "gS" 'cider-browse-spec-all
     "gr" 'cider-restart-godot
     "gg" 'cider-connect-godot
+    "gp" 'cider-toggle-pause-godot
 
     "m" '(:ignore t :which-key "Manage Cider")
     "mj" 'cider-connect-sibling-clj

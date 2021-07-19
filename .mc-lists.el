@@ -11,6 +11,8 @@
         c-electric-semi&comma
         c-electric-star
         capitalize-previous-word
+        cider-eval-buffer
+        cider-eval-last-sexp
         cljr-slash
         clojure-thread-first-all
         clojure-thread-last-all
@@ -35,6 +37,7 @@
         evil-digit-argument-or-evil-beginning-of-line
         evil-end-of-line
         evil-escape
+        evil-ex
         evil-execute-in-normal-state
         evil-exit-visual-state
         evil-find-char-backward
@@ -62,6 +65,7 @@
         evil-snipe-s
         evil-undo
         evil-visual-char
+        evilnc-comment-or-uncomment-lines
         forward-sexp
         gdscript-indent-dedent-line-backspace
         ignore
@@ -101,6 +105,7 @@
         lispy-wrap-braces
         lispy-wrap-brackets
         lispy-wrap-round
+        lispyville-change-whole-line
         lispyville-delete
         lispyville-delete-char-or-splice
         lispyville-delete-char-or-splice-backwards
@@ -110,7 +115,9 @@
         lispyville-substitute
         lispyville-wrap-brackets
         lispyville-yank
+        lsp-ui-doc--handle-mouse-movement
         mark-word
+        markdown-cycle
         markdown-enter-key
         markdown-outdent-or-delete
         paredit-backslash
@@ -118,6 +125,8 @@
         paredit-close-round
         paredit-forward
         paredit-kill
+        paredit-meta-doublequote
+        paredit-splice-sexp
         paredit-split-sexp
         py-electric-colon
         replace-last-sexp
@@ -212,6 +221,7 @@
         tab-to-tab-stop
         transpose-words
         upcase-region
+        wdired-downcase-word
         wdired-finish-edit
         winum-select-window-1
         winum-select-window-9
