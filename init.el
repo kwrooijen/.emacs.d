@@ -12,6 +12,7 @@
 (require 'collection-lisp)
 
 (require 'lang-c)
+(require 'lang-glsl)
 (require 'lang-clojure)
 (require 'lang-gdscript)
 (require 'lang-hy)

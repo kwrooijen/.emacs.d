@@ -21,6 +21,7 @@
 (add-to-list 'load-path (expand-file-name "files/collection" "~/.emacs.d"))
 (add-to-list 'load-path (expand-file-name "files/lang" "~/.emacs.d"))
 (add-to-list 'load-path (expand-file-name "files/custom" "~/.emacs.d"))
+(add-to-list 'load-path (expand-file-name "files/deps" "~/.emacs.d"))
 (add-to-list 'exec-path "/home/linuxbrew/.linuxbrew/bin")
 (add-to-list 'exec-path "usr/local/bin")
 
