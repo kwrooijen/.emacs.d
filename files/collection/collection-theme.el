@@ -45,6 +45,8 @@
 
 (use-package doom-modeline
   :straight t
+  :init
+  (setq doom-modeline-height 50)
   :config
   (doom-modeline-mode 1))
 

@@ -188,6 +188,7 @@
 
     "d" '(:ignore t :which-key "Cider Debug")
     "db" 'cider-debug-defun-at-point
+    "dg" 'lsp-ui-doc-glance
     "dv" 'cider-inspect
 
     "p" '(:ignore t :which-key "Cider Profile")
