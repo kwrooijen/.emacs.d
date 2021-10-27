@@ -209,7 +209,7 @@
 (use-package markdown-mode :straight t)
 (use-package yaml-mode :straight t)
 (use-package dockerfile-mode :straight t)
-(use-package gitignore-mode :straight t)
+;; (use-package gitignore-mode :straight t)
 (use-package edit-indirect :straight t)
 
 (use-package beacon :straight t

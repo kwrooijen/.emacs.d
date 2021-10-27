@@ -30,8 +30,18 @@
         cider-repl-use-pretty-printing t
         cider-repl-wrap-history nil
         cider-stacktrace-default-filters '(tooling dup)
-        cider-repl-pop-to-buffer-on-connect 'display-only)
+        cider-repl-pop-to-buffer-on-connect 'display-only
+
+        cider-jack-in-dependencies
+        (delete-dups
+         (append
+          cider-jack-in-dependencies
+          lispy-cider-jack-in-dependencies)))
   :config
+  (cider-add-to-alist 'cider-jack-in-dependencies
+                      "org.tcrawley/dynapath" "1.1.0")
+  (cider-add-to-alist 'cider-jack-in-dependencies
+                      "clj-commons/pomegranate" "1.2.1")
   (add-hook 'cider-repl-mode-hook #'electric-pair-mode)
   (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
   (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
@@ -281,12 +291,11 @@
     (setq bb-repl nil)))
 
 (defun cider-jack-in-bb ()
-  "Test."
   (interactive)
   (when (not bb-repl)
-    (let* ((deps-location (locate-dominating-file default-directory "deps.edn"))
+    (let* ((deps-location (locate-dominating-file default-directory "bb.edn"))
            (default-directory (or deps-location default-directory))
-           (proc (start-process "BB Repl" "*bb-repl*" "bb" "--nrepl-server" "--classpath" (shell-command-to-string "clojure -Spath"))))
+           (proc (start-process "BB Repl" "*bb-repl*" "bb" "--nrepl-server")))
       (set-process-sentinel proc 'bb-repl-sentinel)
       (setq bb-repl proc)))
   (cider-connect-clj '(:host "127.0.0.1" :port 1667)))
