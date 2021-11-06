@@ -20,6 +20,7 @@
         counsel-M-x
         cycle-spacing
         doom/forward-to-last-non-comment-or-eol
+        electric-pair-delete-pair
         eros-eval-last-sexp
         eval-last-sexp
         evil-append
@@ -28,6 +29,7 @@
         evil-backward-paragraph
         evil-backward-sentence-begin
         evil-backward-word-begin
+        evil-beginning-of-line
         evil-complete-previous
         evil-delete
         evil-delete-backward-char
@@ -58,6 +60,7 @@
         evil-paste-before
         evil-previous-line
         evil-previous-line-first-non-blank
+        evil-search-word-backward
         evil-shift-right-line
         evil-snipe-F
         evil-snipe-f
@@ -65,6 +68,7 @@
         evil-snipe-s
         evil-undo
         evil-visual-char
+        evil-window-bottom
         evilnc-comment-or-uncomment-lines
         forward-sexp
         gdscript-indent-dedent-line-backspace
@@ -105,6 +109,7 @@
         lispy-wrap-braces
         lispy-wrap-brackets
         lispy-wrap-round
+        lispyville-change
         lispyville-change-whole-line
         lispyville-delete
         lispyville-delete-char-or-splice
@@ -120,12 +125,15 @@
         markdown-cycle
         markdown-enter-key
         markdown-outdent-or-delete
+        mouse-set-region
+        org-self-insert-command
         paredit-backslash
         paredit-backward-kill-word
         paredit-close-round
         paredit-forward
         paredit-kill
         paredit-meta-doublequote
+        paredit-raise-sexp
         paredit-splice-sexp
         paredit-split-sexp
         py-electric-colon
@@ -232,6 +240,7 @@
 
 (setq mc/cmds-to-run-once
       '(
+        cider-doc
         describe-key
         evil-indent-plus-i-indent
         evil-mouse-drag-region

@@ -13,7 +13,8 @@
 
   ;; (setq solaire-mode-real-buffer-fn (lambda () (not (buffer-file-name))))
   (solaire-global-mode +1)
-  (solaire-mode-swap-bg))
+  ;; (solaire-mode-swap-bg)
+  )
 
 (use-package doom-themes
   :straight t
@@ -31,7 +32,8 @@
     (setq dark-theme? (not dark-theme?)))
   (load-theme 'doom-moonlight t)
   (set-face-background 'region "#603693")
-  (solaire-mode-swap-bg))
+  ;; (solaire-mode-swap-bg)
+  )
 
 (use-package vi-tilde-fringe
   :straight t

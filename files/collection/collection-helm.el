@@ -106,4 +106,7 @@
 (use-package helm-make
   :straight t)
 
+(use-package helm-company
+  :straight t)
+
 (provide 'collection-helm)
