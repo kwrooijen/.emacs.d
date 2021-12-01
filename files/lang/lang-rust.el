@@ -10,13 +10,24 @@
 (use-package rustic
   :straight t
   :init
-  (setq rust-format-on-save t)
+  (setq rustic-format-on-save t)
+  (setq lsp-rust-analyzer-server-display-inlay-hints t)
   :config
+  (define-key rustic-mode-map (kbd "M-j") #'flycheck-next-error)
+  (define-key rustic-mode-map (kbd "M-k") #'flycheck-previous-error)
+  (define-key rustic-mode-map (kbd "M-{") #'paredit-wrap-curly)
+  (define-key rustic-mode-map (kbd "M-}") #'paredit-wrap-square)
+  (define-key rustic-mode-map (kbd "M-]") #'paredit-forward-slurp-sexp)
+  (define-key rustic-mode-map (kbd "M-[") #'paredit-backward-slurp-sexp)
+  (define-key rustic-mode-map (kbd "C-M-]") #'paredit-forward-barf-sexp)
+  (define-key rustic-mode-map (kbd "C-M-[") #'paredit-backward-barf-sexp)
   (define-key rustic-mode-map (kbd "TAB") #'company-indent-or-complete-common)
   (define-key rustic-mode-map (kbd "M-i") 'iedit-mode)
   (mode-leader-def
     'normal rustic-mode-map
     "'" 'cargo-process-repeat
+    "rr" 'lsp-execute-code-action
+    "re" 'rustic-format-buffer
     "cB" 'cargo-process-bench
     "cb" 'cargo-process-build
     "cc" 'cargo-process-clean
@@ -42,7 +53,8 @@
 
 (use-package cargo
   :straight t
-  :hook ((rustic-mode . cargo-minor-mode)))
+  :hook ((rustic-mode . cargo-minor-mode)
+         (rustic-mode . paredit-mode)))
 
 (use-package flycheck-rust
   :straight t

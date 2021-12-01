@@ -17,3 +17,6 @@ eshell/
 session.*
 /tmp
 .lsp-session-*
+/.lsp/
+/.clj-kondo/
+/eln-cache/

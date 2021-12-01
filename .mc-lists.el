@@ -120,6 +120,7 @@
         lispyville-substitute
         lispyville-wrap-brackets
         lispyville-yank
+        lispyville-yank-line
         lsp-ui-doc--handle-mouse-movement
         mark-word
         markdown-cycle
