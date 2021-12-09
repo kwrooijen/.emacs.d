@@ -8,6 +8,10 @@
         evil-regexp-search nil)
   (evil-collection-init))
 
+(defun kwrooijen-undo ()
+  (interactive)
+  (undo-tree-undo-1))
+
 (use-package evil
   :straight t
   :init
@@ -16,7 +20,7 @@
   :config
   (require 'evil-collection)
   ;; This breaks company mode
-  (define-key evil-normal-state-map (kbd "u") (lambda () (interactive) (undo-tree-undo-1)))
+  (define-key evil-normal-state-map (kbd "u") 'kwrooijen-undo)
   (define-key evil-insert-state-map (kbd "C-k") nil)
   (define-key evil-insert-state-map (kbd "C-v") (lambda () (interactive)))
   (define-key evil-visual-state-map (kbd "TAB") #'indent-region)

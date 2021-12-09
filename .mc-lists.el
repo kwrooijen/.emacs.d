@@ -132,8 +132,10 @@
         paredit-backward-kill-word
         paredit-close-round
         paredit-forward
+        paredit-forward-kill-word
         paredit-kill
         paredit-meta-doublequote
+        paredit-open-round
         paredit-raise-sexp
         paredit-splice-sexp
         paredit-split-sexp

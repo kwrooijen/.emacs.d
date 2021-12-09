@@ -24,6 +24,7 @@
 (require 'lang-rust)
 
 (require 'custom-options)
+(require 'threader)
 (require 'custom-keys)
 (require 'undo-tree)
 

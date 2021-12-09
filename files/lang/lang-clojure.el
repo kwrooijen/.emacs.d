@@ -40,6 +40,9 @@
   :config
   (cider-add-to-alist 'cider-jack-in-dependencies
                       "org.tcrawley/dynapath" "1.1.0")
+  (setq cider-jack-in-dependencies
+        (remove '("com.cemerick/pomegranate" "0.4.0") cider-jack-in-dependencies))
+
   (cider-add-to-alist 'cider-jack-in-dependencies
                       "clj-commons/pomegranate" "1.2.1")
   (add-hook 'cider-repl-mode-hook #'electric-pair-mode)
